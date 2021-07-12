@@ -1,0 +1,117 @@
+.toutiao-container {
+  .news-list {
+    .list {
+      &.swipe-more-bg {
+        background: #f7f7f7;
+        padding: 0 !important;
+      }
+      .qualityReading,
+      .marquee,
+      .videoshortlist {
+        height: 280px;
+        width: 100%;
+        position: relative;
+        .top {
+          padding: 0 16px;
+          box-sizing: border-box;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          height: 42px;
+          width: 100%;
+        }
+        .qualityReading-slide,
+        .videoshortlist-slide,
+        .marquee-slide {
+          position: relative;
+          .title {
+            position: absolute;
+            width: 100%;
+            padding: 0 16px;
+            box-sizing: border-box;
+            left: 0;
+            bottom: 10px;
+            color: #ffffff;
+            font-weight: bold;
+            z-index: 100;
+            font-size: 16px;
+          }
+          .thumbnail {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            filter: grayscale(25%);
+          }
+        }
+        .qualityReading-slide {
+          .title {
+            bottom: 5px;
+          }
+        }
+        .videoshortlist-slide {
+          .title {
+            bottom: 26px;
+            font-size: 12px;
+            padding: 0 6px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+          }
+          .thumbnail {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            filter: grayscale(25%);
+          }
+          .bottom {
+            position: absolute;
+            width: 100%;
+            padding: 0 6px;
+            box-sizing: border-box;
+            bottom: 5px;
+            left: 0;
+            z-index: 100;
+            span {
+              display: inline-block;
+              margin-right: 8px;
+              font-size: 12px;
+              color: #eee;
+            }
+            i {
+              font-size: 12px;
+              color: #eee;
+              margin-right: 2px;
+            }
+          }
+        }
+        .marquee-slide {
+          .title {
+            bottom: 22px;
+          }
+          .bottom {
+            position: absolute;
+            width: 100%;
+            bottom: 5px;
+            padding: 0 16px;
+            box-sizing: border-box;
+            left: 0;
+            z-index: 100;
+            span {
+              display: inline-block;
+              margin-right: 8px;
+              font-size: 12px;
+              color: #eee;
+            }
+            i {
+              font-size: 12px;
+              color: #eee;
+              margin-right: 2px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
