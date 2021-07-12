@@ -1,0 +1,12 @@
+{
+  "policy": "https://www.github.com/dirkhe1051931999",
+  "title": "ifeng App",
+  "errorLog": ["production"],
+  "logUrl": "/",
+  "pro": "",
+  "proxy_ip": "10.18.2.204",
+  "proxy_ip_port": "3000",
+  "errorCode": [],
+  "succCode": [],
+  "defaultErrorMsg": "Network Error, please contact engineer"
+}
