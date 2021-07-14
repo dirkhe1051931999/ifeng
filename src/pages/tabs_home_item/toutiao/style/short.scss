@@ -88,6 +88,9 @@
           .label {
             @include title-tag;
           }
+          .label-blue {
+            @include title-tag-blue;
+          }
         }
         .hot-comment {
           @include hot-comment;

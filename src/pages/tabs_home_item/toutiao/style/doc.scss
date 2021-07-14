@@ -49,17 +49,15 @@
           .label {
             @include title-tag;
           }
+          .label-blue {
+            @include title-tag-blue;
+          }
         }
         .hot-comment {
           @include hot-comment;
         }
-        .topLevel {
-          background: #f7f7f7;
-          border-radius: 15px;
-          transform: scale(0.9);
-          padding: 4px;
-          font-size: 12px;
-          display: inline-block;
+        .topLabel {
+          @include top-label;
         }
         .vote {
           background: #f7f7f7;

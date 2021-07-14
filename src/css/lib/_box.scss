@@ -74,4 +74,11 @@
       padding-#{$side}: #{$size}vh;
     }
   }
+  .text-dot-#{$size} {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: #{$size};
+    -webkit-box-orient: vertical;
+  }
 }

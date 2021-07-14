@@ -7,5 +7,4 @@ declare module '*.vue' {
 
 declare module 'js-cookie';
 declare module 'ts-md5';
-declare module 'Swiper';
-declare module 'jeft-vue-directive'
+declare module 'jeft-vue-directive';

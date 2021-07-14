@@ -113,6 +113,9 @@
           .label {
             @include title-tag;
           }
+          .label-blue {
+            @include title-tag-blue;
+          }
         }
         .action-bottom {
           display: flex;
@@ -149,13 +152,16 @@
         .hot-comment {
           @include hot-comment;
         }
-        .topLevel {
-          background: #f7f7f7;
-          border-radius: 15px;
-          transform: scale(0.9);
-          padding: 4px;
+        .topLabel {
+          @include top-label;
+        }
+        .videoSeries{
           font-size: 12px;
+          background: #FCF8F2;
+          color: #BD974C;
           display: inline-block;
+          padding: 4px;
+          border-radius: 8px;
         }
       }
     }

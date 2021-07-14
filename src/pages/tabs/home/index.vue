@@ -2,7 +2,7 @@
   <div class="app-home-container">
     <div class="app-home-header">
       <img src="~assets/logo.png" alt="" class="logo" />
-      <div class="hot-key-wrap">
+      <div class="hot-key-wrap" @click="handlerClickSearch">
         <span class="iconfont icon-sousuo sousuo"></span>
         <ul class="hot-key" ref="hot-key" v-if="verticalScrollrollIndexData.length"></ul>
       </div>
@@ -12,7 +12,7 @@
       </div>
     </div>
     <ul class="app-home-tab" ref="app-home-tab" v-scroll>
-      <div class="more" @click.stop="handlerClickMore">
+      <div class="more" @click.stop="handlerClickMoreCategories">
         <span class="iconfont icon-21"></span>
       </div>
       <li
@@ -41,9 +41,10 @@ import { TabHomeModule } from 'src/store/modules/tab_home';
 import { defaultCategories } from 'src/utils/categories';
 import StandardPage from 'src/pages/tabs_home_item/standard/index.vue';
 import ToutiaoPage from 'src/pages/tabs_home_item/toutiao/index.vue';
-import TestPage from 'src/pages/tabs_home_item/test/index.vue';
 import GuanzhuPage from 'src/pages/tabs_home_item/guanzhu/index.vue';
 import { AppModule } from 'src/store/modules/app';
+import { get_user_current_categories } from 'src/utils/db';
+import { cloneDeep } from 'lodash';
 
 @Component({
   name: 'tab_home',
@@ -51,7 +52,6 @@ import { AppModule } from 'src/store/modules/app';
     StandardPage,
     ToutiaoPage,
     GuanzhuPage,
-    TestPage
   },
 })
 export default class extends Vue {
@@ -62,8 +62,8 @@ export default class extends Vue {
   get activeTabName() {
     return TabHomeModule.activeTabName;
   }
-  get categories() {
-    return TabHomeModule.categories;
+  get categories(): any {
+    return get_user_current_categories() ? cloneDeep(get_user_current_categories()) : cloneDeep(defaultCategories);
   }
   get INITIAL_TAB_INDEX() {
     return TabHomeModule.INITIAL_TAB_INDEX;
@@ -78,9 +78,6 @@ export default class extends Vue {
     clearInterval(this.verticalScrollIntervalIds[0]);
     clearInterval(this.verticalScrollIntervalIds[1]);
   }
-  // private activeTabIndex = ACTIVE_TAB_INDEX;
-  // private activeTabName = ACTIVE_TAB_NAME;
-  // private categories = CATEGORIES;
   private swipeDistanceToScreenPercent = 0;
   private touchCache: any = {};
   private stopMovePage = false;
@@ -180,16 +177,12 @@ export default class extends Vue {
       if (this.swipeDistanceToScreenPercent > 0.15) {
         // 向右滑动
         let _index = this.activeTabIndex - 1;
-        // this.activeTabName = this.categories[_index].name;
-        // this.activeTabIndex = _index;
         TabHomeModule.SET_activeTabName(this.categories[_index].name);
         TabHomeModule.SET_activeTabIndex(_index);
         offsetWidth = -window.innerWidth * _index;
       } else if (this.swipeDistanceToScreenPercent < -0.15) {
         // 向左滑动
         let _index = this.activeTabIndex + 1;
-        // this.activeTabName = this.categories[_index].name;
-        // this.activeTabIndex = _index;
         TabHomeModule.SET_activeTabName(this.categories[_index].name);
         TabHomeModule.SET_activeTabIndex(_index);
         offsetWidth = -window.innerWidth * _index;
@@ -218,13 +211,15 @@ export default class extends Vue {
       $appHomeTab.scrollLeft = 0;
     }
   }
-  /*更多分类*/
-  private handlerClickMore() {
+  /*event*/
+  private handlerClickMoreCategories() {
     this.$router.push('/more_categories');
   }
-  /*热榜*/
   private handlerClickHotList() {
-    this.$router.push('/hot_list');
+    TabHomeModule.SET_showSlidePage({ status: true, name: 'hot', index: 0 });
+  }
+  private handlerClickSearch() {
+    TabHomeModule.SET_showSlidePage({ status: true, name: 'search' });
   }
   /*跑马灯 */
   private _verticalScrollAddItem() {
