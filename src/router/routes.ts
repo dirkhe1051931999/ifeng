@@ -40,8 +40,8 @@ export const constantRoutes: RouteConfig[] = [
     meta: {},
   },
   {
-    path: '/hot_list',
-    component: () => import(/* webpackChunkName: "hot_list" */ 'pages/iframe/hot_list/index.vue'),
+    path: '/user_perference',
+    component: () => import(/* webpackChunkName: "user_perference" */ 'pages/iframe/user_perference/index.vue'),
     meta: {},
   },
   {

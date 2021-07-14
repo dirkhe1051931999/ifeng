@@ -8,15 +8,32 @@ export function parseTimeFromDateString(str: string) {
 }
 // 秒转成分：秒
 export function getVideoTotalTime(num: number) {
-  console.log(num)
   if (num <= 60) {
     return `${num} s`;
   } else {
-    let m = Math.floor((num / 60) % 60);
-    let s = Math.floor(num % 60);
-    let _m = m < 10 ? '0' + m : m;
-    let _s = s < 10 ? '0' + s : s;
-    return `${_m}:${_s}`;
+    let secondTime = num; // 秒
+    let minuteTime = 0; // 分
+    let hourTime = 0; // 小时
+    if (secondTime > 60) {
+      //如果秒数大于60，将秒数转换成整数
+      //获取分钟，除以60取整数，得到整数分钟
+      minuteTime = Math.floor(secondTime / 60);
+      //获取秒数，秒数取佘，得到整数秒数
+      secondTime = Math.floor(secondTime % 60);
+      //如果分钟大于60，将分钟转换成小时
+      if (minuteTime > 60) {
+        //获取小时，获取分钟除以60，得到整数小时
+        hourTime = Math.floor(minuteTime / 60);
+        //获取小时后取佘的分，获取分钟除以60取佘的分
+        minuteTime = Math.floor(minuteTime % 60);
+      }
+    }
+    let result: any[] = [];
+    result[0] = Math.floor(secondTime) !== 0 ? (Math.floor(secondTime) < 10 ? '0' + String(Math.floor(secondTime)) : Math.floor(secondTime)) : '';
+    result[1] = Math.floor(minuteTime) !== 0 ? (Math.floor(minuteTime) < 10 ? '0' + String(Math.floor(minuteTime)) : Math.floor(minuteTime)) : '';
+    result[2] = Math.floor(hourTime) !== 0 ? (Math.floor(hourTime) < 10 ? '0' + String(Math.floor(hourTime)) : Math.floor(hourTime)) : '';
+    result = result.filter((d) => d);
+    return result.join(':');
   }
 }
 export function getDateDiff(str: string) {

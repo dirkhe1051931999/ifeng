@@ -138,7 +138,7 @@ module.exports = configure(function(ctx) {
       // * 'auto' - (DEFAULT) Auto-import needed Quasar components & directives
       // * 'all'  - Manually specify what to import
       importStrategy: 'auto',
-      plugins: [],
+      plugins: ['BottomSheet'],
       components: [],
       directives: ['Ripple', 'Mutation', 'Scroll'],
     },

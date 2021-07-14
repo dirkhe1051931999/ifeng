@@ -7,3 +7,13 @@ const config_backreason_key = settings.title + '-' + 'config_backreason';
 export const get_config_backreason_key = () => ls.get(config_backreason_key);
 export const set_config_backreason_key = (data: string) => ls.set(config_backreason_key, data);
 export const remove_config_backreason_key = () => ls.remove(config_backreason_key);
+// current categories
+const user_current_categories = settings.title + '-' + 'user_current_categories';
+export const get_user_current_categories = () => ls.get(user_current_categories);
+export const set_user_current_categories = (data: string) => ls.set(user_current_categories, data);
+export const remove_user_current_categories = () => ls.remove(user_current_categories);
+// bak categories
+const user_bak_categories = settings.title + '-' + 'user_bak_categories';
+export const get_user_bak_categories = () => ls.get(user_bak_categories);
+export const set_user_bak_categories = (data: string) => ls.set(user_bak_categories, data);
+export const remove_user_bak_categories = () => ls.remove(user_bak_categories);

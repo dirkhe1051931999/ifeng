@@ -26,8 +26,8 @@
             <div>
               <span class="zhiding">置顶</span>
               <span class="source" v-if="news.source">{{ news.source }}</span>
-              <i class="iconfont icon-duanxin" v-if="news.comments"></i>
-              <span class="count" v-if="news.comments">{{ news.comments }}</span>
+              <i class="iconfont icon-duanxin" v-if="news.commentsall"></i>
+              <span class="count" v-if="news.commentsall">{{ news.commentsall }}</span>
             </div>
           </li>
         </div>
@@ -44,7 +44,7 @@
               <van-image class="thumbnail" :src="item.thumbnail" lazy-load radius="6" />
             </div>
           </div>
-          <div class="more-hot">
+          <div class="more-hot" @click="handlerClickToutiaoHotSpotMore">
             查看更多热点
             <span class="iconfont icon-more1 more"></span>
           </div>
@@ -59,11 +59,11 @@
           <!-- mustseemarquee -->
           <div v-if="news.type === 'mustseemarquee'" class="mustseemarquee">
             <div class="top">
-              <span class="bold">
-                <q-icon name="whatshot" class="fs-20 text-red"></q-icon>
-                {{ news.title }}</span
-              >
-              <div class="more">
+              <div class="bold">
+                <q-icon name="grade" class="fs-20 text-red"></q-icon>
+                {{ news.title }}
+              </div>
+              <div class="more" @click="handlerClickMustSeeMarqueeMore">
                 <span>{{ news.link.title }}</span>
                 <span class="iconfont icon-youjiantou"></span>
               </div>
@@ -73,8 +73,15 @@
                 <li class="item" v-for="(i, index2) in news.relation" :key="index2">
                   <div class="left">
                     <van-image class="thumbnail" :src="i.thumbnail" lazy-load radius="6" />
-                    <q-icon name="article" class="fs-20 icon" v-if="i.type === 'doc'"></q-icon>
-                    <q-icon name="ondemand_video" class="fs-20 icon" v-if="i.type === 'phvideo'"></q-icon>
+                    <div class="info">
+                      <q-icon name="ondemand_video" class="fs-20 icon"></q-icon>
+                      <p class="video-total-time" v-if="i.phvideo.length - i.phvideo.preview - i.phvideo.previewlength === i.phvideo.length">
+                        {{ i.phvideo.length | getVideoTotalTime }}
+                      </p>
+                      <p class="video-total-time" v-else>
+                        {{ (i.phvideo.length - i.phvideo.preview - i.phvideo.previewlength) | getVideoTotalTime }}
+                      </p>
+                    </div>
                   </div>
                   <div class="right">
                     <div class="t dotdotdot2">{{ i.title }}</div>
@@ -94,7 +101,7 @@
           </div>
           <!-- qualityReading -->
           <div class="qualityReading" v-if="news.type === 'qualityReading'">
-            <div class="top">
+            <div class="top" @click="handlerClickQualityReadingMore">
               <span class="bold">
                 <q-icon name="thumb_up_alt" class="fs-20 text-red"></q-icon>
                 {{ news.title }}</span
@@ -164,7 +171,7 @@
             <div class="top">
               <div class="left">{{ news.title }}</div>
               <div class="right">
-                其他设置
+                <span @click="handlerClickUserPerferenceOtherSettings">其他设置</span>
                 <span class="iconfont icon-close1 close fs-12">
                   <q-popup-proxy>
                     <q-card class="w-full backreason">
@@ -201,8 +208,7 @@
                 <div class="top">
                   <div class="left">
                     <p class="title">
-                      <span class="text-red title-label" v-if="item.style.recomTag && item.style.recomTag.text === '热点'">热点</span>
-                      <span class="text-red title-label" v-if="item.style.recomTag && item.style.recomTag.text === '专题'">专题</span>
+                      <span class="text-red title-label" v-if="item.style.recomTag && news.style.recomTag.pos">{{ item.style.recomTag.text }}</span>
                       {{ item.title }}
                     </p>
                   </div>
@@ -212,9 +218,10 @@
                 </div>
                 <div class="bottom">
                   <span v-if="item.style.recomTag && item.style.recomTag.text === '凤凰卫视'" class="label">凤凰卫视</span>
+                  <span v-if="item.style.recomTag && !news.style.recomTag.pos" class="label-blue">{{ item.style.recomTag.text }}</span>
                   <span class="source" v-if="item.source">{{ item.source }}</span>
-                  <i class="iconfont icon-duanxin" v-if="item.comments"></i>
-                  <span class="count" v-if="item.comments"> {{ item.comments }}</span>
+                  <i class="iconfont icon-duanxin" v-if="item.commentsall"></i>
+                  <span class="count" v-if="item.commentsall"> {{ item.commentsall }}</span>
                   <i class="iconfont icon-lishi" v-if="item.updateTime"></i>
                   <span class="count" v-if="item.updateTime">{{ item.updateTime | getDateDiff }}</span>
                 </div>
@@ -230,8 +237,7 @@
             <div class="top">
               <div class="left">
                 <p class="title">
-                  <span class="text-red title-label" v-if="news.style.recomTag && news.style.recomTag.text === '热点'">热点</span>
-                  <span class="text-red title-label" v-if="news.style.recomTag && news.style.recomTag.text === '专题'">专题</span>
+                  <span class="text-red title-label" v-if="news.style.recomTag && news.style.recomTag.pos">{{ news.style.recomTag.text }}</span>
                   {{ news.title }}
                 </p>
               </div>
@@ -239,12 +245,32 @@
                 <van-image class="thumbnail" :src="news.thumbnail" lazy-load radius="6" />
               </div>
             </div>
-            <div class="text-red topLevel" v-if="news.topLevel">凤凰热榜第5名 <q-icon name="arrow_right" class="fs-16"></q-icon></div>
+            <div class="text-red topLabel" v-if="news.topLabel" @click="handlerClickToutiaoHotSpotMore">
+              <span class="iconfont icon-hot text-red m-r-5"></span>{{ news.topLabel.desp }} <q-icon name="arrow_right" class="fs-16"></q-icon>
+            </div>
+            <div v-if="news.summary" class="hot-comment">
+              <span class="label">{{ news.summary.tag }}</span>
+              {{ news.summary.desp }}
+            </div>
+            <div class="vote" v-if="news.vote">
+              <div v-for="(item, index) in news.vote.result" :key="index" class="question">
+                <p class="title">{{ index + 1 }}. {{ item.resultArray.question }}</p>
+                <ul>
+                  <li v-for="(option, index) in item.resultArray.option" :key="index">
+                    {{ option.title }}
+                  </li>
+                </ul>
+              </div>
+              <p class="joinCount">
+                {{ news.vote.joinCount | numberFormat }}人参与投票，当前{{ news.vote.expire === '1' ? '投票进行中' : '投票已结束' }}
+              </p>
+            </div>
             <div class="bottom">
               <span v-if="news.style.recomTag && news.style.recomTag.text === '凤凰卫视'" class="label">凤凰卫视</span>
+              <span v-if="news.style.recomTag && !news.style.recomTag.pos" class="label-blue">{{ news.style.recomTag.text }}</span>
               <span class="source" v-if="news.source">{{ news.source }}</span>
-              <i class="iconfont icon-duanxin" v-if="news.comments"></i>
-              <span class="count" v-if="news.comments"> {{ news.comments }}</span>
+              <i class="iconfont icon-duanxin" v-if="news.commentsall"></i>
+              <span class="count" v-if="news.commentsall"> {{ news.commentsall }}</span>
               <i class="iconfont icon-lishi" v-if="news.updateTime"></i>
               <span class="count" v-if="news.updateTime">{{ news.updateTime | getDateDiff }}</span>
               <span class="iconfont icon-close1 close">
@@ -265,23 +291,6 @@
                   </q-card>
                 </q-popup-proxy>
               </span>
-            </div>
-            <div v-if="news.summary" class="hot-comment">
-              <span class="label">{{ news.summary.tag }}</span>
-              {{ news.summary.desp }}
-            </div>
-            <div class="vote" v-if="news.vote">
-              <div v-for="(item, index) in news.vote.result" :key="index" class="question">
-                <p class="title">{{ index + 1 }}. {{ item.resultArray.question }}</p>
-                <ul>
-                  <li v-for="(option, index) in item.resultArray.option" :key="index">
-                    {{ option.title }}
-                  </li>
-                </ul>
-              </div>
-              <p class="joinCount">
-                {{ news.vote.joinCount | numberFormat }}人参与投票，当前{{ news.vote.expire === '1' ? '投票进行中' : '投票已结束' }}
-              </p>
             </div>
           </div>
           <!-- picture -->
@@ -323,10 +332,10 @@
               </div>
             </div>
             <div class="intro p-b-10 fs-18" v-if="news.intro">
-              <span class="text-red title-label" v-if="news.style.recomTag && news.style.recomTag.text === '热点'">热点</span>
-              <span class="text-red title-label" v-if="news.style.recomTag && news.style.recomTag.text === '专题'">专题</span>{{ news.intro }}
+              <span class="text-red title-label" v-if="news.style.recomTag && news.style.recomTag.pos">{{ news.style.recomTag.text }}</span>
+              {{ news.intro }}
             </div>
-            <ul class="images" v-if="news.imageList.length">
+            <ul class="images" v-if="news.imageList && news.imageList.length">
               <van-image
                 class="thumbnail relative"
                 :style="news.imageList.length === 1 ? 'width: 50%;' : 'width: 32.5%;'"
@@ -339,11 +348,16 @@
                 @click="previewImage(news.imageList, index)"
               />
             </ul>
+            <div v-if="news.summary" class="hot-comment">
+              <span class="label">{{ news.summary.tag }}</span>
+              {{ news.summary.desp }}
+            </div>
             <div class="no-action-bottom">
               <span v-if="news.style.recomTag && news.style.recomTag.text === '凤凰卫视'" class="label">凤凰卫视</span>
+              <span v-if="news.style.recomTag && !news.style.recomTag.pos" class="label-blue">{{ news.style.recomTag.text }}</span>
               <span class="source" v-if="news.source">{{ news.source }}</span>
-              <i class="iconfont icon-duanxin" v-if="news.comments"></i>
-              <span class="count" v-if="news.comments"> {{ news.comments }}</span>
+              <i class="iconfont icon-duanxin" v-if="news.commentsall"></i>
+              <span class="count" v-if="news.commentsall"> {{ news.commentsall }}</span>
               <i class="iconfont icon-lishi" v-if="news.updateTime"></i>
               <span class="count" v-if="news.updateTime">{{ news.updateTime | getDateDiff }}</span>
               <span class="iconfont icon-close1 close">
@@ -364,10 +378,6 @@
                   </q-card>
                 </q-popup-proxy>
               </span>
-            </div>
-            <div v-if="news.summary" class="hot-comment">
-              <span class="label">{{ news.summary.tag }}</span>
-              {{ news.summary.desp }}
             </div>
           </div>
           <!-- video -->
@@ -409,50 +419,54 @@
               </div>
             </div>
             <div class="intro p-b-10 fs-18">
-              <span class="text-red title-label" v-if="news.style.recomTag && news.style.recomTag.text === '热点'">热点</span>
-              <span class="text-red title-label" v-if="news.style.recomTag && news.style.recomTag.text === '专题'">专题</span
-              >{{ news.intro ? news.intro : news.title }}
+              <span class="text-red title-label" v-if="news.style.recomTag && news.style.recomTag.pos">{{ news.style.recomTag.text }}</span>
+              {{ news.intro ? news.intro : news.title }}
             </div>
             <div class="video-placeholder">
               <img v-if="news.seriesTag" src="https://x0.ifengimg.com/cmpp/2021/0401/ced142b6f5d6dc0size6_w144_h60.png" alt="" class="seriesTag" />
               <van-image :src="news.imageList[0].url" alt="" class="placeholder" radius="6" />
               <img src="~assets/play-video-button.png" alt="" class="play-video-button" />
-              <p
-                class="video-total-time"
-                v-if="(news.phvideo.length - news.phvideo.preview - news.phvideo.previewlength === news.phvideo.length) <= 0"
-              >
+              <p class="video-total-time" v-if="news.phvideo.length - news.phvideo.preview - news.phvideo.previewlength === news.phvideo.length">
                 {{ news.phvideo.length | getVideoTotalTime }}
               </p>
               <p class="video-total-time" v-else>
-                {{ (news.phvideo.length - news.phvideo.preview - news.phvideo.previewlength === news.phvideo.length) | getVideoTotalTime }}
+                {{ (news.phvideo.length - news.phvideo.preview - news.phvideo.previewlength) | getVideoTotalTime }}
               </p>
             </div>
-            <div class="text-red topLevel" v-if="news.topLevel">凤凰热榜第5名 <q-icon name="arrow_right" class="fs-16"></q-icon></div>
+            <div class="text-red topLabel" v-if="news.topLabel" @click="handlerClickToutiaoHotSpotMore">
+              <span class="iconfont icon-hot text-red"></span>
+              {{ news.topLabel.desp }} <q-icon name="arrow_right" class="fs-16"></q-icon>
+            </div>
+            <div v-if="news.videoSeries" class="videoSeries">
+              <q-icon name="video_library"></q-icon>
+              {{ news.videoSeries.name }}
+            </div>
+            <div v-if="news.summary" class="hot-comment">
+              <span class="label">{{ news.summary.tag }}</span>
+              {{ news.summary.desp }}
+            </div>
             <div v-if="!news.subscribe.logo || !news.subscribe.honorImg" class="no-action-bottom">
               <span v-if="news.style.recomTag && news.style.recomTag.text === '凤凰卫视'" class="label">凤凰卫视</span>
+              <span v-if="news.style.recomTag && !news.style.recomTag.pos" class="label-blue">{{ news.style.recomTag.text }}</span>
               <span class="source" v-if="news.source">{{ news.source }}</span>
-              <i class="iconfont icon-duanxin" v-if="news.comments"></i>
-              <span class="count" v-if="news.comments"> {{ news.comments }}</span>
+              <i class="iconfont icon-duanxin" v-if="news.commentsall"></i>
+              <span class="count" v-if="news.commentsall"> {{ news.commentsall }}</span>
               <i class="iconfont icon-lishi" v-if="news.updateTime"></i>
               <span class="count" v-if="news.updateTime">{{ news.updateTime | getDateDiff }}</span>
             </div>
             <div v-if="news.subscribe.logo || news.subscribe.honorImg" class="action-bottom">
               <div class="like">
                 <span class="iconfont icon-Group-"></span>
-                <span class="count">赞</span>
+                <span class="count">{{ news.like ? news.like : '赞' }}</span>
               </div>
               <div class="comment">
                 <span class="iconfont icon-duanxin"></span>
                 <span class="count">{{ news.commentsall ? news.commentsall : '评论' }}</span>
               </div>
-              <div class="share">
+              <div class="share" @click="handlerClickPhvideoShare(news)">
                 <span class="iconfont icon-fenxiang3"></span>
-                <span class="count">分享</span>
+                <span class="count">{{ news.share ? news.share : '分享' }}</span>
               </div>
-            </div>
-            <div v-if="news.summary" class="hot-comment">
-              <span class="label">{{ news.summary.tag }}</span>
-              {{ news.summary.desp }}
             </div>
           </div>
         </li>
@@ -465,305 +479,13 @@
   </div>
 </template>
 <script lang="ts">
+import { TabHomeModule } from 'src/store/modules/tab_home';
 import { AppModule } from '@/store/modules/app';
-import { Notify } from 'quasar';
 import { TabHomeToutiaoModule } from 'src/store/modules/tab_home_toutiao';
 import { ImagePreview } from 'vant';
 import { Component, Vue } from 'vue-property-decorator';
 import { toutiaoUserPreference } from './static/userPreference';
-const mustseemarquee = {
-  type: 'mustseemarquee',
-  id: '9a8d1b12-e398-4403-89e0-048854349e0c',
-  thumbnail: '',
-  title: '凤凰必刷',
-  documentId: '9a8d1b12-e398-4403-89e0-048854349e0c',
-  staticId: 'must_see',
-  style: {
-    view: 'mustseemarquee',
-    feedbackreason: [
-      {
-        title: '不感兴趣',
-        value: '0_不感兴趣',
-      },
-    ],
-    defaultreason: '0_不感兴趣',
-  },
-  link: {
-    type: 'hotNewsRank',
-    url: 'https://nine.ifeng.com/hotnewsrank?tab=mustseelist',
-    title: '一键查看必刷榜',
-  },
-  reftype: 'ai||||insertRecom%23mustSeeMarquee|||',
-  intro: '',
-  recomToken: '12d9310cbade478d-477e8ad695bb4c80a328d9bbdb895bf7',
-  payload: 'eyJkb2NpZCI6IjlhOGQxYjEyLWUzOTgtNDQwMy04OWUwLTA0ODg1NDM0OWUwYyJ9',
-  relation: [
-    {
-      type: 'phvideo',
-      thumbnail:
-        'https://d.ifengimg.com/w224_h150_q100_webp/x0.ifengimg.com/ucms/2021_26/7172D1AA169DD5AA779FB373B933874F01801FD2_size12_w322_h181.jpg.webp',
-      imageList: [
-        {
-          url: 'https://x0.ifengimg.com/ucms/2021_26/7172D1AA169DD5AA779FB373B933874F01801FD2_size12_w322_h181.jpg',
-        },
-      ],
-      title: '朱德曲折的入党经历：被陈独秀婉拒后在德国经周恩来介绍入党',
-      source: '我们一起走过',
-      subscribe: {
-        cateid: 1593706,
-        catename: '我们一起走过',
-        followid: 'weMedia_1593706',
-        type: 'vampire',
-        description: '凤凰卫视资讯台十周年特别节目',
-        originalName: '',
-        cateSource: '',
-        forbidFollow: '0',
-        forbidJump: '0',
-        link: {
-          type: 'phtvmedia',
-          url: '1593706',
-        },
-      },
-      updateTime: '2021/06/25 17:48:50',
-      documentId: '87L7MLF3B7k',
-      staticId: 'video_87L7MLF3B7k',
-      style: {
-        view: 'mustsee',
-        recomTag: {
-          border: '1',
-          borderColor: '#80F54343',
-          borderNightColor: '#80D33939',
-          fontColor: '#FFF54343',
-          fontNightColor: '#FFD33939',
-          text: '凤凰卫视',
-        },
-        feedbackreason: [
-          {
-            title: '不感兴趣',
-            value: '0_不感兴趣',
-          },
-          {
-            title: '我们一起走过',
-            value: '0_来源：我们一起走过',
-          },
-        ],
-        defaultreason: '0_不感兴趣',
-      },
-      commentsUrl: 'ucms_87L7MLF3B7k',
-      link: {
-        type: 'videoSeries',
-        url: '87L7MLF3B7k',
-        weburl: 'https://ishare.ifeng.com/c/s/v006FSwCqWWvzeqoxS6KxMdG--vVOpa3da--cWYMfzCJSnku05vqXenodn2Ukqd4JuZfYh?spss=np',
-        previewurl: 'https://video19.ifeng.com/video09/2021/07/06/p6817988900305248567-102-094456.mp4',
-        backendStaticId: 'video_87L7MLF3B7k',
-        staticId: 'video_87L7MLF3B7k',
-        ext: {
-          crowdId: '6815470631153312188',
-        },
-      },
-      seriesTag: {
-        img: 'https://x0.ifengimg.com/cmpp/2021/0401/ced142b6f5d6dc0size6_w144_h60.png',
-        text: '',
-        width: 48,
-        height: 20,
-      },
-      reftype: 'ai|video_87L7MLF3B7k|||insertRecom%23mustSeeMarquee||%E5%8E%86%E5%8F%B2-%E4%B8%AD%E5%9B%BD%E8%BF%91%E4%BB%A3%E5%8F%B2|',
-      intro: '凤凰优质纪录片挖宝',
-      statisticTag: '',
-      phvideo: {
-        channelName: '我们一起走过',
-        columnid: '1593706',
-        path: '27-95119-',
-        filesize: '38299',
-        aspect: '360:203',
-        length: 200,
-        previewlength: 26,
-        preview: 1,
-        currentPlay: 0,
-        completePlay: '0',
-        videoPlayUrl: 'https://video19.ifeng.com/video09/2021/06/24/p6813769395429450385-102-8-183832.mp4',
-      },
-      videofull: {
-        tag: '完整版',
-        desp: '凤凰独家｜勤工俭学运动影响了多少革命者？寻访中共先驱法德足迹',
-        link: {
-          type: 'phvideo',
-          url: '87L8KF8hrJU',
-          weburl: 'https://ishare.ifeng.com/c/s/v006bfWeLdvpcl95sI--zZSHLsqsfbROxfT22khJ8A6Q0xh9745yrJ1ZY76REYgE-_y8VM?spss=np',
-          openType: '1',
-          backendStaticId: 'video_87L8KF8hrJU',
-          staticId: 'video_87L8KF8hrJU',
-          queryString: 'secret=v006bfWeLdvpcl95sI--zZSHLsqsfbROxfT22khJ8A6Q0xh9745yrJ1ZY76REYgE-_y8VM',
-        },
-        staticId: 'video_87L8KF8hrJU',
-        videoThumbnail:
-          'https://d.ifengimg.com/w224_h150_q100_webp/x0.ifengimg.com/ucms/2021_26/E0D92823C621A1CFE157168810F4DEE9B54C444F_size43_w640_h360.jpg.webp',
-        fullScreenLogo: 'https://x0.ifengimg.com/ucms/2020_42/1B6F0C08F28E7429BF050EC3BEB3284D1305011E_w48_h36.png',
-        fullScreenText: '观看完整版',
-      },
-      shareInfo: {
-        weburl: 'https://ishare.ifeng.com/c/s/v006FSwCqWWvzeqoxS6KxMdG--vVOpa3da--cWYMfzCJSnku05vqXenodn2Ukqd4JuZfYh?spss=np',
-        wechatMiniProgram: 'pages/new/new?aid=87L7MLF3B7k&types=phvideo',
-        qqMiniProgram: 'pages/new/new?aid=87L7MLF3B7k',
-      },
-    },
-    {
-      type: 'phvideo',
-      thumbnail:
-        'https://d.ifengimg.com/w224_h150_q100_webp/x0.ifengimg.com/ucms/2021_25/E18193EA3C23552B34163DDE27362027C871FBED_size46_w609_h342.jpg.webp',
-      imageList: [
-        {
-          url: 'https://x0.ifengimg.com/ucms/2021_25/E18193EA3C23552B34163DDE27362027C871FBED_size46_w609_h342.jpg',
-        },
-      ],
-      title: '皇牌大放送|金蝉之变——蒋经国在台的变政之路',
-      source: '皇牌大放送｜纪录片',
-      subscribe: {
-        cateid: 92,
-        catename: '皇牌大放送｜纪录片',
-        followid: 'weMedia_92',
-        type: 'vampire',
-        description: '凤凰独家节目，社会文史类纪录片',
-        originalName: '',
-        cateSource: '',
-        forbidFollow: '0',
-        forbidJump: '0',
-        link: {
-          type: 'phtvmedia',
-          url: '92',
-        },
-      },
-      updateTime: '2015/07/25 21:40:00',
-      documentId: '873rRqD0qDx',
-      staticId: 'video_873rRqD0qDx',
-      style: {
-        view: 'mustsee',
-        feedbackreason: [
-          {
-            title: '不感兴趣',
-            value: '0_不感兴趣',
-          },
-          {
-            title: '皇牌大放送｜纪录片',
-            value: '0_来源：皇牌大放送｜纪录片',
-          },
-        ],
-        defaultreason: '0_不感兴趣',
-      },
-      commentsUrl: 'ucms_873rRqD0qDx',
-      link: {
-        type: 'phvideo',
-        url: '873rRqD0qDx',
-        weburl: 'https://ishare.ifeng.com/c/s/v006QlAvqTj5rXFrw0yjaaNFOJorv95SRBPvWxwdMI5DDFpOthqs9cPz7JR46h4mH5c5?spss=np',
-        openType: '1',
-        backendStaticId: 'video_873rRqD0qDx',
-        staticId: 'video_873rRqD0qDx',
-        queryString: 'secret=v006QlAvqTj5rXFrw0yjaaNFOJorv95SRBPvWxwdMI5DDFpOthqs9cPz7JR46h4mH5c5',
-      },
-      reftype:
-        'ai|video_873rRqD0qDx|||insertRecom%23mustSeeMarquee||%E7%BA%AA%E5%BD%95%E7%89%87-%E5%8E%86%E5%8F%B2|%7B%22flatResults%22%3A%5B%22%E7%9A%87%E7%89%8C%E5%A4%A7%E6%94%BE%E9%80%81%22%2C%22%E7%A4%BE%E4%BC%9A%E7%BA%AA%E5%AE%9E%E7%89%87%22%5D%7D',
-      intro: '你所不知道的历史',
-      statisticTag: '',
-      phvideo: {
-        channelName: '皇牌大放送｜纪录片',
-        columnid: '92',
-        path: '27-95119-95121-',
-        filesize: '610733',
-        aspect: '16:9',
-        length: 4321,
-        previewlength: 0,
-        preview: 0,
-        currentPlay: 0,
-        completePlay: '0',
-        videoPlayUrl: 'https://video19.ifeng.com/video09/2021/06/14/p6810010703907267378-102-8-094614.mp4',
-      },
-      shareInfo: {
-        weburl: 'https://ishare.ifeng.com/c/s/v006QlAvqTj5rXFrw0yjaaNFOJorv95SRBPvWxwdMI5DDFpOthqs9cPz7JR46h4mH5c5?spss=np',
-        wechatMiniProgram: 'pages/new/new?aid=873rRqD0qDx&types=phvideo',
-        qqMiniProgram: 'pages/new/new?aid=873rRqD0qDx',
-      },
-    },
-    {
-      type: 'phvideo',
-      thumbnail:
-        'https://d.ifengimg.com/w224_h150_q100_webp/x0.ifengimg.com/ucms/2021_24/0737CB76C1613FFC31920723198F56B081CB220F_size38_w640_h360.jpg.webp',
-      imageList: [
-        {
-          url: 'https://x0.ifengimg.com/ucms/2021_24/0737CB76C1613FFC31920723198F56B081CB220F_size38_w640_h360.jpg',
-        },
-      ],
-      title: '凤凰大视野|向光而行-两岸密使往事',
-      source: '凤凰大视野｜纪录片',
-      subscribe: {
-        cateid: 1551434,
-        catename: '凤凰大视野｜纪录片',
-        followid: 'weMedia_1551434',
-        type: 'vampire',
-        description: '聚焦一个主题，一连五天讲述历史',
-        originalName: '',
-        cateSource: '',
-        forbidFollow: '0',
-        forbidJump: '0',
-        link: {
-          type: 'phtvmedia',
-          url: '1551434',
-        },
-      },
-      updateTime: '2021/06/08 21:40:46',
-      documentId: '86wAWhkT9mG',
-      staticId: 'video_86wAWhkT9mG',
-      style: {
-        view: 'mustsee',
-        feedbackreason: [
-          {
-            title: '不感兴趣',
-            value: '0_不感兴趣',
-          },
-          {
-            title: '凤凰大视野｜纪录片',
-            value: '0_来源：凤凰大视野｜纪录片',
-          },
-        ],
-        defaultreason: '0_不感兴趣',
-      },
-      commentsUrl: 'ucms_86wAWhkT9mG',
-      comments: '2',
-      commentsall: '10',
-      link: {
-        type: 'phvideo',
-        url: '86wAWhkT9mG',
-        weburl: 'https://ishare.ifeng.com/c/s/v0069C-_a-_vhtC93zJCVUhDIYWYpe3Ls3wkSbiQ0IxxScLDAjELoC--mV-_-_hohDtuU9s-_a?spss=np',
-        openType: '1',
-        backendStaticId: 'video_86wAWhkT9mG',
-        staticId: 'video_86wAWhkT9mG',
-        queryString: 'secret=v0069C-_a-_vhtC93zJCVUhDIYWYpe3Ls3wkSbiQ0IxxScLDAjELoC--mV-_-_hohDtuU9s-_a',
-      },
-      reftype:
-        'ai|video_86wAWhkT9mG|||insertRecom%23mustSeeMarquee||%E7%BA%AA%E5%BD%95%E7%89%87-%E5%8E%86%E5%8F%B2|%7B%22flatResults%22%3A%5B%22%E5%87%A4%E5%87%B0%E5%A4%A7%E8%A7%86%E9%87%8E%22%2C%22%E7%BA%AA%E5%BD%95%E7%89%87%22%5D%7D',
-      intro: '历史中真实存在的“叛逆者”',
-      statisticTag: '',
-      phvideo: {
-        channelName: '凤凰大视野｜纪录片',
-        columnid: '1551434',
-        path: '27-95119-95121-',
-        filesize: '336650',
-        aspect: '360:203',
-        length: 1755,
-        previewlength: 0,
-        preview: 0,
-        currentPlay: 0,
-        completePlay: '0',
-        videoPlayUrl: 'https://video19.ifeng.com/video09/2021/06/09/p6808328165522412440-102-8-175636.mp4',
-      },
-      shareInfo: {
-        weburl: 'https://ishare.ifeng.com/c/s/v0069C-_a-_vhtC93zJCVUhDIYWYpe3Ls3wkSbiQ0IxxScLDAjELoC--mV-_-_hohDtuU9s-_a?spss=np',
-        wechatMiniProgram: 'pages/new/new?aid=86wAWhkT9mG&types=phvideo',
-        qqMiniProgram: 'pages/new/new?aid=86wAWhkT9mG',
-      },
-    },
-  ],
-  statisticTag: '',
-};
+import { testData } from './static/test';
 @Component({
   name: 'tabs_home_item_toutiao',
 })
@@ -795,6 +517,7 @@ export default class extends Vue {
     size: 10,
     num: 1,
   };
+  /*event*/
   private previewImage(images: any, index: number) {
     const arr = [];
     for (let item of images) {
@@ -805,6 +528,46 @@ export default class extends Vue {
       startPosition: index,
       closeable: true,
     });
+  }
+  private handlerClickMustSeeMarqueeMore() {
+    TabHomeModule.SET_showSlidePage({ status: true, name: 'hot', index: 2 });
+  }
+  private handlerClickToutiaoHotSpotMore() {
+    TabHomeModule.SET_showSlidePage({ status: true, name: 'hot', index: 0 });
+  }
+  private handlerClickQualityReadingMore() {
+    TabHomeModule.SET_showSlidePage({ status: true, name: 'qualityReading' });
+  }
+  private handlerClickPhvideoShare(news: any) {
+    this.$q
+      .bottomSheet({
+        message: '分享是一种快乐',
+        grid: true,
+        actions: [
+          {
+            label: '微信',
+            img: 'https://img01.yzcdn.cn/vant/share-sheet-wechat.png',
+          },
+          {
+            label: '朋友圈',
+            img: 'https://img01.yzcdn.cn/vant/share-sheet-wechat-moments.png',
+          },
+          {
+            label: '微博',
+            img: 'https://img01.yzcdn.cn/vant/share-sheet-weibo.png',
+          },
+          {
+            label: 'QQ',
+            img: 'https://img01.yzcdn.cn/vant/share-sheet-qq.png',
+          },
+        ],
+      })
+      .onOk((action: any) => {
+        console.log('Action chosen:', action);
+      });
+  }
+  private handlerClickUserPerferenceOtherSettings() {
+    this.$router.push('/user_perference');
   }
   async onRefresh() {
     await this._downCallback();
@@ -825,6 +588,40 @@ export default class extends Vue {
       }
     }
   }
+  private _initSwiper() {
+    setTimeout(() => {
+      new window['Swiper']('.qualityReading-container', {
+        slidesPerView: 'auto',
+        spaceBetween: 10,
+        on: {
+          touchEnd: function (swiper: any, event: any) {
+            if (swiper.changedTouches[0].pageX < 100 && this['realIndex'] === this['slides'].length - 1) {
+              TabHomeModule.SET_showSlidePage({ status: true, name: 'qualityReading' });
+            }
+          },
+        },
+      });
+      new window['Swiper']('.marquee-container', {
+        slidesPerView: 'auto',
+        spaceBetween: 10,
+        on: {
+          touchEnd: function (swiper: any, event: any) {
+            console.log('marquee');
+          },
+        },
+      });
+      new window['Swiper']('.videoshortlist-container', {
+        slidesPerView: 'auto',
+        spaceBetween: 10,
+        on: {
+          touchEnd: function (swiper: any, event: any) {
+            console.log('videoshortlist');
+          },
+        },
+      });
+    }, 300);
+  }
+  // http
   private async _downCallback() {
     try {
       let params: any = {
@@ -857,7 +654,8 @@ export default class extends Vue {
       }
       this.toutiaoData = noAdToutiaoData;
       this.toutiaoData.unshift(toutiaoUserPreference);
-      this.toutiaoData.unshift(mustseemarquee);
+      this.toutiaoData.unshift(testData);
+
       // 置顶
       this.toutiaoZhidingData = result[1].item;
       this.$nextTick(() => {
@@ -867,38 +665,9 @@ export default class extends Vue {
             slidesPerView: 'auto',
             spaceBetween: 10,
           });
-
           console.log('ok');
         }
-        setTimeout(() => {
-          new window['Swiper']('.qualityReading-container', {
-            slidesPerView: 'auto',
-            spaceBetween: 10,
-            on: {
-              touchEnd: function (swiper: any, event: any) {
-                console.log('qualityReading');
-              },
-            },
-          });
-          new window['Swiper']('.marquee-container', {
-            slidesPerView: 'auto',
-            spaceBetween: 10,
-            on: {
-              touchEnd: function (swiper: any, event: any) {
-                console.log('marquee');
-              },
-            },
-          });
-          new window['Swiper']('.videoshortlist-container', {
-            slidesPerView: 'auto',
-            spaceBetween: 10,
-            on: {
-              touchEnd: function (swiper: any, event: any) {
-                console.log('videoshortlist');
-              },
-            },
-          });
-        }, 300);
+        this._initSwiper();
         return Promise.resolve(true);
       });
     } catch (error) {
@@ -920,6 +689,7 @@ export default class extends Vue {
       }
     }
     this.toutiaoData = this.toutiaoData.concat(arr);
+    this._initSwiper();
     return Promise.resolve(true);
   }
 }

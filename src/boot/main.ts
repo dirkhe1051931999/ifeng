@@ -6,6 +6,18 @@ Vue.use(jeftDirective);
 import * as directives from '@/directives/';
 import * as filters from '@/filters';
 import Vue, { DirectiveOptions } from 'vue';
+// vue lazyload
+import VueLazyload from 'vue-lazyload';
+Vue.use(VueLazyload);
+// or with options
+const loadimage = require('../assets/nwes-loading-placeholder.png');
+const errorimage = require('../assets/nwes-loading-placeholder.png');
+Vue.use(VueLazyload, {
+  preLoad: 1.3,
+  error: errorimage,
+  loading: loadimage,
+  attempt: 1,
+});
 import 'vant/lib/index.css';
 import {
   Image as VanImage,
@@ -17,6 +29,7 @@ import {
   SwipeItem as VanSwipeItem,
   PullRefresh as VanPullRefresh,
   ImagePreview,
+  ShareSheet as VanShareSheet,
 } from 'vant';
 Vue.use(VanPopover);
 Vue.use(VanImage);
@@ -27,6 +40,7 @@ Vue.use(VanSwipe);
 Vue.use(VanSwipeItem);
 Vue.use(VanPullRefresh);
 Vue.use(ImagePreview);
+Vue.use(VanShareSheet);
 
 // 注册全局指令
 Object.keys(directives).forEach((key) => {

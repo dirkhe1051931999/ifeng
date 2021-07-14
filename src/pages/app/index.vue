@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="w-full h-full">
     <router-view></router-view>
     <div id="app-navigation" class="app-navigation">
       <ul>
@@ -14,17 +14,26 @@
         </li>
       </ul>
     </div>
+    <TabsSlidePage v-show="showSlidePage"  :class="[showSlidePage ? 'animated fadeInUp' : '']" style="animation-duration:0.2s"/>
   </div>
 </template>
 
 <script lang="ts">
 import { AppModule } from 'src/store/modules/app';
 import { Component, Vue } from 'vue-property-decorator';
+import TabsSlidePage from 'src/pages/tabs_slide_page/index/index.vue';
 import { get_config_backreason_key, set_config_backreason_key } from 'src/utils/db';
+import { TabHomeModule } from 'src/store/modules/tab_home';
 @Component({
   name: 'App',
+  components: {
+    TabsSlidePage,
+  },
 })
 export default class extends Vue {
+  get showSlidePage() {
+    return TabHomeModule.showSlidePage;
+  }
   created() {
     this._getBaseConfig();
   }
