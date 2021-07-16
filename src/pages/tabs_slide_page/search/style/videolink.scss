@@ -1,0 +1,27 @@
+@import './mixins.scss';
+.tab-slide-page-search {
+  .tab-slide-page-search-wrapper {
+    .search-result .result {
+      .videolink {
+        width: 100%;
+        border-bottom: solid 1px #eeeeee;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+        .top{
+          margin-bottom: 10px;
+        }
+        .thumbnail{
+          width: 100%;
+          height: 100%;
+        }
+        .summary{
+          background: #f7f7f7;
+          font-size: 14px;
+          padding: 6px;
+          border-radius: 6px;
+        }
+      }
+    }
+  }
+}

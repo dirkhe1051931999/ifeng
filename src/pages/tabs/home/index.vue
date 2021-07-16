@@ -30,6 +30,7 @@
       <div :class="['page', 'page' + (index + 1)]" v-for="(item, index) in categories" :key="index">
         <GuanzhuPage v-if="item.id === 'guanzhu'" />
         <ToutiaoPage v-if="item.id === 'toutiao'" />
+        <ShipinPage v-if="item.id === 'shipin'" />
         <StandardPage v-else />
       </div>
     </div>
@@ -42,8 +43,9 @@ import { defaultCategories } from 'src/utils/categories';
 import StandardPage from 'src/pages/tabs_home_item/standard/index.vue';
 import ToutiaoPage from 'src/pages/tabs_home_item/toutiao/index.vue';
 import GuanzhuPage from 'src/pages/tabs_home_item/guanzhu/index.vue';
+import ShipinPage from 'src/pages/tabs_home_item/shipin/index.vue';
 import { AppModule } from 'src/store/modules/app';
-import { get_user_current_categories } from 'src/utils/db';
+import { get_user_current_categories, set_user_current_categories } from 'src/utils/db';
 import { cloneDeep } from 'lodash';
 
 @Component({
@@ -51,6 +53,7 @@ import { cloneDeep } from 'lodash';
   components: {
     StandardPage,
     ToutiaoPage,
+    ShipinPage,
     GuanzhuPage,
   },
 })
@@ -72,6 +75,13 @@ export default class extends Vue {
     this._searchHotwordSroll();
   }
   mounted() {
+    const loadedArr = [];
+    for (let item of this.categories) {
+      const temp = cloneDeep(item);
+      temp.loaded = false;
+      loadedArr.push(temp);
+    }
+    TabHomeModule.SET_activeTabIndex_loaded(loadedArr);
     this._initialTab();
   }
   beforeDestroy() {
@@ -250,6 +260,9 @@ export default class extends Vue {
     this.toggleTabName(this.INITIAL_TAB_INDEX);
     this._scrollTab();
     this.$refs['app-home-page'].style['height'] = this.windowInnerHeight - AppModule.bottomNavigationAndHomeHeaderHeight + 'px';
+    if (!get_user_current_categories()) {
+      set_user_current_categories(this.categories);
+    }
   }
 
   /*网络请求 */

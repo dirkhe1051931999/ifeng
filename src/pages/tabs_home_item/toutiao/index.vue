@@ -499,6 +499,7 @@ export default class extends Vue {
   async created() {
     await this._downCallback();
     this.firstLoadData = false;
+    TabHomeModule.SET_activeTabIndex_single_loaded('toutiao');
   }
   private firstLoadData = true;
   /*--数据--*/
@@ -571,7 +572,10 @@ export default class extends Vue {
   }
   async onRefresh() {
     await this._downCallback();
-    this.refreshSuccessText = `已为您推荐 ${this.toutiaoData.length + this.toutiaoZhidingData.length} 条新内容`;
+    this.refreshSuccessText =
+      this.toutiaoData.length + this.toutiaoZhidingData.length
+        ? `已为您推荐 ${this.toutiaoData.length + this.toutiaoZhidingData.length} 条新内容`
+        : '已更新到最新';
     this.isDownRefresh = false;
   }
   async monitorScrollEvent(e: any) {
@@ -635,7 +639,6 @@ export default class extends Vue {
       };
       if (this.firstLoadData) {
         console.log('loading');
-        params.action = 'default';
         params = { ch: 'sy', cache: 'no', action: 'default', pullTotal: '1', dailyOpenNum: '1', autoPlay: '1' };
       }
       const result = await TabHomeToutiaoModule.getHeadline(params);
@@ -653,8 +656,6 @@ export default class extends Vue {
         }
       }
       this.toutiaoData = noAdToutiaoData;
-      this.toutiaoData.unshift(toutiaoUserPreference);
-      this.toutiaoData.unshift(testData);
 
       // 置顶
       this.toutiaoZhidingData = result[1].item;

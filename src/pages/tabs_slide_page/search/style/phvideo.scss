@@ -1,7 +1,11 @@
-.toutiao-container {
-  .news-list {
-    .list {
+.tab-slide-page-search {
+  .tab-slide-page-search-wrapper {
+    .search-result .result {
       .phvideo {
+        border-bottom: solid 1px #eeeeee;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        padding-bottom: 10px;
         .top {
           padding-bottom: 10px;
           .left {
@@ -71,7 +75,6 @@
             height: 100%;
             left: 0;
             top: 0;
-            filter: brightness(50%);
           }
           .play-video-button {
             width: 49px;
@@ -156,10 +159,10 @@
         .topLabel {
           @include top-label;
         }
-        .videoSeries{
+        .videoSeries {
           font-size: 12px;
-          background: #FCF8F2;
-          color: #BD974C;
+          background: #fcf8f2;
+          color: #bd974c;
           display: inline-block;
           padding: 4px;
           border-radius: 8px;

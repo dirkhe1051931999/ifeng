@@ -14,9 +14,38 @@ npm run proxy
 npm run dev
 ```
 
-### Lint the files
+### config
 
-```bash
+```txt
+// settings.json
+...
+ipconfig/ifconfig 配置代理ip
+"proxy_ip": "192.168.61.1", 
+"proxy_ip_port": "3000",
+...
+npm run lint
+```
+
+```js
+// proxy/server.js
+app.use(
+  '/',
+  createProxyMiddleware({
+    router: {
+      // /config=》host:https://config.nine.ifeng.com
+      // 需要pathRewrite
+      '/config': 'https://config.nine.ifeng.com',
+    },
+    target: 'https://nine.ifeng.com',
+    onProxyReq(proxyReq, req, res) {
+      proxyReq.setHeader('User-Agent', randomUseragent.getRandom());
+    },
+    pathRewrite: { '^/config': '' },
+    onError(err, req, res, target) {},
+    onClose(res, socket, head) {},
+    changeOrigin: true,
+  }),
+);
 npm run lint
 ```
 

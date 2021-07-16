@@ -9,6 +9,9 @@ const api = {
   getSearchHotwordsReact: 'nine_ifeng/searchHotwordsReact',
   getSearchRecWord: 'nine_ifeng/searchRecWord',
   getSearchList: 'nine_ifeng/searchList',
+  getSearchTagList: 'nine_ifeng/searchTagList',
+  getSearchsubscribe: 'nine_ifeng/searchsubscribe',
+  getDeviceSurveyMyList: 'uc_ifeng/Device_Survey/MyList',
 };
 export const searchHotwordSroll = (data: any) =>
   request({
@@ -70,7 +73,25 @@ export const getSearchRecWord = (data: any): any =>
   });
 export const getSearchList = (data: any): any =>
   request({
-    url: api.getSearchList + '?key' + data.key + '&page=' + data.page,
+    url: api.getSearchList + '?k=' + data.key + '&page=' + data.page,
+    method: 'post',
+    data,
+  });
+export const getSearchTagList = (data: any): any =>
+  request({
+    url: api.getSearchTagList + '?k=' + data.key + '&type=' + data.type + '&page=' + data.page,
+    method: 'post',
+    data,
+  });
+export const getSearchsubscribe = (data: any): any =>
+  request({
+    url: api.getSearchsubscribe + '?k=' + data.key + '&n=20&page=' + data.page,
+    method: 'post',
+    data,
+  });
+export const getDeviceSurveyMyList = (data: any): any =>
+  request({
+    url: api.getDeviceSurveyMyList,
     method: 'post',
     data,
   });

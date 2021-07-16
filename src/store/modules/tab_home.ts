@@ -11,6 +11,9 @@ import {
   getSearchHotwordsReact,
   getSearchRecWord,
   getSearchList,
+  getDeviceSurveyMyList,
+  getSearchsubscribe,
+  getSearchTagList,
 } from 'src/api/home';
 
 import { defaultCategories } from 'src/utils/categories';
@@ -30,10 +33,25 @@ class TabHome extends VuexModule implements ITabHomeState {
   public activeTabName = ACTIVE_TAB_NAME;
   public categories = CATEGORIES;
   public INITIAL_TAB_INDEX = INITIAL_TAB_INDEX;
-
+  public loadedCurrentCategoriesData = [];
   public showSlidePage = false;
   public showSlidePageName = '';
   public showSlidePageHotActiveIndex?: number = 0;
+  @Mutation
+  public SET_activeTabIndex_loaded(data: any) {
+    this.loadedCurrentCategoriesData = data;
+  }
+  @Mutation
+  public SET_activeTabIndex_single_loaded(id: string) {
+    const index: any = this.loadedCurrentCategoriesData.findIndex((item: any) => {
+      return item.id === id;
+    });
+    if (index === -1 || index === null) {
+      throw Error('id错了');
+    }
+    const cur: any = this.loadedCurrentCategoriesData[index];
+    cur['loaded'] = true;
+  }
   @Mutation
   public SET_showSlidePage(data: TShowSlidePage) {
     this.showSlidePage = data.status;
@@ -92,16 +110,34 @@ class TabHome extends VuexModule implements ITabHomeState {
     const result = await getSearchHotwordsReact(data);
     return Promise.resolve(result);
   }
-  // 搜索
+  // 搜索关键字
   @Action({ rawError: true })
   public async getSearchRecWord(data: any) {
     const result = await getSearchRecWord(data);
     return Promise.resolve(result);
   }
-  // 搜索
+  // 搜索落地页 -综合
   @Action({ rawError: true })
   public async getSearchList(data: any) {
     const result = await getSearchList(data);
+    return Promise.resolve(result);
+  }
+  // 搜索落地页 -视频、图片
+  @Action({ rawError: true })
+  public async getSearchTagList(data: any) {
+    const result = await getSearchTagList(data);
+    return Promise.resolve(result);
+  }
+  // 搜索落地页 -用户
+  @Action({ rawError: true })
+  public async getSearchsubscribe(data: any) {
+    const result = await getSearchsubscribe(data);
+    return Promise.resolve(result);
+  }
+  // 用户画像
+  @Action({ rawError: true })
+  public async getDeviceSurveyMyList(data: any) {
+    const result = await getDeviceSurveyMyList(data);
     return Promise.resolve(result);
   }
 }

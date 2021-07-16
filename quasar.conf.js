@@ -116,6 +116,13 @@ module.exports = configure(function(ctx) {
             '^/config_nine_ifeng': '',
           },
         },
+        '/uc_ifeng': {
+          target: `http://${settings.proxy_ip}:${settings.proxy_ip_port}/uc`,
+          changeOrigin: true,
+          pathRewrite: {
+            '^/uc_ifeng': '',
+          },
+        },
       },
     },
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-framework

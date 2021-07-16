@@ -10,12 +10,13 @@ app.use(
       // /config=》host:https://config.nine.ifeng.com
       // 需要pathRewrite
       '/config': 'https://config.nine.ifeng.com',
+      '/uc': 'https://uc.ifeng.com',
     },
     target: 'https://nine.ifeng.com',
     onProxyReq(proxyReq, req, res) {
       proxyReq.setHeader('User-Agent', randomUseragent.getRandom());
     },
-    pathRewrite: { '^/config': '' },
+    pathRewrite: { '^/config': '', '^/uc': '' },
     onError(err, req, res, target) {},
     onClose(res, socket, head) {},
     changeOrigin: true,

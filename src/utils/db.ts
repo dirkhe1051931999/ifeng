@@ -17,3 +17,8 @@ const user_bak_categories = settings.title + '-' + 'user_bak_categories';
 export const get_user_bak_categories = () => ls.get(user_bak_categories);
 export const set_user_bak_categories = (data: string) => ls.set(user_bak_categories, data);
 export const remove_user_bak_categories = () => ls.remove(user_bak_categories);
+// search-history
+const user_search_history = settings.title + '-' + 'user_search_history';
+export const get_user_search_history = () => ls.get(user_search_history);
+export const set_user_search_history = (data: string) => ls.set(user_search_history, data);
+export const remove_user_search_history = () => ls.remove(user_search_history);

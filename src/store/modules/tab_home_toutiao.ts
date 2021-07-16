@@ -3,10 +3,10 @@ import { VuexModule, Module, Action, Mutation, getModule } from 'vuex-module-dec
 import store from '@/store';
 import { getHeadline, getQualityReadingList } from 'src/api/home_toutiao';
 
-export interface IUserState {}
+export interface IToutiaoState {}
 
-@Module({ dynamic: true, store, name: 'user' })
-class User extends VuexModule implements IUserState {
+@Module({ dynamic: true, store, name: 'Toutiao' })
+class User extends VuexModule implements IToutiaoState {
   // 获取头条数据
   @Action({ rawError: true })
   public async getHeadline(data: any) {

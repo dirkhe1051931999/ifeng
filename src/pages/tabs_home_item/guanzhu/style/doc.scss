@@ -1,0 +1,21 @@
+@import './mixin.scss';
+@mixin doc {
+  background: #ffffff;
+  width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  .top {
+    @include follow-news-top;
+  }
+  .thumbnail {
+    @include thumbnail;
+  }
+  .title {
+    @include follow-news-title;
+  }
+  .bottom {
+    @include follow-news-bottom;
+  }
+}

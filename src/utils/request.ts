@@ -4,22 +4,23 @@ const isPro = process.env.NODE_ENV === 'production';
 const commonUrlParams = {
   gv: '7.27.0',
   av: '7.27.0',
-  uid: '910000000242544',
-  deviceid: '910000000242544',
+  uid: '866375411211427',
+  deviceid: '866375411211427',
   proid: 'ifengnews',
-  os: 'android_23',
+  os: 'android_25',
   df: 'androidphone',
   vt: '5',
-  screen: '576x1024',
+  screen: '720x1208',
   publishid: '6109',
   nw: 'wifi',
-  loginid: '4000000089717240455',
+  loginid: '',
   adAid: '',
-  hw: 'oneplus_oneplus_a5010',
+  hw: 'huawei_vog-al00',
   ps: '1',
-  st: '16257936056610',
-  sn: 'f3b45b9d5cf0dcf2b1870609b000b944',
+  st: '16262329249163',
+  sn: 'ee81b60974fcfb9c8e9750656b04187a',
 };
+
 axios.defaults.timeout = 25000;
 // Request interceptors
 axios.interceptors.request.use(
@@ -34,7 +35,7 @@ axios.interceptors.request.use(
       if (config.url.indexOf('?') === -1) {
         config.url = config.url + '?' + str;
       } else {
-        config.url = config.url +'&' + str;
+        config.url = config.url + '&' + str;
       }
     }
 
