@@ -1,0 +1,81 @@
+@import 'src/css/quasar.variables.scss';
+.caijing-container {
+  overflow: scroll;
+  height: 100%;
+  .caijing-list {
+    min-height: 320px;
+    .caijingSwiperList-container {
+      .caijingSwiperList-slide {
+        position: relative;
+        .title {
+          position: absolute;
+          width: 100%;
+          padding: 0 16px;
+          left: 0;
+          bottom: 24px;
+          color: #ffffff;
+          font-weight: bold;
+          z-index: 100;
+          font-size: 16px;
+        }
+        .dateDiff {
+          position: absolute;
+          width: 100%;
+          padding: 0 16px;
+          left: 0;
+          bottom: 8px;
+          color: #eee;
+          z-index: 100;
+          font-size: 12px;
+        }
+        .thumbnail {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          filter: brightness(80%);
+        }
+      }
+    }
+    .dapanzhishuList {
+      padding: 10px 16px;
+      background: $white;
+      ul {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+
+        li {
+          height: 32px;
+          line-height: 32px;
+          width: 50%;
+          text-align: left;
+          span {
+            margin-right: 5px;
+            &:nth-of-type(3n + 3) {
+              margin-right: 0;
+            }
+          }
+        }
+      }
+    }
+    .caijingNewsList {
+      padding: 0 16px;
+      padding-top: 10px;
+      background: $white;
+      li {
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+        border-bottom: solid 1px #eee;
+      }
+    }
+  }
+  .load-more-loading {
+    width: 100%;
+    height: 50px;
+    color: #969799;
+    font-size: 14px;
+    line-height: 50px;
+    text-align: center;
+  }
+}

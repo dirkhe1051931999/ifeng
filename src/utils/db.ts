@@ -22,3 +22,8 @@ const user_search_history = settings.title + '-' + 'user_search_history';
 export const get_user_search_history = () => ls.get(user_search_history);
 export const set_user_search_history = (data: string) => ls.set(user_search_history, data);
 export const remove_user_search_history = () => ls.remove(user_search_history);
+// user_current_region
+const user_current_region = settings.title + '-' + 'user_current_region';
+export const get_user_current_region = () => ls.get(user_current_region);
+export const set_user_current_region = (data: string) => ls.set(user_current_region, data);
+export const remove_user_current_region = () => ls.remove(user_current_region);

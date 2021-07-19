@@ -1,6 +1,5 @@
 <template>
   <div class="tabs-slide-page-qualityReading-container">
-    <van-share-sheet v-model="showShare" :options="shareOptions" @select="handlerClickSelctItem" />
     <div class="header">
       <span class="iconfont icon-youjiantou1 back" @click="handlerClickBack"></span>
       <img src="~assets/qualityReading-banner.png" alt="" class="banner" />
@@ -37,8 +36,8 @@ import Pullup from '@better-scroll/pull-up';
 BScroll.use(Pullup);
 import { TabHomeModule } from 'src/store/modules/tab_home';
 import { TabHomeToutiaoModule } from 'src/store/modules/tab_home_toutiao';
-import { copy } from 'iclipboard';
 import { AppModule } from 'src/store/modules/app';
+import { handlerQuasarShare } from 'src/utils/share';
 
 @Component({
   name: 'tabs_slide_page_qualityReading',
@@ -65,7 +64,6 @@ export default class extends Vue {
     pageSize: 10,
   };
   private isPullUpLoad = false;
-  private showShare = false;
   private newsList = [];
   private loadingTip = '加载中...';
 
@@ -74,11 +72,7 @@ export default class extends Vue {
     TabHomeModule.SET_showSlidePage({ status: false, name: '' });
   }
   private handlerClickShare() {
-    this.showShare = true;
-  }
-  private async handlerClickSelctItem(option: any) {
-    await AppModule.handlerClickShareItem(option);
-    this.showShare = false;
+    handlerQuasarShare('sec', {});
   }
   // http
   private async _getQualityReadingList() {

@@ -45,6 +45,11 @@ export const constantRoutes: RouteConfig[] = [
     meta: {},
   },
   {
+    path: '/region',
+    component: () => import(/* webpackChunkName: "region" */ 'pages/iframe/region/index.vue'),
+    meta: {},
+  },
+  {
     path: '/app',
     meta: {},
     component: App,

@@ -17,6 +17,7 @@
           v-if="currentUserCategories.length"
           :list="currentUserCategories"
           :disabled="!enableDraggle"
+          @change="handlerDragend"
           class="list-group"
           ghost-class="ghost"
           draggable=".drag-item"
@@ -102,6 +103,11 @@ export default class extends Vue {
     if (!this.enableDraggle) return;
     this.currentUserCategories.push(item);
     this.bakUserCategories.splice(index, 1);
+  }
+  private handlerDragend(data: any) {
+    for (let i = 0; i < this.currentUserCategories.length; i++) {
+      this.currentUserCategories[i].index = String(i);
+    }
   }
   /*http */
 }

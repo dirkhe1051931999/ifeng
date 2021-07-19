@@ -30,6 +30,10 @@ import {
   PullRefresh as VanPullRefresh,
   ImagePreview,
   ShareSheet as VanShareSheet,
+  IndexBar as VanIndexBar,
+  IndexAnchor as VanIndexAnchor,
+  Empty as VanEmpty,
+  NoticeBar as VanNoticeBar,
 } from 'vant';
 Vue.use(VanPopover);
 Vue.use(VanImage);
@@ -41,6 +45,10 @@ Vue.use(VanSwipeItem);
 Vue.use(VanPullRefresh);
 Vue.use(ImagePreview);
 Vue.use(VanShareSheet);
+Vue.use(VanIndexBar);
+Vue.use(VanIndexAnchor);
+Vue.use(VanEmpty);
+Vue.use(VanNoticeBar);
 
 // 注册全局指令
 Object.keys(directives).forEach((key) => {

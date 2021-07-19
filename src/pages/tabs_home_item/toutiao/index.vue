@@ -426,11 +426,8 @@
               <img v-if="news.seriesTag" src="https://x0.ifengimg.com/cmpp/2021/0401/ced142b6f5d6dc0size6_w144_h60.png" alt="" class="seriesTag" />
               <van-image :src="news.imageList[0].url" alt="" class="placeholder" radius="6" />
               <img src="~assets/play-video-button.png" alt="" class="play-video-button" />
-              <p class="video-total-time" v-if="news.phvideo.length - news.phvideo.preview - news.phvideo.previewlength === news.phvideo.length">
+              <p class="video-total-time">
                 {{ news.phvideo.length | getVideoTotalTime }}
-              </p>
-              <p class="video-total-time" v-else>
-                {{ (news.phvideo.length - news.phvideo.preview - news.phvideo.previewlength) | getVideoTotalTime }}
               </p>
             </div>
             <div class="text-red topLabel" v-if="news.topLabel" @click="handlerClickToutiaoHotSpotMore">
@@ -486,6 +483,7 @@ import { ImagePreview } from 'vant';
 import { Component, Vue } from 'vue-property-decorator';
 import { toutiaoUserPreference } from './static/userPreference';
 import { testData } from './static/test';
+import { handlerQuasarShare } from 'src/utils/share';
 @Component({
   name: 'tabs_home_item_toutiao',
 })
@@ -540,37 +538,13 @@ export default class extends Vue {
     TabHomeModule.SET_showSlidePage({ status: true, name: 'qualityReading' });
   }
   private handlerClickPhvideoShare(news: any) {
-    this.$q
-      .bottomSheet({
-        message: '分享是一种快乐',
-        grid: true,
-        actions: [
-          {
-            label: '微信',
-            img: 'https://img01.yzcdn.cn/vant/share-sheet-wechat.png',
-          },
-          {
-            label: '朋友圈',
-            img: 'https://img01.yzcdn.cn/vant/share-sheet-wechat-moments.png',
-          },
-          {
-            label: '微博',
-            img: 'https://img01.yzcdn.cn/vant/share-sheet-weibo.png',
-          },
-          {
-            label: 'QQ',
-            img: 'https://img01.yzcdn.cn/vant/share-sheet-qq.png',
-          },
-        ],
-      })
-      .onOk((action: any) => {
-        console.log('Action chosen:', action);
-      });
+    handlerQuasarShare('app', news);
   }
   private handlerClickUserPerferenceOtherSettings() {
     this.$router.push('/user_perference');
   }
   async onRefresh() {
+    this.pagination_params.num = 1;
     await this._downCallback();
     this.refreshSuccessText =
       this.toutiaoData.length + this.toutiaoZhidingData.length

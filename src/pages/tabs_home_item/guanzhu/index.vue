@@ -234,15 +234,15 @@ import { sampleSize } from 'lodash';
 })
 export default class extends Vue {
   $refs: any;
-  get currentTabName() {
-    return '关注';
+  get currentTabId() {
+    return 'guanzhu';
   }
   get activeTabIndex() {
     return TabHomeModule.activeTabIndex;
   }
   get currentIndex() {
     const categories: any = get_user_current_categories() ? cloneDeep(get_user_current_categories()) : [];
-    const cur = categories.find((d: any) => d.name === this.currentTabName);
+    const cur = categories.find((d: any) => d.id === this.currentTabId);
     return Number(cur.index);
   }
   get defaultbackreason() {
@@ -252,7 +252,7 @@ export default class extends Vue {
   }
   get currentPageIsLoaded() {
     const loadedCurrentCategoriesData: any = TabHomeModule.loadedCurrentCategoriesData;
-    const cur = loadedCurrentCategoriesData.find((d: any) => d.name === this.currentTabName);
+    const cur = loadedCurrentCategoriesData.find((d: any) => d.id === this.currentTabId);
     if (cur) {
       return cur.loaded;
     } else {
@@ -267,7 +267,7 @@ export default class extends Vue {
         this.firstLoadData = true;
         this.otherFollowList = [];
         await this._downCallback();
-        TabHomeModule.SET_activeTabIndex_single_loaded('guanzhu');
+        TabHomeModule.SET_activeTabIndex_single_loaded(this.currentTabId);
         this.firstLoadData = false;
         this.pageLoading = false;
       }
@@ -304,6 +304,7 @@ export default class extends Vue {
   }
   async onRefresh() {
     this.load_more_no_data = '';
+    this.pagination_params.num = 1;
     await this._downCallback();
     this.refreshSuccessText = this.otherFollowList.length ? `已为您推荐 ${this.otherFollowList.length} 条新内容` : '已更新到最新';
     this.isDownRefresh = false;
@@ -348,9 +349,6 @@ export default class extends Vue {
       formData.append(key, form[key]);
     }
     try {
-      if (this.firstLoadData) {
-        params = { ch: 'momentsnew', action: 'default', pullTotal: '1', dailyOpenNum: '1' };
-      }
       const result = await TabHomeGuanzhuModule.getGuanzhuList({ params, formData });
       const recommend = result[0] ? result[0].item : [];
       const other = result[1] ? result[1].item : [];

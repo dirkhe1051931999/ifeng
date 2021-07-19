@@ -1,6 +1,5 @@
 <template>
   <div class="tabs-slide-page-hot-container">
-    <van-share-sheet v-model="showShare" :options="shareOptions" @select="handlerClickSelctItem" />
     <div class="header">
       <span class="iconfont icon-youjiantou1 back" @click="handlerClickBack"></span>
       <img src="~assets/hot-page-banner.png" alt="" class="banner" />
@@ -149,8 +148,8 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { TabHomeModule } from 'src/store/modules/tab_home';
-import { copy } from 'iclipboard';
 import { AppModule } from 'src/store/modules/app';
+import { handlerQuasarShare } from 'src/utils/share';
 
 @Component({
   name: 'tabs_slide_page_hot',
@@ -178,7 +177,6 @@ export default class extends Vue {
   private loadedData4 = [];
   private activeIndex: any = 0;
   private activeName = this.tabs[this.activeIndex];
-  private showShare = false;
   // event
   private async handlerClickTab(index: number) {
     this.activeIndex = index;
@@ -188,11 +186,7 @@ export default class extends Vue {
     TabHomeModule.SET_showSlidePage({ status: false, name: '' });
   }
   private handlerClickShare() {
-    this.showShare = true;
-  }
-  private async handlerClickSelctItem(option: any) {
-    await AppModule.handlerClickShareItem(option);
-    this.showShare = false;
+    handlerQuasarShare('sec', {});
   }
   // http
   private async _clickTabGetData() {

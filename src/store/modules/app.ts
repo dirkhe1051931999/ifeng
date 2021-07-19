@@ -66,14 +66,6 @@ class App extends VuexModule implements IAppState {
     const result = await getBaseConfig(data);
     return Promise.resolve(result);
   }
-  // 点击分享item
-  @Action({ rawError: true })
-  public async handlerClickShareItem(data: any) {
-    if (data.name === '复制链接') {
-      await copy(this.shareInfo.weburl ? this.shareInfo.weburl : 'http://www.baidu.com');
-    }
-    return Promise.resolve();
-  }
 }
 
 export const AppModule = getModule(App);

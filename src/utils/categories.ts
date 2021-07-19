@@ -3,7 +3,7 @@ export const defaultCategories = [
   { name: '头条', api: '', id: 'toutiao', index: '1' },
   { name: '视频', api: '', id: 'shipin', index: '2' },
   { name: '抗疫', api: '', id: 'kangyi', index: '3' },
-  { name: '西安', api: '', id: 'xian', index: '4' },
+  { name: '西安', api: '', id: 'chengshi', index: '4' },
   { name: '财经', api: '', id: 'caijing', index: '5' },
   { name: '娱乐', api: '', id: 'yule', index: '6' },
   { name: '军事', api: '', id: 'junshi', index: '7' },

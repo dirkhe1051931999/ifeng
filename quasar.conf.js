@@ -123,6 +123,13 @@ module.exports = configure(function(ctx) {
             '^/uc_ifeng': '',
           },
         },
+        '/api_iclient_ifeng': {
+          target: `http://${settings.proxy_ip}:${settings.proxy_ip_port}/api_iclient`,
+          changeOrigin: true,
+          pathRewrite: {
+            '^/api_iclient_ifeng': '',
+          },
+        },
       },
     },
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-framework

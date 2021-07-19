@@ -59,20 +59,21 @@ import { TabHomeShipinModule } from 'src/store/modules/tab_home_shipin';
 import { TabHomeModule } from 'src/store/modules/tab_home';
 import { get_user_current_categories } from 'src/utils/db';
 import { cloneDeep } from 'lodash';
+import { handlerQuasarShare } from 'src/utils/share';
 @Component({
   name: 'tabs_home_item_standard',
 })
 export default class extends Vue {
   $refs: any;
-  get currentTabName() {
-    return '视频';
+  get currentTabId() {
+    return 'shipin';
   }
   get activeTabIndex() {
     return TabHomeModule.activeTabIndex;
   }
   get currentIndex() {
     const categories: any = get_user_current_categories() ? cloneDeep(get_user_current_categories()) : [];
-    const cur = categories.find((d: any) => d.name === this.currentTabName);
+    const cur = categories.find((d: any) => d.id === this.currentTabId);
     return Number(cur.index);
   }
   get defaultbackreason() {
@@ -82,7 +83,7 @@ export default class extends Vue {
   }
   get currentPageIsLoaded() {
     const loadedCurrentCategoriesData: any = TabHomeModule.loadedCurrentCategoriesData;
-    const cur = loadedCurrentCategoriesData.find((d: any) => d.name === this.currentTabName);
+    const cur = loadedCurrentCategoriesData.find((d: any) => d.id === this.currentTabId);
     if (cur) {
       return cur.loaded;
     } else {
@@ -91,14 +92,13 @@ export default class extends Vue {
   }
   @Watch('activeTabIndex')
   async getFollowList(newVal: number, oldVal: number) {
-    console.log(this.currentIndex, newVal);
     if (newVal === this.currentIndex) {
       if (!this.currentPageIsLoaded) {
         this.pageLoading = true;
         this.firstLoadData = true;
         this.videoNewsList = [];
         await this._downCallback();
-        TabHomeModule.SET_activeTabIndex_single_loaded('shipin');
+        TabHomeModule.SET_activeTabIndex_single_loaded(this.currentTabId);
         this.firstLoadData = false;
         this.pageLoading = false;
       }
@@ -120,8 +120,8 @@ export default class extends Vue {
   };
   /*event*/
   async onRefresh() {
+    this.pagination_params.num = 1;
     this.load_more_no_data = '';
-
     await this._downCallback();
     this.refreshSuccessText = this.videoNewsList.length ? `已为您推荐 ${this.videoNewsList.length} 条新内容` : '已更新到最新';
     this.isDownRefresh = false;
@@ -141,36 +141,7 @@ export default class extends Vue {
     }
   }
   private handlerClickVideoMore(news: any) {
-    this.$q
-      .bottomSheet({
-        message: '分享是一种快乐',
-        grid: true,
-        actions: [
-          {
-            label: '微信',
-            img: 'https://img01.yzcdn.cn/vant/share-sheet-wechat.png',
-          },
-          {
-            label: '朋友圈',
-            img: 'https://img01.yzcdn.cn/vant/share-sheet-wechat-moments.png',
-          },
-          {
-            label: '微博',
-            img: 'https://img01.yzcdn.cn/vant/share-sheet-weibo.png',
-          },
-          {
-            label: 'QQ',
-            img: 'https://img01.yzcdn.cn/vant/share-sheet-qq.png',
-          },
-          {
-            label: '复制链接',
-            img: 'https://z3.ax1x.com/2021/07/16/WMr0K0.png',
-          },
-        ],
-      })
-      .onOk((action: any) => {
-        console.log('Action chosen:', action);
-      });
+    handlerQuasarShare('app', news);
   }
   /*http*/
   private async _downCallback() {
@@ -263,122 +234,5 @@ export default class extends Vue {
 }
 </script>
 <style lang="scss" scoped>
-.standard-container {
-  overflow: scroll;
-  height: 100%;
-  .video-list {
-    min-height: 320px;
-    li {
-      background: $white;
-      position: relative;
-      .video-placeholder {
-        width: 100%;
-        height: 190px;
-        box-sizing: border-box;
-        position: relative;
-        .video-title {
-          color: $white;
-          font-size: 18px;
-          padding: 0 16px;
-          position: absolute;
-          width: 100%;
-          top: 10px;
-          left: 0;
-          box-sizing: border-box;
-          z-index: 100;
-        }
-        .seriesTag {
-          position: absolute;
-          width: 48px;
-          height: 20px;
-          left: -1px;
-          bottom: 0;
-          z-index: 100;
-        }
-        .placeholder {
-          position: absolute;
-          width: 100%;
-          height: 192px;
-          left: 0;
-          top: 0;
-          filter: brightness(50%);
-        }
-        .play-video-button {
-          width: 49px;
-          height: 49px;
-          position: absolute;
-          left: 50%;
-          top: 50%;
-          transform: translate(-50%, -50%);
-          z-index: 100;
-        }
-        .video-total-time {
-          color: $white;
-          position: absolute;
-          bottom: 5px;
-          right: 5px;
-          font-size: 12px;
-          background: rgba($color: #000000, $alpha: 0.3);
-          padding: 4px;
-          border-radius: 8px;
-        }
-      }
-      .bottom {
-        padding: 10px;
-        width: 100%;
-        box-sizing: border-box;
-        position: relative;
-        span {
-          display: inline-block;
-          margin-right: 8px;
-          font-size: 12px;
-          color: #9e9e9e;
-        }
-        i {
-          font-size: 12px;
-          color: #9e9e9e;
-          margin-right: 2px;
-        }
-        .label {
-          vertical-align: 2px;
-          transform: scale(0.9);
-          display: inline-block;
-          font-size: 12px;
-          background: #fee3e3;
-          text-align: center;
-          padding: 2px 3px;
-          color: $red;
-          border-radius: 4px;
-        }
-        .label-blue {
-          vertical-align: 2px;
-          transform: scale(0.9);
-          display: inline-block;
-          font-size: 12px;
-          background: $white;
-          text-align: center;
-          padding: 2px 3px;
-          color: $blue;
-          border: solid 1px $blue;
-          border-radius: 4px;
-        }
-        .more {
-          font-size: 22px;
-          position: absolute;
-          top: 50%;
-          transform: translateY(-50%);
-          right: 10px;
-        }
-      }
-    }
-  }
-  .load-more-loading {
-    width: 100%;
-    height: 50px;
-    color: #969799;
-    font-size: 14px;
-    line-height: 50px;
-    text-align: center;
-  }
-}
+@import './style.scss';
 </style>

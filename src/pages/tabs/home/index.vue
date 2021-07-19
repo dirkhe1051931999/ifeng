@@ -31,6 +31,9 @@
         <GuanzhuPage v-if="item.id === 'guanzhu'" />
         <ToutiaoPage v-if="item.id === 'toutiao'" />
         <ShipinPage v-if="item.id === 'shipin'" />
+        <KangyiPage v-if="item.id === 'kangyi'" />
+        <ChengshiPage v-if="item.id === 'chengshi'" />
+        <CaijingPage v-if="item.id === 'caijing'" />
         <StandardPage v-else />
       </div>
     </div>
@@ -39,14 +42,25 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { TabHomeModule } from 'src/store/modules/tab_home';
-import { defaultCategories } from 'src/utils/categories';
+import { bakCategories, defaultCategories } from 'src/utils/categories';
 import StandardPage from 'src/pages/tabs_home_item/standard/index.vue';
+import ChengshiPage from 'src/pages/tabs_home_item/chengshi/index.vue';
 import ToutiaoPage from 'src/pages/tabs_home_item/toutiao/index.vue';
 import GuanzhuPage from 'src/pages/tabs_home_item/guanzhu/index.vue';
 import ShipinPage from 'src/pages/tabs_home_item/shipin/index.vue';
+import KangyiPage from 'src/pages/tabs_home_item/kangyi/index.vue';
+import CaijingPage from 'src/pages/tabs_home_item/caijing/index.vue';
 import { AppModule } from 'src/store/modules/app';
-import { get_user_current_categories, set_user_current_categories } from 'src/utils/db';
+import {
+  get_user_bak_categories,
+  get_user_current_categories,
+  get_user_current_region,
+  set_user_bak_categories,
+  set_user_current_categories,
+  set_user_current_region,
+} from 'src/utils/db';
 import { cloneDeep } from 'lodash';
+import { TabHomeChengshiModule } from 'src/store/modules/tab_home_chengshi';
 
 @Component({
   name: 'tab_home',
@@ -55,6 +69,9 @@ import { cloneDeep } from 'lodash';
     ToutiaoPage,
     ShipinPage,
     GuanzhuPage,
+    KangyiPage,
+    ChengshiPage,
+    CaijingPage,
   },
 })
 export default class extends Vue {
@@ -66,7 +83,24 @@ export default class extends Vue {
     return TabHomeModule.activeTabName;
   }
   get categories(): any {
-    return get_user_current_categories() ? cloneDeep(get_user_current_categories()) : cloneDeep(defaultCategories);
+    const _defaultCategories = cloneDeep(defaultCategories);
+    for (let item of _defaultCategories) {
+      if (item.id === 'chengshi') {
+        const currentRegion: any = TabHomeChengshiModule.currentRegion;
+        item['name'] = currentRegion;
+      }
+    }
+    return get_user_current_categories() ? cloneDeep(get_user_current_categories()) : cloneDeep(_defaultCategories);
+  }
+  get bak_categories(): any {
+    const _bakCategories = cloneDeep(bakCategories);
+    for (let item of _bakCategories) {
+      if (item.id === 'chengshi') {
+        const currentRegion: any = TabHomeChengshiModule.currentRegion;
+        item['name'] = currentRegion;
+      }
+    }
+    return get_user_bak_categories() ? cloneDeep(get_user_bak_categories()) : cloneDeep(_bakCategories);
   }
   get INITIAL_TAB_INDEX() {
     return TabHomeModule.INITIAL_TAB_INDEX;
@@ -262,6 +296,12 @@ export default class extends Vue {
     this.$refs['app-home-page'].style['height'] = this.windowInnerHeight - AppModule.bottomNavigationAndHomeHeaderHeight + 'px';
     if (!get_user_current_categories()) {
       set_user_current_categories(this.categories);
+    }
+    if (!get_user_bak_categories()) {
+      set_user_bak_categories(this.bak_categories);
+    }
+    if (!get_user_current_region()) {
+      set_user_current_region('西安');
     }
   }
 
