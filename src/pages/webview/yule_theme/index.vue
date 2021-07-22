@@ -7,7 +7,7 @@
     <div class="yule-theme-wrap" ref="yule-theme-wrap" @scroll="monitorScroll">
       <div class="load-more-loading" v-show="firstLoadData">加载中...</div>
       <ul>
-        <li v-for="news in themeNewsList" :key="news.id">
+        <li v-for="news in themeNewsList" :key="news.id + String(Math.random())" @click="handlerClickNewsItem(news)">
           <van-image class="thumbnail" :src="news.thumbnails" lazy-load />
           <p class="news-title">{{ news.title }}</p>
         </li>
@@ -23,11 +23,17 @@
 
 <script lang="ts">
 import { TabHomeYuleModule } from 'src/store/modules/tab_home_yule';
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Watch } from 'vue-property-decorator';
 
 @Component
 export default class extends Vue {
   $refs: any;
+  @Watch('$route')
+  onchange(to: any, from: any) {
+    if (this.$route.path === '/yule_theme') {
+      this.$refs['yule-theme-wrap'].scrollTop = this.containerPositionY;
+    }
+  }
   async mounted() {
     this.themeTitle = this.$route.query.theme_title;
     this.themeIndex = Number(this.$route.query.theme);
@@ -70,6 +76,13 @@ export default class extends Vue {
   }
   private handlerClickHeaderBack() {
     this.$router.back();
+  }
+  private handlerClickNewsItem(news: any) {
+    if (news.type === 'topic') {
+      this.$router.push('/news_topic?topicid=ucms_' + news.base62Id);
+    } else {
+      console.log(news.type);
+    }
   }
   /*http*/
   private async _getData(index: number) {

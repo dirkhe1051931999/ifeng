@@ -570,7 +570,8 @@ export default class extends Vue {
     });
   }
   private handlerClickGridItem(item: any, index: number) {
-    if (index === 4) {
+    if (index === 3) {
+      this.$router.push('/news_topic?topicid=ucms_82mVrupnKHg');
       return;
     }
     this.$router.push(`/yule_theme?theme=${index}&theme_title=${item.title}`);
@@ -618,7 +619,7 @@ export default class extends Vue {
           if (this.firstLoadData) {
             setTimeout(() => {
               new window['Swiper']('.yuleSwiperList-container', {
-                loop: true,
+                loop: this.yuleSwiperList.length === 0 ? false : true,
               });
             }, 500);
           }

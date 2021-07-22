@@ -95,7 +95,7 @@ export default class extends Vue {
     left: 0;
     width: 100%;
     overflow: scroll;
-
+    background: $white;
     box-sizing: border-box;
     .index {
       background: #f7f7f7;

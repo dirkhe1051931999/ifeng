@@ -20,7 +20,7 @@
       </div>
       <ul class="chengshi-list" v-if="!pageLoading">
         <div class="select-city-wrap">
-          <div class="select-city" @click="$router.push('/region')">
+          <div class="select-city" @click="$router.push('/tab_home_region')">
             <q-icon name="location_on" class="text-blue"></q-icon>
             <span>切换城市</span>
             <q-icon name="chevron_right"></q-icon>

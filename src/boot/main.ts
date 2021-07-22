@@ -63,6 +63,8 @@ import {
   NoticeBar as VanNoticeBar,
   Tabbar as VanTabbar,
   TabbarItem as VanTabbarItem,
+  Tab as VanTab,
+  Tabs as VanTabs,
 } from 'vant';
 Vue.use(VanPopover);
 Vue.use(VanImage);
@@ -80,6 +82,8 @@ Vue.use(VanEmpty);
 Vue.use(VanNoticeBar);
 Vue.use(VanTabbar);
 Vue.use(VanTabbarItem);
+Vue.use(VanTab);
+Vue.use(VanTabs);
 
 // 注册全局指令
 Object.keys(directives).forEach((key) => {

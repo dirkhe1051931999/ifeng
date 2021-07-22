@@ -58,6 +58,11 @@ export const constantRoutes: RouteConfig[] = [
     component: () => import(/* webpackChunkName: "yule_theme" */ 'pages/webview/yule_theme/index.vue'),
     meta: {},
   },
+  {
+    path: '/news_topic',
+    component: () => import(/* webpackChunkName: "news_topic" */ 'pages/webview/news_topic/index.vue'),
+    meta: {},
+  },
   /* app */
   { path: '/app/:tab', component: () => import(/* webpackChunkName: "App" */ 'pages/app/index.vue') },
 ];
