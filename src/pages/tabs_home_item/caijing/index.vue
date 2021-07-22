@@ -266,6 +266,7 @@ import { AppModule } from 'src/store/modules/app';
 import { cloneDeep } from 'lodash';
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import { TabHomeCaijingModule } from 'src/store/modules/tab_home_caijing';
+import { ImagePreview } from 'vant';
 @Component({
   name: 'tabs_home_item_caijing',
 })
@@ -311,6 +312,7 @@ export default class extends Vue {
     }
   }
   // 数据
+  public containerPositionY = 0;
   private firstLoadData = true;
   private pageLoading = false;
   private caijingNewsList: any[] = [];
@@ -338,6 +340,7 @@ export default class extends Vue {
   async monitorScrollEvent(e: any) {
     const scrollHeight = this.$refs['caijing-container'].scrollHeight;
     const scrollTop = this.$refs['caijing-container'].scrollTop;
+    this.containerPositionY = scrollTop;
     var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
     if (scrollTop + windowHeight - AppModule.bottomNavigationAndHomeHeaderHeight >= scrollHeight) {
       if (!this.load_more_loading_lock) {
@@ -348,6 +351,17 @@ export default class extends Vue {
         this.load_more_loading_lock = false;
       }
     }
+  }
+  private previewImage(images: any, index: number) {
+    const arr = [];
+    for (let item of images) {
+      arr.push(item.url);
+    }
+    ImagePreview({
+      images: arr,
+      startPosition: index,
+      closeable: true,
+    });
   }
   /*http*/
   private async _downCallback() {

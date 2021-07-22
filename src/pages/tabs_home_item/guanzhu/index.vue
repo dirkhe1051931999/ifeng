@@ -275,6 +275,7 @@ export default class extends Vue {
   }
   async mounted() {}
   // 数据
+  public containerPositionY = 0;
   private firstLoadData = true;
   private pageLoading = false;
   private recomendFollowList = [];
@@ -312,6 +313,7 @@ export default class extends Vue {
   async monitorScrollEvent(e: any) {
     const scrollHeight = this.$refs['guanzhu-container'].scrollHeight;
     const scrollTop = this.$refs['guanzhu-container'].scrollTop;
+    this.containerPositionY = scrollTop;
     var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
     if (scrollTop + windowHeight - AppModule.bottomNavigationAndHomeHeaderHeight >= scrollHeight) {
       if (!this.load_more_loading_lock) {
@@ -429,6 +431,7 @@ export default class extends Vue {
       @include recommend;
     }
     .other {
+      background: $white;
       .doc {
         @include doc;
       }

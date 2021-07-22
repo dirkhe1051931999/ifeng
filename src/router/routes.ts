@@ -1,9 +1,4 @@
 import { RouteConfig } from 'vue-router';
-import App from 'pages/app/index.vue';
-import Tab_home from 'pages/tabs/home/index.vue';
-import Tab_mine from 'pages/tabs/mine/index.vue';
-import Tab_plaza from 'pages/tabs/plaza/index.vue';
-import Tab_shortVideo from 'pages/tabs/shortVideo/index.vue';
 /*
   name:'router-name'             the name field is required when using <keep-alive>, it should also match its component's name property
                                  detail see : https://vuejs.org/v2/guide/components-dynamic-async.html#keep-alive-with-Dynamic-Components
@@ -14,68 +9,57 @@ import Tab_shortVideo from 'pages/tabs/shortVideo/index.vue';
 */
 
 export const constantRoutes: RouteConfig[] = [
+  /* webview */
   {
-    path: '*',
-    redirect: '/404',
+    path: '/tab_home_more_categories',
+    component: () => import(/* webpackChunkName: "tab_home_more_categories" */ 'pages/webview/tab_home_more_categories/index.vue'),
     meta: {},
   },
   {
-    path: '/404',
-    component: () => import(/* webpackChunkName: "404" */ 'pages/iframe/404/index.vue'),
+    path: '/tab_home_region',
+    component: () => import(/* webpackChunkName: "tab_home_region" */ 'pages/webview/tab_home_region/index.vue'),
     meta: {},
   },
   {
-    path: '/welcome',
-    component: () => import(/* webpackChunkName: "welcome" */ 'pages/iframe/welcome/index.vue'),
-    meta: {},
-  },
-  {
-    path: '/more_categories',
-    component: () => import(/* webpackChunkName: "more_categories" */ 'pages/iframe/more_categories/index.vue'),
+    path: '/tab_home_user_perference',
+    component: () => import(/* webpackChunkName: "tab_home_user_perference" */ 'pages/webview/tab_home_user_perference/index.vue'),
     meta: {},
   },
   {
     path: '/login',
-    component: () => import(/* webpackChunkName: "login" */ 'pages/iframe/login/index.vue'),
+    component: () => import(/* webpackChunkName: "login" */ 'pages/webview/login/index.vue'),
     meta: {},
   },
   {
-    path: '/user_perference',
-    component: () => import(/* webpackChunkName: "user_perference" */ 'pages/iframe/user_perference/index.vue'),
+    path: '/',
+    component: () => import(/* webpackChunkName: "welcome" */ 'pages/webview/welcome/index.vue'),
+  },
+  {
+    path: '/news_detail/:id',
+    component: () => import(/* webpackChunkName: "news_detail" */ 'pages/webview/news_detail/index.vue'),
+  },
+  {
+    path: '/tab_home_hot/:index',
+    component: () => import(/* webpackChunkName: "tab_home_hot" */ 'pages/webview/tab_home_hot/index.vue'),
     meta: {},
   },
   {
-    path: '/region',
-    component: () => import(/* webpackChunkName: "region" */ 'pages/iframe/region/index.vue'),
+    path: '/tab_home_qualityReading',
+    component: () => import(/* webpackChunkName: "tab_home_qualityReading" */ 'pages/webview/tab_home_qualityReading/index.vue'),
     meta: {},
   },
   {
-    path: '/app',
+    path: '/tab_home_search',
+    component: () => import(/* webpackChunkName: "tab_home_search" */ 'pages/webview/tab_home_search/index.vue'),
     meta: {},
-    component: App,
-    children: [
-      {
-        path: 'home',
-        meta: {},
-        component: Tab_home,
-      },
-      {
-        path: 'mine',
-        meta: {},
-        component: Tab_mine,
-      },
-      {
-        path: 'plaza',
-        meta: {},
-        component: Tab_plaza,
-      },
-      {
-        path: 'shortVideo',
-        meta: {},
-        component: Tab_shortVideo,
-      },
-    ],
   },
+  {
+    path: '/yule_theme',
+    component: () => import(/* webpackChunkName: "yule_theme" */ 'pages/webview/yule_theme/index.vue'),
+    meta: {},
+  },
+  /* app */
+  { path: '/app/:tab', component: () => import(/* webpackChunkName: "App" */ 'pages/app/index.vue') },
 ];
 /**
  * 有权限限制
@@ -99,7 +83,7 @@ export const asyncRoutes: RouteConfig[] = [
           icon: 'label',
           pagePermissionId: ['-1', '1'],
         },
-        component: () => import(/* webpackChunkName: "authA" */ 'pages/iframe/auth/a.vue'),
+        component: () => import(/* webpackChunkName: "authA" */ 'pages/webview/auth/a.vue'),
       },
       {
         path: 'b',
@@ -109,7 +93,7 @@ export const asyncRoutes: RouteConfig[] = [
           icon: 'label',
           pagePermissionId: ['-1', '2'],
         },
-        component: () => import(/* webpackChunkName: "authB" */ 'pages/iframe/auth/b.vue'),
+        component: () => import(/* webpackChunkName: "authB" */ 'pages/webview/auth/b.vue'),
       },
     ],
   },

@@ -5,8 +5,6 @@ import { getSidebarStatus, getSize, setSidebarStatus, setLanguage, setSize } fro
 import store from '@/store/index';
 import { getBaseConfig } from 'src/api/app';
 import { get_config_backreason_key, get_user_bak_categories, get_user_current_categories } from 'src/utils/db';
-import { allCategories, bakCategories, defaultCategories } from 'src/utils/categories';
-import { cloneDeep } from 'lodash';
 import { copy } from 'iclipboard';
 
 export enum DeviceType {
@@ -28,6 +26,7 @@ class App extends VuexModule implements IAppState {
   public stickyNavigation = true;
   public config_backreason = get_config_backreason_key();
   public shareInfo: any = {};
+  public pageStackPath: string[] = [];
   public shareOptions = [
     [
       { name: '微信', icon: 'wechat' },
@@ -42,6 +41,10 @@ class App extends VuexModule implements IAppState {
       { name: '小程序码', icon: 'weapp-qrcode' },
     ],
   ];
+  @Mutation
+  public SET_pageStackPath(data: any) {
+    this.pageStackPath = data;
+  }
   @Mutation
   public SET_ShareInfo(data: any) {
     this.shareInfo = data;

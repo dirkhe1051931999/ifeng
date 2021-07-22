@@ -1,5 +1,5 @@
 <template>
-  <div class="standard-container" @scroll="monitorScrollEvent" ref="standard-container">
+  <div class="shipin-container" @scroll="monitorScrollEvent" ref="shipin-container">
     <van-pull-refresh v-model="isDownRefresh" :success-text="refreshSuccessText" @refresh="onRefresh" :success-duration="1000">
       <!-- 骨架屏 -->
       <div v-if="pageLoading">
@@ -61,7 +61,7 @@ import { get_user_current_categories } from 'src/utils/db';
 import { cloneDeep } from 'lodash';
 import { handlerQuasarShare } from 'src/utils/share';
 @Component({
-  name: 'tabs_home_item_standard',
+  name: 'tabs_home_item_shipin',
 })
 export default class extends Vue {
   $refs: any;
@@ -105,6 +105,7 @@ export default class extends Vue {
     }
   }
   // 数据
+  public containerPositionY = 0;
   private firstLoadData = true;
   private pageLoading = false;
   private videoNewsList: any = [];
@@ -127,8 +128,9 @@ export default class extends Vue {
     this.isDownRefresh = false;
   }
   async monitorScrollEvent(e: any) {
-    const scrollHeight = this.$refs['standard-container'].scrollHeight;
-    const scrollTop = this.$refs['standard-container'].scrollTop;
+    const scrollHeight = this.$refs['shipin-container'].scrollHeight;
+    const scrollTop = this.$refs['shipin-container'].scrollTop;
+    this.containerPositionY = scrollTop;
     var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
     if (scrollTop + windowHeight - AppModule.bottomNavigationAndHomeHeaderHeight >= scrollHeight) {
       if (!this.load_more_loading_lock) {

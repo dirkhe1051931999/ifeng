@@ -63,6 +63,7 @@ import draggable from 'vuedraggable';
 import { get_user_bak_categories, get_user_current_categories, set_user_bak_categories, set_user_current_categories } from 'src/utils/db';
 import { cloneDeep } from 'lodash';
 import { bakCategories, defaultCategories } from 'src/utils/categories';
+import { TabHomeModule } from 'src/store/modules/tab_home';
 
 @Component({
   name: 'tabs_slide_page_more_categories',

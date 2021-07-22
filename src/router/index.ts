@@ -4,15 +4,8 @@ import Vue from 'vue';
 Vue.use(Router);
 const createRouter = () =>
   new Router({
-    scrollBehavior: (to, from, savedPosition) => {
-      if (savedPosition) {
-        return savedPosition;
-      } else {
-        return { x: 0, y: 0 };
-      }
-    },
-    mode: process.env.VUE_ROUTER_MODE,
-    base: process.env.VUE_ROUTER_BASE,
+    mode: 'history',
+    base: '/',
     routes: constantRoutes,
   });
 

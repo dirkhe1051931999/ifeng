@@ -36,7 +36,7 @@ module.exports = configure(function(ctx) {
     extras: ['material-icons'],
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
     build: {
-      vueRouterMode: 'hash', // available values: 'hash', 'history'
+      vueRouterMode: 'history', // available values: 'hash', 'history'
       transpile: false,
       // Add dependencies for transpiling with Babel (Array of string/regex)
       // (from node_modules, which are by default not transpiled).
@@ -128,6 +128,13 @@ module.exports = configure(function(ctx) {
           changeOrigin: true,
           pathRewrite: {
             '^/api_iclient_ifeng': '',
+          },
+        },
+        '/shankapi_ifeng': {
+          target: `http://${settings.proxy_ip}:${settings.proxy_ip_port}/shankapi`,
+          changeOrigin: true,
+          pathRewrite: {
+            '^/shankapi_ifeng': '',
           },
         },
       },

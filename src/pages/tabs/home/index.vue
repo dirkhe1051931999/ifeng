@@ -11,10 +11,10 @@
         热榜
       </div>
     </div>
-    <ul class="app-home-tab" ref="app-home-tab" v-scroll>
-      <div class="more" @click.stop="handlerClickMoreCategories">
-        <span class="iconfont icon-21"></span>
-      </div>
+    <div class="app-home-tab-more" @click.stop="handlerClickMoreCategories">
+      <span class="iconfont icon-21"></span>
+    </div>
+    <ul class="app-home-tab" ref="app-home-tab">
       <li
         class="item"
         v-for="(item, $index) in categories"
@@ -28,19 +28,20 @@
     </ul>
     <div id="app-home-page" class="app-home-page" @touchstart="touchStart" @touchmove="touchMove" @touchend="touchEnd" ref="app-home-page">
       <div :class="['page', 'page' + (index + 1)]" v-for="(item, index) in categories" :key="index">
-        <GuanzhuPage v-if="item.id === 'guanzhu'" />
-        <ToutiaoPage v-if="item.id === 'toutiao'" />
-        <ShipinPage v-if="item.id === 'shipin'" />
-        <KangyiPage v-if="item.id === 'kangyi'" />
-        <ChengshiPage v-if="item.id === 'chengshi'" />
-        <CaijingPage v-if="item.id === 'caijing'" />
+        <GuanzhuPage v-if="item.id === 'guanzhu'" ref="GuanzhuPage" />
+        <ToutiaoPage v-if="item.id === 'toutiao'" ref="ToutiaoPage" />
+        <ShipinPage v-if="item.id === 'shipin'" ref="ShipinPage" />
+        <KangyiPage v-if="item.id === 'kangyi'" ref="KangyiPage" />
+        <ChengshiPage v-if="item.id === 'chengshi'" ref="ChengshiPage" />
+        <CaijingPage v-if="item.id === 'caijing'" ref="CaijingPage" />
+        <YulePage v-if="item.id === 'yule'" ref="YulePage" />
         <StandardPage v-else />
       </div>
     </div>
   </div>
 </template>
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Watch } from 'vue-property-decorator';
 import { TabHomeModule } from 'src/store/modules/tab_home';
 import { bakCategories, defaultCategories } from 'src/utils/categories';
 import StandardPage from 'src/pages/tabs_home_item/standard/index.vue';
@@ -50,6 +51,7 @@ import GuanzhuPage from 'src/pages/tabs_home_item/guanzhu/index.vue';
 import ShipinPage from 'src/pages/tabs_home_item/shipin/index.vue';
 import KangyiPage from 'src/pages/tabs_home_item/kangyi/index.vue';
 import CaijingPage from 'src/pages/tabs_home_item/caijing/index.vue';
+import YulePage from 'src/pages/tabs_home_item/yule/index.vue';
 import { AppModule } from 'src/store/modules/app';
 import {
   get_user_bak_categories,
@@ -61,7 +63,7 @@ import {
 } from 'src/utils/db';
 import { cloneDeep } from 'lodash';
 import { TabHomeChengshiModule } from 'src/store/modules/tab_home_chengshi';
-
+import { tabPageClassNameList, tabPageRefNameList } from './container_arr';
 @Component({
   name: 'tab_home',
   components: {
@@ -72,6 +74,7 @@ import { TabHomeChengshiModule } from 'src/store/modules/tab_home_chengshi';
     KangyiPage,
     ChengshiPage,
     CaijingPage,
+    YulePage,
   },
 })
 export default class extends Vue {
@@ -104,6 +107,24 @@ export default class extends Vue {
   }
   get INITIAL_TAB_INDEX() {
     return TabHomeModule.INITIAL_TAB_INDEX;
+  }
+  @Watch('$route')
+  onchange(to: any, from: any) {
+    if (this.$route.path === '/app/0') {
+      if (from.query.reload === 'true') {
+        location.reload();
+      } else {
+        for (let i = 0; i < tabPageClassNameList.length; i++) {
+          const _class: any = tabPageClassNameList[i];
+          const _dom: any = document.querySelector('.' + _class);
+          const _ref: any = tabPageRefNameList[i];
+          const scrollTop: number = this.$refs[_ref][0].containerPositionY;
+          if (scrollTop !== 0) {
+            _dom.scrollTop = scrollTop;
+          }
+        }
+      }
+    }
   }
   created() {
     this._searchHotwordSroll();
@@ -257,13 +278,13 @@ export default class extends Vue {
   }
   /*event*/
   private handlerClickMoreCategories() {
-    this.$router.push('/more_categories');
+    this.$router.push('/tab_home_more_categories?reload=true');
   }
   private handlerClickHotList() {
-    TabHomeModule.SET_showSlidePage({ status: true, name: 'hot', index: 0 });
+    this.$router.push('/tab_home_hot/0');
   }
   private handlerClickSearch() {
-    TabHomeModule.SET_showSlidePage({ status: true, name: 'search' });
+    this.$router.push('/tab_home_search');
   }
   /*跑马灯 */
   private _verticalScrollAddItem() {
@@ -341,6 +362,8 @@ export default class extends Vue {
 </style>
 <style lang="scss" scoped>
 .app-home-container {
+  width: 100%;
+  height: 100%;
   .app-home-header {
     background: $white;
     z-index: 5000;
@@ -369,6 +392,7 @@ export default class extends Vue {
         top: 50%;
         transform: translateY(-50%);
         left: 16px;
+        z-index: 100;
       }
       .hot-key {
         width: 100%;
@@ -395,6 +419,20 @@ export default class extends Vue {
       padding: 0 12px;
     }
   }
+  .app-home-tab-more {
+    background: $white;
+    position: fixed;
+    right: 0;
+    text-align: center;
+    top: 50px;
+    width: 10%;
+    height: 40px;
+    line-height: 40px;
+    z-index: 9999;
+    span {
+      font-size: 22px;
+    }
+  }
   .app-home-tab {
     -webkit-overflow-scrolling: touch;
     overflow: auto;
@@ -411,20 +449,7 @@ export default class extends Vue {
     font-size: 16px;
     transition: top 0.2s;
     box-sizing: border-box;
-    .more {
-      background: $white;
-      position: fixed;
-      right: 0;
-      text-align: center;
-      top: 50px;
-      width: 10%;
-      height: 40px;
-      line-height: 40px;
-      z-index: 9999;
-      span {
-        font-size: 22px;
-      }
-    }
+
     &::-webkit-scrollbar {
       display: none;
     }
@@ -457,6 +482,7 @@ export default class extends Vue {
     width: 100%;
     position: fixed;
     top: 90px;
+    left: 0;
     height: auto;
     white-space: nowrap;
     .page {

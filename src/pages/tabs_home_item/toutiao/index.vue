@@ -248,7 +248,7 @@
             <div class="text-red topLabel" v-if="news.topLabel" @click="handlerClickToutiaoHotSpotMore">
               <span class="iconfont icon-hot text-red m-r-5"></span>{{ news.topLabel.desp }} <q-icon name="arrow_right" class="fs-16"></q-icon>
             </div>
-            <div v-if="news.summary" class="hot-comment">
+            <div v-if="news.summary && news.summary.tag && news.summary.desp" class="hot-comment">
               <span class="label">{{ news.summary.tag }}</span>
               {{ news.summary.desp }}
             </div>
@@ -482,7 +482,6 @@ import { TabHomeToutiaoModule } from 'src/store/modules/tab_home_toutiao';
 import { ImagePreview } from 'vant';
 import { Component, Vue } from 'vue-property-decorator';
 import { toutiaoUserPreference } from './static/userPreference';
-import { testData } from './static/test';
 import { handlerQuasarShare } from 'src/utils/share';
 @Component({
   name: 'tabs_home_item_toutiao',
@@ -499,6 +498,8 @@ export default class extends Vue {
     this.firstLoadData = false;
     TabHomeModule.SET_activeTabIndex_single_loaded('toutiao');
   }
+  public containerPositionY = 0;
+
   private firstLoadData = true;
   /*--数据--*/
   // doc,plvideo,short
@@ -529,19 +530,19 @@ export default class extends Vue {
     });
   }
   private handlerClickMustSeeMarqueeMore() {
-    TabHomeModule.SET_showSlidePage({ status: true, name: 'hot', index: 2 });
+    this.$router.push('/tab_home_hot/2');
   }
   private handlerClickToutiaoHotSpotMore() {
-    TabHomeModule.SET_showSlidePage({ status: true, name: 'hot', index: 0 });
+    this.$router.push('/tab_home_hot/0');
   }
   private handlerClickQualityReadingMore() {
-    TabHomeModule.SET_showSlidePage({ status: true, name: 'qualityReading' });
+    this.$router.push('/tab_home_qualityReading');
   }
   private handlerClickPhvideoShare(news: any) {
     handlerQuasarShare('app', news);
   }
   private handlerClickUserPerferenceOtherSettings() {
-    this.$router.push('/user_perference');
+    this.$router.push('/tab_home_user_perference?reload=true');
   }
   async onRefresh() {
     this.pagination_params.num = 1;
@@ -554,7 +555,8 @@ export default class extends Vue {
   }
   async monitorScrollEvent(e: any) {
     const scrollHeight = this.$refs['toutiao-container'].scrollHeight;
-    const scrollTop = this.$refs['toutiao-container'].scrollTop;
+    let scrollTop = this.$refs['toutiao-container'].scrollTop;
+    this.containerPositionY = scrollTop;
     var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
     if (scrollTop + windowHeight - AppModule.bottomNavigationAndHomeHeaderHeight >= scrollHeight) {
       if (!this.load_more_loading_lock) {
@@ -567,6 +569,7 @@ export default class extends Vue {
     }
   }
   private _initSwiper() {
+    const that = this;
     setTimeout(() => {
       new window['Swiper']('.qualityReading-container', {
         slidesPerView: 'auto',
@@ -574,7 +577,7 @@ export default class extends Vue {
         on: {
           touchEnd: function (swiper: any, event: any) {
             if (swiper.changedTouches[0].pageX < 100 && this['realIndex'] === this['slides'].length - 1) {
-              TabHomeModule.SET_showSlidePage({ status: true, name: 'qualityReading' });
+              that.$router.push('/tab_home_qualityReading');
             }
           },
         },
@@ -630,7 +633,7 @@ export default class extends Vue {
         }
       }
       this.toutiaoData = noAdToutiaoData;
-
+      this.toutiaoData.unshift(toutiaoUserPreference);
       // 置顶
       this.toutiaoZhidingData = result[1].item;
       this.$nextTick(() => {

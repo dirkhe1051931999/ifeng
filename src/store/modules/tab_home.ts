@@ -1,4 +1,3 @@
-import axios from '@/utils/request';
 import { VuexModule, Module, Action, Mutation, getModule } from 'vuex-module-decorators';
 import store from '@/store';
 import {
@@ -34,9 +33,6 @@ class TabHome extends VuexModule implements ITabHomeState {
   public categories = CATEGORIES;
   public INITIAL_TAB_INDEX = INITIAL_TAB_INDEX;
   public loadedCurrentCategoriesData = [];
-  public showSlidePage = false;
-  public showSlidePageName = '';
-  public showSlidePageHotActiveIndex?: number = 0;
   @Mutation
   public SET_activeTabIndex_loaded(data: any) {
     this.loadedCurrentCategoriesData = data;
@@ -51,12 +47,6 @@ class TabHome extends VuexModule implements ITabHomeState {
     }
     const cur: any = this.loadedCurrentCategoriesData[index];
     cur['loaded'] = true;
-  }
-  @Mutation
-  public SET_showSlidePage(data: TShowSlidePage) {
-    this.showSlidePage = data.status;
-    this.showSlidePageName = data.name;
-    this.showSlidePageHotActiveIndex = data.index;
   }
   // 设置当前tabname index
   @Mutation

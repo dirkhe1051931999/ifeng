@@ -69,7 +69,7 @@ export default class extends Vue {
 
   // event
   private handlerClickBack() {
-    TabHomeModule.SET_showSlidePage({ status: false, name: '' });
+    this.$router.back();
   }
   private handlerClickShare() {
     handlerQuasarShare('sec', {});

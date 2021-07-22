@@ -1,5 +1,5 @@
 <template>
-  <div class="tabs-slide-page-hot-container">
+  <div class="tabs-slide-page-hot-container" ref="tabs-slide-page-hot-container">
     <div class="header">
       <span class="iconfont icon-youjiantou1 back" @click="handlerClickBack"></span>
       <img src="~assets/hot-page-banner.png" alt="" class="banner" />
@@ -15,7 +15,7 @@
       <!-- 热点 -->
       <ul v-if="activeIndex === 0" class="spotlist">
         <p class="loading" v-show="!loaded[0]">加载中...</p>
-        <li v-for="(news, index) in loadedData1" :key="news.id">
+        <li v-for="(news, index) in loadedData1" :key="news.id + String(Math.random())">
           <div class="top">
             <div class="l" v-if="index < 6">
               <q-icon name="looks_one" v-if="index === 0" class="text-red"></q-icon>
@@ -165,8 +165,8 @@ export default class extends Vue {
   async created() {
     this._getHotNewsRank();
   }
-  async mounted() {
-    this.activeIndex = TabHomeModule.showSlidePageHotActiveIndex;
+  async activated() {
+    this.activeIndex = Number(this.$route.params.index);
     this._clickTabGetData();
   }
   private tabs = ['热点', '话题', '必刷', '评论'];
@@ -183,7 +183,7 @@ export default class extends Vue {
     this._clickTabGetData();
   }
   private handlerClickBack() {
-    TabHomeModule.SET_showSlidePage({ status: false, name: '' });
+    this.$router.back();
   }
   private handlerClickShare() {
     handlerQuasarShare('sec', {});

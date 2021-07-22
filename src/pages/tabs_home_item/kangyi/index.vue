@@ -28,17 +28,11 @@
             </div>
           </div>
         </div>
-        <div class="kangyiSecondnavList">
+        <div class="kangyiSecondnavList" v-if="kangyiSecondnavList.length">
           <li v-for="(item, index) in kangyiSecondnavList" :key="index">
             <img :src="item.thumbnail" alt="" />
             <p class="title">{{ item.title }}</p>
           </li>
-        </div>
-        <div class="runtime-yiqing">
-          <div class="tab">
-            <li v-for="(item, index) in 4" :key="item" @click="handlerClcikRuntimeYiqing(index)"></li>
-          </div>
-          <img :src="runtimeYiqingImg" alt="" />
         </div>
         <div class="kangyiNewsList" v-if="kangyiNewsList.length">
           <li v-for="news in kangyiNewsList" :key="news.id + Math.random().toString()">
@@ -307,14 +301,12 @@ export default class extends Vue {
     }
   }
   // 数据
+  public containerPositionY = 0;
   private firstLoadData = true;
   private pageLoading = false;
   private kangyiNewsList: any[] = [];
   private kangyiSwiperList: any[] = [];
   private kangyiSecondnavList: any[] = [];
-  private runtimeYiqingImg = `https://x0.ifengimg.com/ifengimcp/epidemic8/${new Date().getFullYear()}${
-    new Date().getMonth() + 1 > 9 ? new Date().getMonth() + 1 : '0' + (new Date().getMonth() + 1)
-  }/${new Date().getDate() > 9 ? new Date().getDate() : '0' + new Date().getDate()}/10/5/epidemic_day_5Zu95aSW.png`;
   // 下拉刷新，上拉加载的数据
   private isDownRefresh = false;
   private refreshSuccessText = '';
@@ -336,6 +328,7 @@ export default class extends Vue {
   async monitorScrollEvent(e: any) {
     const scrollHeight = this.$refs['kangyi-container'].scrollHeight;
     const scrollTop = this.$refs['kangyi-container'].scrollTop;
+    this.containerPositionY = scrollTop;
     var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
     if (scrollTop + windowHeight - AppModule.bottomNavigationAndHomeHeaderHeight >= scrollHeight) {
       if (!this.load_more_loading_lock) {
@@ -345,26 +338,6 @@ export default class extends Vue {
         await this._upCallback();
         this.load_more_loading_lock = false;
       }
-    }
-  }
-  private handlerClcikRuntimeYiqing(index: number) {
-    const yearmonth = `${new Date().getFullYear()}${new Date().getMonth() + 1 > 9 ? new Date().getMonth() + 1 : '0' + (new Date().getMonth() + 1)}`;
-    const day = `${new Date().getDate() > 9 ? new Date().getDate() : '0' + new Date().getDate()}`;
-    switch (index) {
-      case 0:
-        this.runtimeYiqingImg = `https://x0.ifengimg.com/ifengimcp/epidemic8/${yearmonth}/${day}/10/5/epidemic_day_5Zu95aSW.png`;
-        break;
-      case 1:
-        this.runtimeYiqingImg = `https://x0.ifengimg.com/ifengimcp/epidemic8/${yearmonth}/${day}/11/1/epidemic_day_5Y2w5bqm.png`;
-        break;
-      case 2:
-        this.runtimeYiqingImg = `https://x0.ifengimg.com/ifengimcp/epidemic8/${yearmonth}/${day}/11/1/epidemic_day_576O5Zu9.png`;
-        break;
-      case 3:
-        this.runtimeYiqingImg = `https://x0.ifengimg.com/ifengimcp/epidemic8/${yearmonth}/${day}/11/1/epidemic_day_5YWo5Zu9.png`;
-        break;
-      default:
-        break;
     }
   }
   private previewImage(images: any, index: number) {

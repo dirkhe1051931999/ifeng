@@ -421,10 +421,10 @@ export default class extends Vue {
   private searchHistory: any = get_user_search_history() ? cloneDeep(get_user_search_history()) : [];
   /*event*/
   private handlerClickBack() {
-    TabHomeModule.SET_showSlidePage({ status: false, name: '' });
+    this.$router.back();
   }
   private handlerClickHotListMore() {
-    TabHomeModule.SET_showSlidePage({ status: true, name: 'hot', index: 0 });
+    this.$router.push('/tab_home_hot/0');
   }
   private async handlerClickSerachResultTab(index: number) {
     if (this.searchResultLoading) return;
