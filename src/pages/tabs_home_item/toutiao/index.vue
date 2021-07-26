@@ -234,7 +234,7 @@
           </div>
           <!-- doc -->
           <div v-if="news.type === 'doc' || (news.type === 'topic2' && !news.newslist)" class="doc">
-            <div class="top">
+            <div class="top" @click="handlerClickNews(news)">
               <div class="left">
                 <p class="title">
                   <span class="text-red title-label" v-if="news.style.recomTag && news.style.recomTag.pos">{{ news.style.recomTag.text }}</span>
@@ -257,7 +257,9 @@
                 <p class="title">{{ index + 1 }}. {{ item.resultArray.question }}</p>
                 <ul>
                   <li v-for="(option, index) in item.resultArray.option" :key="index">
-                    {{ option.title }}
+                    <div class="vote-result" v-if="news.vote.expire !== '1'" :style="`width:${option.nump}%`"></div>
+                    <span class="text">{{ option.title }}</span>
+                    <span class="vote-result-num">{{ `${option.nump}% (${option.num}人)` }}</span>
                   </li>
                 </ul>
               </div>
@@ -601,6 +603,10 @@ export default class extends Vue {
         },
       });
     }, 300);
+  }
+  private handlerClickNews(news: any) {
+    // console.log(news)
+    // this.$router.push(`/news_topic?topicid=${news.id}`);
   }
   // http
   private async _downCallback() {

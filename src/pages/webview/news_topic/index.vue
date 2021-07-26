@@ -2,9 +2,9 @@
   <div class="news-topic-container">
     <ul class="tabs" ref="tabs" :class="activeShow ? 'active-show' : ''">
       <q-icon class="back" name="arrow_back_ios" @click="hanlderClickTabBack" :class="activeShow ? 'active-show' : ''"></q-icon>
-      <div class="tab-name" ref="tab-name">
+      <div class="tab-name" ref="tab-name" :style="activeShow ? 'width:100%' : ''">
         <li
-          v-for="(item, index) in tabs"
+          v-for="(item, index) in tabsList"
           :key="index"
           :class="[index === activeTabIndex ? 'active' : '', activeShow ? 'active-show' : '']"
           @click="handlerClickTabItem(index)"
@@ -15,27 +15,52 @@
       <span class="follow" v-if="pageLoaded" v-show="!activeShow">关注</span>
     </ul>
     <div ref="news-topic-wrap" class="news-topic-wrap" @scroll="monitorScrollEvent">
-      <div class="banner" ref="banner" :style="`background-image: url(${this.banner.newBannerImg})`"></div>
+      <div
+        class="banner"
+        ref="banner"
+        :style="`background-image: url(${
+          bannerMap.bannerImg ? bannerMap.bannerImg : bannerMap.newBannerImg ? bannerMap.newBannerImg : 'https://z3.ax1x.com/2021/07/26/WRhRns.png'
+        });padding-top:${bannerMap.newBannerImg ? '360px' : '150px'}`"
+      ></div>
       <div class="header" v-if="pageLoaded">
-        <p class="one">{{ this.banner.title }}</p>
-        <p class="two" v-if="this.banner.introduction">{{ this.banner.introduction }}</p>
+        <p class="one">{{ bannerMap.title }}</p>
+        <p class="two" v-if="bannerMap.introduction">{{ bannerMap.introduction }}</p>
       </div>
-      <div class="load-more-loading" v-if="!pageLoaded"><q-spinner color="primary" size="22px" :thickness="2" class="m-r-10"/>努力加载中...</div>
-      <div class="swiper-container bg-white newsTopicSwiperList-container" style="height: 240px" v-if="newsTopicSwiperList.length">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide newsTopicSwiperList-slide" v-for="(news, index) in newsTopicSwiperList" :key="index" style="width: 100%">
+      <div class="load-more-loading" v-if="!pageLoaded"><q-spinner color="primary" size="22px" :thickness="2" class="m-r-10" />努力加载中...</div>
+      <div class="newsTopicSwiperList-container-wrap" v-if="pageLoaded && newsTopicSwiperList.length">
+        <van-swipe class="newsTopicSwiperList-container" :autoplay="3000" indicator-color="white">
+          <van-swipe-item v-for="(news, index) in newsTopicSwiperList" :key="index" class="newsTopicSwiperList-slide">
             <p class="title">{{ news.title }}</p>
-            <p class="dateDiff">{{ news.updateTime | getDateDiff }}</p>
+            <p class="info">
+              <span v-if="news.source">{{ news.source }}</span>
+              <span>{{ news.updateTime | getDateDiff }}</span>
+              <span>{{ news.commentsall }} 评</span>
+            </p>
             <van-image class="thumbnail" :src="news.thumbnail" lazy-load />
-          </div>
-        </div>
+          </van-swipe-item>
+        </van-swipe>
       </div>
-      <div class="tabs-item-wrap" v-for="(_tab, _) in tabs" :key="_" :class="_tab.id" :ref="_tab.id">
+      <div class="newsTopicSecondnavList" v-if="newsTopicSecondnavList.length">
+        <li v-for="(item, index) in newsTopicSecondnavList" :key="index">
+          <img :src="item.thumbnail" alt="" />
+          <p class="title">{{ item.title }}</p>
+        </li>
+      </div>
+      <div class="tabs-item-wrap" v-for="(_tab, _) in tabsList" :key="_" :class="_tab.id" :ref="_tab.id">
         <div class="tabs-item">
           <div class="tabs-item-title">
-            <span class="index" v-if="_ < 10">0{{ _ + 1 }}</span>
+            <span class="index" v-if="_ < 9">0{{ _ + 1 }}</span>
             <span class="index" v-else>{{ _ + 1 }}</span>
             {{ _tab.name }}
+            <div
+              class="comment-sort"
+              v-if="_tab.type === 'comment' && _tab.list && _tab.list.length"
+              @click="handlerClickCommentsSort(commentsSort.sortMethod)"
+            >
+              <q-icon name="sort" class="icon"></q-icon>
+              <span class="method"> {{ commentsSort.sortMethod }}</span>
+              <q-spinner color="#afafaf" size="12px" :thickness="2" class="m-l-10" v-show="commentSorting" />
+            </div>
           </div>
           <div v-for="(news, __) in _tab.list" :key="__">
             <li :class="[_tab.type]" v-if="_tab.type === 'column'">
@@ -100,7 +125,7 @@
                       <div class="b">{{ news.updateTime | getDateDiff }}</div>
                     </div>
                   </div>
-                  <div class="right">
+                  <div class="right hide">
                     <span class="follow">关注</span>
                   </div>
                 </div>
@@ -151,7 +176,7 @@
                       <div class="b">{{ news.updateTime | getDateDiff }}</div>
                     </div>
                   </div>
-                  <div class="right">
+                  <div class="right hide">
                     <span class="follow">关注</span>
                   </div>
                 </div>
@@ -210,21 +235,148 @@
               </div>
             </li>
             <li :class="[_tab.type]" v-if="_tab.type === 'comment'">
-              {{ news.comment_contents }}
+              <div class="comment-container">
+                <div class="owner">
+                  <div class="one">
+                    <div class="l">
+                      <img :src="news.faceurl" alt="" class="avatar" />
+                      <img src="~assets/icon_hot.png" alt="" class="hot" v-if="news.isHot" />
+                    </div>
+                    <div class="m">
+                      <div class="t">
+                        <span class="uname"> {{ news.uname }}</span>
+                        <span v-if="news.reply_uname">回复</span>
+                        <span class="reply_uname" v-if="news.reply_uname">{{ news.reply_uname }}</span>
+                      </div>
+                      <div class="c">{{ news.comment_contents }}</div>
+                      <div class="b">
+                        <span class="time" v-if="news.comment_date">{{ news.comment_date | getDateDiff }}</span>
+                        <span class="split"></span>
+                        <span class="reply">回复</span>
+                      </div>
+                    </div>
+                    <div class="r">
+                      <span class="like">{{ news.uptimes }}</span>
+                      <q-icon name="favorite_border" class="icon"></q-icon>
+                      <q-icon name="close" class="close"></q-icon>
+                    </div>
+                  </div>
+                  <div v-if="news.children.comments.length" class="two">
+                    <div class="child" v-for="(child, ___) in news.children.comments" :key="___">
+                      <div class="l">
+                        <img :src="child.faceurl" alt="" class="avatar" />
+                        <img src="~assets/icon_hot.png" alt="" class="hot" v-if="child.isHot" />
+                      </div>
+                      <div class="m">
+                        <div class="t">
+                          <span class="uname"> {{ child.uname }}</span>
+                          <br />
+                          <span v-if="child.reply_uname">回复</span>
+                          <span class="reply_uname" v-if="child.reply_uname">{{ child.reply_uname }}</span>
+                        </div>
+                        <div class="c">{{ child.comment_contents }}</div>
+                        <div class="b">
+                          <span class="time" v-if="child.comment_date">{{ child.comment_date | getDateDiff }}</span>
+                          <span class="split"></span>
+                          <span class="reply">回复</span>
+                        </div>
+                      </div>
+                      <div class="r">
+                        <span class="like">{{ child.uptimes }}</span>
+                        <q-icon name="favorite_border" class="icon"></q-icon>
+                        <q-icon name="close" class="close"></q-icon>
+                      </div>
+                    </div>
+                    <div class="more" @click="handlerClickComentsChildMore(news)" v-if="news.children.comments.length < Number(news.children.count)">
+                      查看更多
+                      <q-icon name="expand_circle_down" class="arrow"></q-icon>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </li>
           </div>
         </div>
       </div>
+      <div class="load-more-loading" v-show="load_more_no_data">暂无数据</div>
+      <div class="load-more-loading" v-show="load_more_loading">
+        <q-spinner color="#969799" size="20px" :thickness="2" />
+        加载中...
+      </div>
     </div>
-    <div class="page-fixed-bottom">
-      <div class="input"></div>
+    <div class="page-fixed-bottom" v-if="pageLoaded">
+      <div class="input">我来说两句</div>
       <div class="comment">
-        <i class="iconfont icon-duanxin"></i>
+        <van-badge :content="commentsMap.join_count">
+          <i class="iconfont icon-duanxin"></i>
+        </van-badge>
       </div>
       <div class="share">
         <i class="iconfont icon-fenxiang3"></i>
       </div>
     </div>
+    <van-popup v-model="showCommentsChildrenMore" position="bottom" :style="{ height: '90%' }" round ref="van-popup-for-comments-children">
+      <div class="comment-children-more-container">
+        <div class="header">评论详情</div>
+        <div class="comments" ref="comment-children-more">
+          <div class="load-more-loading" v-show="commentsChildrenMoreLoading">
+            <q-spinner color="#969799" size="20px" :thickness="2" />
+            加载中...
+          </div>
+          <li v-if="commentsOwnerMap.faceurl">
+            <div class="l">
+              <img :src="commentsOwnerMap.faceurl" alt="" class="avatar" />
+              <img src="~assets/icon_hot.png" alt="" class="hot" v-if="commentsOwnerMap.isHot" />
+            </div>
+            <div class="m">
+              <div class="t">
+                <span class="uname"> {{ commentsOwnerMap.uname }}</span>
+                <span v-if="commentsOwnerMap.reply_uname">回复</span>
+                <span class="reply_uname" v-if="commentsOwnerMap.reply_uname">{{ commentsOwnerMap.reply_uname }}</span>
+              </div>
+              <div class="c">{{ commentsOwnerMap.comment_contents }}</div>
+              <div class="b">
+                <span class="time" v-if="commentsOwnerMap.comment_date">{{ commentsOwnerMap.comment_date | getDateDiff }}</span>
+                <span class="split"></span>
+                <span class="reply">回复</span>
+              </div>
+            </div>
+            <div class="r">
+              <span class="like">{{ commentsOwnerMap.uptimes }}</span>
+              <q-icon name="favorite_border" class="icon"></q-icon>
+              <q-icon name="close" class="close"></q-icon>
+            </div>
+          </li>
+          <li v-for="(child, index) in commentsChildrenMoreList" :key="index">
+            <div class="l">
+              <img :src="child.faceurl" alt="" class="avatar" />
+              <img src="~assets/icon_hot.png" alt="" class="hot" v-if="child.isHot" />
+            </div>
+            <div class="m">
+              <div class="t">
+                <span class="uname"> {{ child.uname }}</span>
+                <span v-if="child.reply_uname">回复</span>
+                <span class="reply_uname" v-if="child.reply_uname">{{ child.reply_uname }}</span>
+              </div>
+              <div class="c">{{ child.comment_contents }}</div>
+              <div class="b">
+                <span class="time" v-if="child.comment_date">{{ child.comment_date | getDateDiff }}</span>
+                <span class="split"></span>
+                <span class="reply">回复</span>
+              </div>
+            </div>
+            <div class="r">
+              <span class="like">{{ child.uptimes }}</span>
+              <q-icon name="favorite_border" class="icon"></q-icon>
+              <q-icon name="close" class="close"></q-icon>
+            </div>
+          </li>
+        </div>
+        <div class="footer">
+          <div class="input">我来说两句</div>
+        </div>
+      </div>
+    </van-popup>
   </div>
 </template>
 
@@ -234,6 +386,7 @@ import { NewsTopicModule } from 'src/store/modules/news_topic';
 import { handlerQuasarShare } from 'src/utils/share';
 import { ImagePreview } from 'vant';
 import { AppModule } from 'src/store/modules/app';
+import { CommentsModule } from 'src/store/modules/comment';
 @Component
 export default class extends Vue {
   $refs: any;
@@ -245,9 +398,9 @@ export default class extends Vue {
   async created() {}
   async mounted() {
     await this._getNewTopic();
-    this.$nextTick(() => {
+    await this.$nextTick(async () => {
       this.$refs['news-topic-wrap'].style['height'] = window.innerHeight - 46 + 'px';
-      for (let item of this.tabs) {
+      for (let item of this.tabsList) {
         const $dom: any = this.$refs[item.id][0];
         this.tabsOffsetTopInterregional.push($dom.offsetTop - 40);
       }
@@ -255,8 +408,8 @@ export default class extends Vue {
       this.$dom = this.$refs['news-topic-wrap'];
       this.$tabs = this.$refs['tab-name'];
       this.$tabsChildren = this.$refs['tab-name'].children;
-      this.pageLoaded = true;
     });
+    this.pageLoaded = true;
   }
   /*data*/
   private pageLoaded = false;
@@ -266,11 +419,34 @@ export default class extends Vue {
   private $tabs: any;
   private $tabsChildren: any;
   private tabsOffsetTopInterregional: number[] = [0];
-  private tabs: any[] = [];
+  private tabsList: any[] = [];
   private newsTopicSwiperList: any[] = [];
-  private banner: any = {};
+  private newsTopicSecondnavList: any[] = [];
+  private commentsChildrenMoreList: any[] = [];
+  private commentsOwnerMap: any = {};
+  private bannerMap: any = {};
+  private commentsPaginationParams = {
+    num: 1,
+    orderby: 'integral',
+    pagesize: '10',
+  };
+  private commentsSort = {
+    sortMethod: '按时间',
+  };
+  private commentsMap = {
+    count: 0,
+    join_count: 0,
+    comments: [],
+    allow_comment: 1,
+  };
+  private commentSorting = false;
+  private load_more_loading_lock = false;
+  private load_more_loading = false;
+  private load_more_no_data = '';
+  private showCommentsChildrenMore = false;
+  private commentsChildrenMoreLoading = false;
   /*event */
-  private monitorScrollEvent() {
+  private async monitorScrollEvent() {
     const scrollTop = this.$dom.scrollTop;
     if (scrollTop >= 115) {
       this.activeShow = true;
@@ -288,6 +464,16 @@ export default class extends Vue {
           this.activeTabIndex = i;
           this.$tabs.scrollLeft = this.$tabsChildren[i].offsetLeft - this.$tabsChildren[i].offsetWidth;
         }
+      }
+    }
+    var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+    if (scrollTop + windowHeight - 46 >= this.$refs['news-topic-wrap'].scrollHeight) {
+      if (!this.load_more_loading_lock && this.tabsList[this.tabsList.length - 1] && this.tabsList[this.tabsList.length - 1].type === 'comment') {
+        this.load_more_loading = true;
+        this.load_more_loading_lock = true;
+        this.commentsPaginationParams.num++;
+        await this._getCommentsMore();
+        this.load_more_loading_lock = false;
       }
     }
   }
@@ -315,47 +501,107 @@ export default class extends Vue {
       closeable: true,
     });
   }
+
   /*http */
+  private handlerClickComentsChildMore(news: any) {
+    this.commentsOwnerMap = {};
+    this.commentsChildrenMoreList = [];
+    this.commentsChildrenMoreLoading = true;
+    this.showCommentsChildrenMore = true;
+    this.$nextTick(async () => {
+      this.$refs['comment-children-more'].style['height'] = this.$refs['van-popup-for-comments-children'].$el.clientHeight - 50 - 38 + 'px';
+      const params = {
+        doc_url: news.doc_url,
+        comment_id: news.comment_id,
+        p: '1',
+        pagesize: news.children.count,
+      };
+      const result = await CommentsModule.getCommentsChildren({ params });
+      this.commentsOwnerMap = news;
+      this.commentsChildrenMoreList = result.comments;
+      this.commentsChildrenMoreLoading = false;
+    });
+  }
+  private async handlerClickCommentsSort(method: string) {
+    if (this.commentSorting) {
+      return;
+    }
+    this.commentSorting = true;
+    this.commentsSort.sortMethod = method === '按热度' ? '按时间' : '按热度';
+    this.commentsPaginationParams.num = 1;
+    this.commentsPaginationParams.orderby = method === '按热度' ? 'integral' : 'create_time';
+    let commentParams: any = {
+      doc_url: this.$route.query.topicid.indexOf('ucms_') !== -1 ? this.$route.query.topicid : `ucms_${this.$route.query.topicid}`,
+      p: this.commentsPaginationParams.num,
+      orderby: this.commentsPaginationParams.orderby,
+      pagesize: this.commentsPaginationParams.pagesize,
+    };
+    const commentResult = await CommentsModule.getComments({ params: commentParams });
+    this.tabsList[this.tabsList.length - 1].list = commentResult.comments;
+    this.commentsMap = commentResult;
+    this.commentSorting = false;
+  }
   private async _getNewTopic() {
     try {
       let params = {
         topicid: this.$route.query.topicid,
       };
+      let commentParams: any = {
+        doc_url: this.$route.query.topicid.indexOf('ucms_') !== -1 ? this.$route.query.topicid : `ucms_${this.$route.query.topicid}`,
+        p: this.commentsPaginationParams.num,
+        orderby: this.commentsPaginationParams.orderby,
+        pagesize: this.commentsPaginationParams.pagesize,
+      };
       const result = await NewsTopicModule.getNewsTopic({ params });
+      const commentResult = await CommentsModule.getComments({ params: commentParams });
       const { meta, body } = result.data;
-      this.banner = meta;
+      this.bannerMap = meta;
       if (meta.slide) {
         this.newsTopicSwiperList = meta.slide;
       }
       for (let item of body) {
-        if (item.type === 'comment') {
-          this.tabs.push({
-            name: item.title,
-            id: window.escape(item.title),
-            list: item.comments,
-            type: 'comment',
-          });
-        } else if (item.type === 'column') {
+        if (item.type === 'column') {
           for (let data of item.data) {
-            this.tabs.push({
+            this.tabsList.push({
               name: data.title,
               id: window.escape(data.title),
               list: data.items,
               type: 'column',
             });
           }
+        } else if (item.type === 'secondnav') {
+          this.newsTopicSecondnavList = item.data;
         }
       }
-      setTimeout(() => {
-        if (this.newsTopicSwiperList.length) {
-          new window['Swiper']('.newsTopicSwiperList-container', {
-            loop: this.newsTopicSwiperList.length > 1 ? true : false,
-          });
-        }
-        return Promise.resolve(true);
-      });
+      this.commentsMap = commentResult;
+      this.tabsList.push({ name: '热门评论', id: window.escape('热门评论'), list: commentResult.comments, type: 'comment' });
+      return Promise.resolve(true);
     } catch (err) {
       console.log('err', err);
+      return Promise.reject();
+    }
+  }
+  private async _getCommentsMore() {
+    let commentParams: any = {
+      doc_url: this.$route.query.topicid.indexOf('ucms_') !== -1 ? this.$route.query.topicid : `ucms_${this.$route.query.topicid}`,
+      p: this.commentsPaginationParams.num,
+      orderby: this.commentsPaginationParams.orderby,
+      pagesize: this.commentsPaginationParams.pagesize,
+    };
+    try {
+      const commentResult = await CommentsModule.getComments({ params: commentParams });
+      if (!commentResult.comments.length) {
+        this.load_more_no_data = '没有更多数据了';
+        this.load_more_loading_lock = true;
+        this.load_more_loading = false;
+        return Promise.reject();
+      } else {
+        this.tabsList[this.tabsList.length - 1].list = this.tabsList[this.tabsList.length - 1].list.concat(commentResult.comments);
+        this.commentsMap = commentResult;
+      }
+      return Promise.resolve(true);
+    } catch (error) {
+      console.log('err', error);
       return Promise.reject();
     }
   }

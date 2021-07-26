@@ -94,7 +94,7 @@ export default class extends Vue {
         _result = await TabHomeYuleModule.getVeryMuchDao({ page: this.pageNum });
       } else if (index === 2) {
         _result = await TabHomeYuleModule.getUpConstellation({ page: this.pageNum });
-      } else if (index === 3) {
+      } else if (index === 4) {
         _result = await TabHomeYuleModule.getPublicScreeningCeremony({ page: this.pageNum });
       }
       _result = _result.slice(2, -1);

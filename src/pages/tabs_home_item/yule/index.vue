@@ -612,6 +612,9 @@ export default class extends Vue {
       }
       if (!arr.length) {
         this.load_more_no_data = '没有更多数据了';
+        this.load_more_loading_lock = true;
+        this.load_more_loading = false;
+        return Promise.reject();
       }
       this.yuleNewsList = arr;
       if (result.length === 3) {

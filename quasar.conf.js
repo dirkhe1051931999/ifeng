@@ -137,6 +137,13 @@ module.exports = configure(function(ctx) {
             '^/shankapi_ifeng': '',
           },
         },
+        '/comment_ifeng': {
+          target: `http://${settings.proxy_ip}:${settings.proxy_ip_port}/comment`,
+          changeOrigin: true,
+          pathRewrite: {
+            '^/comment_ifeng': '',
+          },
+        },
       },
     },
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-framework

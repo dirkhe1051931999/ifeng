@@ -53,7 +53,7 @@ export const getMustseelist = (data: any): any =>
   });
 export const getCommentlist = (data: any): any =>
   request({
-    url: api.getCommentlist + '?page=1',
+    url: api.getCommentlist + '?page=1&token=',
     method: 'post',
     data: {
       ltoken: '',

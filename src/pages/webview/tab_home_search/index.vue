@@ -33,7 +33,7 @@
         </ul>
         <p class="loading" v-show="loadRecommend">加载中...</p>
         <ul class="hotList">
-          <li v-for="(item, index) in hotList" :key="index">
+          <li v-for="(item, index) in hotList" :key="index" @click="handlerCLickHotListItem(item)">
             <span class="index" :class="{ 'text-red': index === 0, 'text-orange-10': index === 1, 'text-orange-8': index === 2 }">{{
               index + 1
             }}</span>
@@ -425,6 +425,9 @@ export default class extends Vue {
   }
   private handlerClickHotListMore() {
     this.$router.push('/tab_home_hot/0');
+  }
+  private handlerCLickHotListItem(item: any) {
+    this.$router.push(`/news_topic?topicid=${item.staticId.split('_')[2]}`);
   }
   private async handlerClickSerachResultTab(index: number) {
     if (this.searchResultLoading) return;

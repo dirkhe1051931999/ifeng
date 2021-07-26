@@ -15,7 +15,7 @@
       <!-- 热点 -->
       <ul v-if="activeIndex === 0" class="spotlist">
         <p class="loading" v-show="!loaded[0]">加载中...</p>
-        <li v-for="(news, index) in loadedData1" :key="news.id + String(Math.random())">
+        <li v-for="(news, index) in loadedData1" :key="news.id + String(Math.random())" @click="handlerClickSpotListItem(news)">
           <div class="top">
             <div class="l" v-if="index < 6">
               <q-icon name="looks_one" v-if="index === 0" class="text-red"></q-icon>
@@ -187,6 +187,15 @@ export default class extends Vue {
   }
   private handlerClickShare() {
     handlerQuasarShare('sec', {});
+  }
+  private handlerClickSpotListItem(news: any) {
+    if (news.hotLabel && news.hotLabel.link) {
+      this.$router.push(
+        `/news_topic?topicid=${
+          news.hotLabel.link.staticId.split('_')[2] ? news.hotLabel.link.staticId.split('_')[2] : news.hotLabel.link.staticId.split('_')[1]
+        }`,
+      );
+    }
   }
   // http
   private async _clickTabGetData() {
