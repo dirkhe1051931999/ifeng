@@ -29,16 +29,11 @@ axios.interceptors.request.use(
     for (let key in commonUrlParams) {
       str += `${key}=${commonUrlParams[key]}&`;
     }
-    if (config.method === 'get') {
+    if (config.url.indexOf('?') === -1) {
       config.url = config.url + '?' + str;
     } else {
-      if (config.url.indexOf('?') === -1) {
-        config.url = config.url + '?' + str;
-      } else {
-        config.url = config.url + '&' + str;
-      }
+      config.url = config.url + '&' + str;
     }
-
     // if (UserModule.token) {
     //   config.headers['token'] = UserModule.token;
     //   config.headers['accessToken'] = UserModule.token;

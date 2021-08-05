@@ -144,6 +144,13 @@ module.exports = configure(function(ctx) {
             '^/comment_ifeng': '',
           },
         },
+        '/default': {
+          target: `http://${settings.proxy_ip}:${settings.proxy_ip_port}/`,
+          changeOrigin: true,
+          pathRewrite: {
+            '^/default': '',
+          },
+        },
       },
     },
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-framework
@@ -166,7 +173,7 @@ module.exports = configure(function(ctx) {
       // * 'auto' - (DEFAULT) Auto-import needed Quasar components & directives
       // * 'all'  - Manually specify what to import
       importStrategy: 'auto',
-      plugins: ['BottomSheet'],
+      plugins: ['BottomSheet', 'Loading'],
       components: [],
       directives: ['Ripple', 'Mutation', 'Scroll'],
     },

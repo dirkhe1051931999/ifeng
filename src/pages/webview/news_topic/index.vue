@@ -65,7 +65,7 @@
           <div v-for="(news, __) in _tab.list" :key="__">
             <li :class="[_tab.type]" v-if="_tab.type === 'column'">
               <!-- doc -->
-              <div v-if="news.type === 'doc' || news.type === 'slide' || (news.type === 'topic2' && !news.newslist)" class="doc">
+              <div v-if="(news.title && news.type === 'doc') || news.type === 'slide' || (news.type === 'topic2' && !news.newslist)" class="doc">
                 <div class="top">
                   <div class="left">
                     <p class="title">

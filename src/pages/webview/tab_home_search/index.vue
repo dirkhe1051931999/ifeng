@@ -49,7 +49,7 @@
         </ul>
         <p class="exclusiveListTitle" v-if="exclusiveList.length">{{ exclusiveListTitle }}</p>
         <ul class="exclusiveList">
-          <li v-for="(item, index) in exclusiveList" :key="index">
+          <li v-for="(item, index) in exclusiveList" :key="index" @click="clickExclusiveListItem(item)">
             <van-image class="thumbnail" :src="item.thumbnail" lazy-load radius="6" />
             <p class="title text-dot-1 m-b-10">
               <q-icon name="grid_3x3" class="text-red"></q-icon>
@@ -381,7 +381,7 @@
 <script lang="ts">
 import { get_user_search_history, remove_user_search_history, set_user_search_history } from 'src/utils/db';
 import { TabHomeModule } from 'src/store/modules/tab_home';
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Watch } from 'vue-property-decorator';
 import { cloneDeep } from 'lodash';
 
 @Component({
@@ -389,6 +389,12 @@ import { cloneDeep } from 'lodash';
 })
 export default class extends Vue {
   $refs: any;
+  @Watch('$route')
+  onchange(to: any, from: any) {
+    if (this.$route.path.indexOf('/tab_home_search') !== -1) {
+      this.$refs['tab-slide-page-search-wrapper'].scrollTop = this.containerPositionY;
+    }
+  }
   async created() {
     await this._getSearchHotwordsReact();
     this.loadRecommend = false;
@@ -397,6 +403,7 @@ export default class extends Vue {
     const $wrapper = this.$refs['tab-slide-page-search-wrapper'];
     $wrapper.style['height'] = window.innerHeight - 56 + 'px';
   }
+  private containerPositionY = 0;
   private searchText = '';
   private hotList = [];
   private exclusiveList = [];
@@ -428,6 +435,9 @@ export default class extends Vue {
   }
   private handlerCLickHotListItem(item: any) {
     this.$router.push(`/news_topic?topicid=${item.staticId.split('_')[2]}`);
+  }
+  private clickExclusiveListItem(item: any) {
+    this.$router.push(`/news_topic?topicid=${item.id}`);
   }
   private async handlerClickSerachResultTab(index: number) {
     if (this.searchResultLoading) return;
@@ -487,6 +497,7 @@ export default class extends Vue {
   async monitorScrollEvent(e: any) {
     const scrollHeight = this.$refs['tab-slide-page-search-wrapper'].scrollHeight;
     const scrollTop = this.$refs['tab-slide-page-search-wrapper'].scrollTop;
+    this.containerPositionY = scrollTop;
     var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
     if (scrollTop + windowHeight - 56 >= scrollHeight) {
       if (!this.loadMoreLoadingLock) {

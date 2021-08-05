@@ -1,29 +1,29 @@
-### IFENG
+### IFENG-NEWS-WEB_APP
 
 ## Install the dependencies
 
 ```bash
-npm install
+yarn
 ```
 
 ### Start the app in development mode (hot-code reloading, error reporting, etc.)
 
 ```bash
-# server
-npm run proxy
-npm run dev
+# nodejs proxy server
+yarn proxy
+# FE server
+yarn dev
 ```
 
-### config
+### Config
 
 ```txt
 // settings.json
 ...
 ipconfig/ifconfig 配置代理ip
-"proxy_ip": "192.168.61.1", 
+"proxy_ip": "192.168.61.1",
 "proxy_ip_port": "3000",
 ...
-npm run lint
 ```
 
 ```js
@@ -35,18 +35,22 @@ app.use(
       // /config=》host:https://config.nine.ifeng.com
       // 需要pathRewrite
       '/config': 'https://config.nine.ifeng.com',
+      '/uc': 'https://uc.ifeng.com',
+      '/api_iclient': 'https://api.iclient.ifeng.com',
+      '/shankapi': 'https://shankapi.ifeng.com',
+      '/shankapi': 'https://shankapi.ifeng.com',
+      '/comment': 'https://comment.ifeng.com',
     },
     target: 'https://nine.ifeng.com',
     onProxyReq(proxyReq, req, res) {
       proxyReq.setHeader('User-Agent', randomUseragent.getRandom());
     },
-    pathRewrite: { '^/config': '' },
+    pathRewrite: { '^/config': '', '^/uc': '', '^/api_iclient': '', '^/shankapi': '', '^/comment': '' },
     onError(err, req, res, target) {},
     onClose(res, socket, head) {},
     changeOrigin: true,
   }),
 );
-npm run lint
 ```
 
 ### Build the app for production

@@ -67,6 +67,8 @@ import {
   Tabs as VanTabs,
   Badge as VanBadge,
   Popup as VanPopup,
+  Loading as VanLoading,
+  Picker as VanPicker,
 } from 'vant';
 Vue.use(VanPopover);
 Vue.use(VanImage);
@@ -88,6 +90,8 @@ Vue.use(VanTab);
 Vue.use(VanTabs);
 Vue.use(VanBadge);
 Vue.use(VanPopup);
+Vue.use(VanLoading);
+Vue.use(VanPicker);
 
 // 注册全局指令
 Object.keys(directives).forEach((key) => {

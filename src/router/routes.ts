@@ -63,6 +63,36 @@ export const constantRoutes: RouteConfig[] = [
     component: () => import(/* webpackChunkName: "news_topic" */ 'pages/webview/news_topic/index.vue'),
     meta: {},
   },
+  {
+    path: '/news_theme',
+    component: () => import(/* webpackChunkName: "news_theme" */ 'pages/webview/news_theme/index.vue'),
+    meta: {},
+  },
+  {
+    path: '/ifeng_web_kangyi_yimiao_progress',
+    component: () => import(/* webpackChunkName: "share_kangyi_yimiao_process" */ 'pages/webview/ifeng_web/kangyi/progress.vue'),
+    meta: {},
+  },
+  {
+    path: '/ifeng_web_kangyi_area',
+    component: () => import(/* webpackChunkName: "share_kangyi_area_kangyi" */ 'pages/webview/ifeng_web/kangyi/area.vue'),
+    meta: {},
+  },
+  {
+    path: '/ifeng_web_kangyi_summary',
+    component: () => import(/* webpackChunkName: "ifeng_web_kangyi_summary" */ 'pages/webview/ifeng_web/kangyi/summary.vue'),
+    meta: {},
+  },
+  {
+    path: '/ifeng_web_kangyi_jingwai',
+    component: () => import(/* webpackChunkName: "ifeng_web_kangyi_jingwai" */ 'pages/webview/ifeng_web/kangyi/jingwai.vue'),
+    meta: {},
+  },
+  {
+    path: '/ifeng_web_kangyi_quanqiu',
+    component: () => import(/* webpackChunkName: "ifeng_web_kangyi_quanqiu" */ 'pages/webview/ifeng_web/kangyi/quanqiu.vue'),
+    meta: {},
+  },
   /* app */
   { path: '/app/:tab', component: () => import(/* webpackChunkName: "App" */ 'pages/app/index.vue') },
 ];

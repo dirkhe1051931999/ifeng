@@ -13,7 +13,7 @@
     </ul>
     <div class="tabs-slide-page-hot-wrapper" ref="tabs-slide-page-hot-wrapper">
       <!-- 热点 -->
-      <ul v-if="activeIndex === 0" class="spotlist">
+      <ul v-show="activeIndex === 0" class="spotlist" @scroll="monitorScroll1" ref="spotlist">
         <p class="loading" v-show="!loaded[0]">加载中...</p>
         <li v-for="(news, index) in loadedData1" :key="news.id + String(Math.random())" @click="handlerClickSpotListItem(news)">
           <div class="top">
@@ -64,9 +64,9 @@
         </li>
       </ul>
       <!-- 话题 -->
-      <ul v-if="activeIndex === 1" class="theme">
+      <ul v-show="activeIndex === 1" class="theme" @scroll="monitorScroll2" ref="theme">
         <p class="loading" v-show="!loaded[1]">加载中...</p>
-        <li v-for="(news, index) in loadedData2" :key="news.id + String(Math.random())">
+        <li v-for="(news, index) in loadedData2" :key="news.id + String(Math.random())" @click="handlerClickThemeItem(news)">
           <div class="top">
             <div class="left">
               <span v-if="index < 3" class="text-white" :class="{ 'bg-red': index === 0, 'bg-orange-10': index === 1, 'bg-orange-9': index === 2 }">{{
@@ -86,7 +86,7 @@
         </li>
       </ul>
       <!-- 必刷 -->
-      <ul v-if="activeIndex === 2" class="mustsee">
+      <ul v-show="activeIndex === 2" class="mustsee" @scroll="monitorScroll3" ref="mustsee">
         <p class="loading" v-show="!loaded[2]">加载中...</p>
         <li v-for="news in loadedData3" :key="news.id + String(Math.random())">
           <div class="top">
@@ -117,7 +117,7 @@
         </li>
       </ul>
       <!-- 评论 -->
-      <ul v-if="activeIndex === 3" class="comment">
+      <ul v-show="activeIndex === 3" class="comment" @scroll="monitorScroll4" ref="comment">
         <p class="loading" v-show="!loaded[3]">加载中...</p>
         <li v-for="(news, index) in loadedData4" :key="news.id + String(Math.random())">
           <div class="top">
@@ -146,7 +146,7 @@
   </div>
 </template>
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Watch } from 'vue-property-decorator';
 import { TabHomeModule } from 'src/store/modules/tab_home';
 import { AppModule } from 'src/store/modules/app';
 import { handlerQuasarShare } from 'src/utils/share';
@@ -156,6 +156,24 @@ import { handlerQuasarShare } from 'src/utils/share';
 })
 export default class extends Vue {
   $refs: any;
+  @Watch('$route')
+  onchange(to: any, from: any) {
+    if (this.$route.path.indexOf('/tab_home_hot') !== -1) {
+      this.activeIndex = this.containerIndex;
+      if (this.$refs['spotlist']) {
+        this.$refs['spotlist'].scrollTop = this.containerPositionY1;
+      }
+      if (this.$refs['theme']) {
+        this.$refs['theme'].scrollTop = this.containerPositionY2;
+      }
+      if (this.$refs['themustseeme']) {
+        this.$refs['mustsee'].scrollTop = this.containerPositionY3;
+      }
+      if (this.$refs['comment']) {
+        this.$refs['comment'].scrollTop = this.containerPositionY4;
+      }
+    }
+  }
   get shareOptions() {
     return AppModule.shareOptions;
   }
@@ -166,10 +184,18 @@ export default class extends Vue {
     this._getHotNewsRank();
   }
   async activated() {
-    this.activeIndex = Number(this.$route.params.index);
-    this._clickTabGetData();
+    if (!this.clickItem) {
+      this.activeIndex = Number(this.$route.params.index);
+      this._clickTabGetData();
+    }
   }
   private tabs = ['热点', '话题', '必刷', '评论'];
+  private containerPositionY1 = 0;
+  private containerPositionY2 = 0;
+  private containerPositionY3 = 0;
+  private containerPositionY4 = 0;
+  private containerIndex = 0;
+  private clickItem = false;
   private loaded = [false, false, false, false];
   private loadedData1 = [];
   private loadedData2 = [];
@@ -190,12 +216,37 @@ export default class extends Vue {
   }
   private handlerClickSpotListItem(news: any) {
     if (news.hotLabel && news.hotLabel.link) {
+      this.clickItem = true;
       this.$router.push(
         `/news_topic?topicid=${
           news.hotLabel.link.staticId.split('_')[2] ? news.hotLabel.link.staticId.split('_')[2] : news.hotLabel.link.staticId.split('_')[1]
         }`,
       );
     }
+  }
+  private handlerClickThemeItem(news: any) {
+    this.clickItem = true;
+    this.$router.push(`/news_theme?groupid=${news.id}`);
+  }
+  private async monitorScroll1(e: any) {
+    const scrollTop = this.$refs['spotlist'].scrollTop;
+    this.containerPositionY1 = scrollTop;
+    this.containerIndex = 0;
+  }
+  private async monitorScroll2(e: any) {
+    const scrollTop = this.$refs['theme'].scrollTop;
+    this.containerPositionY2 = scrollTop;
+    this.containerIndex = 1;
+  }
+  private async monitorScroll3(e: any) {
+    const scrollTop = this.$refs['mustsee'].scrollTop;
+    this.containerPositionY3 = scrollTop;
+    this.containerIndex = 2;
+  }
+  private async monitorScroll4(e: any) {
+    const scrollTop = this.$refs['comment'].scrollTop;
+    this.containerPositionY4 = scrollTop;
+    this.containerIndex = 3;
   }
   // http
   private async _clickTabGetData() {

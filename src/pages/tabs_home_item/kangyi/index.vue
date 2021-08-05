@@ -29,7 +29,7 @@
           </div>
         </div>
         <div class="kangyiSecondnavList" v-if="kangyiSecondnavList.length">
-          <li v-for="(item, index) in kangyiSecondnavList" :key="index">
+          <li v-for="(item, index) in kangyiSecondnavList" :key="index" @click="handlerClickKangyiSecondnavList(item, index)">
             <img :src="item.thumbnail" alt="" />
             <p class="title">{{ item.title }}</p>
           </li>
@@ -255,7 +255,7 @@ import { cloneDeep } from 'lodash';
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import { TabHomeModule } from 'src/store/modules/tab_home';
 import { ImagePreview } from 'vant';
-
+import { kangyiSecondnavList } from './kangyiSecondnavList';
 @Component({
   name: 'tabs_home_item_kangyi',
 })
@@ -351,6 +351,25 @@ export default class extends Vue {
       closeable: true,
     });
   }
+  private handlerClickKangyiSecondnavList(item: any, index: number) {
+    if (item.link.type === 'topic3') {
+      this.$router.push(`/news_topic?topicid=${item.id}`);
+    } else {
+      if (item.title === '接种进度') {
+        this.$router.push('/ifeng_web_kangyi_yimiao_progress');
+      } else if (index === 3) {
+        if (item.id.split('prov=')[1]) {
+          this.$router.push('/ifeng_web_kangyi_area?code=' + item.id.split('prov=')[1]);
+        }
+      } else if (item.title === '国内疫情') {
+        this.$router.push('/ifeng_web_kangyi_summary');
+      } else if (item.title === '全球疫情') {
+        this.$router.push('/ifeng_web_kangyi_quanqiu');
+      } else if (item.title === '输入疫情') {
+        this.$router.push('/ifeng_web_kangyi_jingwai');
+      }
+    }
+  }
   /*http */
   private async _downCallback() {
     let params: any = {
@@ -388,7 +407,7 @@ export default class extends Vue {
       }
       this.kangyiNewsList = arr;
       this.kangyiSwiperList = result[1].item;
-      this.kangyiSecondnavList = result[2].item;
+      this.kangyiSecondnavList = kangyiSecondnavList;
       this.$nextTick(() => {
         if (this.firstLoadData) {
           setTimeout(() => {
