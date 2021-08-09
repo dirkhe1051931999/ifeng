@@ -1,6 +1,6 @@
 import { VuexModule, Module, Action, Mutation, getModule } from 'vuex-module-decorators';
 import store from '@/store';
-import { getAreaYiqing, getEditlistFeiyan, getKangyiJingwai, getKangyiQuanqiu, getKangyiSummary, getVaccinationProgress, loadProvinceJson } from 'src/api/home_kangyi';
+import { getAreaYiqing, getEditlistFeiyan, getKangyiJingwai, getKangyiOtherGuojia, getKangyiQuanqiu, getKangyiSummary, getVaccinationProgress, loadProvinceJson } from 'src/api/home_kangyi';
 
 export interface IKangyiState {}
 
@@ -39,6 +39,11 @@ class User extends VuexModule implements IKangyiState {
   @Action({ rawError: true })
   public async getKangyiQuanqiu(data: any) {
     const result = await getKangyiQuanqiu(data);
+    return Promise.resolve(result);
+  }
+  @Action({ rawError: true })
+  public async getKangyiOtherGuojia(data: any) {
+    const result = await getKangyiOtherGuojia(data);
     return Promise.resolve(result);
   }
 }

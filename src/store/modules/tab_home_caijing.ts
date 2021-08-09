@@ -1,6 +1,6 @@
 import { VuexModule, Module, Action, Mutation, getModule } from 'vuex-module-decorators';
 import store from '@/store';
-import { getFinance_a_and_hk_stock_market, getRecomlistForCaijing } from 'src/api/home_caijing';
+import { getCaijingZhiboshi1, getCaijingZhiboshi2, getFinance_a_and_hk_stock_market, getRecomlistForCaijing } from 'src/api/home_caijing';
 
 export interface ICaijingState {}
 
@@ -15,6 +15,16 @@ class User extends VuexModule implements ICaijingState {
   @Action({ rawError: true })
   public async getFinance_a_and_hk_stock_market(data: any) {
     const result = await getFinance_a_and_hk_stock_market(data);
+    return Promise.resolve(result);
+  }
+  @Action({ rawError: true })
+  public async getCaijingZhiboshi1(data: any) {
+    const result = await getCaijingZhiboshi1(data);
+    return Promise.resolve(result);
+  }
+  @Action({ rawError: true })
+  public async getCaijingZhiboshi2(data: any) {
+    const result = await getCaijingZhiboshi2(data);
     return Promise.resolve(result);
   }
 }

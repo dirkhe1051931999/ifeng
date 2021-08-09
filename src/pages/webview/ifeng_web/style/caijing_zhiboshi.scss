@@ -1,0 +1,34 @@
+@import 'src/css/quasar.variables.scss';
+.caijing-zhioboshi-container {
+  .header {
+    width: 100%;
+    height: 156px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .tabs {
+    position: fixed;
+    left: 0;
+    top: 156px;
+    background: $white;
+    z-index: 100;
+
+    width: 100%;
+    .all {
+      background: $white;
+      overflow: scroll;
+      padding: 10px 16px;
+      margin-top: 10px;
+    }
+    .chosen {
+      background: $white;
+      overflow: scroll;
+      padding: 10px 16px;
+    }
+  }
+}

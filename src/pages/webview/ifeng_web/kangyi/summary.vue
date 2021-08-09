@@ -2,6 +2,7 @@
   <div class="kangyi-summary-container" ref="kangyi-summary-container" @scroll="minitorScrollEvent">
     <div class="header">
       <img src="https://x0.ifengimg.com/ucms/2020_40/476094BD3C08666F1F2016D73443BCE6392ACB23_w1125_h483.png" alt="" />
+      <q-icon name="arrow_back" class="cancel" @click="$router.back()"></q-icon>
     </div>
     <div class="content">
       <div class="bingli">
@@ -62,6 +63,34 @@
           </div>
           <div class="bottom">截止 {{ endDate || '--' }}</div>
         </div>
+        <div class="recent">
+          <div class="block-title">
+            <div class="l">
+              <img src="~assets/kangyi/area-index.png" alt="" />
+              <span>近期本土病例</span>
+            </div>
+            <div class="r">
+              {{ `本土现有确诊：${recentData.now}，较昨日：+${recentData.yesterday}` }}
+            </div>
+          </div>
+          <div class="list">
+            <ul class="list-header">
+              <li class="chengshi">城市(区)</li>
+              <li class="shengshiqu">省市区</li>
+              <li class="xinzeng">新增</li>
+              <li class="quezhen">现有确诊</li>
+            </ul>
+            <ul class="list-content">
+              <li v-for="(item, index) in recentList" :key="index">
+                <div class="chengshi">{{ item.city }}</div>
+                <div class="shengshiqu">{{ item.prov }}</div>
+                <div class="xinzeng">{{ item.confirmAdd }}</div>
+                <div class="quezhen">{{ item.nowConfirm }}</div>
+              </li>
+            </ul>
+          </div>
+          <div class="danger">点击查看风险地区</div>
+        </div>
         <div class="map">
           <div id="kangyi-summary-map1" class="map1 text-center" style="width: 100%; height: 350px" :class="activeMapIndex === 0 ? 'active-map' : ''">
             <van-loading size="12px" color="#969799">加载中...</van-loading>
@@ -85,7 +114,10 @@
           </div>
         </div>
         <div class="quanguo-data">
-          <div class="quanguo-data-title">地区病例</div>
+          <div class="block-title">
+            <img src="~assets/kangyi/area-index.png" alt="" />
+            <span>地区病例</span>
+          </div>
           <ul class="quanguo-data-table-header">
             <li class="diqu">省市</li>
             <li class="xinzeng">昨日新增</li>
@@ -108,9 +140,9 @@
           </ul>
         </div>
         <div class="guowai-data">
-          <div class="guowai-data-title">
-            <span class="l">国外病例</span>
-            <span class="r hide">点击查看全球疫情</span>
+          <div class="block-title">
+            <img src="~assets/kangyi/area-index.png" alt="" />
+            <span>国外病例</span>
           </div>
           <ul class="guowai-data-table-header">
             <li class="diqu">国家</li>
@@ -118,7 +150,6 @@
             <li class="quezhen">累计确诊</li>
             <li class="zhiyu">治愈</li>
             <li class="siwang">死亡</li>
-            <li class="yiqing">疫情</li>
           </ul>
           <ul class="guowai-data-table-content">
             <li v-for="(item, index) in guowaiYiQingList" :key="index">
@@ -127,15 +158,12 @@
               <div class="quezhen">{{ item.quezhen_add }}</div>
               <div class="zhiyu">{{ item.zhiyu }}</div>
               <div class="siwang">{{ item.siwang }}</div>
-              <div class="yiqing">
-                <span v-if="['美国', '英国', '日本'].includes(item.name1)" @click="handlerClickGuowaiTableDetail(item.name1)">详情</span>
-              </div>
             </li>
           </ul>
         </div>
       </div>
       <div class="dongtai">
-        <div class="dongtai-title">
+        <div class="block-title">
           <img src="~assets/kangyi/area-index.png" alt="" />
           <span>实时动态</span>
         </div>
@@ -148,7 +176,7 @@
         </q-timeline>
       </div>
       <div class="news">
-        <div class="news-title">
+        <div class="block-title">
           <img src="~assets/kangyi/area-index.png" alt="" />
           <span>报道矩阵</span>
         </div>
@@ -157,8 +185,8 @@
             <div class="l">
               {{ news.title }}
             </div>
-            <div class="r" v-if="news.thumbnail">
-              <van-image class="thumbnail" :src="news.thumbnail" lazy-load />
+            <div class="r" v-if="news.thumbnails && news.thumbnails.image && news.thumbnails.image.length">
+              <van-image class="thumbnail" :src="news.thumbnails.image[0].url" lazy-load />
               <q-icon name="ondemand_video" class="icon" v-if="news.type === 'video'"></q-icon>
             </div>
           </li>
@@ -169,6 +197,7 @@
 </template>
 
 <script lang="ts">
+import { orderBy } from 'lodash';
 import { TabHomeKangyiModule } from 'src/store/modules/tab_home_kangyi';
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import { provs } from '../data/chinaProvince';
@@ -227,6 +256,11 @@ export default class extends Vue {
   private guowaiYiQingList: any[] = [];
   private timeLineList: any[] = [];
   private newsDataList: any[] = [];
+  private recentList: any[] = [];
+  private recentData = {
+    now: 0,
+    yesterday: 0,
+  };
   private containerPositionY = 0;
   /**event */
   private _initMap1(data: any) {
@@ -629,6 +663,14 @@ export default class extends Vue {
       this.provinceYiQingList = dataList2;
       this.timeLineList = modules[1].data.slice(0, 100);
       this.newsDataList = modules[6].data.articleList;
+    }
+    if (result[2]) {
+      result[2] = orderBy(result[2], ['confirmAdd'], ['desc']);
+      this.recentList = result[2];
+      for (let item of result[2]) {
+        this.recentData.now += item.nowConfirm;
+        this.recentData.yesterday += item.confirmAdd;
+      }
     }
   }
 }
