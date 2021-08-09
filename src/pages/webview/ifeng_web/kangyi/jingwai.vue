@@ -2,6 +2,7 @@
   <div class="kangyi-jingwai-container" ref="kangyi-jingwai-container">
     <div class="header">
       <img src="https://x0.ifengimg.com/ucms/2020_40/14AB6254B3A282DE76A5809DA80A72BF039749BD_w1125_h483.png" alt="" />
+      <q-icon name="arrow_back" class="cancel" @click="$router.back()"></q-icon>
     </div>
     <div class="content">
       <div class="summary-charts">

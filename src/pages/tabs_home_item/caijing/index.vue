@@ -28,7 +28,14 @@
             </div>
           </div>
         </div>
-        <van-notice-bar left-icon="volume-o" :scrollable="false" color="#1989fa" background="#ecf9ff" v-if="caijingFastmessagescrollList.length">
+        <van-notice-bar
+          left-icon="volume-o"
+          :scrollable="false"
+          color="#1989fa"
+          background="#ecf9ff"
+          v-if="caijingFastmessagescrollList.length"
+          @click="handlerClickNoticeBar"
+        >
           <van-swipe vertical class="caijing-notice-swipe" :autoplay="3000" :show-indicators="false">
             <van-swipe-item v-for="(item, index) in caijingFastmessagescrollList" :key="index" class="text-dot-1">{{ item.title }}</van-swipe-item>
           </van-swipe>
@@ -363,6 +370,9 @@ export default class extends Vue {
       closeable: true,
     });
   }
+  private handlerClickNoticeBar() {
+    this.$router.push('/ifeng_web_caijing_zhiboshi');
+  }
   /*http*/
   private async _downCallback() {
     let params: any = {
@@ -399,7 +409,6 @@ export default class extends Vue {
         }
         if (item.type === 'fastmessagescroll') {
           this.caijingFastmessagescrollList = item.marqueeList;
-          console.log(this.caijingFastmessagescrollList);
         }
       }
       if (!arr.length) {

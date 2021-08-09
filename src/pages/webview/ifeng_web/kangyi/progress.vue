@@ -2,6 +2,7 @@
   <div class="kangyi-dayimiao-progress" ref="kangyi-dayimiao-progress">
     <div class="header">
       <img :src="headerImg" alt="" v-show="headerImg" />
+      <q-icon name="arrow_back" class="cancel" @click="$router.back()"></q-icon>
     </div>
     <div class="data-container">
       <div class="runtime-data" v-if="runtimeData['全球']">

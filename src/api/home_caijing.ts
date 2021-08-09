@@ -2,6 +2,8 @@ import request from '@/utils/request';
 const api = {
   getRecomlistForCaijing: 'nine_ifeng/recomlist',
   getFinance_a_and_hk_stock_market: 'api_iclient_ifeng/finance_a_and_hk_stock_market',
+  getCaijingZhiboshi1: 'default/ifeng_web/caijing/zhiboshi1',
+  getCaijingZhiboshi2: 'default/ifeng_web/caijing/zhiboshi2',
 };
 export const getRecomlistForCaijing = (data: any): any => {
   let str = '?';
@@ -25,5 +27,27 @@ export const getFinance_a_and_hk_stock_market = (data: any): any => {
     url: api.getFinance_a_and_hk_stock_market + str,
     method: 'post',
     data: data.formData,
+  });
+};
+export const getCaijingZhiboshi1 = (data: any): any => {
+  let str = '?';
+  for (let key in data.params) {
+    str += `${key}=${data.params[key]}&`;
+  }
+  str = str.slice(0, -1);
+  return request({
+    url: api.getCaijingZhiboshi1 + str,
+    method: 'get',
+  });
+};
+export const getCaijingZhiboshi2 = (data: any): any => {
+  let str = '?';
+  for (let key in data.params) {
+    str += `${key}=${data.params[key]}&`;
+  }
+  str = str.slice(0, -1);
+  return request({
+    url: api.getCaijingZhiboshi2 + str,
+    method: 'get',
   });
 };

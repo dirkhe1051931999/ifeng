@@ -1,5 +1,5 @@
 @import 'src/css/quasar.variables.scss';
-.kangyi-quanqiu-container {
+.kangyi-other-guojia-container {
   overflow: scroll;
   background: #f7f7f7;
   .header {
@@ -61,7 +61,7 @@
           width: 25%;
           text-align: center;
           .count {
-            font-size: 16px;
+            font-size: 14px;
             font-weight: bold;
             margin-top: 10px;
             margin-bottom: 10px;
@@ -101,44 +101,29 @@
         color: #a1a5ac;
       }
     }
-    .map {
+    .line {
       margin-top: 36px;
       position: relative;
-      height: 370px;
-      .country {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        span {
-          width: 62px;
-          height: 34px;
-          text-align: center;
-          line-height: 34px;
-          border: solid 1px #f8e4e4;
-          color: #e10000;
-          border-radius: 8px;
-          font-size: 12px;
-        }
-      }
-      .kangyi-quanqiu-map1 {
+      height: 300px;
+      .kangyi-other-guojia-line1 {
+        text-align: center;
         position: absolute;
         left: 0;
-        top: 50%;
-        transform: translateY(-50%);
+        top: 0;
         background: $white;
       }
-      .kangyi-quanqiu-map2 {
+      .kangyi-other-guojia-line2 {
         position: absolute;
+        text-align: center;
         left: 0;
-        top: 50%;
-        transform: translateY(-50%);
+        top: 0;
         background: $white;
       }
-      .active-map {
+      .active-line {
         z-index: 100;
       }
       .switch {
-        font-size: 14px;
+        font-size: 12px;
         display: flex;
         height: 43px;
         width: 100%;
@@ -164,58 +149,6 @@
         }
       }
     }
-    .line {
-      margin-top: 16px;
-      position: relative;
-      height: 300px;
-      .kangyi-quanqiu-line1 {
-        position: absolute;
-        left: 0;
-        top: 0;
-        background: $white;
-      }
-      .kangyi-quanqiu-line2 {
-        position: absolute;
-        left: 0;
-        top: 0;
-        background: $white;
-      }
-      .kangyi-quanqiu-line3 {
-        position: absolute;
-        left: 0;
-        top: 0;
-        background: $white;
-      }
-      .active-line {
-        z-index: 100;
-      }
-      .switch {
-        font-size: 12px;
-        display: flex;
-        height: 43px;
-        width: 100%;
-        justify-content: space-between;
-        align-items: center;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        box-sizing: border-box;
-        span {
-          display: inline-block;
-          width: 30%;
-          height: 100%;
-          color: #323232;
-          border-radius: 6px;
-          background: #f8f8f8;
-          line-height: 43px;
-          text-align: center;
-          &.active {
-            color: #e10000;
-            background: #fdf2f2;
-          }
-        }
-      }
-    }
     .table {
       font-size: 12px;
       margin-top: 10px;
@@ -225,20 +158,20 @@
         justify-content: space-between;
         height: 36px;
         li {
-          width: 20%;
+          width: 25%;
           text-align: center;
           &.diqu {
             text-align: left;
             padding-left: 10px;
           }
-          &.xinzeng {
-            color: #455fce;
-          }
-          &.leiji {
+          &.quezhen {
             color: #e10000;
           }
           &.zhiyu {
             color: #15a582;
+          }
+          &.siwang {
+            color: #64676d;
           }
         }
       }
@@ -253,7 +186,7 @@
             background: #f7f7f7;
           }
           div {
-            width: 20%;
+            width: 25%;
             text-align: center;
             &.diqu {
               padding-left: 10px;
@@ -265,6 +198,7 @@
     }
     .news {
       margin-top: 10px;
+      min-height: 300px;
       ul {
         width: 100%;
         li {

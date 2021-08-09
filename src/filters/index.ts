@@ -2,8 +2,24 @@ import { AppModule } from './../store/modules/app';
 import { date } from 'quasar';
 // 2021/07/01 13:50:11 =>YYYY-MM-DD HH:mm
 export function parseTimeFromDateString(str: string) {
-  const timestamp = +new Date(str);
-  let formattedString = date.formatDate(timestamp, 'YYYY-MM-DD HH:mm');
+  let stamp = 0;
+  stamp = str.length === 10 ? Number(str) * 1000 : Number(str);
+  const timestamp = +new Date(stamp);
+  let formattedString = date.formatDate(timestamp, 'YYYY-MM-DD ');
+  return formattedString;
+}
+export function parseTimeFromDateString2(str: string) {
+  let stamp = 0;
+  stamp = str.length === 10 ? Number(str) * 1000 : Number(str);
+  const timestamp = +new Date(stamp);
+  let formattedString = date.formatDate(timestamp, 'YYYY-MM-DD');
+  return formattedString;
+}
+export function parseTimeFromDateString3(str: string) {
+  let stamp = 0;
+  stamp = str.length === 10 ? Number(str) * 1000 : Number(str);
+  const timestamp = +new Date(stamp);
+  let formattedString = date.formatDate(timestamp, 'HH:mm');
   return formattedString;
 }
 // 秒转成分：秒

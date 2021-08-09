@@ -68,6 +68,7 @@ export const constantRoutes: RouteConfig[] = [
     component: () => import(/* webpackChunkName: "news_theme" */ 'pages/webview/news_theme/index.vue'),
     meta: {},
   },
+  // 抗疫的子页面
   {
     path: '/ifeng_web_kangyi_yimiao_progress',
     component: () => import(/* webpackChunkName: "share_kangyi_yimiao_process" */ 'pages/webview/ifeng_web/kangyi/progress.vue'),
@@ -91,6 +92,17 @@ export const constantRoutes: RouteConfig[] = [
   {
     path: '/ifeng_web_kangyi_quanqiu',
     component: () => import(/* webpackChunkName: "ifeng_web_kangyi_quanqiu" */ 'pages/webview/ifeng_web/kangyi/quanqiu.vue'),
+    meta: {},
+  },
+  {
+    path: '/ifeng_web_kangyi_other_guojia',
+    component: () => import(/* webpackChunkName: "ifeng_web_kangyi_other_guojia" */ 'pages/webview/ifeng_web/kangyi/other_guojia.vue'),
+    meta: {},
+  },
+  // 财经的子页面
+  {
+    path: '/ifeng_web_caijing_zhiboshi',
+    component: () => import(/* webpackChunkName: "ifeng_web_caijing_zhiboshi" */ 'pages/webview/ifeng_web/caijing/zhiboshi.vue'),
     meta: {},
   },
   /* app */

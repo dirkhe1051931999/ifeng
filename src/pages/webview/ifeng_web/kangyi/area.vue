@@ -2,6 +2,7 @@
   <div class="kangyi-area-container" ref="kangyi-area-container">
     <div class="header">
       <img src="~assets/kangyi/area-header.png" alt="" />
+      <q-icon name="arrow_back" class="cancel" @click="$router.back()"></q-icon>
     </div>
     <div class="content">
       <div class="area">

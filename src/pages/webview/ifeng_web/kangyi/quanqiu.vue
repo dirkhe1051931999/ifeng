@@ -2,6 +2,7 @@
   <div class="kangyi-quanqiu-container" ref="kangyi-quanqiu-container">
     <div class="header">
       <img src="https://x0.ifengimg.com/ucms/2020_40/476094BD3C08666F1F2016D73443BCE6392ACB23_w1125_h483.png" alt="" />
+      <q-icon name="arrow_back" class="cancel" @click="$router.back()"></q-icon>
     </div>
     <div class="content">
       <div class="summary">
@@ -32,7 +33,7 @@
       </div>
       <div class="map">
         <div class="country">
-          <span v-for="(item, index) in guowaiCountryCanSee" :key="index">{{ item }}</span>
+          <span v-for="(item, index) in guowaiCountryCanSee" :key="index" @click="handlerClickOtherGuojia(item)">{{ item.name }}</span>
         </div>
         <div
           class="kangyi-quanqiu-map1 text-center"
@@ -167,7 +168,28 @@ export default class extends Vue {
   private endDate: any = '';
   private activeMapIndex = 0;
   private activeLineIndex = 0;
-  private guowaiCountryCanSee = ['美国', '英国', '意大利', '伊朗', '日本'];
+  private guowaiCountryCanSee = [
+    {
+      name: '美国',
+      code: 'UAS',
+    },
+    {
+      name: '英国',
+      code: 'UK',
+    },
+    {
+      name: '意大利',
+      code: 'Italy',
+    },
+    {
+      name: '伊朗',
+      code: 'Iran',
+    },
+    {
+      name: '日本',
+      code: 'Japan',
+    },
+  ];
   private tableList: any[] = [];
   private newsList: any[] = [];
   private summaryData: any = {};
@@ -418,7 +440,9 @@ export default class extends Vue {
     };
     option && this.line3.setOption(option);
   }
-
+  private handlerClickOtherGuojia(item: any) {
+    this.$router.push(`ifeng_web_kangyi_other_guojia?name=${item.name}`);
+  }
   /**http */
   private async _getKangyiQuanqiu() {
     const result = await TabHomeKangyiModule.getKangyiQuanqiu({});
