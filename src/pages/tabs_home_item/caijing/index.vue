@@ -40,7 +40,7 @@
             <van-swipe-item v-for="(item, index) in caijingFastmessagescrollList" :key="index" class="text-dot-1">{{ item.title }}</van-swipe-item>
           </van-swipe>
         </van-notice-bar>
-        <div class="dapanzhishuList" v-if="dapanzhishuList.length">
+        <div class="dapanzhishuList" v-if="dapanzhishuList.length" @click="handlerClickDapanzhishuList">
           <ul>
             <li v-for="(item, index) in dapanzhishuList" :key="index">
               <span class="name fs-14">{{ item.name }}</span>
@@ -372,6 +372,9 @@ export default class extends Vue {
   }
   private handlerClickNoticeBar() {
     this.$router.push('/ifeng_web_caijing_zhiboshi');
+  }
+  private handlerClickDapanzhishuList(){
+    this.$router.push('/ifeng_web_caijing_pindao')
   }
   /*http*/
   private async _downCallback() {

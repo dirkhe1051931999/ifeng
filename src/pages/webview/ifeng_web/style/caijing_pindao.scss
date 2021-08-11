@@ -1,0 +1,199 @@
+@import 'src/css/quasar.variables.scss';
+.caijing-pindao-container {
+  .header {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background: $white;
+    box-sizing: border-box;
+    padding: 0 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 48px;
+    border-bottom: solid 1px #eee;
+    .l {
+      width: 10%;
+      font-size: 22px;
+    }
+    .m {
+      width: 80%;
+      display: flex;
+      li {
+        width: 25%;
+        text-align: center;
+        position: relative;
+        height: 48px;
+        line-height: 48px;
+        font-size: 14px;
+        &.active {
+          color: $red;
+          font-size: 16px;
+          &::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 2px;
+            background: $red;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+          }
+        }
+      }
+    }
+    .r {
+      width: 10%;
+      text-align: right;
+      font-size: 24px;
+    }
+  }
+  .caijing-pindao-content {
+    position: fixed;
+    top: 48px;
+    left: 0;
+    width: 100%;
+    .block-title {
+      height: 46px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      border-bottom: solid 1px #eeeeee;
+      .l {
+        position: relative;
+        padding-left: 10px;
+        &::before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 50%;
+          height: 18px;
+          width: 2px;
+          transform: translateY(-50%);
+          background: #f54545;
+        }
+      }
+      .icon {
+        color: #999999;
+      }
+    }
+    .table-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      font-size: 14px;
+      color: #999999;
+      border-bottom: solid 1px #eeeeee;
+      li {
+        width: 33.33%;
+      }
+      .name {
+        text-align: left;
+      }
+      .price {
+        text-align: center;
+      }
+      .rise {
+        text-align: right;
+      }
+    }
+    .table-content {
+      li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
+        border-bottom: solid 1px #eeeeee;
+        div {
+          width: 33.33%;
+        }
+        .name {
+          text-align: left;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          .code {
+            font-size: 14px;
+            color: #999999;
+          }
+        }
+        .price {
+          text-align: center;
+        }
+        .rise {
+          text-align: right;
+        }
+      }
+    }
+    .hangqing {
+      position: fixed;
+      top: 48px;
+      left: 0;
+      width: 100%;
+      overflow: scroll;
+      background: #f7f7f7;
+      .market {
+        padding: 10px 16px;
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        background: $white;
+        margin-bottom: 10px;
+        li {
+          padding: 0 10px;
+          text-align: left;
+          width: 33.33%;
+          margin-bottom: 10px;
+          .change {
+            margin-right: 5px;
+            font-size: 14px;
+          }
+          .rise {
+            font-size: 14px;
+          }
+          .price {
+            font-size: 18px;
+          }
+        }
+      }
+      .plate {
+        padding: 0 16px;
+        width: 100%;
+        background: $white;
+        margin-bottom: 10px;
+        ul {
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          padding-top: 10px;
+          li {
+            padding: 0 10px;
+            text-align: left;
+            width: 33.33%;
+            margin-bottom: 10px;
+          }
+        }
+      }
+      .increase {
+        padding: 0 16px;
+        width: 100%;
+        background: $white;
+        margin-bottom: 10px;
+      }
+      .declining {
+        padding: 0 16px;
+        width: 100%;
+        background: $white;
+        margin-bottom: 10px;
+      }
+      .science {
+        padding: 0 16px;
+        width: 100%;
+        background: $white;
+      }
+    }
+  }
+}

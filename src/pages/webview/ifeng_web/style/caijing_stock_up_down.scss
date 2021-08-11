@@ -1,0 +1,110 @@
+@import 'src/css/quasar.variables.scss';
+.caijing-pindao-stock-up-down-list-container {
+  .header {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background: $white;
+    box-sizing: border-box;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    height: 48px;
+    border-bottom: solid 1px #eee;
+    .l {
+      width: 10%;
+      font-size: 22px;
+    }
+    .m {
+      width: 80%;
+      display: flex;
+      justify-content: center;
+      li {
+        width: 25%;
+        text-align: center;
+        position: relative;
+        height: 48px;
+        line-height: 48px;
+        font-size: 14px;
+        &.active {
+          color: $red;
+          font-size: 16px;
+          &::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 2px;
+            background: $red;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+          }
+        }
+      }
+    }
+  }
+  .caijing-pindao-stock-up-down-list-content {
+    .table-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      font-size: 14px;
+      color: #999999;
+      border-bottom: solid 1px #eeeeee;
+      li {
+        width: 33.33%;
+      }
+      .name {
+        text-align: left;
+      }
+      .price {
+        text-align: center;
+      }
+      .rise {
+        text-align: right;
+      }
+    }
+    .table-content {
+      li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
+        border-bottom: solid 1px #eeeeee;
+        div {
+          width: 33.33%;
+        }
+        .name {
+          text-align: left;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          .code {
+            font-size: 14px;
+            color: #999999;
+          }
+        }
+        .price {
+          text-align: center;
+        }
+        .rise {
+          text-align: right;
+        }
+      }
+    }
+    .increase,
+    .declining,
+    .science {
+      padding: 0 16px;
+      box-sizing: border-box;
+      position: fixed;
+      top: 48px;
+      left: 0;
+      width: 100%;
+      overflow: scroll;
+      background: $white;
+    }
+  }
+}

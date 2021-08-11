@@ -4,6 +4,10 @@ const api = {
   getFinance_a_and_hk_stock_market: 'api_iclient_ifeng/finance_a_and_hk_stock_market',
   getCaijingZhiboshi1: 'default/ifeng_web/caijing/zhiboshi1',
   getCaijingZhiboshi2: 'default/ifeng_web/caijing/zhiboshi2',
+  getCaijingHangqing: 'default/ifeng_web/caijing/pindao',
+  getCaijingStockUpOrDown: 'default/ifeng_web/caijing/stock_desc_asc',
+  getCaijingStockKCB: 'default/ifeng_web/caijing/kcb',
+  getCaijingStockSearch: 'default/ifeng_web/caijing/search',
 };
 export const getRecomlistForCaijing = (data: any): any => {
   let str = '?';
@@ -48,6 +52,50 @@ export const getCaijingZhiboshi2 = (data: any): any => {
   str = str.slice(0, -1);
   return request({
     url: api.getCaijingZhiboshi2 + str,
+    method: 'get',
+  });
+};
+export const getCaijingHangqing = (data: any): any => {
+  let str = '?';
+  for (let key in data.params) {
+    str += `${key}=${data.params[key]}&`;
+  }
+  str = str.slice(0, -1);
+  return request({
+    url: api.getCaijingHangqing + str,
+    method: 'get',
+  });
+};
+export const getCaijingStockUpOrDown = (data: any): any => {
+  let str = '?';
+  for (let key in data.params) {
+    str += `${key}=${data.params[key]}&`;
+  }
+  str = str.slice(0, -1);
+  return request({
+    url: api.getCaijingStockUpOrDown + str,
+    method: 'get',
+  });
+};
+export const getCaijingStockKCB = (data: any): any => {
+  let str = '?';
+  for (let key in data.params) {
+    str += `${key}=${data.params[key]}&`;
+  }
+  str = str.slice(0, -1);
+  return request({
+    url: api.getCaijingStockKCB + str,
+    method: 'get',
+  });
+};
+export const getCaijingStockSearch = (data: any): any => {
+  let str = '?';
+  for (let key in data.params) {
+    str += `${key}=${data.params[key]}&`;
+  }
+  str = str.slice(0, -1);
+  return request({
+    url: api.getCaijingStockSearch + str,
     method: 'get',
   });
 };
