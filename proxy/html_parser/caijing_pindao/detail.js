@@ -6,8 +6,8 @@ async function parseData(query) {
   try {
     let news;
     let zhishu;
-    let stockname;
     let img;
+    let stockname1;
     if (onlynews) {
       // 新闻
       news = await axios.get(
@@ -19,19 +19,20 @@ async function parseData(query) {
       news = JSON.parse(news);
       news = news.data;
     } else {
+     
       // 指数
       zhishu = await axios.get(`https://hq.finance.ifeng.com/q.php?l=${code || defaultCode}&f=json`);
       zhishu = zhishu.data;
       zhishu = zhishu.match(regex);
       zhishu = JSON.parse('{' + zhishu[0] + '}');
       // 股票名称
-      stockname = await axios.get(`https://apiapp.finance.ifeng.com/getstockname?code=${code || defaultCode}&type=wx&callback=a`);
-      stockname = stockname.data;
-      stockname = stockname.slice(2, -1);
-      stockname = JSON.parse(stockname);
-      stockname = stockname[0];
+      stockname1 = await axios.get(`https://apiapp.finance.ifeng.com/getstockname?code=${code || defaultCode}&type=wx&callback=a`);
+      stockname1 = stockname1.data;
+      stockname1 = stockname1.slice(2, -1);
+      stockname1 = JSON.parse(stockname1);
+      stockname1 = stockname1[0];
       // 新闻
-      news = await axios.get(`https://api.iclient.ifeng.com/client_search_CJ?k=${encodeURIComponent(stockname.name)}&page=1&callback=a`);
+      news = await axios.get(`https://api.iclient.ifeng.com/client_search_CJ?k=${encodeURIComponent(stockname1.name)}&page=1&callback=a`);
       news = news.data;
       news = news.slice(2, -1);
       news = JSON.parse(news);
@@ -47,7 +48,7 @@ async function parseData(query) {
     if (onlynews) {
       return [news];
     } else {
-      return [zhishu, stockname, news, img];
+      return [zhishu, stockname1, news, img];
     }
   } catch (error) {
     console.log(error);

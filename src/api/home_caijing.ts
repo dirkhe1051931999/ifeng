@@ -8,6 +8,7 @@ const api = {
   getCaijingStockUpOrDown: 'default/ifeng_web/caijing/stock_desc_asc',
   getCaijingStockKCB: 'default/ifeng_web/caijing/kcb',
   getCaijingStockSearch: 'default/ifeng_web/caijing/search',
+  getCaijingStockDetail: 'default/ifeng_web/caijing/detail',
 };
 export const getRecomlistForCaijing = (data: any): any => {
   let str = '?';
@@ -96,6 +97,17 @@ export const getCaijingStockSearch = (data: any): any => {
   str = str.slice(0, -1);
   return request({
     url: api.getCaijingStockSearch + str,
+    method: 'get',
+  });
+};
+export const getCaijingStockDetail = (data: any): any => {
+  let str = '?';
+  for (let key in data.params) {
+    str += `${key}=${data.params[key]}&`;
+  }
+  str = str.slice(0, -1);
+  return request({
+    url: api.getCaijingStockDetail + str,
     method: 'get',
   });
 };
