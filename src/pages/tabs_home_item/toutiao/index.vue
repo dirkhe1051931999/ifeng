@@ -532,7 +532,7 @@ export default class extends Vue {
     });
   }
   private handlerClickMustSeeMarqueeMore() {
-    this.$router.push('/tab_home_hot/2');
+    this.$router.push('/tab_home_hot/1');
   }
   private handlerClickToutiaoHotSpotMore() {
     this.$router.push('/tab_home_hot/0');

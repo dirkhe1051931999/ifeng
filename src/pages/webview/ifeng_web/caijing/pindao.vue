@@ -238,7 +238,18 @@ export default class extends Vue {
     this.$router.push('/ifeng_web_caijing_pindao/stock_up_down_list?to=' + from);
   }
   private handlerClickStock(item: any) {
-    this.$router.push('/ifeng_web_caijing_pindao/stock_detail?code=' + item.code);
+    switch (item.code) {
+      case 'hk0000100':
+        this.$router.push('/ifeng_web_caijing_pindao/stock_detail_ganggu?code=' + item.code);
+        break;
+      case 'sh000688':
+        this.$router.push('/ifeng_web_caijing_pindao/stock_detail_kc50?code=' + item.code);
+        break;
+      default:
+        this.$router.push('/ifeng_web_caijing_pindao/stock_detail?code=' + item.code);
+        break;
+    }
+    return;
   }
   /**http */
   private async _getCaijingHangqing() {

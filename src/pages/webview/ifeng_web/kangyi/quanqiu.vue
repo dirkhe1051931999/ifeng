@@ -513,10 +513,10 @@ export default class extends Vue {
         if (item.name1 === '国外') {
           for (let child of item.child) {
             this.tableList = item.child;
-            quanqiu_add += child.quezhen_add;
-            quanqiu_sum += child.quezhen;
-            quanqiu_zhiyu += child.zhiyu;
-            quanqiu_siwang += child.siwang;
+            quanqiu_add += Number(child.quezhen_add);
+            quanqiu_sum += Number(child.quezhen);
+            quanqiu_zhiyu += Number(child.zhiyu);
+            quanqiu_siwang += Number(child.siwang);
             map1.push({
               name: child.name2,
               value: child.quezhen_xianyou,

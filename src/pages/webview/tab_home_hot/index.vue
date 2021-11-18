@@ -63,32 +63,10 @@
           </div>
         </li>
       </ul>
-      <!-- 话题 -->
-      <ul v-show="activeIndex === 1" class="theme" @scroll="monitorScroll2" ref="theme">
-        <p class="loading" v-show="!loaded[1]">加载中...</p>
-        <li v-for="(news, index) in loadedData2" :key="news.id + String(Math.random())" @click="handlerClickThemeItem(news)">
-          <div class="top">
-            <div class="left">
-              <span v-if="index < 3" class="text-white" :class="{ 'bg-red': index === 0, 'bg-orange-10': index === 1, 'bg-orange-9': index === 2 }">{{
-                index + 1
-              }}</span>
-              <span class="bg-grey index text-white" v-else>{{ index }}</span>
-              <van-image class="thumbnail" :src="news.thumbnail" lazy-load radius="6" />
-            </div>
-            <div class="right">
-              <div class="t">{{ news.title }}</div>
-              <div class="b">{{ news.followNumStr }}</div>
-            </div>
-          </div>
-          <div class="bottom">
-            {{ news.intro }}
-          </div>
-        </li>
-      </ul>
       <!-- 必刷 -->
-      <ul v-show="activeIndex === 2" class="mustsee" @scroll="monitorScroll3" ref="mustsee">
-        <p class="loading" v-show="!loaded[2]">加载中...</p>
-        <li v-for="news in loadedData3" :key="news.id + String(Math.random())">
+      <ul v-show="activeIndex === 1" class="mustsee" @scroll="monitorScroll2" ref="mustsee">
+        <p class="loading" v-show="!loaded[1]">加载中...</p>
+        <li v-for="news in loadedData2" :key="news.id + String(Math.random())">
           <div class="top">
             <div class="icon">
               <q-icon name="auto_awesome" class="text-white"></q-icon>
@@ -117,9 +95,9 @@
         </li>
       </ul>
       <!-- 评论 -->
-      <ul v-show="activeIndex === 3" class="comment" @scroll="monitorScroll4" ref="comment">
-        <p class="loading" v-show="!loaded[3]">加载中...</p>
-        <li v-for="(news, index) in loadedData4" :key="news.id + String(Math.random())">
+      <ul v-show="activeIndex === 2" class="comment" @scroll="monitorScroll3" ref="comment">
+        <p class="loading" v-show="!loaded[2]">加载中...</p>
+        <li v-for="(news, index) in loadedData3" :key="news.id + String(Math.random())">
           <div class="top">
             <div class="l" v-if="index < 3">
               <q-icon name="filter_1" v-if="index === 0" class="text-red fs-22"></q-icon>
@@ -163,14 +141,11 @@ export default class extends Vue {
       if (this.$refs['spotlist']) {
         this.$refs['spotlist'].scrollTop = this.containerPositionY1;
       }
-      if (this.$refs['theme']) {
-        this.$refs['theme'].scrollTop = this.containerPositionY2;
-      }
       if (this.$refs['themustseeme']) {
-        this.$refs['mustsee'].scrollTop = this.containerPositionY3;
+        this.$refs['mustsee'].scrollTop = this.containerPositionY2;
       }
       if (this.$refs['comment']) {
-        this.$refs['comment'].scrollTop = this.containerPositionY4;
+        this.$refs['comment'].scrollTop = this.containerPositionY3;
       }
     }
   }
@@ -189,18 +164,16 @@ export default class extends Vue {
       this._clickTabGetData();
     }
   }
-  private tabs = ['热点', '话题', '必刷', '评论'];
+  private tabs = ['热点', '必刷', '评论'];
   private containerPositionY1 = 0;
   private containerPositionY2 = 0;
   private containerPositionY3 = 0;
-  private containerPositionY4 = 0;
   private containerIndex = 0;
   private clickItem = false;
-  private loaded = [false, false, false, false];
+  private loaded = [false, false, false];
   private loadedData1 = [];
   private loadedData2 = [];
   private loadedData3 = [];
-  private loadedData4 = [];
   private activeIndex: any = 0;
   private activeName = this.tabs[this.activeIndex];
   // event
@@ -234,19 +207,14 @@ export default class extends Vue {
     this.containerIndex = 0;
   }
   private async monitorScroll2(e: any) {
-    const scrollTop = this.$refs['theme'].scrollTop;
+    const scrollTop = this.$refs['mustsee'].scrollTop;
     this.containerPositionY2 = scrollTop;
     this.containerIndex = 1;
   }
   private async monitorScroll3(e: any) {
-    const scrollTop = this.$refs['mustsee'].scrollTop;
+    const scrollTop = this.$refs['comment'].scrollTop;
     this.containerPositionY3 = scrollTop;
     this.containerIndex = 2;
-  }
-  private async monitorScroll4(e: any) {
-    const scrollTop = this.$refs['comment'].scrollTop;
-    this.containerPositionY4 = scrollTop;
-    this.containerIndex = 3;
   }
   // http
   private async _clickTabGetData() {
@@ -261,24 +229,17 @@ export default class extends Vue {
           break;
         case 1:
           if (this.loaded[this.activeIndex]) break;
-          const theme = await TabHomeModule.getThemeranklist({});
-          let list2 = theme.data.list;
+          const mustsee = await TabHomeModule.getMustseelist({});
+          let list2 = mustsee.data.list;
           list2 = list2.filter((d: any) => d.type !== 'advert');
           this.loadedData2 = list2;
           break;
         case 2:
           if (this.loaded[this.activeIndex]) break;
-          const mustsee = await TabHomeModule.getMustseelist({});
-          let list3 = mustsee.data.list;
+          const comment = await TabHomeModule.getCommentlist({});
+          let list3 = comment.data.list;
           list3 = list3.filter((d: any) => d.type !== 'advert');
           this.loadedData3 = list3;
-          break;
-        case 3:
-          if (this.loaded[this.activeIndex]) break;
-          const comment = await TabHomeModule.getCommentlist({});
-          let list4 = comment.data.list;
-          list4 = list4.filter((d: any) => d.type !== 'advert');
-          this.loadedData4 = list4;
           break;
         default:
           break;

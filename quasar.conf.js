@@ -138,7 +138,7 @@ module.exports = configure(function(ctx) {
           },
         },
         '/comment_ifeng': {
-          target: `http://${settings.proxy_ip}:${settings.proxy_ip_port}/comment`,
+          target: `http://${settings.proxy_ip}:${settings.proxy_ip_port}/comment_ifeng`,
           changeOrigin: true,
           pathRewrite: {
             '^/comment_ifeng': '',

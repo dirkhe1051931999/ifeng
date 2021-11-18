@@ -1,0 +1,120 @@
+@import 'src/css/quasar.variables.scss';
+.stock_detail_ganggu_container {
+  .header {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background: $white;
+    box-sizing: border-box;
+    padding: 0 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 48px;
+    border-bottom: solid 1px #eee;
+    .l {
+      width: 10%;
+      font-size: 22px;
+    }
+    .c {
+      width: 80%;
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      .time {
+        color: #999999;
+        font-size: 12px;
+      }
+    }
+    .add {
+      width: 10%;
+      text-align: right;
+      font-size: 24px;
+    }
+  }
+  .caijing-stock-detail-ganggu-content {
+    position: fixed;
+    background: $white;
+    width: 100%;
+    left: 0;
+    top: 48px;
+    box-sizing: border-box;
+    overflow: scroll;
+    .block-title {
+      padding-left: 10px;
+      position: relative;
+      font-weight: bold;
+      &::before {
+        content: '';
+        height: 12px;
+        background: #f54343;
+        width: 4px;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+    .banner {
+      height: 134px;
+      padding: 20px 16px;
+      box-sizing: border-box;
+      width: 100%;
+      color: $white;
+      font-size: 14px;
+      .bottom {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        align-items: center;
+        span {
+          display: inline-block;
+          width: 33.33%;
+          text-align: center;
+          margin-bottom: 5px;
+        }
+      }
+      .top {
+        margin-bottom: 5px;
+        span {
+          display: inline-block;
+          text-align: center;
+          width: 30%;
+          &.price {
+            width: 40%;
+            font-size: 34px;
+            font-weight: bold;
+          }
+        }
+      }
+    }
+    .chart {
+      ul {
+        background: $white;
+        display: flex;
+        align-items: center;
+        li {
+          width: 25%;
+          height: 36px;
+          line-height: 36px;
+          text-align: center;
+          position: relative;
+          &.active {
+            color: $red;
+            &:after {
+              content: '';
+              position: absolute;
+              width: 25px;
+              height: 2px;
+              background: $red;
+              left: 50%;
+              bottom: 0;
+              transform: translateX(-50%);
+            }
+          }
+        }
+      }
+    }
+  }
+}

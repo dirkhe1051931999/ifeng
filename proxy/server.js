@@ -18,14 +18,13 @@ app.use(
       '/uc': 'https://uc.ifeng.com',
       '/api_iclient': 'https://api.iclient.ifeng.com',
       '/shankapi': 'https://shankapi.ifeng.com',
-      '/shankapi': 'https://shankapi.ifeng.com',
-      '/comment': 'https://comment.ifeng.com',
+      '/comment_ifeng': 'https://comment.ifeng.com',
     },
     target: 'https://nine.ifeng.com',
     onProxyReq(proxyReq, req, res) {
       proxyReq.setHeader('User-Agent', randomUseragent.getRandom());
     },
-    pathRewrite: { '^/config': '', '^/uc': '', '^/api_iclient': '', '^/shankapi': '', '^/comment': '' },
+    pathRewrite: { '^/config': '', '^/uc': '', '^/api_iclient': '', '^/shankapi': '', '^/comment_ifeng': '' },
     onError(err, req, res, target) {},
     onClose(res, socket, head) {},
     changeOrigin: true,

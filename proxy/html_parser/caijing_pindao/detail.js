@@ -11,15 +11,15 @@ async function parseData(query) {
     if (onlynews) {
       // 新闻
       news = await axios.get(
-        `https://api.iclient.ifeng.com/client_search_CJ?k=${stockname ? encodeURIComponent(stockname) : encodeURIComponent('同花顺')}&page=${page ||
-          1}&callback=a`,
+        `https://api.iclient.ifeng.com/client_search_CJ?k=${stockname ? encodeURIComponent(stockname) : encodeURIComponent('同花顺')}&page=${
+          page || 1
+        }&callback=a`,
       );
       news = news.data;
       news = news.slice(2, -1);
       news = JSON.parse(news);
       news = news.data;
     } else {
-     
       // 指数
       zhishu = await axios.get(`https://hq.finance.ifeng.com/q.php?l=${code || defaultCode}&f=json`);
       zhishu = zhishu.data;

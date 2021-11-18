@@ -2,23 +2,23 @@ import settings from '../settings.json';
 import axios from 'axios';
 const isPro = process.env.NODE_ENV === 'production';
 const commonUrlParams = {
-  gv: '7.27.0',
-  av: '7.27.0',
-  uid: '866375411211427',
-  deviceid: '866375411211427',
+  gv: '7.30.3',
+  av: '7.30.3',
+  uid: '867241265475337',
+  deviceid: '867241265475337',
   proid: 'ifengnews',
   os: 'android_25',
   df: 'androidphone',
   vt: '5',
-  screen: '720x1208',
-  publishid: '6109',
+  screen: '720x1280',
+  publishid: '6010',
   nw: 'wifi',
   loginid: '',
   adAid: '',
-  hw: 'huawei_vog-al00',
-  ps: '1',
-  st: '16262329249163',
-  sn: 'ee81b60974fcfb9c8e9750656b04187a',
+  hw: 'oppo_pcrt00',
+  ps: '0',
+  st: '16372143321016',
+  sn: '7c48ca9e46b4d039efc6cf30c725bd26',
 };
 
 axios.defaults.timeout = 25000;

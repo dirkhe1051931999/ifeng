@@ -35,14 +35,6 @@ export const getHotspotlistv2 = (data: any): any =>
       ltoken: '',
     },
   });
-export const getThemeranklist = (data: any): any =>
-  request({
-    url: api.getThemeranklist + '?page=1',
-    method: 'post',
-    data: {
-      ltoken: '',
-    },
-  });
 export const getMustseelist = (data: any): any =>
   request({
     url: api.getMustseelist + '?page=1',

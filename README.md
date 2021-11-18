@@ -21,7 +21,7 @@ yarn dev
 // settings.json
 ...
 ipconfig/ifconfig 配置代理ip
-"proxy_ip": "192.168.61.1",
+"proxy_ip": "192.168.3.240",
 "proxy_ip_port": "3000",
 ...
 ```
@@ -39,13 +39,13 @@ app.use(
       '/api_iclient': 'https://api.iclient.ifeng.com',
       '/shankapi': 'https://shankapi.ifeng.com',
       '/shankapi': 'https://shankapi.ifeng.com',
-      '/comment': 'https://comment.ifeng.com',
+      '/comment_list': 'https://comment.ifeng.com',
     },
     target: 'https://nine.ifeng.com',
     onProxyReq(proxyReq, req, res) {
       proxyReq.setHeader('User-Agent', randomUseragent.getRandom());
     },
-    pathRewrite: { '^/config': '', '^/uc': '', '^/api_iclient': '', '^/shankapi': '', '^/comment': '' },
+    pathRewrite: { '^/config': '', '^/uc': '', '^/api_iclient': '', '^/shankapi': '', '^/comment_list': '' },
     onError(err, req, res, target) {},
     onClose(res, socket, head) {},
     changeOrigin: true,

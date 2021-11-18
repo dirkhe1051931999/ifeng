@@ -6,7 +6,6 @@ import {
   getHotNewsRank,
   getHotspotlistv2,
   getMustseelist,
-  getThemeranklist,
   getSearchHotwordsReact,
   getSearchRecWord,
   getSearchList,
@@ -74,12 +73,6 @@ class TabHome extends VuexModule implements ITabHomeState {
   @Action({ rawError: true })
   public async getHotspotlistv2(data: any) {
     const result = await getHotspotlistv2(data);
-    return Promise.resolve(result);
-  }
-  // 获取hot 话题
-  @Action({ rawError: true })
-  public async getThemeranklist(data: any) {
-    const result = await getThemeranklist(data);
     return Promise.resolve(result);
   }
   // 获取hot 必刷

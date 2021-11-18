@@ -126,6 +126,18 @@ export const constantRoutes: RouteConfig[] = [
     component: () => import(/* webpackChunkName: "ifeng_web_caijing_pindao_stock_detail" */ 'pages/webview/ifeng_web/caijing/stock_detail.vue'),
     meta: {},
   },
+  {
+    path: '/ifeng_web_caijing_pindao/stock_detail_ganggu',
+    component: () =>
+      import(/* webpackChunkName: "ifeng_web_caijing_pindao_stock_detail_ganggu" */ 'pages/webview/ifeng_web/caijing/stock_detail_ganggu.vue'),
+    meta: {},
+  },
+  {
+    path: '/ifeng_web_caijing_pindao/stock_detail_kc50',
+    component: () =>
+      import(/* webpackChunkName: "ifeng_web_caijing_pindao_stock_detail_kc50" */ 'pages/webview/ifeng_web/caijing/stock_detail_kc50.vue'),
+    meta: {},
+  },
   /* app */
   { path: '/app/:tab', component: () => import(/* webpackChunkName: "App" */ 'pages/app/index.vue') },
 ];

@@ -3,6 +3,7 @@ import store from '@/store';
 import {
   getCaijingHangqing,
   getCaijingStockDetail,
+  getCaijingStockDetailGangGu,
   getCaijingStockKCB,
   getCaijingStockSearch,
   getCaijingStockUpOrDown,
@@ -60,6 +61,11 @@ class User extends VuexModule implements ICaijingState {
   @Action({ rawError: true })
   public async getCaijingStockDetail(data: any) {
     const result = await getCaijingStockDetail(data);
+    return Promise.resolve(result);
+  }
+  @Action({ rawError: true })
+  public async getCaijingStockDetailGangGu(data: any) {
+    const result = await getCaijingStockDetailGangGu(data);
     return Promise.resolve(result);
   }
 }
