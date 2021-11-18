@@ -21,7 +21,7 @@
           <li class="rise">涨跌幅</li>
         </ul>
         <ul class="table-content" v-show="!upListLoading">
-          <li v-for="(item, index) in increaseList" :key="index">
+          <li v-for="(item, index) in increaseList" :key="index" @click="handlerClickStock(item)">
             <div class="name">
               <span>{{ item.name }}</span>
               <span class="code">{{ item.code }}</span>
@@ -44,7 +44,7 @@
           <li class="rise">涨跌幅</li>
         </ul>
         <ul class="table-content" v-show="!downListLoading">
-          <li v-for="(item, index) in decliningList" :key="index">
+          <li v-for="(item, index) in decliningList" :key="index" @click="handlerClickStock(item)">
             <div class="name">
               <span>{{ item.name }}</span>
               <span class="code">{{ item.code }}</span>
@@ -71,7 +71,7 @@
           <van-loading size="12px" color="#969799">加载中...</van-loading>
         </div>
         <ul class="table-content" v-show="!scienceListLoading">
-          <li v-for="(item, index) in scienceList" :key="index">
+          <li v-for="(item, index) in scienceList" :key="index" @click="handlerClickStock(item)">
             <div class="name">
               <span>{{ item.name }}</span>
               <span class="code">{{ item.code }}</span>
@@ -90,13 +90,28 @@
 
 <script lang="ts">
 import { TabHomeCaijingModule } from 'src/store/modules/tab_home_caijing';
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Watch } from 'vue-property-decorator';
 
 @Component({
   name: 'caijing-pindao-stock-up-down-list',
 })
 export default class extends Vue {
   $refs: any;
+  @Watch('$route')
+  onchange(newVal: any) {
+    if (this.$route.path === '/ifeng_web_caijing_pindao/stock_up_down_list') {
+      console.log(this.containerPositionY1);
+      console.log(this.containerPositionY2);
+      console.log(this.containerPositionY3);
+      if (this.activeTabIndex === 0) {
+        this.$refs['caijing-pindao-stock-up-down-list-content-increase'].scrollTop = this.containerPositionY1;
+      } else if (this.activeTabIndex === 1) {
+        this.$refs['caijing-pindao-stock-up-down-list-content-declining'].scrollTop = this.containerPositionY2;
+      } else if (this.activeTabIndex === 2) {
+        this.$refs['caijing-pindao-stock-up-down-list-content-science'].scrollTop = this.containerPositionY3;
+      }
+    }
+  }
   async mounted() {
     if (this.$route.query.to === 'increase') {
       this.activeTabIndex = 0;
@@ -162,18 +177,30 @@ export default class extends Vue {
       await this._getCaijingStockUp();
       this.upListLoading = false;
       this.upListLoaded = true;
+    } else if (this.upListLoaded && index === 0) {
+      this.$nextTick(() => {
+        this.$refs['caijing-pindao-stock-up-down-list-content-increase'].scrollTop = this.containerPositionY1;
+      });
     }
     if (!this.downListLoaded && index === 1) {
       this.downListLoading = true;
       await this._getCaijingStockDown();
       this.downListLoading = false;
       this.downListLoaded = true;
+    } else if (this.downListLoaded && index === 1) {
+      this.$nextTick(() => {
+        this.$refs['caijing-pindao-stock-up-down-list-content-declining'].scrollTop = this.containerPositionY2;
+      });
     }
     if (!this.scienceListLoaded && index === 2) {
       this.scienceListLoading = true;
       await this._getCaijingStockScience();
       this.scienceListLoading = false;
       this.scienceListLoaded = true;
+    } else if (this.scienceListLoaded && index === 2) {
+      this.$nextTick(() => {
+        this.$refs['caijing-pindao-stock-up-down-list-content-science'].scrollTop = this.containerPositionY3;
+      });
     }
   }
   private async monitorScrollEvent1() {
@@ -234,7 +261,9 @@ export default class extends Vue {
     await this._getCaijingStockScience();
     this.scienceListLoading = false;
   }
-
+  private handlerClickStock(item: any) {
+    this.$router.push('/ifeng_web_caijing_pindao/stock_detail?code=' + item.code);
+  }
   /**http */
   private async _getCaijingStockUp() {
     const result = await TabHomeCaijingModule.getCaijingStockUpOrDown({ params: { sort: 'desc', page: 1 } });

@@ -59,7 +59,7 @@
             <van-loading size="12px" color="#969799">加载中...</van-loading>
           </div>
           <ul class="table-content" v-if="!dataLoading">
-            <li v-for="(item, index) in increaseList" :key="index">
+            <li v-for="(item, index) in increaseList" :key="index" @click="handlerClickStock(item)">
               <div class="name">
                 <span>{{ item.name }}</span>
                 <span class="code">{{ item.code }}</span>
@@ -83,7 +83,7 @@
             <van-loading size="12px" color="#969799">加载中...</van-loading>
           </div>
           <ul class="table-content" v-if="!dataLoading">
-            <li v-for="(item, index) in decliningList" :key="index">
+            <li v-for="(item, index) in decliningList" :key="index" @click="handlerClickStock(item)">
               <div class="name">
                 <span>{{ item.name }}</span>
                 <span class="code">{{ item.code }}</span>
@@ -107,7 +107,7 @@
             <van-loading size="12px" color="#969799">加载中...</van-loading>
           </div>
           <ul class="table-content" v-if="!dataLoading">
-            <li v-for="(item, index) in scienceList" :key="index">
+            <li v-for="(item, index) in scienceList" :key="index" @click="handlerClickStock(item)">
               <div class="name">
                 <span>{{ item.name }}</span>
                 <span class="code">{{ item.code }}</span>
@@ -238,7 +238,7 @@ export default class extends Vue {
     this.$router.push('/ifeng_web_caijing_pindao/stock_up_down_list?to=' + from);
   }
   private handlerClickStock(item: any) {
-    console.log(item);
+    this.$router.push('/ifeng_web_caijing_pindao/stock_detail?code=' + item.code);
   }
   /**http */
   private async _getCaijingHangqing() {

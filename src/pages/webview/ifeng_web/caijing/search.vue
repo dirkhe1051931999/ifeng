@@ -55,7 +55,7 @@ export default class extends Vue {
   /**event */
   private monitorScrollEvent() {}
   private handlerClickSearchItem(item: any) {
-    console.log(item);
+    this.$router.push('/ifeng_web_caijing_pindao/stock_detail?code=' + item.c);
   }
   /**http */
   private async handlerSearch() {
