@@ -1,28 +1,22 @@
 <template>
   <div>
-    <div id="fenshi1" style="width: 100%; height: 260px"></div>
+    <div :id="cid" style="width: 100%; height: 260px"></div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-let base = +new Date(1968, 9, 3);
-let oneDay = 24 * 3600 * 1000;
-let date: any[] = [];
-
-let data = [Math.random() * 300];
-
-for (let i = 1; i < 20000; i++) {
-  var now = new Date((base += oneDay));
-  date.push([now.getFullYear(), now.getMonth() + 1, now.getDate()].join('/'));
-  data.push(Math.round((Math.random() - 0.5) * 20 + data[i - 1]));
-}
+import { numberFormat } from '@/filters';
+import { Component, Prop, Vue } from 'vue-property-decorator';
 @Component({
   name: 'ganggu_fenshi',
 })
 export default class extends Vue {
+  @Prop({ default: '' }) private cid!: string;
+  @Prop({ default: '0' }) private min!: string;
+  @Prop({ default: [] }) private data!: any[];
+  @Prop({ default: [] }) private date!: any[];
   mounted() {
-    var myChart = window['echarts'].init(document.getElementById('fenshi1'));
+    var myChart = window['echarts'].init(document.getElementById(this.cid));
     myChart.setOption(this.option);
   }
   private option: any = {
@@ -31,47 +25,81 @@ export default class extends Vue {
       position: function (pt: any) {
         return [pt[0], '10%'];
       },
+      formatter: function (param: any) {
+        console.log(param);
+        return `<div>
+          <p>${param[0].axisValue}</p>
+          <p>价格：${param[0].data.value}</p>
+          <p>成交量：${numberFormat(param[0].data.amount)}</p>
+        </div>`;
+      },
+      textStyle: {
+        fontSize: 12,
+      },
+    },
+    grid: {
+      left: '15%',
+      right: '13%',
     },
     xAxis: {
       type: 'category',
       boundaryGap: false,
-      data: date,
+      data: this.date,
+      axisLine: {
+        //y轴
+        show: false,
+      },
       axisTick: {
+        //y轴刻度线
         show: false,
       },
       splitLine: {
+        //网格线
         show: false,
+      },
+      axisLabel: {
+        interval: 120,
       },
     },
-    yAxis: {
-      type: 'value',
-      boundaryGap: false,
-      axisTick: {
-        show: false,
-      },
-      splitLine: {
-        show: false,
-      },
-    },
-    dataZoom: [
+    yAxis: [
       {
-        type: 'inside',
-        start: 0,
-        end: 10,
-      },
-      {
-        start: 0,
-        end: 10,
+        type: 'value',
+        position: 'left',
+        min: this.min,
+        axisLine: {
+          //y轴
+          show: false,
+        },
+        axisTick: {
+          //y轴刻度线
+          show: false,
+        },
+        splitLine: {
+          //网格线
+          show: false,
+        },
+        axisLabel: {
+          textStyle: {
+            color: function (value: any) {
+              return value >= 0 ? '#f54343' : '#1aae52';
+            },
+          },
+        },
       },
     ],
     series: [
       {
-        name: '分时',
+        name: '价格',
+        id: 'price',
         type: 'line',
         symbol: 'none',
         sampling: 'lttb',
         itemStyle: {
-          color: 'rgb(255, 70, 131)',
+          normal: {
+            lineStyle: {
+              color: '#4B99FB',
+            },
+          },
         },
         areaStyle: {
           color: new window['echarts'].graphic.LinearGradient(0, 0, 0, 1, [
@@ -81,11 +109,11 @@ export default class extends Vue {
             },
             {
               offset: 1,
-              color: '#E9F3FE',
+              color: '#ffffff',
             },
           ]),
         },
-        data: data,
+        data: this.data,
       },
     ],
   };

@@ -31,7 +31,6 @@
 </template>
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { TabHomeModule } from 'src/store/modules/tab_home';
 const INITIAL_TAB_INDEX = 0;
 const CATEGORIES = ['red', 'blue', 'yellow', 'pink', 'green', 'grey', 'black', 'orange'];
 const ACTIVE_TAB_INDEX = 0;

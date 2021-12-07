@@ -8,6 +8,7 @@ module.exports = function init(app) {
   const ifeng_web_caijing_search = require('../html_parser/caijing_pindao/search');
   const ifeng_web_caijing_detail = require('../html_parser/caijing_pindao/detail');
   const ifeng_web_caijing_detail_ganggu = require('../html_parser/caijing_pindao/detail_ganggu');
+  const ifeng_web_caijing_detail_kc50 = require('../html_parser/caijing_pindao/detail_kc50');
   app.get('/ifeng_web/caijing/zhiboshi1', async function (req, res) {
     const result = await ifeng_web_caijing_zhiboshi1(req.query);
     res.send(result);
@@ -42,6 +43,10 @@ module.exports = function init(app) {
   });
   app.get('/ifeng_web/caijing/detail_ganggu', async function (req, res) {
     const result = await ifeng_web_caijing_detail_ganggu(req.query);
+    res.send(result);
+  });
+  app.get('/ifeng_web/caijing/detail_kc50', async function (req, res) {
+    const result = await ifeng_web_caijing_detail_kc50(req.query);
     res.send(result);
   });
 };

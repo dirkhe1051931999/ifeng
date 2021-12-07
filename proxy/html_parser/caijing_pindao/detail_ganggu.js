@@ -10,7 +10,6 @@ async function parseData(query) {
     let daily;
     let weekly;
     let monthly;
-    let stockname1;
     if (have_minutely === 'true') {
       minutely = await axios.get(`https://ifeng.szfuit.com:883/hkquote/api/minutely.php?code=${code}&mode=dly&_callback=a`, {
         headers: { Host: 'ifeng.szfuit.com:883', Referer: 'https://hk.finance.ifeng.com:81/' },
@@ -28,7 +27,7 @@ async function parseData(query) {
       daily = daily.data;
       daily = daily.slice(2, -1);
       daily = JSON.parse(daily);
-      
+
       return [daily];
     }
     if (have_weekly === 'true') {
@@ -50,7 +49,7 @@ async function parseData(query) {
       return [monthly];
     }
     if (have_news === 'true') {
-      news = await axios.get(`https://api.iclient.ifeng.com/client_search_CJ?page=${page}&k=${stockname}&callback=a`);
+      news = await axios.get(`https://api.iclient.ifeng.com/client_search_CJ?page=${page}&k=${encodeURI(stockname)}&callback=a`);
       news = news.data;
       news = news.slice(2, -1);
       news = JSON.parse(news);

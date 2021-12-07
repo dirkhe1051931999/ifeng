@@ -57,7 +57,6 @@
           </li>
         </ul>
         <van-empty image="error" description="暂无数据" v-if="pageLoaded && !newsList.length" />
-
         <div class="text-center p-t-10 p-b-10" v-show="pageMoreLoading">
           <van-loading size="12px" color="#969799">加载中...</van-loading>
         </div>
@@ -96,6 +95,7 @@ export default class extends Vue {
   private pageLoaded = false;
   private pageMoreLocking = false;
   private pageMorePaginationNum = 1;
+  private noMoreNews = false;
   /**event */
   private handlerClickChartImg(arr: any, index: number) {
     ImagePreview({
@@ -110,6 +110,7 @@ export default class extends Vue {
     this.containerPositionY = scrollTop;
     var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
     if (scrollTop + windowHeight >= scrollHeight) {
+      if (this.noMoreNews) return;
       if (!this.pageMoreLocking) {
         this.pageMoreLoading = true;
         this.pageMoreLocking = true;
@@ -162,6 +163,9 @@ export default class extends Vue {
     });
     if (result[0]) {
       this.newsList = this.newsList.concat(result[0]);
+      if (!result[0].length) {
+        this.noMoreNews = true;
+      }
     }
     return Promise.resolve();
   }

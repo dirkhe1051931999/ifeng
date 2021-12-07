@@ -47,22 +47,40 @@
           <div class="text-center p-t-10 p-b-10" v-show="minutelyLoading">
             <van-loading size="12px" color="#969799">加载中...</van-loading>
           </div>
-          <FenshiChart></FenshiChart>
+          <FenshiChart :date="minutelyDate" :data="minutelyData" cid="minutely-chart" :min="minutelyMinY" v-if="!minutelyLoading"></FenshiChart>
         </div>
         <div class="daily-content" v-show="activeChartNavItemIndex === 1">
           <div class="text-center p-t-10 p-b-10" v-show="dailyLoading">
             <van-loading size="12px" color="#969799">加载中...</van-loading>
           </div>
+          <kLineChart cid="daily-chart" v-if="!dailyLoading" :data="dailyData" :min="dailyMinY"></kLineChart>
         </div>
         <div class="weekly-content" v-show="activeChartNavItemIndex === 2">
           <div class="text-center p-t-10 p-b-10" v-show="weeklyLoading">
             <van-loading size="12px" color="#969799">加载中...</van-loading>
           </div>
+          <kLineChart cid="weekly-chart" v-if="!weeklyLoading" :data="weeklyData" :min="weeklyMinY"></kLineChart>
         </div>
         <div class="monthly-content" v-show="activeChartNavItemIndex === 3">
           <div class="text-center p-t-10 p-b-10" v-show="monthlyLoading">
             <van-loading size="12px" color="#969799">加载中...</van-loading>
           </div>
+          <kLineChart cid="monthly-chart" v-if="!monthlyLoading" :data="monthlyData" :min="monthlyMinY"></kLineChart>
+        </div>
+      </div>
+      <div class="news-list">
+        <div class="text-center p-t-10 p-b-10" v-show="pageLoading">
+          <van-loading size="12px" color="#969799">加载中...</van-loading>
+        </div>
+        <ul v-if="newsList.length">
+          <li v-for="(item, index) in newsList" :key="index">
+            <p class="title">{{ item.title }}</p>
+            <p class="updateTime">{{ item.updateTime }}</p>
+          </li>
+        </ul>
+        <van-empty image="error" description="暂无数据" v-if="pageLoaded && !newsList.length" />
+        <div class="text-center p-t-10 p-b-10" v-show="pageMoreLoading">
+          <van-loading size="12px" color="#969799">加载中...</van-loading>
         </div>
       </div>
     </div>
@@ -71,6 +89,8 @@
 
 <script lang="ts">
 import { TabHomeCaijingModule } from '@/store/modules/tab_home_caijing';
+import { min } from 'lodash';
+import { date } from 'quasar';
 import { Component, Vue } from 'vue-property-decorator';
 import FenshiChart from './components/ganggu_fenshi.vue';
 import kLineChart from './components/ganggu_k_line.vue';
@@ -107,16 +127,23 @@ export default class extends Vue {
   private weeklyLock = false;
   private monthlyLock = false;
   // chart data
+  private minutelyDate: any[] = [];
   private minutelyData: any[] = [];
+  private minutelyDataAmount: any[] = [];
+  private minutelyMinY = 0;
   private dailyData: any[] = [];
+  private dailyMinY = 0;
   private weeklyData: any[] = [];
+  private weeklyMinY = 0;
   private monthlyData: any[] = [];
+  private monthlyMinY = 0;
   private pageLoading = false;
   private containerPositionY = 0;
   private pageMoreLoading = false;
   private pageLoaded = false;
   private pageMoreLocking = false;
   private pageMorePaginationNum = 1;
+  private noMoreNews = false;
   /**event */
   private async monitorScrollEvent() {
     const scrollHeight = this.$refs['caijing-stock-detail-ganggu-content'].scrollHeight;
@@ -124,11 +151,12 @@ export default class extends Vue {
     this.containerPositionY = scrollTop;
     var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
     if (scrollTop + windowHeight >= scrollHeight) {
+      if (this.noMoreNews) return;
       if (!this.pageMoreLocking) {
         this.pageMoreLoading = true;
         this.pageMoreLocking = true;
         this.pageMorePaginationNum++;
-        // await this._getCaijingMoreStockDetail();
+        await this._getCaijingMoreStockDetail();
         this.pageMoreLocking = false;
         this.pageMoreLoading = false;
       }
@@ -142,6 +170,11 @@ export default class extends Vue {
         this.dailyLoading = true;
         const result1: any = await this._getChartData(index);
         this.dailyData = result1;
+        const arr = [];
+        for (let item of result1) {
+          arr.push(item.open);
+        }
+        this.dailyMinY = min(arr);
         this.dailyLock = true;
         this.dailyLoading = false;
         break;
@@ -150,6 +183,11 @@ export default class extends Vue {
         this.weeklyLoading = true;
         const result2: any = await this._getChartData(index);
         this.weeklyData = result2;
+        const arr1 = [];
+        for (let item of result2) {
+          arr1.push(item.open);
+        }
+        this.weeklyMinY = min(arr1);
         this.weeklyLock = true;
         this.weeklyLoading = false;
         break;
@@ -157,6 +195,11 @@ export default class extends Vue {
         if (this.monthlyLock) return;
         this.monthlyLoading = true;
         const result3: any = await this._getChartData(index);
+        const arr2 = [];
+        for (let item of result3) {
+          arr2.push(item.open);
+        }
+        this.monthlyMinY = min(arr2);
         this.monthlyData = result3;
         this.monthlyLock = true;
         this.monthlyLoading = false;
@@ -189,12 +232,25 @@ export default class extends Vue {
     if (result[1]) {
       this.minutelyLock = true;
       this.minutelyLoading = false;
+      const arr2 = [];
+      const minutesArr = [];
+      const d = new Date();
+      for (let item of result[1]) {
+        item.value = item.price;
+        arr2.push(item.price);
+      }
+      let d930 = +new Date(d.getFullYear(), d.getMonth() + 1, d.getDate(), 9, 30, 0);
+      for (let i = 0; i <= 390; i++) {
+        minutesArr.push(date.formatDate(Number(d930), 'hh:mm'));
+        d930 += 60000;
+      }
+      this.minutelyDate = minutesArr;
       this.minutelyData = result[1];
+      this.minutelyMinY = min(arr2);
     }
     if (result[2]) {
       this.newsList = result[2];
     }
-
     this.pageLoading = false;
     this.pageLoaded = true;
   }
@@ -245,6 +301,29 @@ export default class extends Vue {
         return Promise.resolve(result[0]);
       }
     }
+  }
+  private async _getCaijingMoreStockDetail() {
+    const result: any = await TabHomeCaijingModule.getCaijingStockDetailGangGu({
+      params: {
+        stockname: '恒生指数',
+        code: this.stockName.code,
+        have_news: true,
+        have_minutely: false,
+        have_daily: false,
+        have_weekly: false,
+        have_monthly: false,
+        firstLoad: false,
+        page: this.pageMorePaginationNum,
+      },
+    });
+
+    if (result[0]) {
+      this.newsList = this.newsList.concat(result[0]);
+      if (!result[0].length) {
+        this.noMoreNews = true;
+      }
+    }
+    return Promise.resolve();
   }
 }
 </script>
