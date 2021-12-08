@@ -103,5 +103,6 @@ module.exports = {
     // allow async-await 强制 generator 函数中 * 号周围使用一致的空格
     'generator-star-spacing': 'off',
     'no-unsafe-any': 0,
+    allowUsingIterationVar: true,
   },
 };

@@ -129,9 +129,9 @@
             </div>
             <div class="swiper-container marquee-container" style="height: 230px; padding-bottom: 20px">
               <div class="swiper-wrapper">
-                <div class="swiper-slide marquee-slide" style="width: 90%" v-for="(item, index) in news.relation" :key="index">
+                <div class="swiper-slide marquee-slide" style="width: 90%" v-for="(item, index) in news.marqueeList" :key="index">
                   <p class="title">{{ item.title }}</p>
-                  <div class="bottom">
+                  <div class="bottom" v-if="item.source">
                     <span class="source">{{ item.source }}</span>
                     <span class="count"> {{ item.pv }} 阅</span>
                     <span>{{ item.updateTime | getDateDiff }}</span>

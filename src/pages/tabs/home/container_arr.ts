@@ -7,5 +7,17 @@ export const tabPageClassNameList: string[] = [
   'chengshi-container',
   'caijing-container',
   'yule-container',
+  'junshi-container',
+  'junpintan-container',
 ];
-export const tabPageRefNameList: string[] = ['GuanzhuPage', 'ToutiaoPage', 'ShipinPage', 'KangyiPage', 'ChengshiPage', 'CaijingPage', 'YulePage'];
+export const tabPageRefNameList: string[] = [
+  'GuanzhuPage',
+  'ToutiaoPage',
+  'ShipinPage',
+  'KangyiPage',
+  'ChengshiPage',
+  'CaijingPage',
+  'YulePage',
+  'JunshiPage',
+  'JunpintanPage',
+];

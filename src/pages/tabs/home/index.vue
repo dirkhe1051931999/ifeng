@@ -5,6 +5,7 @@
       <div class="hot-key-wrap" @click="handlerClickSearch">
         <span class="iconfont icon-sousuo sousuo"></span>
         <ul class="hot-key" ref="hot-key" v-if="verticalScrollrollIndexData.length"></ul>
+        <!-- <span class="iconfont icon-saoma saoma" @click.prevent.stop="handleClickSaoma"></span> -->
       </div>
       <div class="hot-list-link-button" @click.stop="handlerClickHotList">
         <span class="iconfont icon-hot text-red"></span>
@@ -35,6 +36,8 @@
         <ChengshiPage v-if="item.id === 'chengshi'" ref="ChengshiPage" />
         <CaijingPage v-if="item.id === 'caijing'" ref="CaijingPage" />
         <YulePage v-if="item.id === 'yule'" ref="YulePage" />
+        <JunshiPage v-if="item.id === 'junshi'" ref="JunshiPage" />
+        <JunpintanPage v-if="item.id === 'junpintan'" ref="JunpintanPage" />
         <StandardPage v-else />
       </div>
     </div>
@@ -52,6 +55,8 @@ import ShipinPage from 'src/pages/tabs_home_item/shipin/index.vue';
 import KangyiPage from 'src/pages/tabs_home_item/kangyi/index.vue';
 import CaijingPage from 'src/pages/tabs_home_item/caijing/index.vue';
 import YulePage from 'src/pages/tabs_home_item/yule/index.vue';
+import JunshiPage from 'src/pages/tabs_home_item/junshi/index.vue';
+import JunpintanPage from 'src/pages/tabs_home_item/junpintan/index.vue';
 import { AppModule } from 'src/store/modules/app';
 import {
   get_user_bak_categories,
@@ -75,6 +80,8 @@ import { tabPageClassNameList, tabPageRefNameList } from './container_arr';
     ChengshiPage,
     CaijingPage,
     YulePage,
+    JunshiPage,
+    JunpintanPage,
   },
 })
 export default class extends Vue {
@@ -310,6 +317,8 @@ export default class extends Vue {
     this.$refs['hot-key'].scrollTop++;
     if (this.$refs['hot-key'].scrollTop >= this.verticalScrollHeight) clearInterval(this.verticalScrollIntervalIds[1]);
   }
+  private handleClickSaoma() {}
+  private onScan() {}
   /*初始化数据 */
   private _initialTab() {
     this.toggleTabName(this.INITIAL_TAB_INDEX);
@@ -325,8 +334,7 @@ export default class extends Vue {
       set_user_current_region('西安');
     }
   }
-
-  /*网络请求 */
+  /*http */
   private async _searchHotwordSroll() {
     const result: any = await TabHomeModule.searchHotwordSroll({});
     const arr = [];
@@ -361,139 +369,5 @@ export default class extends Vue {
 }
 </style>
 <style lang="scss" scoped>
-.app-home-container {
-  width: 100%;
-  height: 100%;
-  .app-home-header {
-    background: $white;
-    z-index: 5000;
-    height: 50px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    transition: top 0.2s;
-    box-sizing: border-box;
-    padding: 0 16px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    .logo {
-      width: 32px;
-      height: 32px;
-    }
-    .hot-key-wrap {
-      width: 60%;
-      position: relative;
-      .sousuo {
-        font-size: 20px;
-        position: absolute;
-        color: #333333;
-        top: 50%;
-        transform: translateY(-50%);
-        left: 16px;
-        z-index: 100;
-      }
-      .hot-key {
-        width: 100%;
-        height: 34px;
-        line-height: 34px;
-        border-radius: 34px;
-        background: #eee;
-        overflow: hidden;
-        color: #333333;
-        padding-left: 42px;
-        padding-right: 16px;
-      }
-    }
-
-    .hot-list-link-button {
-      border-radius: 34px;
-      background: #eee;
-      font-size: 14px;
-      text-align: right;
-      box-sizing: border-box;
-      height: 34px;
-      line-height: 34px;
-      text-align: center;
-      padding: 0 12px;
-    }
-  }
-  .app-home-tab-more {
-    background: $white;
-    position: fixed;
-    right: 0;
-    text-align: center;
-    top: 50px;
-    width: 10%;
-    height: 40px;
-    line-height: 40px;
-    z-index: 9999;
-    span {
-      font-size: 22px;
-    }
-  }
-  .app-home-tab {
-    -webkit-overflow-scrolling: touch;
-    overflow: auto;
-    display: flex;
-    align-items: center;
-    z-index: 5000;
-    position: fixed;
-    top: 50px;
-    left: 0;
-    width: 90%;
-    height: 40px;
-    min-height: 40px;
-    background-color: white;
-    font-size: 16px;
-    transition: top 0.2s;
-    box-sizing: border-box;
-
-    &::-webkit-scrollbar {
-      display: none;
-    }
-    .item {
-      text-align: center;
-      min-width: 60px;
-      position: relative;
-      color: $black;
-      transition: all 0.2s;
-      &.active-tab {
-        color: $red;
-      }
-      .bar {
-        transition: all 0.2s;
-        display: inline-block;
-        width: 14px;
-        height: 4px;
-        background-image: linear-gradient(#f95859, $red);
-        background-blend-mode: normal, normal, normal;
-        box-shadow: 0px 6px 20px 0px rgba(249, 88, 89, 0.3);
-        border-radius: 4px;
-        position: absolute;
-        bottom: -10px;
-        left: 50%;
-        transform: translateX(-50%);
-      }
-    }
-  }
-  .app-home-page {
-    width: 100%;
-    position: fixed;
-    top: 90px;
-    left: 0;
-    height: auto;
-    white-space: nowrap;
-    .page {
-      position: relative;
-      vertical-align: top;
-      display: inline-block;
-      width: 100%;
-      height: 100%;
-      white-space: normal;
-      background-color: #f7f7f7;
-    }
-  }
-}
+@import './home.scss';
 </style>

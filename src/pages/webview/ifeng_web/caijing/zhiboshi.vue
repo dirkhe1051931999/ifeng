@@ -1,6 +1,7 @@
 <template>
   <div class="caijing-zhioboshi-container">
-    <div class="header">
+    <div class="header relative">
+      <q-icon name="arrow_back" class="arrow_back" @click="$router.back()"></q-icon>
       <img src="~assets/caijing/banner.png" alt="" />
     </div>
     <van-tabs v-model="activeTabIndex" class="tabs">
@@ -9,7 +10,7 @@
           <div class="text-center p-t-10 p-b-10" v-show="allListLoading">
             <van-loading size="12px" color="#969799">加载中...</van-loading>
           </div>
-          <van-pull-refresh v-model="allListRefreshLoading" @refresh="allListRefresh" style="overflow:visible">
+          <van-pull-refresh v-model="allListRefreshLoading" @refresh="allListRefresh" style="overflow: visible">
             <q-timeline color="primary">
               <q-timeline-entry v-for="(item, index) in allList" :key="index" avatar="~assets/caijing/caijing_logo.png">
                 <template v-slot:subtitle>
@@ -32,7 +33,7 @@
           <div class="text-center p-t-10 p-b-10" v-show="chosenListLoading">
             <van-loading size="12px" color="#969799">加载中...</van-loading>
           </div>
-          <van-pull-refresh v-model="chosenListRefreshLoading" @refresh="chosenListRefresh" style="overflow:visible">
+          <van-pull-refresh v-model="chosenListRefreshLoading" @refresh="chosenListRefresh" style="overflow: visible">
             <q-timeline color="primary">
               <q-timeline-entry v-for="(item, index) in chosenList" :key="index" avatar="~assets/caijing/caijing_logo.png">
                 <template v-slot:subtitle>
