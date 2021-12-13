@@ -38,6 +38,7 @@
         <YulePage v-if="item.id === 'yule'" ref="YulePage" />
         <JunshiPage v-if="item.id === 'junshi'" ref="JunshiPage" />
         <JunpintanPage v-if="item.id === 'junpintan'" ref="JunpintanPage" />
+        <YinpinPage v-if="item.id === 'yinpin'" ref="YinpinPage" />
         <StandardPage v-else />
       </div>
     </div>
@@ -57,6 +58,7 @@ import CaijingPage from 'src/pages/tabs_home_item/caijing/index.vue';
 import YulePage from 'src/pages/tabs_home_item/yule/index.vue';
 import JunshiPage from 'src/pages/tabs_home_item/junshi/index.vue';
 import JunpintanPage from 'src/pages/tabs_home_item/junpintan/index.vue';
+import YinpinPage from 'src/pages/tabs_home_item/yinpin/index.vue';
 import { AppModule } from 'src/store/modules/app';
 import {
   get_user_bak_categories,
@@ -82,6 +84,7 @@ import { tabPageClassNameList, tabPageRefNameList } from './container_arr';
     YulePage,
     JunshiPage,
     JunpintanPage,
+    YinpinPage,
   },
 })
 export default class extends Vue {

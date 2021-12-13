@@ -16,7 +16,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 var ManifestPlugin = require('webpack-manifest-plugin');
 const webpack = require('webpack');
 const settings = require('./src/settings.json');
-module.exports = configure(function(ctx) {
+module.exports = configure(function (ctx) {
   return {
     // https://quasar.dev/quasar-cli/supporting-ts
     supportTS: {
@@ -50,6 +50,10 @@ module.exports = configure(function(ctx) {
       // Options below are automatically set depending on the env, set them if you want to override
       extractCSS: false,
       distDir: ctx.modeName === 'spa' ? 'dist' : `dist/${ctx.modeName}`,
+      // html里面可以获取到的变量
+      env: {
+        ip: ctx.dev ? `http://${settings.proxy_ip}:${settings.proxy_ip_port}` : `http://${settings.proxy_ip}:${settings.proxy_ip_port}`,
+      },
       // https://quasar.dev/quasar-cli/handling-webpack
       extendWebpack(cfg) {
         // linting is slow in TS projects, we execute it only for production builds
@@ -142,6 +146,13 @@ module.exports = configure(function(ctx) {
           changeOrigin: true,
           pathRewrite: {
             '^/comment_ifeng': '',
+          },
+        },
+        '/ximalaya_ifeng': {
+          target: `http://${settings.proxy_ip}:${settings.proxy_ip_port}/ximalaya_ifeng`,
+          changeOrigin: true,
+          pathRewrite: {
+            '^/ximalaya_ifeng': '',
           },
         },
         '/default': {

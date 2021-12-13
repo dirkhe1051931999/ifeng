@@ -69,6 +69,9 @@ import {
   Popup as VanPopup,
   Loading as VanLoading,
   Picker as VanPicker,
+  TreeSelect as VanTreeSelect,
+  Sidebar as VanSidebar,
+  SidebarItem as VanSidebarItem,
 } from 'vant';
 Vue.use(VanPopover);
 Vue.use(VanImage);
@@ -92,6 +95,9 @@ Vue.use(VanBadge);
 Vue.use(VanPopup);
 Vue.use(VanLoading);
 Vue.use(VanPicker);
+Vue.use(VanTreeSelect);
+Vue.use(VanSidebar);
+Vue.use(VanSidebarItem);
 
 // 注册全局指令
 Object.keys(directives).forEach((key) => {

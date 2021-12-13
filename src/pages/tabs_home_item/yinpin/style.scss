@@ -1,0 +1,198 @@
+@import 'src/css/quasar.variables.scss';
+@import 'src/pages/app/_news_style/global.scss';
+.yinpin-container {
+  overflow: scroll;
+  background: $white;
+  height: 100%;
+  .yinpin-list {
+    min-height: 180px;
+    .yinpinSwiperList-container {
+      border-radius: 6px;
+      .yinpinSwiperList-slide {
+        position: relative;
+        .title {
+          position: absolute;
+          width: 100%;
+          padding: 0 16px;
+          left: 0;
+          bottom: 24px;
+          color: #ffffff;
+          font-weight: bold;
+          z-index: 100;
+          font-size: 16px;
+        }
+        .dateDiff {
+          position: absolute;
+          width: 100%;
+          padding: 0 16px;
+          left: 0;
+          bottom: 8px;
+          color: #eee;
+          z-index: 100;
+          font-size: 12px;
+        }
+        .thumbnail {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
+  .yinpinGirdList {
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
+    background: $white;
+    padding: 10px 0;
+    li {
+      width: 20%;
+      img {
+        display: block;
+        width: 32px;
+        height: 32px;
+        margin: 0 auto;
+      }
+      .title {
+        padding-top: 5px;
+        text-align: center;
+        font-size: 12px;
+      }
+    }
+  }
+  .yinpinGuesslikeList {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    box-sizing: border-box;
+    background: $white;
+    padding: 10px 16px;
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 10px;
+      .l {
+        font-weight: bold;
+      }
+      .r {
+        color: $gray;
+        font-size: 12px;
+      }
+    }
+    .list {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+      li {
+        width: 108px;
+        margin-bottom: 12px;
+        &:nth-of-type(3n + 3) {
+          margin-right: 0;
+        }
+        img {
+          width: 100%;
+          height: 108px;
+          display: inline-block;
+        }
+        p {
+          font-size: 14px;
+          padding-top: 10px;
+        }
+      }
+    }
+  }
+  .yinpinRankList-container {
+    .yinpinRankList-slide {
+      position: relative;
+      padding: 12px 10px;
+      border-radius: 6px;
+      .top {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        .l {
+          width: 68px;
+          height: 22px;
+        }
+        .r {
+          font-size: 22px;
+          color: $red;
+        }
+      }
+      ul {
+        li {
+          display: flex;
+          margin-bottom: 10px;
+          width: 100%;
+          .l {
+            width: 62px;
+            height: 62px;
+            border-radius: 6px;
+            margin-right: 10px;
+          }
+          .r {
+            display: flex;
+            flex-direction: column;
+            .t {
+              font-weight: bold;
+              font-size: 14px;
+            }
+            .b {
+              display: flex;
+              margin-top: auto;
+              font-size: 12px;
+              color: $gray;
+              .play {
+                margin-right: 15px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .yinpinRecommendList {
+    padding: 0 16px 10px;
+    .top {
+      font-weight: bold;
+      font-size: 18px;
+      padding-bottom: 10px;
+    }
+    li {
+      display: flex;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border-bottom: solid 1px #eeeeee;
+      width: 100%;
+      .l {
+        width: 98px;
+        height: 98px;
+        border-radius: 6px;
+        margin-right: 10px;
+      }
+      .r {
+        display: flex;
+        flex-direction: column;
+        .t {
+          font-weight: bold;
+          margin-bottom: 10px;
+        }
+        .m {
+          font-size: 14px;
+        }
+        .b {
+          display: flex;
+          margin-top: auto;
+          font-size: 12px;
+          color: $gray;
+          .play {
+            margin-right: 15px;
+          }
+        }
+      }
+    }
+  }
+}

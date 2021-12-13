@@ -13,6 +13,7 @@
   "dependencies": {
     "@better-scroll/core": "^2.4.1",
     "@better-scroll/pull-up": "^2.4.1",
+    "@liripeng/vue-audio-player": "^1.2.11",
     "@quasar/extras": "^1.0.0",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
@@ -82,5 +83,5 @@
     "npm": ">= 6.13.4",
     "yarn": ">= 1.21.1"
   },
-  "productName": " "
+  "productName": "凤凰新闻"
 }

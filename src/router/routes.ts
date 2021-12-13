@@ -138,6 +138,22 @@ export const constantRoutes: RouteConfig[] = [
       import(/* webpackChunkName: "ifeng_web_caijing_pindao_stock_detail_kc50" */ 'pages/webview/ifeng_web/caijing/stock_detail_kc50.vue'),
     meta: {},
   },
+  // 音频的子页面
+  {
+    path: '/tab_yinpin_child/directory',
+    component: () => import(/* webpackChunkName: "tab_yinpin_child_directory" */ 'pages/webview/tab_yinpin_child/directory.vue'),
+    meta: {},
+  },
+  {
+    path: '/tab_yinpin_child/categories',
+    component: () => import(/* webpackChunkName: "tab_yinpin_child_categories" */ 'pages/webview/tab_yinpin_child/categories.vue'),
+    meta: {},
+  },
+  {
+    path: '/tab_yinpin_child/play',
+    component: () => import(/* webpackChunkName: "tab_yinpin_child_play" */ 'pages/webview/tab_yinpin_child/play.vue'),
+    meta: {},
+  },
   /* app */
   { path: '/app/:tab', component: () => import(/* webpackChunkName: "App" */ 'pages/app/index.vue') },
 ];
