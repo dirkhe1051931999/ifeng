@@ -154,6 +154,12 @@ export const constantRoutes: RouteConfig[] = [
     component: () => import(/* webpackChunkName: "tab_yinpin_child_play" */ 'pages/webview/tab_yinpin_child/play.vue'),
     meta: {},
   },
+  // yingshiju的子页面
+  {
+    path: '/tab_yingshiju_child/dajurebo',
+    component: () => import(/* webpackChunkName: "tab_yingshiju_child_dajurebo" */ 'pages/webview/tab_yingshiju_child/dajurebo.vue'),
+    meta: {},
+  },
   /* app */
   { path: '/app/:tab', component: () => import(/* webpackChunkName: "App" */ 'pages/app/index.vue') },
 ];

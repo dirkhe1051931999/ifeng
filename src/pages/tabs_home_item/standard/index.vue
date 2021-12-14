@@ -281,7 +281,7 @@ export default class extends Vue {
     }
   }
   @Watch('activeTabIndex')
-  async getFollowList(newVal: number, oldVal: number) {
+  async watchActiveTabIndex(newVal: number, oldVal: number) {
     if (newVal === this.currentIndex) {
       if (!this.currentPageIsLoaded) {
         this.pageLoading = true;

@@ -5,6 +5,7 @@ const app = express();
 const path = require('path');
 require('./api/ifeng_web_kangyi')(app); // 抗疫
 require('./api/ifeng_web_caijing')(app); // 财经
+require('./api/ifeng_home_tab_yingshiju')(app); // 影视剧
 // static file
 app.use('/static', express.static(path.join(__dirname, 'public')));
 // https://nine.ifeng.com

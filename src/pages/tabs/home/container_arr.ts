@@ -10,6 +10,8 @@ export const tabPageClassNameList: string[] = [
   'junshi-container',
   'junpintan-container',
   'yinpin-container',
+  'xiaoshipin-container',
+  'yingshiju-container',
 ];
 export const tabPageRefNameList: string[] = [
   'GuanzhuPage',
@@ -22,4 +24,6 @@ export const tabPageRefNameList: string[] = [
   'JunshiPage',
   'JunpintanPage',
   'YinpinPage',
+  'XiaoshipinPage',
+  'YingshijuPage',
 ];
