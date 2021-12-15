@@ -16,9 +16,9 @@ const commonUrlParams = {
   loginid: '',
   adAid: '',
   hw: 'oppo_pcrt00',
-  ps: '0',
-  st: '16372143321016',
-  sn: '7c48ca9e46b4d039efc6cf30c725bd26',
+  ps: '1',
+  st: '16395595277916',
+  sn: 'fcb480832205d27372f8e66d260e69d8',
 };
 
 axios.defaults.timeout = 25000;

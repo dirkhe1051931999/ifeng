@@ -1,11 +1,11 @@
 @import 'src/pages/app/_news_style/index.scss';
-.standard-container {
+.shederenwu-container {
   overflow: scroll;
   height: 100%;
-  .standard-list {
+  .shederenwu-list {
     min-height: 320px;
-    .standardSwiperList-container {
-      .standardSwiperList-slide {
+    .shederenwuSwiperList-container {
+      .shederenwuSwiperList-slide {
         position: relative;
         .title {
           position: absolute;
@@ -37,7 +37,7 @@
       }
     }
   }
-  .standardNewsList {
+  .shederenwuNewsList {
     padding: 0 16px;
     padding-top: 10px;
     background: $white;
@@ -47,9 +47,6 @@
       border-bottom: solid 1px #eee;
       &:last-child {
         border-bottom: 0;
-      }
-      .have-newList-topic2 {
-        @include have-newList-topic2;
       }
       .doc {
         @include news-doc;

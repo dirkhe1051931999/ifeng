@@ -1,11 +1,11 @@
 @import 'src/pages/app/_news_style/index.scss';
-.standard-container {
+.yaowen-container {
   overflow: scroll;
   height: 100%;
-  .standard-list {
+  .yaowen-list {
     min-height: 320px;
-    .standardSwiperList-container {
-      .standardSwiperList-slide {
+    .yaowenSwiperList-container {
+      .yaowenSwiperList-slide {
         position: relative;
         .title {
           position: absolute;
@@ -37,7 +37,7 @@
       }
     }
   }
-  .standardNewsList {
+  .yaowenNewsList {
     padding: 0 16px;
     padding-top: 10px;
     background: $white;

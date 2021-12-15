@@ -41,6 +41,10 @@
         <YinpinPage v-if="item.id === 'yinpin'" ref="YinpinPage" />
         <XiaoshipinPage v-if="item.id === 'xiaoshipin'" ref="XiaoshipinPage" />
         <YingshijuPage v-if="item.id === 'yingshiju'" ref="YingshijuPage" />
+        <XinshidaiPage v-if="item.id === 'xinshidai'" ref="XinshidaiPage" />
+        <ShederenwuPage v-if="item.id === 'shederenwu'" ref="ShederenwuPage" />
+        <DongaoPage v-if="item.id === 'dongao'" ref="DongaoPage" />
+        <YaowenPage v-if="item.id === 'yaowen'" ref="YaowenPage" />
         <StandardPage v-else />
       </div>
     </div>
@@ -63,6 +67,10 @@ import JunpintanPage from 'src/pages/tabs_home_item/junpintan/index.vue';
 import YinpinPage from 'src/pages/tabs_home_item/yinpin/index.vue';
 import XiaoshipinPage from 'src/pages/tabs_home_item/xiaoshipin/index.vue';
 import YingshijuPage from 'src/pages/tabs_home_item/yingshiju/index.vue';
+import XinshidaiPage from 'src/pages/tabs_home_item/xinshidai/index.vue';
+import ShederenwuPage from 'src/pages/tabs_home_item/shederenwu/index.vue';
+import DongaoPage from 'src/pages/tabs_home_item/dongao/index.vue';
+import YaowenPage from 'src/pages/tabs_home_item/yaowen/index.vue';
 import { AppModule } from 'src/store/modules/app';
 import {
   get_user_bak_categories,
@@ -91,6 +99,10 @@ import { tabPageClassNameList, tabPageRefNameList } from './container_arr';
     YinpinPage,
     XiaoshipinPage,
     YingshijuPage,
+    XinshidaiPage,
+    ShederenwuPage,
+    DongaoPage,
+    YaowenPage,
   },
 })
 export default class extends Vue {

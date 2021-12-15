@@ -1,5 +1,5 @@
 <template>
-  <div class="standard-container" @scroll="monitorScrollEvent" ref="standard-container">
+  <div class="shederenwu-container" @scroll="monitorScrollEvent" ref="shederenwu-container">
     <van-pull-refresh v-model="isDownRefresh" :success-text="refreshSuccessText" @refresh="onRefresh" :success-duration="1000">
       <!-- 骨架屏 -->
       <div v-if="pageLoading">
@@ -18,55 +18,18 @@
           </div>
         </div>
       </div>
-      <ul class="standard-list" v-if="!pageLoading">
-        <div class="swiper-container bg-white standardSwiperList-container" style="height: 240px" v-if="standardSwiperList.length">
+      <ul class="shederenwu-list" v-if="!pageLoading">
+        <div class="swiper-container bg-white shederenwuSwiperList-container" style="height: 240px" v-if="shederenwuSwiperList.length">
           <div class="swiper-wrapper">
-            <div class="swiper-slide standardSwiperList-slide" v-for="(news, index) in standardSwiperList" :key="index" style="width: 100%">
+            <div class="swiper-slide shederenwuSwiperList-slide" v-for="(news, index) in shederenwuSwiperList" :key="index" style="width: 100%">
               <p class="title">{{ news.title }}</p>
               <p class="dateDiff">{{ news.updateTime | getDateDiff }}</p>
               <van-image class="thumbnail" :src="news.thumbnail" lazy-load />
             </div>
           </div>
         </div>
-        <van-notice-bar left-icon="volume-o" :scrollable="false" color="#1989fa" background="#ecf9ff" v-if="fastmessagescrollList.length">
-          <van-swipe vertical class="yaowen-notice-swipe" :autoplay="3000" :show-indicators="false">
-            <van-swipe-item v-for="(item, index) in fastmessagescrollList" :key="index" class="text-dot-1">{{ item.title }}</van-swipe-item>
-          </van-swipe>
-        </van-notice-bar>
-        <div class="standardNewsList" v-if="standardNewsList.length">
-          <li v-for="news in standardNewsList" :key="news.id + Math.random().toString()">
-            <!-- topic2 -->
-            <div v-if="news.type === 'topic2' && news.newslist" class="have-newList-topic2">
-              <van-image class="thumbnail w-full" :src="news.advertmsg.adverPic" lazy-load :height="news.advertmsg.height" />
-              <ul>
-                <li v-for="(item, index) in news.newslist" :key="index">
-                  <div class="top">
-                    <div class="left">
-                      <p class="title">
-                        <span class="text-red title-label" v-if="item.style.recomTag && news.style.recomTag.pos">{{ item.style.recomTag.text }}</span>
-                        {{ item.title }}
-                      </p>
-                    </div>
-                    <div class="right">
-                      <van-image class="thumbnail" :src="item.thumbnail" lazy-load radius="6" />
-                    </div>
-                  </div>
-                  <div class="bottom">
-                    <span v-if="item.style.recomTag && item.style.recomTag.text === '凤凰卫视'" class="label">凤凰卫视</span>
-                    <span v-if="item.style.recomTag && !news.style.recomTag.pos" class="label-blue">{{ item.style.recomTag.text }}</span>
-                    <span class="source" v-if="item.source">{{ item.source }}</span>
-                    <i class="iconfont icon-duanxin" v-if="item.commentsall"></i>
-                    <span class="count" v-if="item.commentsall"> {{ item.commentsall }}</span>
-                    <i class="iconfont icon-lishi" v-if="item.updateTime"></i>
-                    <span class="count" v-if="item.updateTime">{{ item.updateTime | getDateDiff }}</span>
-                  </div>
-                  <div v-if="item.summary" class="hot-comment">
-                    <span class="label">{{ item.summary.tag }}</span>
-                    {{ item.summary.desp }}
-                  </div>
-                </li>
-              </ul>
-            </div>
+        <div class="shederenwuNewsList" v-if="shederenwuNewsList.length">
+          <li v-for="news in shederenwuNewsList" :key="news.id + Math.random().toString()">
             <!-- doc -->
             <div v-if="news.type === 'doc' || (news.type === 'topic2' && !news.newslist)" class="doc">
               <div class="top">
@@ -269,7 +232,7 @@
             </div>
           </li>
         </div>
-        <p v-for="n in 100" :key="n">tabs_home_item_standard</p>
+        <p v-for="n in 100" :key="n">tabs_home_item_shederenwu</p>
       </ul>
       <div class="load-more-loading" v-show="load_more_no_data">暂无数据</div>
       <div class="load-more-loading" v-show="load_more_loading" v-if="!pageLoading">
@@ -286,14 +249,14 @@ import { AppModule } from 'src/store/modules/app';
 import { cloneDeep } from 'lodash';
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import { ImagePreview } from 'vant';
-// import { TabHomeStandardModule } from '@/store/modules/tab_home_standard';
+import { TabHomeShederenwuModule } from '@/store/modules/tab_home_shederenwu';
 @Component({
-  name: 'tabs_home_item_standard',
+  name: 'tabs_home_item_shederenwu',
 })
 export default class extends Vue {
   $refs: any;
   get currentTabId() {
-    return 'shipin';
+    return 'shederenwu';
   }
   get activeTabIndex() {
     return TabHomeModule.activeTabIndex;
@@ -324,7 +287,7 @@ export default class extends Vue {
       if (!this.currentPageIsLoaded) {
         this.pageLoading = true;
         this.firstLoadData = true;
-        this.standardNewsList = [];
+        this.shederenwuNewsList = [];
         await this._downCallback();
         TabHomeModule.SET_activeTabIndex_single_loaded(this.currentTabId);
         this.firstLoadData = false;
@@ -336,9 +299,8 @@ export default class extends Vue {
   public containerPositionY = 0;
   private firstLoadData = true;
   private pageLoading = false;
-  private standardNewsList: any[] = [];
-  private standardSwiperList = [];
-  private fastmessagescrollList = [];
+  private shederenwuNewsList: any[] = [];
+  private shederenwuSwiperList = [];
   // 下拉刷新，上拉加载的数据
   private isDownRefresh = false;
   private refreshSuccessText = '';
@@ -354,12 +316,12 @@ export default class extends Vue {
     this.pagination_params.num = 1;
     this.load_more_no_data = '';
     await this._downCallback();
-    this.refreshSuccessText = this.standardNewsList.length ? `已为您推荐 ${this.standardNewsList.length} 条新内容` : '已更新到最新';
+    this.refreshSuccessText = this.shederenwuNewsList.length ? `已为您推荐 ${this.shederenwuNewsList.length} 条新内容` : '已更新到最新';
     this.isDownRefresh = false;
   }
   async monitorScrollEvent(e: any) {
-    const scrollHeight = this.$refs['standard-container'].scrollHeight;
-    const scrollTop = this.$refs['standard-container'].scrollTop;
+    const scrollHeight = this.$refs['shederenwu-container'].scrollHeight;
+    const scrollTop = this.$refs['shederenwu-container'].scrollTop;
     this.containerPositionY = scrollTop;
     var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
     if (scrollTop + windowHeight - AppModule.bottomNavigationAndHomeHeaderHeight >= scrollHeight) {
@@ -386,12 +348,12 @@ export default class extends Vue {
   /*http*/
   private async _downCallback() {
     let params: any = {
-      id: 'CJ33',
-      ch: 'finance',
+      id: 'SDJT',
+      ch: 'willing1',
       action: 'down',
       pullNum: '1',
-      pullTotal: '1',
-      dailyOpenNum: '1',
+      pullTotal: '2',
+      dailyOpenNum: '7',
     };
     let form = {
       openNum: 3,
@@ -406,55 +368,48 @@ export default class extends Vue {
     for (let key in form) {
       formData.append(key, form[key]);
     }
-    // try {
-    //   if (this.firstLoadData) {
-    //     params = { id: 'CJ33', ch: 'finance', action: 'default', pullTotal: '1', dailyOpenNum: '1' };
-    //   }
-    //   const result = await TabHomeStandardModule.getRecomlistForCaijing({ params, formData });
-    //   const arr = [];
-    //   for (let item of result[0].item) {
-    //     if (item.type !== 'advert') {
-    //       // if (item.type === 'marquee') {
-    //       //   this.standardSwiperList = item.relation;
-    //       // } else if (item.type === 'fastmessagescroll') {
-    //       //   this.fastmessagescrollList = item.marqueeList;
-    //       // } else {
-    //       //   arr.push(item);
-    //       // }
-    //       arr.push(item);
-    //     }
-    //   }
-    //   if (!arr.length) {
-    //     this.load_more_no_data = '没有更多数据了';
-    //   }
-    //   this.standardNewsList = arr;
-    //   if (result.length === 2) {
-    //     this.$nextTick(() => {
-    //       if (this.firstLoadData) {
-    //         setTimeout(() => {
-    //           new window['Swiper']('.standardSwiperList-container', {
-    //             loop: true,
-    //           });
-    //         }, 500);
-    //       }
-    //     });
-    //     this.standardSwiperList = result[1].item;
-    //   } else {
-    //     this.standardSwiperList = [];
-    //   }
-    //   return Promise.resolve(true);
-    // } catch (error) {
-    //   console.log('err');
-    // }
+    try {
+      if (this.firstLoadData) {
+        params = { id: 'SDJT', ch: 'willing1', action: 'default', pullTotal: '1', dailyOpenNum: '7' };
+      }
+      const result = await TabHomeShederenwuModule.getShederenwuNewsList({ params, formData });
+      const arr = [];
+      for (let item of result[0].item) {
+        if (item.type !== 'advert') {
+          arr.push(item);
+        }
+      }
+      if (!arr.length) {
+        this.load_more_no_data = '没有更多数据了';
+      }
+      this.shederenwuNewsList = arr;
+      if (result.length === 2) {
+        this.$nextTick(() => {
+          if (this.firstLoadData) {
+            setTimeout(() => {
+              new window['Swiper']('.shederenwuSwiperList-container', {
+                loop: true,
+              });
+            }, 500);
+          }
+        });
+        this.shederenwuSwiperList = result[1].item;
+      } else {
+        this.shederenwuSwiperList = [];
+      }
+      return Promise.resolve(true);
+    } catch (error) {
+      console.log('err');
+    }
   }
   private async _upCallback() {
     let params: any = {
-      id: 'CJ33',
-      ch: 'finance',
+      id: 'SDJT',
+      ch: 'willing1',
       action: 'up',
       pullNum: this.pagination_params.num,
-      pullTotal: '1',
-      dailyOpenNum: '1',
+      pullTotal: '3',
+      dailyOpenNum: '7',
       timestamp: '2021%2F07%2F14+14%3A49%3A19',
     };
     let form = {
@@ -470,27 +425,27 @@ export default class extends Vue {
     for (let key in form) {
       formData.append(key, form[key]);
     }
-    // try {
-    //   const result = await TabHomeStandardModule.getRecomlistForCaijing({ params, formData });
-    //   const arr = [];
-    //   for (let item of result[0].item) {
-    //     if (item.type !== 'advert' && item.type !== 'fastmessagescroll') {
-    //       arr.push(item);
-    //     }
-    //   }
-    //   if (!arr.length) {
-    //     this.load_more_no_data = '没有更多数据了';
-    //     this.load_more_loading_lock = true;
-    //     return Promise.reject();
-    //   }
-    //   this.standardNewsList = this.standardNewsList.concat(arr);
-    //   return Promise.resolve(true);
-    // } catch (error) {
-    //   console.log('err', error);
-    //   return Promise.reject(error);
-    // } finally {
-    //   this.load_more_loading = false;
-    // }
+    try {
+      const result = await TabHomeShederenwuModule.getShederenwuNewsList({ params, formData });
+      const arr = [];
+      for (let item of result[0].item) {
+        if (item.type !== 'advert' && item.type !== 'fastmessagescroll') {
+          arr.push(item);
+        }
+      }
+      if (!arr.length) {
+        this.load_more_no_data = '没有更多数据了';
+        this.load_more_loading_lock = true;
+        return Promise.reject();
+      }
+      this.shederenwuNewsList = this.shederenwuNewsList.concat(arr);
+      return Promise.resolve(true);
+    } catch (error) {
+      console.log('err', error);
+      return Promise.reject(error);
+    } finally {
+      this.load_more_loading = false;
+    }
   }
 }
 </script>
