@@ -154,7 +154,8 @@ export default class extends Vue {
   get currentIndex() {
     const categories: any = get_user_current_categories() ? cloneDeep(get_user_current_categories()) : [];
     const cur = categories.find((d: any) => d.id === this.currentTabId);
-    return Number(cur.index);
+    const curIndex = categories.findIndex((d: any) => d.id === this.currentTabId);
+    return curIndex;
   }
   get defaultbackreason() {
     const result: any = AppModule.config_backreason;
