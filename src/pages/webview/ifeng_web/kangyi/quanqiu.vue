@@ -126,7 +126,7 @@
 
 <script lang="ts">
 import { numberFormat } from 'src/filters';
-import { TabHomeKangyiModule } from 'src/store/modules/tab_home_kangyi';
+import { TabHomeKangyiModule } from '@/store/modules/home_tab/kangyi';
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import { worldNameMap } from '../data/worldNameMap';
 

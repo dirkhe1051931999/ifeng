@@ -69,7 +69,7 @@
 
 <script lang="ts">
 import { isEqual, uniqWith } from 'lodash';
-import { TabHomeKangyiModule } from 'src/store/modules/tab_home_kangyi';
+import { TabHomeKangyiModule } from '@/store/modules/home_tab/kangyi';
 import { Component, Vue } from 'vue-property-decorator';
 import { worldNameMap } from '../data/worldNameMap';
 

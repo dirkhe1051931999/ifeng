@@ -125,7 +125,7 @@
 </template>
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator';
-import { TabHomeModule } from 'src/store/modules/tab_home';
+import { TabHomeModule } from 'src/store/modules/home';
 import { AppModule } from 'src/store/modules/app';
 import { handlerQuasarShare } from 'src/utils/share';
 

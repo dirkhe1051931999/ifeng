@@ -34,8 +34,8 @@ import { Component, Vue } from 'vue-property-decorator';
 import BScroll from '@better-scroll/core';
 import Pullup from '@better-scroll/pull-up';
 BScroll.use(Pullup);
-import { TabHomeModule } from 'src/store/modules/tab_home';
-import { TabHomeToutiaoModule } from 'src/store/modules/tab_home_toutiao';
+import { TabHomeModule } from 'src/store/modules/home';
+import { TabHomeToutiaoModule } from '@/store/modules/home_tab/toutiao';
 import { AppModule } from 'src/store/modules/app';
 import { handlerQuasarShare } from 'src/utils/share';
 

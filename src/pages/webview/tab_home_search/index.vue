@@ -380,7 +380,7 @@
 </template>
 <script lang="ts">
 import { get_user_search_history, remove_user_search_history, set_user_search_history } from 'src/utils/db';
-import { TabHomeModule } from 'src/store/modules/tab_home';
+import { TabHomeModule } from 'src/store/modules/home';
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import { cloneDeep } from 'lodash';
 

@@ -86,7 +86,7 @@
 </template>
 
 <script lang="ts">
-import { TabHomeYinpinModule } from '@/store/modules/tab_home_yinpin';
+import { TabHomeYinpinModule } from '@/store/modules/home_tab/yinpin';
 import { Component, Vue } from 'vue-property-decorator';
 
 @Component({

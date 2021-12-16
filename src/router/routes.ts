@@ -160,6 +160,12 @@ export const constantRoutes: RouteConfig[] = [
     component: () => import(/* webpackChunkName: "tab_yingshiju_child_dajurebo" */ 'pages/webview/tab_yingshiju_child/dajurebo.vue'),
     meta: {},
   },
+  // 文创的子页面
+  {
+    path: '/tab_wenchuang_child/jingxuan',
+    component: () => import(/* webpackChunkName: "tab_wenchuang_child_jingxuan" */ 'pages/webview/tab_wenchuang_child/jingxuan.vue'),
+    meta: {},
+  },
   /* app */
   { path: '/app/:tab', component: () => import(/* webpackChunkName: "App" */ 'pages/app/index.vue') },
 ];

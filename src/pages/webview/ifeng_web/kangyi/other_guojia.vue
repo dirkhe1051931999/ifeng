@@ -98,7 +98,7 @@
 </template>
 
 <script lang="ts">
-import { TabHomeKangyiModule } from 'src/store/modules/tab_home_kangyi';
+import { TabHomeKangyiModule } from '@/store/modules/home_tab/kangyi';
 import { Component, Vue, Watch } from 'vue-property-decorator';
 const guojiaData: any = {
   日本: '210358',

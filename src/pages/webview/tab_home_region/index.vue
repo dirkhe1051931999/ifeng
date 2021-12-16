@@ -24,7 +24,7 @@ import {
   set_user_current_region,
 } from 'src/utils/db';
 import { cloneDeep } from 'lodash';
-import { TabHomeChengshiModule } from 'src/store/modules/tab_home_chengshi';
+import { TabHomeChengshiModule } from '@/store/modules/home_tab/chengshi';
 import { Component, Vue } from 'vue-property-decorator';
 
 @Component({

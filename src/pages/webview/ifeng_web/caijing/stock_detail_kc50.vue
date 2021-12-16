@@ -76,7 +76,7 @@
 </template>
 
 <script lang="ts">
-import { TabHomeCaijingModule } from '@/store/modules/tab_home_caijing';
+import { TabHomeCaijingModule } from '@/store/modules/home_tab/caijing';
 import { date } from 'quasar';
 import { Component, Vue } from 'vue-property-decorator';
 

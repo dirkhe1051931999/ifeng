@@ -90,7 +90,7 @@
 </template>
 
 <script lang="ts">
-import { TabHomeKangyiModule } from 'src/store/modules/tab_home_kangyi';
+import { TabHomeKangyiModule } from '@/store/modules/home_tab/kangyi';
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import { provs } from '../data/chinaProvince';
 import { chinaCountyNameMap } from '../data/chinaCountyNameMap';

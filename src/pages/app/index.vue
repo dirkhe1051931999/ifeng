@@ -16,10 +16,10 @@
 import { AppModule } from 'src/store/modules/app';
 import { Component, Vue } from 'vue-property-decorator';
 import { get_config_backreason_key, set_config_backreason_key } from 'src/utils/db';
-import TabHomePage from 'src/pages/tabs/home/index.vue';
-import TabShortVideoPage from 'src/pages/tabs/shortVideo/index.vue';
-import TabPlazaPage from 'src/pages/tabs/plaza/index.vue';
-import TabMinePage from 'src/pages/tabs/mine/index.vue';
+import TabHomePage from 'src/pages/bottom_navigation/home/index.vue';
+import TabShortVideoPage from 'src/pages/bottom_navigation/shortVideo/index.vue';
+import TabPlazaPage from 'src/pages/bottom_navigation/plaza/index.vue';
+import TabMinePage from 'src/pages/bottom_navigation/mine/index.vue';
 @Component({
   name: 'App',
   components: {

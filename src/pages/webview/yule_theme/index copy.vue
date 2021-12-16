@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts">
-import { TabHomeYuleModule } from 'src/store/modules/tab_home_yule';
+import { TabHomeYuleModule } from '@/store/modules/home_tab/yule';
 import { Component, Vue } from 'vue-property-decorator';
 
 @Component

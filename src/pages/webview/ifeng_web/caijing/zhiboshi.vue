@@ -57,7 +57,7 @@
 
 <script lang="ts">
 import { result } from 'lodash';
-import { TabHomeCaijingModule } from 'src/store/modules/tab_home_caijing';
+import { TabHomeCaijingModule } from '@/store/modules/home_tab/caijing';
 import { Component, Vue, Watch } from 'vue-property-decorator';
 
 @Component({

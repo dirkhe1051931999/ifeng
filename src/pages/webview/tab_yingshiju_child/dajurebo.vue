@@ -26,7 +26,7 @@
 </template>
 
 <script lang="ts">
-import { TabHomeYingshijuModule } from '@/store/modules/tab_home_yingshiju';
+import { TabHomeYingshijuModule } from '@/store/modules/home_tab/yingshiju';
 import { Component, Vue } from 'vue-property-decorator';
 
 @Component({

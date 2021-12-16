@@ -50,7 +50,7 @@
 </template>
 
 <script lang="ts">
-import { TabHomeYinpinModule } from '@/store/modules/tab_home_yinpin';
+import { TabHomeYinpinModule } from '@/store/modules/home_tab/yinpin';
 import { Component, Vue } from 'vue-property-decorator';
 import AudioPlayer from '@liripeng/vue-audio-player';
 import '@liripeng/vue-audio-player/lib/vue-audio-player.css';

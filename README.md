@@ -88,7 +88,7 @@ server.js 是入口文件，做了代理接口
 ```
 src/pages/app  入口vue，一些公共的css
 src/pages/tabs app 底部的 bottomNavItem
-src/pages/tabs_home_item 首页头部的左右滑动tab子项
+src/pages/home_tab_item 首页头部的左右滑动tab子项
 src/pages/webview 一些子页面，在原生app里的体现就像一个webview
 ```
 

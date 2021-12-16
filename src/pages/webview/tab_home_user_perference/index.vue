@@ -42,7 +42,7 @@
 </template>
 
 <script lang="ts">
-import { TabHomeModule } from 'src/store/modules/tab_home';
+import { TabHomeModule } from 'src/store/modules/home';
 import { Component, Vue } from 'vue-property-decorator';
 
 @Component({

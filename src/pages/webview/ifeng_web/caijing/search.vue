@@ -37,7 +37,7 @@
 </template>
 
 <script lang="ts">
-import { TabHomeCaijingModule } from 'src/store/modules/tab_home_caijing';
+import { TabHomeCaijingModule } from '@/store/modules/home_tab/caijing';
 import { Component, Vue } from 'vue-property-decorator';
 
 @Component({
