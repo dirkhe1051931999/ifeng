@@ -166,6 +166,37 @@ export const constantRoutes: RouteConfig[] = [
     component: () => import(/* webpackChunkName: "tab_wenchuang_child_jingxuan" */ 'pages/webview/tab_wenchuang_child/jingxuan.vue'),
     meta: {},
   },
+  // 科技的子页面
+  {
+    path: '/tab_keji_child/rebang',
+    component: () => import(/* webpackChunkName: "tab_keji_child_rebang" */ 'pages/webview/tab_keji_child/rebang.vue'),
+    meta: {},
+  },
+  {
+    path: '/tab_keji_child/xinshijie',
+    component: () => import(/* webpackChunkName: "tab_keji_child_xinshijie" */ 'pages/webview/tab_keji_child/xinshijie.vue'),
+    meta: {},
+  },
+  {
+    path: '/tab_keji_child/pingce',
+    component: () => import(/* webpackChunkName: "tab_keji_child_pingce" */ 'pages/webview/tab_keji_child/pingce.vue'),
+    meta: {},
+  },
+  {
+    path: '/tab_keji_child/huaixiaoxi',
+    component: () => import(/* webpackChunkName: "tab_keji_child_huaixiaoxi" */ 'pages/webview/tab_keji_child/huaixiaoxi.vue'),
+    meta: {},
+  },
+  {
+    path: '/tab_keji_child/yuanchuang',
+    component: () => import(/* webpackChunkName: "tab_keji_child_yuanchuang" */ 'pages/webview/tab_keji_child/yuanchuang.vue'),
+    meta: {},
+  },
+  {
+    path: '/tab_keji_child/shendu',
+    component: () => import(/* webpackChunkName: "tab_keji_child_shendu" */ 'pages/webview/tab_keji_child/shendu.vue'),
+    meta: {},
+  },
   /* app */
   { path: '/app/:tab', component: () => import(/* webpackChunkName: "App" */ 'pages/app/index.vue') },
 ];

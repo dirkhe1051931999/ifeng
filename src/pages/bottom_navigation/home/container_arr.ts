@@ -17,6 +17,7 @@ export const tabPageClassNameList: string[] = [
   'dongao-container',
   'yaowen-container',
   'wenchuang-container',
+  'keji-container',
 ];
 export const tabPageRefNameList: string[] = [
   'GuanzhuPage',
@@ -36,4 +37,5 @@ export const tabPageRefNameList: string[] = [
   'DongaoPage',
   'YaowenPage',
   'WenchuangPage',
+  'KejiPage',
 ];

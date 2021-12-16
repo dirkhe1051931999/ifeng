@@ -46,6 +46,7 @@
         <DongaoPage v-if="item.id === 'dongao'" ref="DongaoPage" />
         <YaowenPage v-if="item.id === 'yaowen'" ref="YaowenPage" />
         <WenchuangPage v-if="item.id === 'wenchuang'" ref="WenchuangPage" />
+        <KejiPage v-if="item.id === 'keji'" ref="KejiPage" />
         <StandardPage v-else />
       </div>
     </div>
@@ -73,6 +74,7 @@ import ShederenwuPage from 'src/pages/home_tab_item/shederenwu/index.vue';
 import DongaoPage from 'src/pages/home_tab_item/dongao/index.vue';
 import YaowenPage from 'src/pages/home_tab_item/yaowen/index.vue';
 import WenchuangPage from 'src/pages/home_tab_item/wenchuang/index.vue';
+import KejiPage from 'src/pages/home_tab_item/keji/index.vue';
 import { AppModule } from 'src/store/modules/app';
 import {
   get_user_bak_categories,
@@ -106,6 +108,7 @@ import { tabPageClassNameList, tabPageRefNameList } from './container_arr';
     DongaoPage,
     YaowenPage,
     WenchuangPage,
+    KejiPage,
   },
 })
 export default class extends Vue {
@@ -149,6 +152,9 @@ export default class extends Vue {
           const _class: any = tabPageClassNameList[i];
           const _dom: any = document.querySelector('.' + _class);
           const _ref: any = tabPageRefNameList[i];
+          if (!this.$refs[_ref]) {
+            console.log(tabPageRefNameList[i]);
+          }
           const scrollTop: number = this.$refs[_ref][0].containerPositionY;
           if (scrollTop !== 0) {
             _dom.scrollTop = scrollTop;
