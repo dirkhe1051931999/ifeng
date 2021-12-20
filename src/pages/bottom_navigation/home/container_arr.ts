@@ -18,6 +18,13 @@ export const tabPageClassNameList: string[] = [
   'yaowen-container',
   'wenchuang-container',
   'keji-container',
+  'meishi-container',
+  'jiaoyu-container',
+  'FUNlaile-container',
+  'g5-container',
+  'tuijian-container',
+  'tiyu-container',
+  'lishi-container',
 ];
 export const tabPageRefNameList: string[] = [
   'GuanzhuPage',
@@ -38,4 +45,11 @@ export const tabPageRefNameList: string[] = [
   'YaowenPage',
   'WenchuangPage',
   'KejiPage',
+  'MeishiPage',
+  'JiaoyuPage',
+  'FUNlailePage',
+  'G5Page',
+  'TuijianPage',
+  'TiyuPage',
+  'LishiPage',
 ];

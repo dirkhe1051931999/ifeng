@@ -47,6 +47,13 @@
         <YaowenPage v-if="item.id === 'yaowen'" ref="YaowenPage" />
         <WenchuangPage v-if="item.id === 'wenchuang'" ref="WenchuangPage" />
         <KejiPage v-if="item.id === 'keji'" ref="KejiPage" />
+        <MeishiPage v-if="item.id === 'meishi'" ref="MeishiPage" />
+        <JiaoyuPage v-if="item.id === 'jiaoyu'" ref="JiaoyuPage" />
+        <FUNlailePage v-if="item.id === 'FUNlaile'" ref="FUNlailePage" />
+        <G5Page v-if="item.id === '5G'" ref="G5Page" />
+        <TuijianPage v-if="item.id === 'tuijian'" ref="TuijianPage" />
+        <TiyuPage v-if="item.id === 'tiyu'" ref="TiyuPage" />
+        <LishiPage v-if="item.id === 'lishi'" ref="LishiPage" />
         <StandardPage v-else />
       </div>
     </div>
@@ -75,6 +82,13 @@ import DongaoPage from 'src/pages/home_tab_item/dongao/index.vue';
 import YaowenPage from 'src/pages/home_tab_item/yaowen/index.vue';
 import WenchuangPage from 'src/pages/home_tab_item/wenchuang/index.vue';
 import KejiPage from 'src/pages/home_tab_item/keji/index.vue';
+import MeishiPage from 'src/pages/home_tab_item/meishi/index.vue';
+import JiaoyuPage from 'src/pages/home_tab_item/jiaoyu/index.vue';
+import FUNlailePage from 'src/pages/home_tab_item/FUNlaile/index.vue';
+import G5Page from 'src/pages/home_tab_item/g5/index.vue';
+import TuijianPage from 'src/pages/home_tab_item/tuijian/index.vue';
+import TiyuPage from 'src/pages/home_tab_item/tiyu/index.vue';
+import LishiPage from 'src/pages/home_tab_item/lishi/index.vue';
 import { AppModule } from 'src/store/modules/app';
 import {
   get_user_bak_categories,
@@ -109,6 +123,13 @@ import { tabPageClassNameList, tabPageRefNameList } from './container_arr';
     YaowenPage,
     WenchuangPage,
     KejiPage,
+    MeishiPage,
+    JiaoyuPage,
+    FUNlailePage,
+    G5Page,
+    TuijianPage,
+    TiyuPage,
+    LishiPage,
   },
 })
 export default class extends Vue {
@@ -160,6 +181,7 @@ export default class extends Vue {
             _dom.scrollTop = scrollTop;
           }
         }
+        this._scrollTab();
       }
     }
   }
