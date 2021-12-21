@@ -21,7 +21,7 @@
         v-for="(item, $index) in categories"
         :key="$index"
         @click="toggleTabName($index)"
-        :class="{ 'active-tab': $index === activeTabIndex, 'fs-12': item.name.length > 3 }"
+        :class="{ 'active-tab': $index === activeTabIndex, 'fs-12': item.name.length === 4, 'scale_dot_9 fs-12': item.name.length > 4 }"
       >
         {{ item.name }}
         <span class="bar" :class="{ hide: $index !== activeTabIndex }"></span>
@@ -54,6 +54,14 @@
         <TuijianPage v-if="item.id === 'tuijian'" ref="TuijianPage" />
         <TiyuPage v-if="item.id === 'tiyu'" ref="TiyuPage" />
         <LishiPage v-if="item.id === 'lishi'" ref="LishiPage" />
+        <XiaoshuoPage v-if="item.id === 'xiaoshuo'" ref="XiaoshuoPage" />
+        <QichePage v-if="item.id === 'qiche'" ref="QichePage" />
+        <FangchanPage v-if="item.id === 'fangchan'" ref="FangchanPage" />
+        <TaiwanPage v-if="item.id === 'taiwan'" ref="TaiwanPage" />
+        <NuanxinwenPage v-if="item.id === 'nuanxinwen'" ref="NuanxinwenPage" />
+        <GuojiPage v-if="item.id === 'guoji'" ref="GuojiPage" />
+        <JiankangPage v-if="item.id === 'jiankang'" ref="JiankangPage" />
+        <ShishangPage v-if="item.id === 'shishang'" ref="ShishangPage" />
         <StandardPage v-else />
       </div>
     </div>
@@ -89,6 +97,14 @@ import G5Page from 'src/pages/home_tab_item/g5/index.vue';
 import TuijianPage from 'src/pages/home_tab_item/tuijian/index.vue';
 import TiyuPage from 'src/pages/home_tab_item/tiyu/index.vue';
 import LishiPage from 'src/pages/home_tab_item/lishi/index.vue';
+import XiaoshuoPage from 'src/pages/home_tab_item/xiaoshuo/index.vue';
+import QichePage from 'src/pages/home_tab_item/qiche/index.vue';
+import FangchanPage from 'src/pages/home_tab_item/fangchan/index.vue';
+import TaiwanPage from 'src/pages/home_tab_item/taiwan/index.vue';
+import NuanxinwenPage from 'src/pages/home_tab_item/nuanxinwen/index.vue';
+import GuojiPage from 'src/pages/home_tab_item/guoji/index.vue';
+import JiankangPage from 'src/pages/home_tab_item/jiankang/index.vue';
+import ShishangPage from 'src/pages/home_tab_item/shishang/index.vue';
 import { AppModule } from 'src/store/modules/app';
 import {
   get_user_bak_categories,
@@ -130,6 +146,14 @@ import { tabPageClassNameList, tabPageRefNameList } from './container_arr';
     TuijianPage,
     TiyuPage,
     LishiPage,
+    XiaoshuoPage,
+    QichePage,
+    FangchanPage,
+    TaiwanPage,
+    NuanxinwenPage,
+    GuojiPage,
+    JiankangPage,
+    ShishangPage,
   },
 })
 export default class extends Vue {

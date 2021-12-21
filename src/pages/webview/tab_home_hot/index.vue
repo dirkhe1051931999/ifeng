@@ -58,7 +58,8 @@
               </div>
             </div>
             <div class="r">
-              <van-image class="thumbnail" :src="news.thumbnail" lazy-load radius="6" />
+              <van-image class="thumbnail" :src="news.thumbnail" lazy-load radius="6" v-if="news.thumbnail" />
+              <van-image class="thumbnail" src="~@/assets/default.png" lazy-load radius="6" v-else />
             </div>
           </div>
         </li>

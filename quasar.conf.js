@@ -155,6 +155,13 @@ module.exports = configure(function (ctx) {
             '^/ximalaya_ifeng': '',
           },
         },
+        '/xiaoshuo_ifeng': {
+          target: `http://${settings.proxy_ip}:${settings.proxy_ip_port}/xiaoshuo_ifeng`,
+          changeOrigin: true,
+          pathRewrite: {
+            '^/xiaoshuo_ifeng': '',
+          },
+        },
         '/default': {
           target: `http://${settings.proxy_ip}:${settings.proxy_ip_port}/`,
           changeOrigin: true,

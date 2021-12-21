@@ -7,6 +7,7 @@ require('./api/ifeng_home_tab_kangyi')(app); // 抗疫
 require('./api/ifeng_home_tab_caijing')(app); // 财经
 require('./api/ifeng_home_tab_yingshiju')(app); // 影视剧
 require('./api/ifeng_home_tab_keji')(app); // 科技
+require('./api/ifeng_home_tab_xiaoshuo')(app); // 小说
 // static file
 app.use('/static', express.static(path.join(__dirname, 'public')));
 // https://nine.ifeng.com
@@ -21,13 +22,22 @@ app.use(
       '/api_iclient': 'https://api.iclient.ifeng.com',
       '/shankapi': 'https://shankapi.ifeng.com',
       '/comment_ifeng': 'https://comment.ifeng.com',
-      '/ximalaya_ifeng': 'https://ximalaya.ifeng.com/',
+      '/ximalaya_ifeng': 'https://ximalaya.ifeng.com',
+      '/xiaoshuo_ifeng': 'https://xw.yc.ifeng.com',
     },
     target: 'https://nine.ifeng.com',
     onProxyReq(proxyReq, req, res) {
       proxyReq.setHeader('User-Agent', randomUseragent.getRandom());
     },
-    pathRewrite: { '^/config': '', '^/uc': '', '^/api_iclient': '', '^/shankapi': '', '^/comment_ifeng': '', '^/ximalaya_ifeng': '' },
+    pathRewrite: {
+      '^/config': '',
+      '^/uc': '',
+      '^/api_iclient': '',
+      '^/shankapi': '',
+      '^/comment_ifeng': '',
+      '^/ximalaya_ifeng': '',
+      '^/xiaoshuo_ifeng': '',
+    },
     onError(err, req, res, target) {},
     onClose(res, socket, head) {},
     changeOrigin: true,

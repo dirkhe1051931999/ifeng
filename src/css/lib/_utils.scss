@@ -39,6 +39,20 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
 }
+.dotdotdot3 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+.dotdotdot4 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+}
 .line-1 {
   width: 100%;
   height: 1px;
@@ -116,4 +130,7 @@
 .in-table-delete-button:hover {
   background: $red;
   color: $white;
+}
+.scale_dot_9 {
+  transform: scale(0.9);
 }
