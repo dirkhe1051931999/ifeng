@@ -1,0 +1,87 @@
+@import 'src/pages/app/_news_style/index.scss';
+.fojiao-container {
+  overflow: scroll;
+  height: 100%;
+  .fojiao-list {
+    min-height: 320px;
+    .fojiaoSwiperList-container {
+      .fojiaoSwiperList-slide {
+        position: relative;
+        .title {
+          position: absolute;
+          width: 100%;
+          padding: 0 16px;
+          left: 0;
+          bottom: 24px;
+          color: #ffffff;
+          font-weight: bold;
+          z-index: 100;
+          font-size: 16px;
+        }
+        .dateDiff {
+          position: absolute;
+          width: 100%;
+          padding: 0 16px;
+          left: 0;
+          bottom: 8px;
+          color: #eee;
+          z-index: 100;
+          font-size: 12px;
+        }
+        .thumbnail {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          filter: brightness(80%);
+        }
+      }
+    }
+  }
+  .fojiaoGridList {
+    display: flex;
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    box-sizing: border-box;
+    background: $white;
+    li {
+      width: 25%;
+      img {
+        display: block;
+        width: 32px;
+        height: 32px;
+        margin: 0 auto;
+      }
+      .title {
+        padding-top: 5px;
+        text-align: center;
+        font-size: 12px;
+      }
+    }
+  }
+  .fojiaoNewsList {
+    padding: 0 16px;
+    padding-top: 10px;
+    background: $white;
+    li {
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border-bottom: solid 1px #eee;
+      &:last-child {
+        border-bottom: 0;
+      }
+      .have-newList-topic2 {
+        @include have-newList-topic2;
+      }
+      .doc {
+        @include news-doc;
+      }
+      .short {
+        @include news-short;
+      }
+      .phvideo {
+        @include news-phvideo;
+      }
+    }
+  }
+}

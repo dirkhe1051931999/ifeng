@@ -62,6 +62,13 @@
         <GuojiPage v-if="item.id === 'guoji'" ref="GuojiPage" />
         <JiankangPage v-if="item.id === 'jiankang'" ref="JiankangPage" />
         <ShishangPage v-if="item.id === 'shishang'" ref="ShishangPage" />
+        <QingchunBANGPage v-if="item.id === 'qingchunBANG'" ref="QingchunBANGPage" />
+        <DianshangyanjiuyuanPage v-if="item.id === 'dianshangyanjiuyuan'" ref="DianshangyanjiuyuanPage" />
+        <LvyouPage v-if="item.id === 'lvyou'" ref="LvyouPage" />
+        <FojiaoPage v-if="item.id === 'fojiao'" ref="FojiaoPage" />
+        <YuanchuangPage v-if="item.id === 'yuanchuang'" ref="YuanchuangPage" />
+        <XianggangPage v-if="item.id === 'xianggang'" ref="XianggangPage" />
+
         <StandardPage v-else />
       </div>
     </div>
@@ -105,6 +112,13 @@ import NuanxinwenPage from 'src/pages/home_tab_item/nuanxinwen/index.vue';
 import GuojiPage from 'src/pages/home_tab_item/guoji/index.vue';
 import JiankangPage from 'src/pages/home_tab_item/jiankang/index.vue';
 import ShishangPage from 'src/pages/home_tab_item/shishang/index.vue';
+import QingchunBANGPage from 'src/pages/home_tab_item/qingchunBANG/index.vue';
+import DianshangyanjiuyuanPage from 'src/pages/home_tab_item/dianshangyanjiuyuan/index.vue';
+import LvyouPage from 'src/pages/home_tab_item/lvyou/index.vue';
+import FojiaoPage from 'src/pages/home_tab_item/fojiao/index.vue';
+import YuanchuangPage from 'src/pages/home_tab_item/yuanchuang/index.vue';
+import XianggangPage from 'src/pages/home_tab_item/xianggang/index.vue';
+
 import { AppModule } from 'src/store/modules/app';
 import {
   get_user_bak_categories,
@@ -154,6 +168,12 @@ import { tabPageClassNameList, tabPageRefNameList } from './container_arr';
     GuojiPage,
     JiankangPage,
     ShishangPage,
+    QingchunBANGPage,
+    DianshangyanjiuyuanPage,
+    LvyouPage,
+    FojiaoPage,
+    YuanchuangPage,
+    XianggangPage,
   },
 })
 export default class extends Vue {
