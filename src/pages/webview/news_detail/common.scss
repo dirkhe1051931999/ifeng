@@ -1,0 +1,27 @@
+@import 'src/css/quasar.variables.scss';
+.news-detail-doc-container {
+  .news-detail-doc-wrap {
+    .news-content {
+      .textAlignCenter {
+        text-align: center !important;
+      }
+      img {
+        vertical-align: bottom;
+        max-width: 100%;
+        height: auto;
+        display: inherit;
+        margin: 0 auto;
+        border: 0;
+        border-radius: 4px;
+      }
+      p {
+        color: $black;
+        text-align: justify;
+        word-break: normal;
+        line-height: 30px;
+        padding: 10px 0;
+        user-select: none;
+      }
+    }
+  }
+}

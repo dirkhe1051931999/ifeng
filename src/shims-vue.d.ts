@@ -10,4 +10,5 @@ declare module 'ts-md5';
 declare module 'jeft-vue-directive';
 declare module 'vue-page-stack';
 declare module 'vueg';
-declare module '@liripeng/vue-audio-player'
+declare module '@liripeng/vue-audio-player';
+declare module 'dplayer';

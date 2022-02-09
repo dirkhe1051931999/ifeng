@@ -2,6 +2,95 @@
 # yarn lockfile v1
 
 
+"@any-touch/compute@^1.0.15":
+  version "1.0.15"
+  resolved "https://registry.yarnpkg.com/@any-touch/compute/-/compute-1.0.15.tgz#2e6645c74299c777393f081678abfb39c555f129"
+  integrity sha512-UHuvIi3ACigVwWEv+MBtY3LZcyfnvfBLImPfDPLpJKzvZe/4/uZ7tCH8wgDXnP9QcPk+iB0B9PGgmSpUxK7Vbg==
+  dependencies:
+    "@any-touch/shared" "^1.0.15"
+    "@any-touch/vector" "^1.0.15"
+    tslib "^1.9.3"
+
+"@any-touch/core@^1.0.15":
+  version "1.0.15"
+  resolved "https://registry.yarnpkg.com/@any-touch/core/-/core-1.0.15.tgz#f869aa36bca5f7bc4b4396826e105a667dabbebd"
+  integrity sha512-PwjALDHKVWxUymOtyXc76jaw5km/u8I+Vgeu+EVS3do0cOPktGUs7PHed5bXuLVWZ9/TnuUKgVpiQyimbj1+9Q==
+  dependencies:
+    "@any-touch/shared" "^1.0.15"
+    any-event "^1.0.15"
+
+"@any-touch/pan@^1.0.15":
+  version "1.0.15"
+  resolved "https://registry.yarnpkg.com/@any-touch/pan/-/pan-1.0.15.tgz#81d8fc1c718e42ea98d9332335f04e73bb10c91b"
+  integrity sha512-7p15Zgv4/KQHF0/Xm1lvjGQYysMXd0L9yWRTi8f2Evm5x/116cQHXQ/30S1LIaxZJ/aNe2LLt2sSQbEXyW1c7g==
+  dependencies:
+    "@any-touch/compute" "^1.0.15"
+    "@any-touch/recognizer" "^1.0.15"
+    "@any-touch/shared" "^1.0.15"
+
+"@any-touch/pinch@^1.0.15":
+  version "1.0.15"
+  resolved "https://registry.yarnpkg.com/@any-touch/pinch/-/pinch-1.0.15.tgz#522c8d0904eedee5861e34f59869329d770dc8ff"
+  integrity sha512-mdhqOJFzf6VAtFOLPMqAd/Ob/3kpjyPhVbWBaPhgM6uVWUUnrnBWhuBiYtq9iK91UdvIvaE6LO5XP4PCUq1WyA==
+  dependencies:
+    "@any-touch/compute" "^1.0.15"
+    "@any-touch/recognizer" "^1.0.15"
+
+"@any-touch/press@^1.0.15":
+  version "1.0.15"
+  resolved "https://registry.yarnpkg.com/@any-touch/press/-/press-1.0.15.tgz#ae9098b2e8310d264cf8e84cdcdc077e1b8c4389"
+  integrity sha512-S2PqLf80lL0qgXddjak4qEx/+r+JQvVFviuy6nrh9rs4t9xXuykpINuwRF2z1RkbzKZ/mwdzy9b7YAlIF8yuNA==
+  dependencies:
+    "@any-touch/compute" "^1.0.15"
+    "@any-touch/recognizer" "^1.0.15"
+    "@any-touch/shared" "^1.0.15"
+
+"@any-touch/recognizer@^1.0.15":
+  version "1.0.15"
+  resolved "https://registry.yarnpkg.com/@any-touch/recognizer/-/recognizer-1.0.15.tgz#6b14e180874a081f176f168ff31045fe11949f3e"
+  integrity sha512-9vpWQLO2DyUMN3zN+C5lHqhR/vKg5FE7CVkcNu3tb+cXo8jr0RgDSmoe6evgP4TsB3BEYQ3xMu6vsp40uJK4VQ==
+  dependencies:
+    "@any-touch/shared" "^1.0.15"
+
+"@any-touch/rotate@^1.0.15":
+  version "1.0.15"
+  resolved "https://registry.yarnpkg.com/@any-touch/rotate/-/rotate-1.0.15.tgz#84dc35765302c3290457156e3dbbeaaa4c363871"
+  integrity sha512-lONsCltIhjREd4SRwwoEZKu73zvRkMButKoHn1hNGpIeop1V1o8VpaWFDK9/1akIa9lUJrE8WJCO7189NELKlw==
+  dependencies:
+    "@any-touch/compute" "^1.0.15"
+    "@any-touch/recognizer" "^1.0.15"
+
+"@any-touch/shared@^1.0.15":
+  version "1.0.15"
+  resolved "https://registry.yarnpkg.com/@any-touch/shared/-/shared-1.0.15.tgz#6bdc20d121080e5cdcc89bde53a0fb7ab2939d79"
+  integrity sha512-JRtA6h0Wa2gImvPpsM5JATxCK6t7ezBEEVN6ZsB6v3FAK/QmxrnA0O6W4liai7jKj1tA7JLtsRCZJ9v4CWFxsA==
+
+"@any-touch/swipe@^1.0.15":
+  version "1.0.15"
+  resolved "https://registry.yarnpkg.com/@any-touch/swipe/-/swipe-1.0.15.tgz#59e7189b8f0e51839f7617c833441b7d48891ba5"
+  integrity sha512-yByCoJV3jYowXQbulP/eLcL0s2OgiaDJRKdJymrQbUlDjh0hDN462QUA1gUsPTTGlu2r7ou60qTUltKGTLOTSw==
+  dependencies:
+    "@any-touch/compute" "^1.0.15"
+    "@any-touch/recognizer" "^1.0.15"
+    "@any-touch/shared" "^1.0.15"
+
+"@any-touch/tap@^1.0.15":
+  version "1.0.15"
+  resolved "https://registry.yarnpkg.com/@any-touch/tap/-/tap-1.0.15.tgz#035858956d1bb77b29adbf056dedffdb1c2bc623"
+  integrity sha512-a686H9XpbUfSoL8XogsHvLkXryiEaGZuaguCYTLFePQ8lk/ottixDDIjau7dj8OqlmUOwXRmyHfPKPSJ7JKG5g==
+  dependencies:
+    "@any-touch/compute" "^1.0.15"
+    "@any-touch/recognizer" "^1.0.15"
+    "@any-touch/shared" "^1.0.15"
+    "@any-touch/vector" "^1.0.15"
+
+"@any-touch/vector@^1.0.15":
+  version "1.0.15"
+  resolved "https://registry.yarnpkg.com/@any-touch/vector/-/vector-1.0.15.tgz#244dfc550833a8656a68ac8d6183b1ae2c54d04b"
+  integrity sha512-YajzYuUsBgDgAeVMFcy1bkwQoyqIcA56sDd3QxKkrG0x5BuakfDzV/G3lsPtVV3MfWDuidPZP2K14orf1jlzaw==
+  dependencies:
+    "@any-touch/shared" "^1.0.15"
+
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.14.5", "@babel/code-frame@^7.5.5", "@babel/code-frame@^7.8.3":
   version "7.14.5"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.14.5.tgz#23b08d740e83f49c5e59945fbf1b43e80bbf4edb"
@@ -1016,6 +1105,16 @@
     cssnano "^4.0.0"
     cssnano-preset-default "^4.0.0"
     postcss "^7.0.0"
+
+"@liripeng/vue-audio-player@^1.2.10", "@liripeng/vue-audio-player@^1.2.11":
+  version "1.2.11"
+  resolved "https://registry.yarnpkg.com/@liripeng/vue-audio-player/-/vue-audio-player-1.2.11.tgz#27a37a47e574e00838cb51ea954f0bdf2f44de80"
+  integrity sha512-7z8KcKJFPVr1ZD2FnUz9UQ6oeH8g3YJFTh91E2ardhLkteHiOgsVufDS1Yg8NMxLuFcOxVA9CNivg7VjG4U+Qw==
+  dependencies:
+    "@liripeng/vue-audio-player" "^1.2.10"
+    any-touch "^1.0.13"
+    vue "^2.6.14"
+    vue-router "^3.5.1"
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
@@ -2230,10 +2329,32 @@ ansi-styles@^4.0.0, ansi-styles@^4.1.0:
   dependencies:
     color-convert "^2.0.1"
 
+any-event@^1.0.15:
+  version "1.0.15"
+  resolved "https://registry.yarnpkg.com/any-event/-/any-event-1.0.15.tgz#ecafa7a37e9557d9f2b883577f3d5059b667c0a3"
+  integrity sha512-7OKjbGsZRvwBHYtiYuWIgj5XtxaraQja6qKqQTgcNVT0bw+5l3U8bYo3cIIFxLpL84vYsFdysiPvh9dsC+I0sg==
+  dependencies:
+    tslib "^1.9.3"
+
 any-promise@^1.0.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/any-promise/-/any-promise-1.3.0.tgz#abc6afeedcea52e809cdc0376aed3ce39635d17f"
   integrity sha1-q8av7tzqUugJzcA3au0845Y10X8=
+
+any-touch@^1.0.13:
+  version "1.0.15"
+  resolved "https://registry.yarnpkg.com/any-touch/-/any-touch-1.0.15.tgz#0c990323851a753b0a11c4b11f94570c38e7e7e5"
+  integrity sha512-BgwyDcsFdJ6p5TeEAlYZ2fIjP7e+NMzLO09SltXuu0kJqCXq5tZ8xq2MFpP7pc2WcPo4KdKFUrTM3GVNljG+dQ==
+  dependencies:
+    "@any-touch/core" "^1.0.15"
+    "@any-touch/pan" "^1.0.15"
+    "@any-touch/pinch" "^1.0.15"
+    "@any-touch/press" "^1.0.15"
+    "@any-touch/rotate" "^1.0.15"
+    "@any-touch/swipe" "^1.0.15"
+    "@any-touch/tap" "^1.0.15"
+    any-event "^1.0.15"
+    tslib "^1.9.3"
 
 anymatch@*, anymatch@^3.0.0, anymatch@~3.1.1, anymatch@~3.1.2:
   version "3.1.2"
@@ -2467,6 +2588,13 @@ aws4@^1.8.0:
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.11.0.tgz#d61f46d83b2519250e2784daf5b09479a8b41c59"
   integrity sha512-xh1Rl34h6Fi1DC2WWKfxUTVqRsNnr6LsKz2+hfwDxQJWmrx8+c7ylaqBMcHfl1U1r2dsifOvKX3LQuLNZ+XSvA==
 
+axios@0.19.2:
+  version "0.19.2"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.19.2.tgz#3ea36c5d8818d0d5f8a8a97a6d36b86cdc00cb27"
+  integrity sha512-fjgm5MvRHLhx+osE2xoekY70AhARk3a6hkN+3Io1jc00jtquGvxYlKlsFUhmUET0V5te6CcZI7lcv2Ym61mjHA==
+  dependencies:
+    follow-redirects "1.5.10"
+
 axios@^0.21.1:
   version "0.21.1"
   resolved "https://registry.yarnpkg.com/axios/-/axios-0.21.1.tgz#22563481962f4d6bde9a76d516ef0e5d3c09b2b8"
@@ -2601,6 +2729,11 @@ balanced-match@^1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.2.tgz#e83e3a7e3f300b34cb9d87f615fa0cbf357690ee"
   integrity sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==
+
+balloon-css@^1.0.3:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/balloon-css/-/balloon-css-1.2.0.tgz#53d3fb4051264a278a58713bed6865845dbcaf4b"
+  integrity sha512-urXwkHgwp6GsXVF+it01485Z2Cj4pnW02ICnM0TemOlkKmCNnDLmyy+ZZiRXBpwldUXO+aRNr7Hdia4CBvXJ5A==
 
 base64-js@^1.0.2, base64-js@^1.3.1, base64-js@^1.5.1:
   version "1.5.1"
@@ -4087,6 +4220,13 @@ debug@2.6.9, debug@^2.2.0, debug@^2.3.3, debug@^2.6.8:
   dependencies:
     ms "2.0.0"
 
+debug@=3.1.0, debug@~3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-3.1.0.tgz#5bb5a0672628b64149566ba16819e61518c67261"
+  integrity sha512-OX8XqP7/1a9cqkxYw2yXss15f26NKWBpDXQd0/uK/KPqdQhxbPa994hnzjcE2VqQpDslf55723cKPUOGSmMY3g==
+  dependencies:
+    ms "2.0.0"
+
 debug@^3.1.0, debug@^3.1.1, debug@^3.2.6:
   version "3.2.7"
   resolved "https://registry.yarnpkg.com/debug/-/debug-3.2.7.tgz#72580b7e9145fb39b6676f9c5e5fb100b934179a"
@@ -4100,13 +4240,6 @@ debug@^4.0.1, debug@^4.1.0, debug@^4.1.1:
   integrity sha512-mOp8wKcvj7XxC78zLgw/ZA+6TSgkoE2C/ienthhRD298T7UNwAg9diBpLRxC0mOezLl4B0xV7M0cCO6P/O0Xhw==
   dependencies:
     ms "2.1.2"
-
-debug@~3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/debug/-/debug-3.1.0.tgz#5bb5a0672628b64149566ba16819e61518c67261"
-  integrity sha512-OX8XqP7/1a9cqkxYw2yXss15f26NKWBpDXQd0/uK/KPqdQhxbPa994hnzjcE2VqQpDslf55723cKPUOGSmMY3g==
-  dependencies:
-    ms "2.0.0"
 
 decamelize@^1.1.2, decamelize@^1.2.0:
   version "1.2.0"
@@ -4410,6 +4543,15 @@ dotenv@^8.2.0:
   version "8.6.0"
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-8.6.0.tgz#061af664d19f7f4d8fc6e4ff9b584ce237adcb8b"
   integrity sha512-IrPdXQsk2BbzvCBGBOTmmSH5SodmqZNt4ERAZDmW4CT+tL8VtvinqywuANaFu4bOMWki16nqf0e4oC0QIaDr/g==
+
+dplayer@^1.26.0:
+  version "1.26.0"
+  resolved "https://registry.yarnpkg.com/dplayer/-/dplayer-1.26.0.tgz#d366200b1962bd09e91226066f2aadea6f35c71b"
+  integrity sha512-uOE0w/WdlX7N9d0ppIEcAYrcnUjY52TMX+MBL4lj9Mj+JMljVuaEc5w88HkZp5Q11VqvN/jxnM8ktx2Dr7/MgA==
+  dependencies:
+    axios "0.19.2"
+    balloon-css "^1.0.3"
+    promise-polyfill "8.1.3"
 
 duplexer3@^0.1.4:
   version "0.1.4"
@@ -5212,6 +5354,13 @@ flush-write-stream@^1.0.0:
     inherits "^2.0.3"
     readable-stream "^2.3.6"
 
+follow-redirects@1.5.10:
+  version "1.5.10"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.5.10.tgz#7b7a9f9aea2fdff36786a94ff643ed07f4ff5e2a"
+  integrity sha512-0V5l4Cizzvqt5D44aTXbFZz+FtyXV1vrDN6qrelxtfYQKW0KO0W2T/hkE8xvGa/540LkZlkaUjO4ailYTFtHVQ==
+  dependencies:
+    debug "=3.1.0"
+
 follow-redirects@^1.0.0, follow-redirects@^1.10.0:
   version "1.14.1"
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.1.tgz#d9114ded0a1cfdd334e164e6662ad02bfd91ff43"
@@ -5944,6 +6093,11 @@ html-webpack-plugin@^3.2.0:
     tapable "^1.0.0"
     toposort "^1.0.0"
     util.promisify "1.0.0"
+
+html5-qrcode@^2.1.3:
+  version "2.1.6"
+  resolved "https://registry.yarnpkg.com/html5-qrcode/-/html5-qrcode-2.1.6.tgz#6433696a87a327082b146af5fed127e29ea794db"
+  integrity sha512-KyOamaxKOZmNp/3y7DAz8uuigNhTeQfyCPTlcuyNEQuKYPZPP3ghm6HFr/f7gmcDBwewcGTvv3jRvsCODEDt7w==
 
 htmlparser2@^6.1.0:
   version "6.1.0"
@@ -8893,6 +9047,11 @@ promise-inflight@^1.0.1:
   resolved "https://registry.yarnpkg.com/promise-inflight/-/promise-inflight-1.0.1.tgz#98472870bf228132fcbdd868129bad12c3c029e3"
   integrity sha1-mEcocL8igTL8vdhoEputEsPAKeM=
 
+promise-polyfill@8.1.3:
+  version "8.1.3"
+  resolved "https://registry.yarnpkg.com/promise-polyfill/-/promise-polyfill-8.1.3.tgz#8c99b3cf53f3a91c68226ffde7bde81d7f904116"
+  integrity sha512-MG5r82wBzh7pSKDRa9y+vllNHz3e3d4CNj1PQE4BQYxLme0gKYYBm9YENq+UkEikyZ0XbiGWxYlVw3Rl9O/U8g==
+
 proto-list@~1.2.1:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/proto-list/-/proto-list-1.2.4.tgz#212d5bfe1318306a420f6402b8e26ff39647a849"
@@ -11278,6 +11437,11 @@ vue-router@3.5.1:
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-3.5.1.tgz#edf3cf4907952d1e0583e079237220c5ff6eb6c9"
   integrity sha512-RRQNLT8Mzr8z7eL4p7BtKvRaTSGdCbTy2+Mm5HTJvLGYSSeG9gDzNasJPP/yOYKLy+/cLG/ftrqq5fvkFwBJEw==
 
+vue-router@^3.5.1:
+  version "3.5.3"
+  resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-3.5.3.tgz#041048053e336829d05dafacf6a8fb669a2e7999"
+  integrity sha512-FUlILrW3DGitS2h+Xaw8aRNvGTwtuaxrRkNSHWTizOfLUie7wuYwezeZ50iflRn8YPV5kxmU2LQuu3nM/b3Zsg==
+
 vue-server-renderer@2.6.14:
   version "2.6.14"
   resolved "https://registry.yarnpkg.com/vue-server-renderer/-/vue-server-renderer-2.6.14.tgz#c8bffff152df6b47b858818ef8d524d2fc351654"
@@ -11313,7 +11477,7 @@ vue-template-es2015-compiler@^1.9.0:
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
   integrity sha512-4gDntzrifFnCEvyoO8PqyJDmguXgVPxKiIxrBKjIowvL9l+N66196+72XVYR8BBf1Uv1Fgt3bGevJ+sEmxfZzw==
 
-vue@2.6.14:
+vue@2.6.14, vue@^2.6.14:
   version "2.6.14"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.14.tgz#e51aa5250250d569a3fbad3a8a5a687d6036e235"
   integrity sha512-x2284lgYvjOMj3Za7kqzRcUSxBboHqtgRE2zlos1qWaOye5yUmHn42LB1250NJBLRwEcdrB0JRwyPTEPhfQjiQ==

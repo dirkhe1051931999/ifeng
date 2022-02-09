@@ -2,6 +2,7 @@
 // vue page stack
 
 import router from 'src/router/index';
+import settings from '@/settings.json';
 // vueg
 import vueg from 'vueg';
 const options = {
@@ -108,3 +109,9 @@ Object.keys(directives).forEach((key) => {
 Object.keys(filters).forEach((key) => {
   Vue.filter(key, (filters as { [key: string]: Function })[key]);
 });
+
+console.log(
+  '\n'.concat(` %c ${settings.title} v`, settings.version, ' ').concat(settings['app-desc'], ` %c ${settings.policy} `, '\n', '\n'),
+  'color: #fadfa3; background: #030307; padding:5px 0;',
+  'background: #fadfa3; padding:5px 0;',
+);

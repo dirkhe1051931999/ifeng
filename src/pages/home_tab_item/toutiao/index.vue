@@ -21,7 +21,7 @@
       <ul class="news-list">
         <!-- 置顶新闻 -->
         <div class="top-wrap p-l-16 p-r-16 bg-white m-b-10">
-          <li v-for="news in toutiaoZhidingData" :key="news.id" class="top">
+          <li v-for="news in toutiaoZhidingData" :key="news.id" class="top" @click.stop.prevent="handlerClickNewsItem(news)">
             <p class="title">{{ news.title }}</p>
             <div>
               <span class="zhiding">置顶</span>
@@ -234,7 +234,7 @@
           </div>
           <!-- doc -->
           <div v-if="news.type === 'doc' || (news.type === 'topic2' && !news.newslist)" class="doc">
-            <div class="top" @click="handlerClickNews(news)">
+            <div class="top" @click="handlerClickNewsItem(news)">
               <div class="left">
                 <p class="title">
                   <span class="text-red title-label" v-if="news.style.recomTag && news.style.recomTag.pos">{{ news.style.recomTag.text }}</span>
@@ -485,6 +485,7 @@ import { ImagePreview } from 'vant';
 import { Component, Vue } from 'vue-property-decorator';
 import { toutiaoUserPreference } from './static/userPreference';
 import { handlerQuasarShare } from 'src/utils/share';
+import { getUrlParams, json2Url } from '@/utils';
 @Component({
   name: 'home_tab_item_toutiao',
 })
@@ -604,9 +605,16 @@ export default class extends Vue {
       });
     }, 300);
   }
-  private handlerClickNews(news: any) {
-    // console.log(news)
-    // this.$router.push(`/news_topic?topicid=${news.id}`);
+  private handlerClickNewsItem(news: any) {
+    const params = getUrlParams(news.link.url);
+    const urlStr = json2Url(params);
+    switch (news.type) {
+      case 'doc':
+        this.$router.push('/news_detail/doc?' + urlStr);
+        break;
+      default:
+        break;
+    }
   }
   // http
   private async _downCallback() {

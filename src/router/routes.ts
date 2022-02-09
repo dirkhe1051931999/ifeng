@@ -34,9 +34,18 @@ export const constantRoutes: RouteConfig[] = [
     path: '/',
     component: () => import(/* webpackChunkName: "welcome" */ 'pages/webview/welcome/index.vue'),
   },
+  // 详情落地页
   {
-    path: '/news_detail/:id',
-    component: () => import(/* webpackChunkName: "news_detail" */ 'pages/webview/news_detail/index.vue'),
+    path: '/news_detail/doc',
+    component: () => import(/* webpackChunkName: "news_detail_doc" */ 'pages/webview/news_detail/doc.vue'),
+  },
+  {
+    path: '/news_detail/video',
+    component: () => import(/* webpackChunkName: "news_detail_video" */ 'pages/webview/news_detail/video.vue'),
+  },
+  {
+    path: '/news_detail/imglist',
+    component: () => import(/* webpackChunkName: "news_detail_imglist" */ 'pages/webview/news_imglist/index.vue'),
   },
   {
     path: '/tab_home_hot/:index',

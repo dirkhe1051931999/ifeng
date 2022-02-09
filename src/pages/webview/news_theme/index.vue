@@ -10,9 +10,12 @@
         <p class="text">{{ bannerMap.pageinfo.banner.threelines.title }}</p>
         <p class="follow-count">{{ bannerMap.pageinfo.banner.threelines.desc.first }}</p>
       </div>
-      <p class="desc">{{ bannerMap.pageinfo.banner.threelines.desc.second }}</p>
+      <p class="desc" v-if="bannerMap.pageinfo.banner.threelines.desc.second">{{ bannerMap.pageinfo.banner.threelines.desc.second }}</p>
     </div>
-    <div class="news-theme-wrap" ref="news-theme-wrap">
+    <div class="text-center p-t-10 p-b-10" v-if="!pageLoaded">
+      <van-loading size="12px" color="#969799">加载中...</van-loading>
+    </div>
+    <div class="news-theme-wrap" ref="news-theme-wrap" v-if="pageLoaded">
       <ul v-for="(list, listIndex) in newsThemeList" :key="listIndex" class="news-item">
         <li v-for="(news, index) in list.items" :key="index">
           <!-- doc -->
@@ -219,7 +222,9 @@ export default class extends Vue {
   private bannerMap: any = {};
   private newsThemeList: any[] = [];
   async mounted() {
+    this.pageLoaded = false;
     await this._getNewTheme();
+    this.pageLoaded = true;
     this.$nextTick(() => {
       this.$refs['news-theme-wrap'].style['height'] = window.innerHeight - 150 + 'px';
     });
@@ -248,15 +253,24 @@ export default class extends Vue {
   /*http */
   private async _getNewTheme() {
     try {
-      let params = {
-        groupid: this.$route.query.groupid,
+      let params: any = {
+        groupid: this.$route.query.groupid || '',
         aid: '',
         type: '',
       };
-      const result = await NewsThemeModule.getHotSpotDetailListV2({ params });
-      const { config, lists } = result.data;
-      this.bannerMap = config;
-      this.newsThemeList = lists;
+      if (this.$route.query.eventName) {
+        params = this.$route.query;
+        const result = await NewsThemeModule.hotSpotDetailListV2({ params });
+        const { config, lists } = result.data;
+        this.bannerMap = config;
+        this.newsThemeList = lists;
+      } else {
+        const result = await NewsThemeModule.hotSpotCrowdV2({ params });
+        const { config, lists } = result.data;
+        this.bannerMap = config;
+        this.newsThemeList = lists;
+      }
+
       return Promise.resolve(true);
     } catch (err) {
       console.log('err', err);

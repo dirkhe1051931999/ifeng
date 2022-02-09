@@ -248,7 +248,12 @@
                         <span v-if="news.reply_uname">回复</span>
                         <span class="reply_uname" v-if="news.reply_uname">{{ news.reply_uname }}</span>
                       </div>
-                      <div class="c">{{ news.comment_contents }}</div>
+                      <div class="c">
+                        {{ news.comment_contents }}
+                        <div class="emojo" v-if="news.pics && news.pics.length">
+                          <img :src="pic.url" alt="" v-for="(pic, picIndex) in news.pics" :key="picIndex" />
+                        </div>
+                      </div>
                       <div class="b">
                         <span class="time" v-if="news.comment_date">{{ news.comment_date | getDateDiff }}</span>
                         <span class="split"></span>
@@ -274,7 +279,12 @@
                           <span v-if="child.reply_uname">回复</span>
                           <span class="reply_uname" v-if="child.reply_uname">{{ child.reply_uname }}</span>
                         </div>
-                        <div class="c">{{ child.comment_contents }}</div>
+                        <div class="c">
+                          {{ child.comment_contents }}
+                          <div class="emojo" v-if="child.pics && child.pics.length">
+                            <img :src="pic.url" alt="" v-for="(pic, picIndex) in child.pics" :key="picIndex" />
+                          </div>
+                        </div>
                         <div class="b">
                           <span class="time" v-if="child.comment_date">{{ child.comment_date | getDateDiff }}</span>
                           <span class="split"></span>
