@@ -14,7 +14,7 @@
         </div>
         <div class="r" v-if="news_details.subscribe.logo">关注</div>
       </div>
-      <q-icon class="more" name="more_horiz" v-if="pageLoaded" @click="toShare"></q-icon>
+      <q-icon class="more" name="more_horiz" v-if="pageLoaded" @click="handleClickShare"></q-icon>
     </div>
     <div class="news-detail-doc-wrap" ref="news-detail-doc-wrap" @scroll="monitorScrollEvent" v-if="pageLoaded">
       <div class="news-header">
@@ -65,7 +65,7 @@
         <div class="editRecommend" v-if="news_details.editRecommend && news_details.editRecommend.item">
           <div class="title" @click="handleClickNewsDetailTheme(news_details.editRecommend)">
             <div class="l">
-              <div class="ll">{{ news_details.editRecommend.icon }}</div>
+              <div class="ll" v-if="news_details.editRecommend.icon">{{ news_details.editRecommend.icon }}</div>
               <div class="rr">{{ news_details.editRecommend.title }}</div>
             </div>
             <div class="r">
@@ -103,7 +103,7 @@
       </div>
       <div class="news-comment">
         <div class="title">评论</div>
-        <div class="sort-wrap">
+        <div class="sort-wrap" v-if="commentsMap.comments.length">
           <div class="l">
             {{ commentsSort.sortTitle }}
           </div>
@@ -112,6 +112,9 @@
             <span class="method"> {{ commentsSort.sortMethod }}</span>
             <q-spinner color="#afafaf" size="12px" :thickness="2" class="m-l-10" v-show="commentSorting" />
           </div>
+        </div>
+        <div v-else class="text-center">
+          <van-empty description="暂无评论" />
         </div>
         <div v-for="(father, _) in commentsMap.comments" :key="_">
           <div class="comment-container">
@@ -260,7 +263,9 @@
     <div class="comment-input" v-if="pageLoaded">
       <div class="input">我来说两句</div>
       <div class="comment">
-        <i class="iconfont icon-duanxin"></i>
+        <van-badge :content="commentsMap.join_count">
+          <i class="iconfont icon-duanxin"></i>
+        </van-badge>
       </div>
       <div class="share">
         <i class="iconfont icon-fenxiang3"></i>
@@ -317,7 +322,7 @@ export default class extends Vue {
   private commentsPaginationParams = {
     num: 1,
     orderby: 'integral',
-    pagesize: '10',
+    pagesize: 10,
   };
   private commentsSort = {
     sortMethod: '按时间',
@@ -328,6 +333,7 @@ export default class extends Vue {
     join_count: 0,
     comments: [],
     allow_comment: 1,
+    newComments: [],
   };
   private commentsChildrenMoreList: any[] = [];
   private commentsOwnerMap: any = {};
@@ -365,14 +371,24 @@ export default class extends Vue {
       this.previewImage(this.imgViewsList, index);
     }
   }
-  private toShare() {
+  private handleClickShare() {
     handlerQuasarShare('app', {});
   }
   private handleClickNewsDetailTheme(item: any) {
-    if (item.link.url && (item.type === 'topic3' || item.type === 'hotevent')) {
-      const params = getUrlParams(item.link.url);
-      const str = json2Url(params);
-      this.$router.push(`/news_theme?${str}`);
+    console.log(item.type, item);
+    if (item.link.url) {
+      let params = getUrlParams(item.link.url);
+      if (params['topicid']) {
+        const str = json2Url(params);
+        this.$router.push(`/news_topic?${str}`);
+      } else if (params['eventName']) {
+        const str = json2Url(params);
+        this.$router.push(`/news_theme?${str}`);
+      } else if (params['columnId']) {
+        params['type'] = item.type;
+        const str = json2Url(params);
+        this.$router.push(`/news_theme?${str}`);
+      }
     }
   }
   private handlerClickNewsItem(news: any) {
@@ -398,6 +414,12 @@ export default class extends Vue {
     this.containerPositionY = scrollTop;
     var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
     if (scrollTop + windowHeight - 46 - 38 >= this.$dom.scrollHeight) {
+      if (this.commentsMap.newComments.length < this.commentsPaginationParams.pagesize) {
+        this.load_more_no_data = '没有更多数据了';
+        this.load_more_loading_lock = true;
+        this.load_more_loading = false;
+        return;
+      }
       if (!this.load_more_loading_lock) {
         this.load_more_loading = true;
         this.load_more_loading_lock = true;
@@ -423,6 +445,7 @@ export default class extends Vue {
     this.news_details = body;
     this.imgViewsList = findStrImgSrc(body.text);
     this.commentsMap = commentResult;
+    this.commentsMap.newComments = commentResult.comments;
     return Promise.resolve();
   }
   private handlerClickComentsChildMore(news: any) {
@@ -461,6 +484,7 @@ export default class extends Vue {
     };
     const commentResult = await CommentsModule.getComments({ params: commentParams });
     this.commentsMap = commentResult;
+    this.commentsMap.newComments = commentResult.comments;
     this.commentSorting = false;
   }
   private async _getCommentsMore() {
@@ -482,6 +506,7 @@ export default class extends Vue {
         this.commentsMap.join_count = commentResult.join_count;
         this.commentsMap.allow_comment = commentResult.allow_comment;
         this.commentsMap.comments = this.commentsMap.comments.concat(commentResult.comments);
+        this.commentsMap.newComments = commentResult.comments;
       }
       return Promise.resolve(true);
     } catch (error) {

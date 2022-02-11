@@ -1,6 +1,6 @@
 import { VuexModule, Module, Action, Mutation, getModule } from 'vuex-module-decorators';
 import store from '@/store';
-import { hotSpotDetailListV2, hotSpotCrowdV2 } from 'src/api/news_theme';
+import { hotSpotDetailListV2, hotSpotCrowdV2, soleNewsListV2 } from 'src/api/news_theme';
 
 export interface INewsThemeState {}
 
@@ -15,6 +15,11 @@ class User extends VuexModule implements INewsThemeState {
   @Action({ rawError: true })
   public async hotSpotCrowdV2(data: any) {
     const result = await hotSpotCrowdV2(data);
+    return Promise.resolve(result);
+  }
+  @Action({ rawError: true })
+  public async soleNewsListV2(data: any) {
+    const result = await soleNewsListV2(data);
     return Promise.resolve(result);
   }
 }

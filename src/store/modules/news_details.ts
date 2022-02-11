@@ -1,6 +1,6 @@
 import { VuexModule, Module, Action, Mutation, getModule } from 'vuex-module-decorators';
 import store from '@/store';
-import { getNewsDetails } from 'src/api/news_details';
+import { apiPhoenixtvDetails, getNewsDetails, relatedVideos } from 'src/api/news_details';
 
 export interface INewsDetailsState {}
 
@@ -10,6 +10,16 @@ class User extends VuexModule implements INewsDetailsState {
   @Action({ rawError: true })
   public async getNewsDetails(data: any) {
     const result = await getNewsDetails(data);
+    return Promise.resolve(result);
+  }
+  @Action({ rawError: true })
+  public async apiPhoenixtvDetails(data: any) {
+    const result = await apiPhoenixtvDetails(data);
+    return Promise.resolve(result);
+  }
+  @Action({ rawError: true })
+  public async relatedVideos(data: any) {
+    const result = await relatedVideos(data);
     return Promise.resolve(result);
   }
 }

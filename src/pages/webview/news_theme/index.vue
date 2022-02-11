@@ -2,22 +2,31 @@
   <div class="news-theme-container">
     <div class="header" v-if="bannerMap.pageinfo">
       <div class="nav">
-        <q-icon class="back" name="arrow_back_ios" @click="hanlderClickTabBack" :class="activeShow ? 'active-show' : ''"></q-icon>
+        <q-icon class="back" name="arrow_back_ios" @click.stop.prevent="hanlderClickTabBack" :class="activeShow ? 'active-show' : ''"></q-icon>
         <div class="follow-button">关注</div>
       </div>
-      <img :src="bannerMap.pageinfo.banner.threelines.backgroundImg" alt="" class="bgimg" />
-      <div class="title">
-        <p class="text">{{ bannerMap.pageinfo.banner.threelines.title }}</p>
-        <p class="follow-count">{{ bannerMap.pageinfo.banner.threelines.desc.first }}</p>
+      <div v-if="$route.query.type === 'solenewslist'">
+        <img :src="bannerMap.pageinfo.banner.logowithbgimg.backgroundImg" alt="" />
+        <div class="title">
+          <p class="text">{{ bannerMap.pageinfo.banner.logowithbgimg.title }}</p>
+          <p class="follow-count">{{ bannerMap.pageinfo.banner.logowithbgimg.desc }}</p>
+        </div>
       </div>
-      <p class="desc" v-if="bannerMap.pageinfo.banner.threelines.desc.second">{{ bannerMap.pageinfo.banner.threelines.desc.second }}</p>
+      <div v-if="!$route.query.type">
+        <img :src="bannerMap.pageinfo.banner.threelines.backgroundImg" alt="" class="bgimg" />
+        <div class="title">
+          <p class="text">{{ bannerMap.pageinfo.banner.threelines.title }}</p>
+          <p class="follow-count">{{ bannerMap.pageinfo.banner.threelines.desc.first }}</p>
+        </div>
+        <p class="desc" v-if="bannerMap.pageinfo.banner.threelines.desc.second">{{ bannerMap.pageinfo.banner.threelines.desc.second }}</p>
+      </div>
     </div>
     <div class="text-center p-t-10 p-b-10" v-if="!pageLoaded">
       <van-loading size="12px" color="#969799">加载中...</van-loading>
     </div>
     <div class="news-theme-wrap" ref="news-theme-wrap" v-if="pageLoaded">
       <ul v-for="(list, listIndex) in newsThemeList" :key="listIndex" class="news-item">
-        <li v-for="(news, index) in list.items" :key="index">
+        <li v-for="(news, index) in list.items" :key="index" @click="handleClickNewsItem(news)">
           <!-- doc -->
           <div
             v-if="news.content.type === 'doc' || news.content.type === 'slide' || (news.content.type === 'topic2' && !news.content.newslist)"
@@ -26,7 +35,7 @@
             <div class="top">
               <div class="left">
                 <p class="title">
-                  <span class="text-red title-label" v-if="news.content.style.recomTag && news.content.style.recomTag.pos">{{
+                  <span class="text-red title-label" v-if="news.content.style && news.content.style.recomTag && news.content.style.recomTag.pos">{{
                     news.content.style.recomTag.text
                   }}</span>
                   {{ news.content.title }}
@@ -36,7 +45,7 @@
                 <van-image class="thumbnail" :src="news.content.thumbnail" lazy-load radius="6" />
               </div>
             </div>
-            <div class="text-red topLabel" v-if="news.content.topLabel" @click="handlerClickToutiaoHotSpotMore">
+            <div class="text-red topLabel" v-if="news.content.topLabel" @click.stop.prevent="handlerClickToutiaoHotSpotMore">
               <span class="iconfont icon-hot text-red m-r-5"></span>{{ news.content.topLabel.desp }}
               <q-icon name="arrow_right" class="fs-16"></q-icon>
             </div>
@@ -107,7 +116,7 @@
                 :key="index"
                 fit="cover"
                 v-show="index < 10"
-                @click="previewImage(news.content.imageList, index)"
+                @click.stop.prevent="previewImage(news.content.imageList, index)"
               />
             </ul>
             <div v-if="news.content.summary" class="hot-comment">
@@ -165,7 +174,7 @@
                 {{ news.content.phvideo.length | getVideoTotalTime }}
               </p>
             </div>
-            <div class="text-red topLabel" v-if="news.content.topLabel" @click="handlerClickToutiaoHotSpotMore">
+            <div class="text-red topLabel" v-if="news.content.topLabel" @click.stop.prevent="handlerClickToutiaoHotSpotMore">
               <span class="iconfont icon-hot text-red"></span>
               {{ news.content.topLabel.desp }} <q-icon name="arrow_right" class="fs-16"></q-icon>
             </div>
@@ -197,7 +206,7 @@
                 <span class="iconfont icon-duanxin"></span>
                 <span class="count">{{ news.content.commentsall ? news.content.commentsall : '评论' }}</span>
               </div>
-              <div class="share" @click="handlerClickPhvideoShare(news)">
+              <div class="share" @click.stop.prevent="handlerClickPhvideoShare(news)">
                 <span class="iconfont icon-fenxiang3"></span>
                 <span class="count">{{ news.content.share ? news.content.share : '分享' }}</span>
               </div>
@@ -214,6 +223,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import { NewsThemeModule } from 'src/store/modules/news_theme';
 import { ImagePreview } from 'vant';
 import { handlerQuasarShare } from 'src/utils/share';
+import { getUrlParams, json2Url } from '@/utils';
 @Component
 export default class extends Vue {
   $refs: any;
@@ -250,6 +260,36 @@ export default class extends Vue {
       closeable: true,
     });
   }
+  private handleClickNewsItem(news: any) {
+    let params;
+    let urlStr: string;
+    news = news.content;
+    switch (news.type) {
+      case 'doc':
+        params = getUrlParams(news.link.url);
+        urlStr = json2Url(params);
+        this.$router.push('/news_detail/doc?' + urlStr);
+        break;
+      case 'short':
+        params = getUrlParams(news.link.url);
+        urlStr = json2Url(params);
+        this.$router.push('/news_detail/imglist?' + urlStr);
+        break;
+      case 'phvideo':
+        params = {
+          guid: news.link.url,
+          title: news.title,
+          doc_url: news.commentsUrl,
+          type: 'video',
+        };
+        params = Object.assign(params, getUrlParams(news.link.weburl));
+        urlStr = json2Url(params) + '&' + news.link.queryString;
+        this.$router.push('/news_detail/video?' + urlStr);
+        break;
+      default:
+        break;
+    }
+  }
   /*http */
   private async _getNewTheme() {
     try {
@@ -264,6 +304,12 @@ export default class extends Vue {
         const { config, lists } = result.data;
         this.bannerMap = config;
         this.newsThemeList = lists;
+      } else if (this.$route.query.columnId) {
+        params = this.$route.query;
+        const result = await NewsThemeModule.soleNewsListV2({ params });
+        const { config, chlist } = result.data;
+        this.bannerMap = config;
+        this.newsThemeList.push(chlist);
       } else {
         const result = await NewsThemeModule.hotSpotCrowdV2({ params });
         const { config, lists } = result.data;

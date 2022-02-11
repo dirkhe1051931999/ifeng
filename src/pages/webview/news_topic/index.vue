@@ -1,13 +1,13 @@
 <template>
   <div class="news-topic-container">
     <ul class="tabs" ref="tabs" :class="activeShow ? 'active-show' : ''">
-      <q-icon class="back" name="arrow_back_ios" @click="hanlderClickTabBack" :class="activeShow ? 'active-show' : ''"></q-icon>
+      <q-icon class="back" name="arrow_back_ios" @click.stop.prevent="hanlderClickTabBack" :class="activeShow ? 'active-show' : ''"></q-icon>
       <div class="tab-name" ref="tab-name" :style="activeShow ? 'width:100%' : ''">
         <li
           v-for="(item, index) in tabsList"
           :key="index"
           :class="[index === activeTabIndex ? 'active' : '', activeShow ? 'active-show' : '']"
-          @click="handlerClickTabItem(index)"
+          @click.stop.prevent="handlerClickTabItem(index)"
         >
           {{ item.name }}
         </li>
@@ -55,7 +55,7 @@
             <div
               class="comment-sort"
               v-if="_tab.type === 'comment' && _tab.list && _tab.list.length"
-              @click="handlerClickCommentsSort(commentsSort.sortMethod)"
+              @click.stop.prevent="handlerClickCommentsSort(commentsSort.sortMethod)"
             >
               <q-icon name="sort" class="icon"></q-icon>
               <span class="method"> {{ commentsSort.sortMethod }}</span>
@@ -63,7 +63,7 @@
             </div>
           </div>
           <div v-for="(news, __) in _tab.list" :key="__">
-            <li :class="[_tab.type]" v-if="_tab.type === 'column'">
+            <li :class="[_tab.type]" v-if="_tab.type === 'column'" @click.stop.prevent="handleClickNewsItem(news)">
               <!-- doc -->
               <div v-if="(news.title && news.type === 'doc') || news.type === 'slide' || (news.type === 'topic2' && !news.newslist)" class="doc">
                 <div class="top">
@@ -77,7 +77,7 @@
                     <van-image class="thumbnail" :src="news.thumbnail" lazy-load radius="6" />
                   </div>
                 </div>
-                <div class="text-red topLabel" v-if="news.topLabel" @click="handlerClickToutiaoHotSpotMore">
+                <div class="text-red topLabel" v-if="news.topLabel" @click.stop.prevent="handlerClickToutiaoHotSpotMore">
                   <span class="iconfont icon-hot text-red m-r-5"></span>{{ news.topLabel.desp }} <q-icon name="arrow_right" class="fs-16"></q-icon>
                 </div>
                 <div v-if="news.summary && news.summary.tag && news.summary.desp" class="hot-comment">
@@ -143,7 +143,7 @@
                     :key="index"
                     fit="cover"
                     v-show="index < 10"
-                    @click="previewImage(news.imageList, index)"
+                    @click.stop.prevent="previewImage(news.imageList, index)"
                   />
                 </ul>
                 <div v-if="news.summary" class="hot-comment">
@@ -197,7 +197,7 @@
                     {{ news.phvideo.length | getVideoTotalTime }}
                   </p>
                 </div>
-                <div class="text-red topLabel" v-if="news.topLabel" @click="handlerClickToutiaoHotSpotMore">
+                <div class="text-red topLabel" v-if="news.topLabel" @click.stop.prevent="handlerClickToutiaoHotSpotMore">
                   <span class="iconfont icon-hot text-red"></span>
                   {{ news.topLabel.desp }} <q-icon name="arrow_right" class="fs-16"></q-icon>
                 </div>
@@ -227,7 +227,7 @@
                     <span class="iconfont icon-duanxin"></span>
                     <span class="count">{{ news.commentsall ? news.commentsall : '评论' }}</span>
                   </div>
-                  <div class="share" @click="handlerClickPhvideoShare(news)">
+                  <div class="share" @click.stop.prevent="handlerClickPhvideoShare(news)">
                     <span class="iconfont icon-fenxiang3"></span>
                     <span class="count">{{ news.share ? news.share : '分享' }}</span>
                   </div>
@@ -297,7 +297,11 @@
                         <q-icon name="close" class="close"></q-icon>
                       </div>
                     </div>
-                    <div class="more" @click="handlerClickComentsChildMore(news)" v-if="news.children.comments.length < Number(news.children.count)">
+                    <div
+                      class="more"
+                      @click.stop.prevent="handlerClickComentsChildMore(news)"
+                      v-if="news.children.comments.length < Number(news.children.count)"
+                    >
                       查看更多
                       <q-icon name="expand_circle_down" class="arrow"></q-icon>
                     </div>
@@ -397,6 +401,7 @@ import { handlerQuasarShare } from 'src/utils/share';
 import { ImagePreview } from 'vant';
 import { AppModule } from 'src/store/modules/app';
 import { CommentsModule } from 'src/store/modules/comment';
+import { getUrlParams, json2Url } from '@/utils';
 @Component
 export default class extends Vue {
   $refs: any;
@@ -511,7 +516,35 @@ export default class extends Vue {
       closeable: true,
     });
   }
-
+  private handleClickNewsItem(news: any) {
+    let params;
+    let urlStr: string;
+    switch (news.type) {
+      case 'doc':
+        params = getUrlParams(news.link.url);
+        urlStr = json2Url(params);
+        this.$router.push('/news_detail/doc?' + urlStr);
+        break;
+      case 'short':
+        params = getUrlParams(news.link.url);
+        urlStr = json2Url(params);
+        this.$router.push('/news_detail/imglist?' + urlStr);
+        break;
+      case 'phvideo':
+        params = {
+          guid: news.link.url,
+          title: news.title,
+          doc_url: news.commentsUrl,
+          type: 'video',
+        };
+        params = Object.assign(params, getUrlParams(news.link.weburl));
+        urlStr = json2Url(params) + '&' + news.link.queryString;
+        this.$router.push('/news_detail/video?' + urlStr);
+        break;
+      default:
+        break;
+    }
+  }
   /*http */
   private handlerClickComentsChildMore(news: any) {
     this.commentsOwnerMap = {};

@@ -38,7 +38,13 @@
           v-if="toutiaoHotSpot.relation"
         >
           <div class="swiper-wrapper p-r-16" style="margin-left: 10px">
-            <div class="swiper-slide toutiaoHotSpot-slide" v-for="(item, index) in toutiaoHotSpot.relation" :key="index" style="width: 90%">
+            <div
+              class="swiper-slide toutiaoHotSpot-slide"
+              v-for="(item, index) in toutiaoHotSpot.relation"
+              :key="index"
+              style="width: 90%"
+              @click.stop.prevent="handlerClickNewsItem(item)"
+            >
               <p class="title">{{ item.title }}</p>
               <p class="dateDiff">{{ item.updateTime | getDateDiff }}</p>
               <van-image class="thumbnail" :src="item.thumbnail" lazy-load radius="6" />
@@ -70,7 +76,7 @@
             </div>
             <div class="bottom">
               <ul>
-                <li class="item" v-for="(i, index2) in news.relation" :key="index2">
+                <li class="item" v-for="(i, index2) in news.relation" :key="index2" @click.stop.prevent="handlerClickNewsItem(i)">
                   <div class="left">
                     <van-image class="thumbnail" :src="i.thumbnail" lazy-load radius="6" />
                     <div class="info">
@@ -110,7 +116,13 @@
             </div>
             <div class="swiper-container qualityReading-container" style="height: 230px; padding-bottom: 20px">
               <div class="swiper-wrapper">
-                <div class="swiper-slide qualityReading-slide" style="width: 90%" v-for="(item, index) in news.relation" :key="index">
+                <div
+                  class="swiper-slide qualityReading-slide"
+                  style="width: 90%"
+                  v-for="(item, index) in news.relation"
+                  :key="index"
+                  @click.stop.prevent="handlerClickNewsItem(item)"
+                >
                   <p class="title">{{ item.title }}</p>
                   <van-image class="thumbnail" :src="item.thumbnail" lazy-load radius="4" />
                 </div>
@@ -129,7 +141,13 @@
             </div>
             <div class="swiper-container marquee-container" style="height: 230px; padding-bottom: 20px">
               <div class="swiper-wrapper">
-                <div class="swiper-slide marquee-slide" style="width: 90%" v-for="(item, index) in news.marqueeList" :key="index">
+                <div
+                  class="swiper-slide marquee-slide"
+                  style="width: 90%"
+                  v-for="(item, index) in news.marqueeList"
+                  :key="index"
+                  @click.stop.prevent="handlerClickNewsItem(item)"
+                >
                   <p class="title">{{ item.title }}</p>
                   <div class="bottom" v-if="item.source">
                     <span class="source">{{ item.source }}</span>
@@ -233,8 +251,8 @@
             </ul>
           </div>
           <!-- doc -->
-          <div v-if="news.type === 'doc' || (news.type === 'topic2' && !news.newslist)" class="doc">
-            <div class="top" @click="handlerClickNewsItem(news)">
+          <div v-if="news.type === 'doc' || (news.type === 'topic2' && !news.newslist)" class="doc" @click.stop.prevent="handlerClickNewsItem(news)">
+            <div class="top">
               <div class="left">
                 <p class="title">
                   <span class="text-red title-label" v-if="news.style.recomTag && news.style.recomTag.pos">{{ news.style.recomTag.text }}</span>
@@ -296,7 +314,7 @@
             </div>
           </div>
           <!-- picture -->
-          <div v-if="news.type === 'short'" class="short w-full">
+          <div v-if="news.type === 'short'" class="short w-full" @click.stop.prevent="handlerClickNewsItem(news)">
             <div class="top flex j-between a-top">
               <div class="left flex j-between a-center">
                 <div class="l" v-if="news.subscribe.logo && news.subscribe.honorImg">
@@ -347,7 +365,7 @@
                 :key="index"
                 fit="cover"
                 v-show="index < 10"
-                @click="previewImage(news.imageList, index)"
+                @click.stop.prevent="previewImage(news.imageList, index)"
               />
             </ul>
             <div v-if="news.summary" class="hot-comment">
@@ -383,7 +401,7 @@
             </div>
           </div>
           <!-- video -->
-          <div v-if="news.type === 'phvideo'" class="phvideo w-full">
+          <div v-if="news.type === 'phvideo'" class="phvideo w-full" @click.stop.prevent="handlerClickNewsItem(news)">
             <div class="top flex j-between a-top">
               <div class="left flex j-between a-center">
                 <div class="l" v-if="news.subscribe.logo && news.subscribe.honorImg">
@@ -462,7 +480,7 @@
                 <span class="iconfont icon-duanxin"></span>
                 <span class="count">{{ news.commentsall ? news.commentsall : '评论' }}</span>
               </div>
-              <div class="share" @click="handlerClickPhvideoShare(news)">
+              <div class="share" @click.stop.prevent="handlerClickPhvideoShare(news)">
                 <span class="iconfont icon-fenxiang3"></span>
                 <span class="count">{{ news.share ? news.share : '分享' }}</span>
               </div>
@@ -486,6 +504,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import { toutiaoUserPreference } from './static/userPreference';
 import { handlerQuasarShare } from 'src/utils/share';
 import { getUrlParams, json2Url } from '@/utils';
+import { phvideoData } from './static/test';
 @Component({
   name: 'home_tab_item_toutiao',
 })
@@ -606,11 +625,30 @@ export default class extends Vue {
     }, 300);
   }
   private handlerClickNewsItem(news: any) {
-    const params = getUrlParams(news.link.url);
-    const urlStr = json2Url(params);
+    let params;
+    let urlStr: string;
+    console.log(news.type);
     switch (news.type) {
       case 'doc':
+        params = getUrlParams(news.link.url);
+        urlStr = json2Url(params);
         this.$router.push('/news_detail/doc?' + urlStr);
+        break;
+      case 'short':
+        params = getUrlParams(news.link.url);
+        urlStr = json2Url(params);
+        this.$router.push('/news_detail/imglist?' + urlStr);
+        break;
+      case 'phvideo':
+        params = {
+          guid: news.link.url,
+          title: news.title,
+          doc_url: news.commentsUrl,
+          type: 'video',
+        };
+        params = Object.assign(params, getUrlParams(news.link.weburl));
+        urlStr = json2Url(params) + '&' + news.link.queryString;
+        this.$router.push('/news_detail/video?' + urlStr);
         break;
       default:
         break;
@@ -648,6 +686,7 @@ export default class extends Vue {
       }
       this.toutiaoData = noAdToutiaoData;
       this.toutiaoData.unshift(toutiaoUserPreference);
+      this.toutiaoData.unshift(phvideoData);
       // 置顶
       this.toutiaoZhidingData = result[1].item;
       this.$nextTick(() => {
