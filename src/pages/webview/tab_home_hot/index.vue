@@ -67,7 +67,7 @@
       <!-- 必刷 -->
       <ul v-show="activeIndex === 1" class="mustsee" @scroll="monitorScroll2" ref="mustsee">
         <p class="loading" v-show="!loaded[1]">加载中...</p>
-        <li v-for="news in loadedData2" :key="news.id + String(Math.random())">
+        <li v-for="news in loadedData2" :key="news.id + String(Math.random())" @click.stop.prevent="handlerClickNewsItem(news)">
           <div class="top">
             <div class="icon">
               <q-icon name="auto_awesome" class="text-white"></q-icon>
@@ -98,7 +98,7 @@
       <!-- 评论 -->
       <ul v-show="activeIndex === 2" class="comment" @scroll="monitorScroll3" ref="comment">
         <p class="loading" v-show="!loaded[2]">加载中...</p>
-        <li v-for="(news, index) in loadedData3" :key="news.id + String(Math.random())">
+        <li v-for="(news, index) in loadedData3" :key="news.id + String(Math.random())" @click.stop.prevent="handlerClickNewsItem(news)">
           <div class="top">
             <div class="l" v-if="index < 3">
               <q-icon name="filter_1" v-if="index === 0" class="text-red fs-22"></q-icon>
@@ -129,6 +129,7 @@ import { Component, Vue, Watch } from 'vue-property-decorator';
 import { TabHomeModule } from 'src/store/modules/home';
 import { AppModule } from 'src/store/modules/app';
 import { handlerQuasarShare } from 'src/utils/share';
+import { getUrlParams, json2Url } from '@/utils';
 
 @Component({
   name: 'tabs_slide_page_hot',
@@ -216,6 +217,36 @@ export default class extends Vue {
     const scrollTop = this.$refs['comment'].scrollTop;
     this.containerPositionY3 = scrollTop;
     this.containerIndex = 2;
+  }
+  private handlerClickNewsItem(news: any) {
+    let params;
+    let urlStr: string;
+    console.log(news.type);
+    switch (news.type) {
+      case 'doc':
+        params = getUrlParams(news.link.url);
+        urlStr = json2Url(params);
+        this.$router.push('/news_detail/doc?' + urlStr);
+        break;
+      case 'short':
+        params = getUrlParams(news.link.url);
+        urlStr = json2Url(params);
+        this.$router.push('/news_detail/imglist?' + urlStr);
+        break;
+      case 'phvideo':
+        params = {
+          guid: news.link.url,
+          title: news.title,
+          doc_url: news.commentsUrl,
+          type: 'video',
+        };
+        params = Object.assign(params, getUrlParams(news.link.weburl));
+        urlStr = json2Url(params) + '&' + news.link.queryString;
+        this.$router.push('/news_detail/video?' + urlStr);
+        break;
+      default:
+        break;
+    }
   }
   // http
   private async _clickTabGetData() {

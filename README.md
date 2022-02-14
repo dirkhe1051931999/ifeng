@@ -14,6 +14,9 @@
 [![ozwlOx.png](https://s4.ax1x.com/2021/12/15/ozwlOx.png)](https://imgtu.com/i/ozwlOx)
 [![ozwKp9.png](https://s4.ax1x.com/2021/12/15/ozwKp9.png)](https://imgtu.com/i/ozwKp9)
 [![ozw3m6.png](https://s4.ax1x.com/2021/12/15/ozw3m6.png)](https://imgtu.com/i/ozw3m6)
+[![HsNNKP.png](https://s4.ax1x.com/2022/02/14/HsNNKP.png)](https://imgtu.com/i/HsNNKP)
+[![HsNYvt.png](https://s4.ax1x.com/2022/02/14/HsNYvt.png)](https://imgtu.com/i/HsNYvt)
+[![HsNJgI.png](https://s4.ax1x.com/2022/02/14/HsNJgI.png)](https://imgtu.com/i/HsNJgI)
 
 ## Install the dependencies
 
@@ -56,7 +59,6 @@ app.use(
       '/config': 'https://config.nine.ifeng.com',
       '/uc': 'https://uc.ifeng.com',
       '/api_iclient': 'https://api.iclient.ifeng.com',
-      '/shankapi': 'https://shankapi.ifeng.com',
       '/shankapi': 'https://shankapi.ifeng.com',
       '/comment_list': 'https://comment.ifeng.com',
     },

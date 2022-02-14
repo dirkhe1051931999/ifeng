@@ -83,7 +83,7 @@
         </ul>
         <div v-if="searchResultLoading" class="loading">加载中...</div>
         <div v-else>
-          <ul class="result" v-for="news in searchResult" :key="news.id">
+          <ul class="result" v-for="news in searchResult" :key="news.id" @click.stop.prevent="handlerClickNewsItem(news)">
             <!-- user -->
             <div class="sub" v-if="news.type === 'sub'">
               <div class="left">
@@ -383,6 +383,7 @@ import { get_user_search_history, remove_user_search_history, set_user_search_hi
 import { TabHomeModule } from 'src/store/modules/home';
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import { cloneDeep } from 'lodash';
+import { getUrlParams, json2Url } from '@/utils';
 
 @Component({
   name: 'tabs_slide_page_search',
@@ -523,6 +524,36 @@ export default class extends Vue {
         this.loadMoreLoadingLock = false;
         this.loadMoreLoading = false;
       }
+    }
+  }
+  private handlerClickNewsItem(news: any) {
+    let params;
+    let urlStr: string;
+    console.log(news.type);
+    switch (news.type) {
+      case 'doc':
+        params = getUrlParams(news.link.url);
+        urlStr = json2Url(params);
+        this.$router.push('/news_detail/doc?' + urlStr);
+        break;
+      case 'short':
+        params = getUrlParams(news.link.url);
+        urlStr = json2Url(params);
+        this.$router.push('/news_detail/imglist?' + urlStr);
+        break;
+      case 'phvideo':
+        params = {
+          guid: news.link.url,
+          title: news.title,
+          doc_url: news.commentsUrl,
+          type: 'video',
+        };
+        params = Object.assign(params, getUrlParams(news.link.weburl));
+        urlStr = json2Url(params) + '&' + news.link.queryString;
+        this.$router.push('/news_detail/video?' + urlStr);
+        break;
+      default:
+        break;
     }
   }
   /*http*/

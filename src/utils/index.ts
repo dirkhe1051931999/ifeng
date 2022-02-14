@@ -8,7 +8,7 @@ export function loadBdScript(scriptId: string, url: string, callback: () => void
   script.type = 'text/javascript';
   if (script.readyState) {
     //IE
-    script.onreadystatechange = function () {
+    script.onreadystatechange = function() {
       if (script.readyState === 'loaded' || script.readyState === 'complete') {
         script.onreadystatechange = null;
         callback();
@@ -16,7 +16,7 @@ export function loadBdScript(scriptId: string, url: string, callback: () => void
     };
   } else {
     // Others
-    script.onload = function () {
+    script.onload = function() {
       callback();
     };
   }
@@ -27,7 +27,9 @@ export function loadBdScript(scriptId: string, url: string, callback: () => void
 export function getUrlParams(url: any) {
   try {
     var index = url.indexOf('?');
-    url = url.match(/\?([^#]+)/)[1];
+    url = url.match(/\?([^#]+)/);
+    if (!url) return {};
+    url = url[1];
     var obj = {},
       arr = url.split('&');
     for (var i = 0; i < arr.length; i++) {

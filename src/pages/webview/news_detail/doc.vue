@@ -37,7 +37,18 @@
         </div>
       </div>
       <div class="news-link">
-        <div class="topbanner" v-if="news_details.topbanner" @click="handleClickNewsDetailTheme(news_details.topbanner)">
+        <div
+          v-if="news_details.topbanner && news_details.topbanner.type === 'qualityReadingList'"
+          class="qualityReadingList"
+          @click="handleClickNewsDetailTheme(news_details.topbanner)"
+        >
+          <img :src="news_details.topbanner.thumbnail" alt="" />
+        </div>
+        <div
+          class="topbanner"
+          v-if="news_details.topbanner && news_details.topbanner.type !== 'qualityReadingList'"
+          @click="handleClickNewsDetailTheme(news_details.topbanner)"
+        >
           <div class="t">
             <div class="ll">
               {{ news_details.topbanner.source }}
@@ -52,6 +63,19 @@
               <div class="tt">{{ news_details.topbanner.title }}</div>
               <div class="bb dotdotdot2">{{ news_details.topbanner.desc }}</div>
             </div>
+          </div>
+        </div>
+        <div class="summary" v-if="news_details.summary">
+          <div class="t">
+            <div class="icon"></div>
+            <div class="line"></div>
+          </div>
+          <div class="c">
+            {{ news_details.summary }}
+          </div>
+          <div class="b">
+            <div class="line"></div>
+            <div class="icon"></div>
           </div>
         </div>
       </div>
@@ -282,6 +306,7 @@ import { findStrImgSrc, getUrlParams, json2Url } from '@/utils';
 import { ImagePreview } from 'vant';
 import InlineVideo from '@/components/inlineVideo/index.vue';
 import { handlerQuasarShare } from '@/utils/share';
+import { isEmpty } from 'lodash';
 @Component({
   name: 'news-detail-doc',
   components: {
@@ -378,16 +403,22 @@ export default class extends Vue {
     console.log(item.type, item);
     if (item.link.url) {
       let params = getUrlParams(item.link.url);
-      if (params['topicid']) {
-        const str = json2Url(params);
-        this.$router.push(`/news_topic?${str}`);
-      } else if (params['eventName']) {
-        const str = json2Url(params);
-        this.$router.push(`/news_theme?${str}`);
-      } else if (params['columnId']) {
-        params['type'] = item.type;
-        const str = json2Url(params);
-        this.$router.push(`/news_theme?${str}`);
+      if (isEmpty(params)) {
+        if (item.type === 'qualityReadingList') {
+          this.$router.push('/tab_home_qualityReading');
+        }
+      } else {
+        if (params['topicid']) {
+          const str = json2Url(params);
+          this.$router.push(`/news_topic?${str}`);
+        } else if (params['eventName']) {
+          const str = json2Url(params);
+          this.$router.push(`/news_theme?${str}`);
+        } else if (params['columnId']) {
+          params['type'] = item.type;
+          const str = json2Url(params);
+          this.$router.push(`/news_theme?${str}`);
+        }
       }
     }
   }
