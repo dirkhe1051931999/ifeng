@@ -1,4 +1,4 @@
-import { UserModule } from '@/store/modules/user';
+// import { UserModule } from '@/store/modules/user';
 import settings from '@/settings.json';
 import { VuexModule, Module, Mutation, Action, getModule } from 'vuex-module-decorators';
 import { RouteConfig } from 'vue-router';

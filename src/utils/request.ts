@@ -1,5 +1,6 @@
 import settings from '../settings.json';
 import axios from 'axios';
+import { UserModule } from '../store/modules/user';
 const isPro = process.env.NODE_ENV === 'production';
 const commonUrlParams = {
   gv: '7.30.3',
@@ -34,13 +35,20 @@ axios.interceptors.request.use(
     } else {
       config.url = config.url + '&' + str;
     }
-    // if (UserModule.token) {
-    //   config.headers['token'] = UserModule.token;
-    //   config.headers['accessToken'] = UserModule.token;
-    //   config.headers['signature'] = Md5.hashStr(settings.title + Math.random()).toString();
-    //   config.data = config.data || {};
-    //   config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
-    // }
+    if (UserModule.token) {
+      const formdata = new FormData();
+      const token: any = UserModule.token;
+      const guid = UserModule.guid;
+      const auth = UserModule.auth;
+      const username = UserModule.username;
+      formdata.append('token', token);
+      formdata.append('guid', guid);
+      formdata.append('auth', auth);
+      formdata.append('username', username);
+      formdata.append('loginid', guid);
+      config.data = formdata;
+      console.log(config);
+    }
     return config;
   },
   (error) => {

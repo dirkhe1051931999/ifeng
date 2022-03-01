@@ -1,23 +1,10 @@
 import request from '@/utils/request';
 const api = {
-  login: '/api/mock-api/v1/user/login',
-  getUserInfo: '/api/mock-api/v1/user/info',
-  getAllUser: '/api/mock-api/v1/table',
+  getUserPlatService: 'user_ifeng/event_protal/list_lite',
 };
-export const login = (data: any) =>
+export const getUserPlatService = (data: any) =>
   request({
-    url: api.login,
+    url: api.getUserPlatService,
     method: 'post',
     data,
-  });
-export const getUserInfo = (data: any) =>
-  request({
-    url: api.getUserInfo,
-    method: 'post',
-    data,
-  });
-export const getAllUser = (data: any) =>
-  request({
-    url: api.getAllUser,
-    method: 'get',
   });

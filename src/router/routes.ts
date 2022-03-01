@@ -26,11 +26,6 @@ export const constantRoutes: RouteConfig[] = [
     meta: {},
   },
   {
-    path: '/login',
-    component: () => import(/* webpackChunkName: "login" */ 'pages/webview/login/index.vue'),
-    meta: {},
-  },
-  {
     path: '/',
     component: () => import(/* webpackChunkName: "welcome" */ 'pages/webview/welcome/index.vue'),
   },
@@ -208,6 +203,8 @@ export const constantRoutes: RouteConfig[] = [
   },
   /* app */
   { path: '/app/:tab', component: () => import(/* webpackChunkName: "App" */ 'pages/app/index.vue') },
+  /* fullscreen login */
+  { path: '/login', component: () => import(/* webpackChunkName: "login" */ 'pages/common/login/index.vue') },
 ];
 /**
  * 有权限限制

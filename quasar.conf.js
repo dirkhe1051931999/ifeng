@@ -16,7 +16,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 var ManifestPlugin = require('webpack-manifest-plugin');
 const webpack = require('webpack');
 const settings = require('./src/settings.json');
-module.exports = configure(function (ctx) {
+module.exports = configure(function(ctx) {
   return {
     // https://quasar.dev/quasar-cli/supporting-ts
     supportTS: {
@@ -102,7 +102,7 @@ module.exports = configure(function (ctx) {
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
     devServer: {
       https: false,
-      port: 9002,
+      port: 9102,
       open: true, // opens browser window automatically
       proxy: {
         // proxy all requests starting with /api to jsonplaceholder
@@ -160,6 +160,13 @@ module.exports = configure(function (ctx) {
           changeOrigin: true,
           pathRewrite: {
             '^/xiaoshuo_ifeng': '',
+          },
+        },
+        '/user_ifeng': {
+          target: `http://${settings.proxy_ip}:${settings.proxy_ip_port}/user_ifeng`,
+          changeOrigin: true,
+          pathRewrite: {
+            '^/user_ifeng': '',
           },
         },
         '/default': {

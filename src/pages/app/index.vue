@@ -33,7 +33,7 @@ export default class extends Vue {
   created() {
     this._getBaseConfig();
   }
-  private activeNavigateIndex = 0;
+  private activeNavigateIndex = 3;
   private navigationArr = [
     {
       name: '新闻',

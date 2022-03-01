@@ -26,14 +26,3 @@ export const setLanguage = (language: string) => Cookies.set(languageKey, langua
 const sizeKey = 'size';
 export const getSize = () => Cookies.get(sizeKey);
 export const setSize = (size: string) => Cookies.set(sizeKey, size, config);
-
-// User
-const tokenKey = settings.title + '-' + 'token';
-export const getToken = () => Cookies.get(tokenKey);
-export const setToken = (token: string) => Cookies.set(tokenKey, token, config);
-export const removeToken = () => Cookies.remove(tokenKey);
-
-const usernameKey = settings.title + '-' + 'username';
-export const getUsername = (): any => Cookies.get(usernameKey);
-export const setUsername = (username: string) => Cookies.set(usernameKey, username, config);
-export const removeUsername = () => Cookies.remove(usernameKey);
