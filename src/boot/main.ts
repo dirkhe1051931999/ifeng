@@ -73,6 +73,7 @@ import {
   TreeSelect as VanTreeSelect,
   Sidebar as VanSidebar,
   SidebarItem as VanSidebarItem,
+  Toast,
 } from 'vant';
 Vue.use(VanPopover);
 Vue.use(VanImage);
@@ -99,6 +100,7 @@ Vue.use(VanPicker);
 Vue.use(VanTreeSelect);
 Vue.use(VanSidebar);
 Vue.use(VanSidebarItem);
+Vue.use(Toast);
 
 // 注册全局指令
 Object.keys(directives).forEach((key) => {

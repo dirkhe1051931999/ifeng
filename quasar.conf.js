@@ -169,6 +169,13 @@ module.exports = configure(function(ctx) {
             '^/user_ifeng': '',
           },
         },
+        '/id_ifeng': {
+          target: `http://${settings.proxy_ip}:${settings.proxy_ip_port}/id_ifeng`,
+          changeOrigin: true,
+          pathRewrite: {
+            '^/id_ifeng': '',
+          },
+        },
         '/default': {
           target: `http://${settings.proxy_ip}:${settings.proxy_ip_port}/`,
           changeOrigin: true,

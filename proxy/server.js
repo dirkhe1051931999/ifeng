@@ -25,6 +25,7 @@ app.use(
       '/ximalaya_ifeng': 'https://ximalaya.ifeng.com',
       '/xiaoshuo_ifeng': 'https://xw.yc.ifeng.com',
       '/user_ifeng': 'https://user.iclient.ifeng.com',
+      '/id_ifeng': 'https://id.ifeng.com',
     },
     target: 'https://nine.ifeng.com',
     onProxyReq(proxyReq, req, res) {
@@ -39,6 +40,7 @@ app.use(
       '^/ximalaya_ifeng': '',
       '^/xiaoshuo_ifeng': '',
       '^/user_ifeng': '',
+      '^/id_ifeng': '',
     },
     onError(err, req, res, target) {},
     onClose(res, socket, head) {},

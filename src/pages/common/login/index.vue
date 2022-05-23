@@ -6,29 +6,29 @@
     <q-form @submit="onSubmit" class="login-form" ref="login-form">
       <div class="telphone">
         <q-input v-model="loginForm.tel" label="手机号" lazy-rules :rules="loginFormRules.tel" clearable style="width: 60%" />
-        <q-btn @click="getVerifyCode" style="width: 30%" v-show="!show_count_down" unelevated outline>获取验证码</q-btn>
+        <q-btn @click="getVerifyCode" style="width: 30%" v-show="!show_count_down" unelevated outline :loading="getCaptchaLoading">获取验证码</q-btn>
         <q-btn disable style="width: 30%" v-show="show_count_down" unelevated outline>{{ count_down }}</q-btn>
       </div>
       <q-input type="number" v-model="loginForm.code" label="短信验证码" lazy-rules :rules="loginFormRules.code" clearable />
       <div>
-        <q-btn label="登 录" type="submit" color="primary" class="submit-button" />
+        <q-btn label="登 录" type="submit" color="primary" class="submit-button" :loading="loginLoading" />
       </div>
     </q-form>
-    <q-dialog v-model="showCaptcha" >
-      <q-card class="captcha-dialog">
+    <q-dialog v-model="showCaptcha" persistent>
+      <q-card class="captcha-dialog" v-if="captchaData.image">
         <q-card-section>
           <div class="text-h6">
             请依次输入 <span class="bold">{{ captchaData.words }}</span>
           </div>
         </q-card-section>
-        <q-card-section class="q-pt-none">
-          <div class="img-wrap">
-            <img :src="captchaData.image" alt="" />
-            <div class="mask" @click="handleClickCaptchaImg"></div>
-          </div>
+        <q-card-section style="padding-top: 0; padding-bottom: 0">
+          <q-img :src="captchaData.image" alt="" @click="handleClickCaptchaImg" class="img">
+            <span class="count" v-for="(item, index) in 4" :key="index" :ref="'img_count_' + item">{{ item }}</span>
+          </q-img>
         </q-card-section>
         <q-card-actions align="right">
-          <q-btn flat label="OK" color="primary" @click="handleClickCloseCaptcha" />
+          <q-btn label="取消" flat v-close-popup />
+          <q-btn label="确认" color="primary" @click="handleClickCloseCaptcha" :loading="verifyCaptchaLoading" />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -38,15 +38,25 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { isValid11Tel } from '@/utils/validate';
-import { captchaData } from './capacha';
+import { UserModule } from '@/store/modules/user';
 @Component
 export default class extends Vue {
   $refs: any;
+  async mounted() {
+    // const result = await UserModule.api_user_userbasic({
+    //   collect: JSON.stringify({ account: this.loginForm.tel, userimg: '', open_info: '', login_channel: 'ifeng_sso', nicknameStatus: '' }),
+    // });
+  }
   private count = 30;
   private count_down = 0;
   private show_count_down = false;
-  private showCaptcha = true;
-  private captchaData = captchaData.data;
+  private showCaptcha = false;
+  private captchaData: any = {};
+  private getCaptchaLoading = false;
+  private verifyCaptchaLoading = false;
+  private clickImgCount = 0;
+  private positions: any[] = [];
+  private loginLoading = false;
   private loginForm = {
     tel: '',
     code: '',
@@ -56,33 +66,104 @@ export default class extends Vue {
     code: [(val: any) => (val !== null && val !== '') || '请输入验证码'],
   };
   /**event */
-  private handleClickCloseCaptcha() {}
+  private async handleClickCloseCaptcha() {
+    this.verifyCaptchaLoading = true;
+    const form = new FormData();
+    form.append('mobile', this.loginForm.tel);
+    form.append('channel', '1');
+    form.append('platform', 'c');
+    form.append('systemid', '7');
+    form.append('captcha_id', this.captchaData.id);
+    form.append('positions', JSON.stringify(this.positions));
+    const { data, message } = await UserModule.sendMsgByClick(form);
+    this.verifyCaptchaLoading = false;
+    if (data && !data.authcode && data.ccl) {
+      this.$toast('发送验证码成功');
+      this.showCaptcha = false;
+      this.startCount();
+    } else {
+      this.$toast(message);
+    }
+  }
   private handleClickCaptchaImg(e: any) {
-    console.log(e);
+    if (this.clickImgCount === 4) return;
+    this.clickImgCount++;
+    if (this.$refs['img_count_' + this.clickImgCount]) {
+      this.$refs['img_count_' + this.clickImgCount][0].style['left'] = e.offsetX + 'px';
+      this.$refs['img_count_' + this.clickImgCount][0].style['top'] = e.offsetY + 'px';
+    }
+    this.positions.push({
+      x: e.offsetX,
+      y: e.offsetY,
+    });
+  }
+  private startCount() {
+    var start = +new Date();
+    var count = this.count;
+    const _count = this.count;
+    this.count_down = _count;
+    this.show_count_down = true;
+    var timer = setInterval(() => {
+      var cur = +new Date();
+      count--;
+      this.count_down = count;
+      if (cur - start >= _count * 1000) {
+        clearInterval(timer);
+        this.show_count_down = false;
+      }
+    }, 1000);
   }
   /**http */
   private onSubmit() {
     this.$refs['login-form'].validate().then(async (success: boolean) => {
       if (success) {
+        this.loginLoading = true;
+        const result1 = await UserModule.checkMobile({ params: { u: this.loginForm.tel, so: '7' } });
+        console.log(result1);
+        const form = new FormData();
+        form.append('u', this.loginForm.tel);
+        form.append('cert', this.loginForm.code);
+        // form.append(
+        //   'ltoken',
+        //   '$2kJyeiQHbwIiOiwiIuxGZiojIsICMjRmI6ISeuWuI4men4WeosIigwRmI6IicZmuIliel100vegfaISgcBnIsZ3byNmbpojIlmZ6iWK6Vy55/wiIBl2YiISe0WuI6menuWeo4Iig4RmIsR3cpNWayojI0ir5iur5tyY5o0nI6r340gf',
+        // );
+        const result = await UserModule.toSmsFastPass(form);
+        if (result) {
+          this.$toast('登录成功');
+          const result = await UserModule.api_user_userbasic({
+            collect: JSON.stringify({ account: this.loginForm.tel, userimg: '', open_info: '', login_channel: 'ifeng_sso', nicknameStatus: '' }),
+          });
+          console.log(result);
+        } else {
+          this.$toast('登录失败');
+        }
+        this.loginLoading = false;
       }
     });
   }
-  private getVerifyCode() {
+  private async getVerifyCode() {
     if (isValid11Tel(this.loginForm.tel)) {
-      var start = +new Date();
-      var count = this.count;
-      const _count = this.count;
-      this.count_down = _count;
-      this.show_count_down = true;
-      var timer = setInterval(() => {
-        var cur = +new Date();
-        count--;
-        this.count_down = count;
-        if (cur - start >= _count * 1000) {
-          clearInterval(timer);
-          this.show_count_down = false;
-        }
-      }, 1000);
+      this.getCaptchaLoading = true;
+      const form = new FormData();
+      form.append('mobile', this.loginForm.tel);
+      form.append('channel', '1');
+      form.append('platform', 'c');
+      form.append('systemid', '7');
+      const { data, message } = await UserModule.sendMsgByClick(form);
+      if (data && data.authcode) {
+        const form = new FormData();
+        form.append('type', '1');
+        form.append('platform', 'c');
+        form.append('systemid', '7');
+        const { data } = await UserModule.getCaptcha(form);
+        this.captchaData = data;
+        this.showCaptcha = true;
+      } else if (data && !data.authcode && message) {
+        this.$toast(message);
+      } else {
+        this.startCount();
+      }
+      this.getCaptchaLoading = false;
     } else {
       this.$toast('请输入正确手机号');
     }
@@ -92,22 +173,20 @@ export default class extends Vue {
 
 <style lang="scss">
 .captcha-dialog {
-  .img-wrap {
+  width: 80vw;
+  height: 30vh;
+  position: relative;
+  .img {
+    width: 240px;
+    height: 140px;
     position: relative;
-    img {
-      width: 240px;
-      height: 140px;
-      position: absolute;
-      left: 0;
+    .count {
+      left: -100px;
       top: 0;
-    }
-    .mask {
-      width: 240px;
-      height: 140px;
       position: absolute;
-      left: 0;
-      top: 0;
-      z-index: 1000;
+      color: var(--q-color-primary);
+      font-weight: bold;
+      font-size: 14px;
     }
   }
 }

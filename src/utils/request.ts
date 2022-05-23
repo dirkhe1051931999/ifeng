@@ -2,6 +2,8 @@ import settings from '../settings.json';
 import axios from 'axios';
 import { UserModule } from '../store/modules/user';
 const isPro = process.env.NODE_ENV === 'production';
+const notAddUrlParamsWhiteList: any[] = [];
+const haveAuthParams: any[] = ['user_ifeng/api_user_userbasic/login'];
 const commonUrlParams = {
   gv: '7.30.3',
   av: '7.30.3',
@@ -26,28 +28,35 @@ axios.defaults.timeout = 25000;
 // Request interceptors
 axios.interceptors.request.use(
   (config: any) => {
-    let str = '';
-    for (let key in commonUrlParams) {
-      str += `${key}=${commonUrlParams[key]}&`;
-    }
-    if (config.url.indexOf('?') === -1) {
-      config.url = config.url + '?' + str;
-    } else {
-      config.url = config.url + '&' + str;
-    }
     if (UserModule.token) {
-      const formdata = new FormData();
-      const token: any = UserModule.token;
-      const guid = UserModule.guid;
-      const auth = UserModule.auth;
-      const username = UserModule.username;
-      formdata.append('token', token);
-      formdata.append('guid', guid);
-      formdata.append('auth', auth);
-      formdata.append('username', username);
-      formdata.append('loginid', guid);
-      config.data = formdata;
-      console.log(config);
+      const authConfig = {
+        token: UserModule.token,
+        guid: UserModule.guid,
+        username: UserModule.username,
+      };
+      if (haveAuthParams.includes(config.url)) {
+        authConfig['auth'] = UserModule.auth;
+      }
+      let str = '';
+      for (let key in authConfig) {
+        str += `${key}=${authConfig[key]}&`;
+      }
+      if (config.url.indexOf('?') === -1) {
+        config.url = config.url + '?' + str;
+      } else {
+        config.url = config.url + '&' + str;
+      }
+    }
+    if (!notAddUrlParamsWhiteList.includes(config.url)) {
+      let str = '';
+      for (let key in commonUrlParams) {
+        str += `${key}=${commonUrlParams[key]}&`;
+      }
+      if (config.url.indexOf('?') === -1) {
+        config.url = config.url + '?' + str;
+      } else {
+        config.url = config.url + '&' + str;
+      }
     }
     return config;
   },
