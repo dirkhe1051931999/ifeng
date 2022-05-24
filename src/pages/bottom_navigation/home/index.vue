@@ -246,6 +246,7 @@ export default class extends Vue {
     clearInterval(this.verticalScrollIntervalIds[0]);
     clearInterval(this.verticalScrollIntervalIds[1]);
   }
+  private isTouching = false;
   private swipeDistanceToScreenPercent = 0;
   private touchCache: any = {};
   private stopMovePage = false;
@@ -269,6 +270,7 @@ export default class extends Vue {
     this.touchCache.startY = touch.pageY;
   }
   private touchMove(e: any) {
+    this.isTouching = true;
     const touch = e.touches[0];
     //横向和纵向偏离位置
     const deltaX = touch.pageX - this.touchCache.startX;
@@ -312,6 +314,11 @@ export default class extends Vue {
     this.$refs['app-home-page'].style['transitionDuration'] = 1000;
   }
   private touchEnd(e: any) {
+    if (!this.isTouching) {
+      return;
+    } else {
+      this.isTouching = false;
+    }
     let offsetWidth;
     if (this.activeTabIndex === 0) {
       // 第一个只能向左滑动

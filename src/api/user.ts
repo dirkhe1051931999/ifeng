@@ -6,6 +6,8 @@ const api = {
   checkMobile: 'id_ifeng/api/checkMobile',
   smsFastPass: 'user_ifeng/Api_User_Userbasic/smsFastPass',
   api_user_userbasic: 'user_ifeng/api_user_userbasic/login',
+  getUserInfo: 'user_ifeng/api_user_exp/timeline',
+  logout: 'user_ifeng/Api_User_Userbasic/quit',
 };
 export const getUserPlatService = (data: any) =>
   request({
@@ -50,6 +52,23 @@ export const api_user_userbasic = (data: any): any => {
   str = str.slice(0, -1);
   return request({
     url: api.api_user_userbasic + str,
+    method: 'post',
+  });
+};
+export const getUserInfo = (data: any): any => {
+  let str = '?';
+  for (let key in data.params) {
+    str += `${key}=${data.params[key]}&`;
+  }
+  str = str.slice(0, -1);
+  return request({
+    url: api.getUserInfo + str,
+    method: 'post',
+  });
+};
+export const logout = (data: any): any => {
+  return request({
+    url: api.logout,
     method: 'post',
   });
 };

@@ -1,5 +1,6 @@
 <template>
   <div class="login-container">
+    <q-icon name="close" class="close" @click="$router.back()"></q-icon>
     <div class="logo">
       <img src="~assets/logo.png" alt="" />
     </div>
@@ -42,11 +43,7 @@ import { UserModule } from '@/store/modules/user';
 @Component
 export default class extends Vue {
   $refs: any;
-  async mounted() {
-    // const result = await UserModule.api_user_userbasic({
-    //   collect: JSON.stringify({ account: this.loginForm.tel, userimg: '', open_info: '', login_channel: 'ifeng_sso', nicknameStatus: '' }),
-    // });
-  }
+  async mounted() {}
   private count = 30;
   private count_down = 0;
   private show_count_down = false;
@@ -118,8 +115,7 @@ export default class extends Vue {
     this.$refs['login-form'].validate().then(async (success: boolean) => {
       if (success) {
         this.loginLoading = true;
-        const result1 = await UserModule.checkMobile({ params: { u: this.loginForm.tel, so: '7' } });
-        console.log(result1);
+        await UserModule.checkMobile({ params: { u: this.loginForm.tel, so: '7' } });
         const form = new FormData();
         form.append('u', this.loginForm.tel);
         form.append('cert', this.loginForm.code);
@@ -130,10 +126,7 @@ export default class extends Vue {
         const result = await UserModule.toSmsFastPass(form);
         if (result) {
           this.$toast('登录成功');
-          const result = await UserModule.api_user_userbasic({
-            collect: JSON.stringify({ account: this.loginForm.tel, userimg: '', open_info: '', login_channel: 'ifeng_sso', nicknameStatus: '' }),
-          });
-          console.log(result);
+          this.$router.back();
         } else {
           this.$toast('登录失败');
         }
@@ -149,7 +142,7 @@ export default class extends Vue {
       form.append('channel', '1');
       form.append('platform', 'c');
       form.append('systemid', '7');
-      const { data, message } = await UserModule.sendMsgByClick(form);
+      const { data, message, code } = await UserModule.sendMsgByClick(form);
       if (data && data.authcode) {
         const form = new FormData();
         form.append('type', '1');
@@ -158,9 +151,9 @@ export default class extends Vue {
         const { data } = await UserModule.getCaptcha(form);
         this.captchaData = data;
         this.showCaptcha = true;
-      } else if (data && !data.authcode && message) {
+      } else if (data && !data.authcode && String(code) === '0') {
         this.$toast(message);
-      } else {
+      } else if (data && !data.authcode && data.ccl) {
         this.startCount();
       }
       this.getCaptchaLoading = false;
@@ -195,6 +188,12 @@ export default class extends Vue {
 .login-container {
   padding: 10px 16px;
   background: #ffffff;
+  position: relative;
+  .close {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+  }
   .logo {
     text-align: center;
     padding-top: 20px;

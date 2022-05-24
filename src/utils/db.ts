@@ -27,23 +27,3 @@ const user_current_region = settings.title + '-' + 'user_current_region';
 export const get_user_current_region = () => ls.get(user_current_region);
 export const set_user_current_region = (data: string) => ls.set(user_current_region, data);
 export const remove_user_current_region = () => ls.remove(user_current_region);
-// token
-const tokenKey = settings.title + '-' + 'token';
-export const getToken = () => ls.get(tokenKey);
-export const setToken = (data: string) => ls.set(tokenKey, data);
-export const removeToken = () => ls.remove(tokenKey);
-// guid
-const guidKey = settings.title + '-' + 'guid';
-export const getGuid = (): any => ls.get(guidKey);
-export const setGuid = (data: string) => ls.set(guidKey, data);
-export const removeGuid = () => ls.remove(guidKey);
-// username
-const usernameKey = settings.title + '-' + 'username';
-export const getUsername = (): any => ls.get(usernameKey);
-export const setUsername = (data: string) => ls.set(usernameKey, data);
-export const removeUsername = () => ls.remove(usernameKey);
-// msmfastpass
-const smsFastPassKey = settings.title + '-' + 'sms_fast_pass';
-export const getSmsFastPass = (): any => ls.get(smsFastPassKey);
-export const setSmsFastPass = (data: string) => ls.set(smsFastPassKey, data);
-export const removeSmsFastPass = () => ls.remove(smsFastPassKey);

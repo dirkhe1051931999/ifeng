@@ -1,7 +1,20 @@
 import { VuexModule, Module, Action, Mutation, getModule } from 'vuex-module-decorators';
 import store from '@/store';
-import { api_user_userbasic, checkMobile, getCaptcha, getUserPlatService, sendMsgByClick, smsFastPass } from '@/api/user';
-import { getGuid, getSmsFastPass, getToken, getUsername, setGuid, setSmsFastPass, setToken, setUsername } from '@/utils/db';
+import { api_user_userbasic, checkMobile, getCaptcha, getUserInfo, getUserPlatService, logout, sendMsgByClick, smsFastPass } from '@/api/user';
+import {
+  getGuid,
+  getSmsFastPass,
+  getToken,
+  getUsername,
+  removeGuid,
+  removeSmsFastPass,
+  removeToken,
+  removeUsername,
+  setGuid,
+  setSmsFastPass,
+  setToken,
+  setUsername,
+} from '@/utils/cookies';
 
 export interface IUserState {}
 
@@ -70,6 +83,24 @@ class User extends VuexModule implements IUserState {
   public async api_user_userbasic(data: any) {
     const result = await api_user_userbasic(data);
     return Promise.resolve(result);
+  }
+  @Action({ rawError: true })
+  public async getUserInfo(data: any) {
+    const result = await getUserInfo(data);
+    return Promise.resolve(result);
+  }
+  @Action({ rawError: true })
+  public async logout(data: any) {
+    await logout(data);
+    this.SET_SMSFASTPASS({});
+    removeSmsFastPass();
+    this.SET_TOKEN('');
+    removeToken();
+    this.SET_USERNAME('');
+    removeUsername();
+    this.SET_GUID('');
+    removeGuid();
+    return Promise.resolve(true);
   }
 }
 
