@@ -9,14 +9,23 @@
           <q-img :src="loginInfo.userimg" class="img"></q-img>
         </div>
         <div class="right">
-          <div class="top">
+          <div class="name">
             {{ loginInfo.nickname }}
           </div>
-          <div class="bottom">
-            {{ loginInfo.credit.title_1 }}
+          <div class="title">
+            <span class="label">{{ loginInfo.credit.title_1 }}</span>
+            <span class="medal">勋章墙</span>
+          </div>
+          <div class="follow-fans">
+            <div class="follow">关注 {{ loginInfo.feeds_num }}</div>
+            <div class="fans">关注 {{ loginInfo.fans_num }}</div>
           </div>
         </div>
-        <div class="logout" @click="handleCLickLogout">退出登录</div>
+        <div class="profile" @click="$router.push('/mine_child_page/profile')">
+          <span>个人主页</span>
+          <q-icon name="chevron_right"></q-icon>
+        </div>
+        <!-- <div class="logout" @click="handleCLickLogout">退出登录</div> -->
       </div>
       <div class="common-feature">
         <div class="title">常用功能</div>

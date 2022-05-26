@@ -4,6 +4,7 @@ import { UserModule } from '../store/modules/user';
 const isPro = process.env.NODE_ENV === 'production';
 const notAddUrlParamsWhiteList: any[] = [];
 const haveAuthParams: any[] = ['user_ifeng/api_user_userbasic/login'];
+const openAPI: any[] = ['nine_ifeng'];
 const commonUrlParams = {
   gv: '7.30.3',
   av: '7.30.3',
@@ -28,10 +29,11 @@ axios.defaults.timeout = 25000;
 // Request interceptors
 axios.interceptors.request.use(
   (config: any) => {
-    if (UserModule.token) {
+    if (UserModule.token && !openAPI.includes(config.url.split('/')[0])) {
       const authConfig = {
         token: UserModule.token,
         guid: UserModule.guid,
+        loginid: UserModule.guid,
         username: UserModule.username,
       };
       if (haveAuthParams.includes(config.url)) {

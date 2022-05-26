@@ -10,7 +10,7 @@ export const defaultCategories = [
   { name: '君品谈', id: 'junpintan' },
   { name: '音频', id: 'yinpin' },
   { name: '小视频', id: 'xiaoshipin' },
-  { name: '影视剧', id: 'yingshiju' },
+  // { name: '影视剧', id: 'yingshiju' },
   { name: '新时代', id: 'xinshidai' },
   { name: '舍得人物', id: 'shederenwu' },
   // { name: '东京奥运', id: 'dongjingaoyun' },

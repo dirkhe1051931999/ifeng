@@ -8,7 +8,8 @@
 import Cookies from 'js-cookie';
 import settings from '@/settings.json';
 // https://github.com/js-cookie/js-cookie/wiki/Frequently-Asked-Questions#expire-cookies-in-less-than-a-day
-const in30Minutes = 1 / 48;
+// const in30Minutes = 1 / 48;
+const in30Minutes = 47 / 48;
 // const inFifteenMinutes = new Date(new Date().getTime() + 15 * 60 * 1000);
 const config = {
   path: '/',

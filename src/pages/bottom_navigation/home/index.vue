@@ -218,7 +218,7 @@ export default class extends Vue {
           const _dom: any = document.querySelector('.' + _class);
           const _ref: any = tabPageRefNameList[i];
           if (!this.$refs[_ref]) {
-            console.log(tabPageRefNameList[i]);
+            console.error(tabPageRefNameList[i], '不存在');
           }
           const scrollTop: number = this.$refs[_ref][0].containerPositionY;
           if (scrollTop !== 0) {

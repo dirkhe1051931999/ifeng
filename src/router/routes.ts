@@ -205,6 +205,17 @@ export const constantRoutes: RouteConfig[] = [
   { path: '/app/:tab', component: () => import(/* webpackChunkName: "App" */ 'pages/app/index.vue') },
   /* fullscreen login */
   { path: '/login', component: () => import(/* webpackChunkName: "login" */ 'pages/common/login/index.vue') },
+  /* mine 的子页面 */
+  {
+    path: '/mine_child_page/profile',
+    component: () => import(/* webpackChunkName: "mine_child_page_profile" */ 'pages/mine_child_page/profile/index.vue'),
+    meta: {},
+  },
+  {
+    path: '/mine_child_page/level',
+    component: () => import(/* webpackChunkName: "mine_child_page_level" */ 'pages/mine_child_page/level/index.vue'),
+    meta: {},
+  },
 ];
 /**
  * 有权限限制

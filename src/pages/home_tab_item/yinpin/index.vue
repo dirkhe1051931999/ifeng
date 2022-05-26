@@ -297,7 +297,7 @@ export default class extends Vue {
       this.yinpinSwiperList = banner.item;
       this.yinpinGirdList = yinpinGirdList;
       this.yinpinGuesslikeList = yinpinGuesslikeList;
-      this.yinpinRankList = rank;
+      this.yinpinRankList = rank || [];
       this.$nextTick(() => {
         if (this.firstLoadData) {
           setTimeout(() => {
