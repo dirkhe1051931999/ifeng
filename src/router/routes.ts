@@ -216,6 +216,16 @@ export const constantRoutes: RouteConfig[] = [
     component: () => import(/* webpackChunkName: "mine_child_page_level" */ 'pages/mine_child_page/level/index.vue'),
     meta: {},
   },
+  {
+    path: '/mine_child_page/medal',
+    component: () => import(/* webpackChunkName: "mine_child_page_medal" */ 'pages/mine_child_page/medal/index.vue'),
+    meta: {},
+  },
+  {
+    path: '/mine_child_page/messages',
+    component: () => import(/* webpackChunkName: "mine_child_page_messages" */ 'pages/mine_child_page/messages/index.vue'),
+    meta: {},
+  },
 ];
 /**
  * 有权限限制

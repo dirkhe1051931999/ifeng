@@ -45,8 +45,8 @@
                 {{ item.desc }}
               </div>
             </div>
-            <div class="done button" v-if="item.done">去完成</div>
-            <div class="not-done button" v-else>已完成</div>
+            <div class="done button" v-if="item.done">已完成</div>
+            <div class="not-done button" v-else>去完成</div>
           </li>
         </ul>
       </div>

@@ -6,7 +6,7 @@
       </div>
       <div class="right">
         <div class="l">
-          <q-icon name="arrow_drop_down_circle" class="arrow"></q-icon>
+          <q-icon name="arrow_drop_down_circle" class="arrow" @click="handleClickMessages"></q-icon>
         </div>
         <div class="r">
           <q-icon name="more_horiz" class="more" @click="handleClickMore"></q-icon>
@@ -26,7 +26,7 @@
             </div>
             <div class="title">
               <span class="label" @click="handleClickLabel">{{ userInfo.title_1 }}</span>
-              <span class="medal">勋章墙</span>
+              <span class="medal" @click="handleClickMedal">勋章墙</span>
             </div>
           </div>
           <div class="edit">
@@ -38,7 +38,7 @@
           {{ userInfo.introduction || '加点介绍吧~' }}
         </div>
         <div class="follow-fans">
-          <div class="follow">关注 {{ userInfo.feeds_num }}</div>
+          <div class="follow">关注 {{ userInfo.follow_num }}</div>
           <div class="fans">关注 {{ userInfo.fans_num }}</div>
         </div>
       </div>
@@ -56,7 +56,7 @@
             <div class="content">
               {{ item.comment_contents }}
             </div>
-            <div class="bottom">
+            <div class="bottom" @click="handleClickDocDetails(item)">
               <q-img :src="item.thumbnail" class="img"></q-img>
               <div class="title">
                 {{ item.title }}
@@ -74,6 +74,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import { MineModule } from '@/store/modules/mine';
 import { UserModule } from '@/store/modules/user';
 import { handlerQuasarShare } from '@/utils/share';
+import { getUrlParams, json2Url } from '@/utils';
 @Component({
   name: 'mine-profile',
 })
@@ -93,6 +94,41 @@ export default class extends Vue {
   }
   private handleClickLabel() {
     this.$router.push('/mine_child_page/level');
+  }
+  private handleClickMedal() {
+    this.$router.push('/mine_child_page/medal');
+  }
+  private handleClickMessages() {
+    this.$router.push('/mine_child_page/messages');
+  }
+  private handleClickDocDetails(item: any) {
+    let params;
+    let urlStr: string;
+    switch (item.link.type) {
+      case 'doc':
+        params = getUrlParams(item.link.url);
+        urlStr = json2Url(params);
+        this.$router.push('/news_detail/doc?' + urlStr);
+        break;
+      case 'short':
+        params = getUrlParams(item.link.url);
+        urlStr = json2Url(params);
+        this.$router.push('/news_detail/imglist?' + urlStr);
+        break;
+      // case 'phvideo':
+      //   params = {
+      //     guid: item.link.url,
+      //     title: item.doc_name,
+      //     doc_url: news.commentsUrl,
+      //     type: 'video',
+      //   };
+      //   params = Object.assign(params, getUrlParams(news.link.weburl));
+      //   urlStr = json2Url(params) + '&' + news.link.queryString;
+      //   this.$router.push('/news_detail/video?' + urlStr);
+      //   break;
+      default:
+        break;
+    }
   }
   /* http */
   private async getMyList() {
