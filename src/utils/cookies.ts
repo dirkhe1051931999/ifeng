@@ -9,11 +9,10 @@ import Cookies from 'js-cookie';
 import settings from '@/settings.json';
 // https://github.com/js-cookie/js-cookie/wiki/Frequently-Asked-Questions#expire-cookies-in-less-than-a-day
 // const in30Minutes = 1 / 48;
-const in30Minutes = 47 / 48;
-// const inFifteenMinutes = new Date(new Date().getTime() + 15 * 60 * 1000);
+const infiniteTime = new Date(new Date().getTime() + 999999999 * 60 * 1000);
 const config = {
   path: '/',
-  expires: in30Minutes,
+  expires: infiniteTime,
 };
 // App
 const sidebarStatusKey = settings.title + '-' + 'sidebar-status';

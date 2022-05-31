@@ -1,9 +1,9 @@
 <template>
   <div class="login-container">
     <q-icon name="close" class="close" @click="$router.back()"></q-icon>
-    <div class="logo">
+    <!-- <div class="logo">
       <img src="~assets/logo.png" alt="" />
-    </div>
+    </div> -->
     <q-form @submit="onSubmit" class="login-form" ref="login-form">
       <div class="telphone">
         <q-input v-model="loginForm.tel" label="手机号" lazy-rules :rules="loginFormRules.tel" clearable style="width: 60%" />
@@ -211,6 +211,7 @@ export default class extends Vue {
     margin-top: 20px;
   }
   .login-form {
+    padding-top: 20px;
     .telphone {
       display: flex;
       align-items: center;

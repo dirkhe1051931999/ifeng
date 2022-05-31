@@ -38,8 +38,8 @@
           {{ userInfo.introduction || '加点介绍吧~' }}
         </div>
         <div class="follow-fans">
-          <div class="follow">关注 {{ userInfo.follow_num }}</div>
-          <div class="fans">关注 {{ userInfo.fans_num }}</div>
+          <div class="follow" @click="handleClickFollow">关注 {{ userInfo.follow_num }}</div>
+          <div class="fans" @click="handleClickFans">粉丝 {{ userInfo.fans_num }}</div>
         </div>
       </div>
       <div class="feeds">
@@ -100,6 +100,12 @@ export default class extends Vue {
   }
   private handleClickMessages() {
     this.$router.push('/mine_child_page/messages');
+  }
+  private handleClickFollow() {
+    this.$router.push('/mine_child_page/follow');
+  }
+  private handleClickFans() {
+    this.$router.push('/mine_child_page/fans');
   }
   private handleClickDocDetails(item: any) {
     let params;

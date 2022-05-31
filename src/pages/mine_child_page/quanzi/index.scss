@@ -1,0 +1,193 @@
+.quanzi-container {
+  position: fixed;
+  left: 0;
+  top: 0;
+  overflow: scroll;
+  width: 100%;
+  height: 100%;
+  background: #f5f5f5;
+  .navbar-container {
+    position: fixed;
+    width: 100%;
+    left: 0;
+    top: 0;
+    height: 48px;
+    z-index: 1000;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    box-sizing: border-box;
+    .arrow {
+      font-size: 28px;
+    }
+    .title {
+      font-size: 16px;
+    }
+  }
+  .quanzi-wrap {
+    position: fixed;
+    left: 0;
+    width: 100%;
+    top: 50px;
+    background: #ffffff;
+    overflow: scroll;
+    .load-more-loading {
+      width: 100%;
+      height: 50px;
+      color: #969799;
+      font-size: 14px;
+      line-height: 50px;
+      text-align: center;
+    }
+    .topData {
+      background: url('~assets/mine/recommend_bg.png');
+      background-size: 100% 100%;
+      width: 100%;
+      height: 198px;
+      padding: 10px 16px;
+      box-sizing: border-box;
+      ul {
+        display: flex;
+        justify-content: space-between;
+        .left {
+          position: relative;
+          width: 140px;
+          height: 172px;
+          border-radius: 6px;
+          .img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+          }
+          .title,
+          .userFake {
+            color: #ffffff;
+            font-size: 12px;
+          }
+          .title {
+            position: absolute;
+            width: 100%;
+            left: 5px;
+            bottom: 25px;
+          }
+          .userFake {
+            position: absolute;
+            width: 100%;
+            left: 5px;
+            bottom: 10px;
+          }
+        }
+        .right {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          li {
+            position: relative;
+            width: 232px;
+            height: 82px;
+            display: flex;
+            align-items: center;
+            background: #ffffff;
+            .img {
+              width: 80px;
+              height: 80px;
+              border-radius: 4px;
+            }
+            .r {
+              margin-left: 10px;
+              width: 150px;
+              .title {
+                font-size: 16px;
+              }
+              .userFake {
+                font-size: 14px;
+                color: #969799;
+                padding-top: 10px;
+              }
+            }
+          }
+        }
+      }
+    }
+    .discoverData {
+      ul {
+        li {
+          width: 100%;
+          padding: 10px 16px;
+          margin-bottom: 10px;
+          border-bottom: solid 1px #eeeeee;
+          box-sizing: border-box;
+          .userinfo {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            .img {
+              width: 32px;
+              height: 32px;
+              border-radius: 50%;
+              margin-right: 10px;
+            }
+            .nickName {
+              font-size: 14px;
+            }
+            .editTime {
+              font-size: 12px;
+              color: #969799;
+              padding-top: 5px;
+            }
+          }
+          .content {
+            font-size: 16px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+          }
+          .img {
+            width: 100%;
+            height: 214px;
+            border-radius: 6px;
+            position: relative;
+            .play {
+              width: 48px;
+              height: 48px;
+              position: absolute;
+              left: 50%;
+              top: 50%;
+              transform: translate(-50%, -50%);
+            }
+          }
+          .org {
+            margin-top: 10px;
+            width: 100%;
+            height: 55px;
+            display: flex;
+            align-items: center;
+            background: #f5f5f5;
+            .img {
+              width: 55px;
+              height: 55px;
+              border-radius: 4px;
+              margin-right: 10px;
+            }
+            .title {
+              font-size: 14px;
+            }
+            .join {
+              margin-left: auto;
+              background-color: #f54343;
+              border-radius: 14px;
+              color: #fff;
+              display: inline-block;
+              font-size: 14px;
+              height: 28px;
+              line-height: 28px;
+              text-align: center;
+              width: 66px;
+              margin-right: 10px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

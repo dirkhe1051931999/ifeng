@@ -176,6 +176,13 @@ module.exports = configure(function(ctx) {
             '^/id_ifeng': '',
           },
         },
+        '/group_ifeng': {
+          target: `http://${settings.proxy_ip}:${settings.proxy_ip_port}/group_ifeng`,
+          changeOrigin: true,
+          pathRewrite: {
+            '^/group_ifeng': '',
+          },
+        },
         '/default': {
           target: `http://${settings.proxy_ip}:${settings.proxy_ip_port}/`,
           changeOrigin: true,
@@ -188,7 +195,7 @@ module.exports = configure(function(ctx) {
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-framework
     framework: {
       iconSet: 'material-icons', // Quasar icon set
-      lang: 'en-us', // Quasar language pack
+      lang: 'zh-hans', // Quasar language pack
       config: {
         brand: {
           negative: '#e93030',
@@ -205,7 +212,7 @@ module.exports = configure(function(ctx) {
       // * 'auto' - (DEFAULT) Auto-import needed Quasar components & directives
       // * 'all'  - Manually specify what to import
       importStrategy: 'auto',
-      plugins: ['BottomSheet', 'Loading'],
+      plugins: ['BottomSheet', 'Loading', 'Dialog'],
       components: [],
       directives: ['Ripple', 'Mutation', 'Scroll'],
     },

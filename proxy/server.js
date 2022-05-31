@@ -26,6 +26,7 @@ app.use(
       '/xiaoshuo_ifeng': 'https://xw.yc.ifeng.com',
       '/user_ifeng': 'https://user.iclient.ifeng.com',
       '/id_ifeng': 'https://id.ifeng.com',
+      '/group_ifeng': 'https://api-group.ifeng.com',
     },
     target: 'https://nine.ifeng.com',
     onProxyReq(proxyReq, req, res) {
@@ -41,6 +42,7 @@ app.use(
       '^/xiaoshuo_ifeng': '',
       '^/user_ifeng': '',
       '^/id_ifeng': '',
+      '^/group_ifeng': '',
     },
     onError(err, req, res, target) {},
     onClose(res, socket, head) {},

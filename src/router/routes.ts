@@ -226,6 +226,31 @@ export const constantRoutes: RouteConfig[] = [
     component: () => import(/* webpackChunkName: "mine_child_page_messages" */ 'pages/mine_child_page/messages/index.vue'),
     meta: {},
   },
+  {
+    path: '/mine_child_page/follow',
+    component: () => import(/* webpackChunkName: "mine_child_page_follow" */ 'pages/mine_child_page/follow/index.vue'),
+    meta: {},
+  },
+  {
+    path: '/mine_child_page/fans',
+    component: () => import(/* webpackChunkName: "mine_child_page_fans" */ 'pages/mine_child_page/fans/index.vue'),
+    meta: {},
+  },
+  {
+    path: '/mine_child_page/favorite',
+    component: () => import(/* webpackChunkName: "mine_child_page_favorite" */ 'pages/mine_child_page/favorite/index.vue'),
+    meta: {},
+  },
+  {
+    path: '/mine_child_page/push_history',
+    component: () => import(/* webpackChunkName: "mine_child_page_push_history" */ 'pages/mine_child_page/push_history/index.vue'),
+    meta: {},
+  },
+  {
+    path: '/mine_child_page/quanzi',
+    component: () => import(/* webpackChunkName: "mine_child_page_quanzi" */ 'pages/mine_child_page/quanzi/index.vue'),
+    meta: {},
+  },
 ];
 /**
  * 有权限限制

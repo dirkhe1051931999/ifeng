@@ -1,6 +1,22 @@
 import { VuexModule, Module, Action, Mutation, getModule } from 'vuex-module-decorators';
 import store from '@/store';
-import { getLikeMessages, getReplyMessages, getSystemReplyMessages, myList, taskList } from '@/api/mine';
+import {
+  getFans,
+  getFavoriteList,
+  getFollowList,
+  getLikeMessages,
+  getOrgBannerData,
+  getOrgContent,
+  getOrgTag,
+  getOrgUserList,
+  getPushHistory,
+  getQuanziDiscover,
+  getQuanziTopData,
+  getReplyMessages,
+  getSystemReplyMessages,
+  myList,
+  taskList,
+} from '@/api/mine';
 
 export interface IMineState {}
 
@@ -30,6 +46,56 @@ class User extends VuexModule implements IMineState {
   @Action({ rawError: true })
   public async getSystemReplyMessages(data: any) {
     const result = await getSystemReplyMessages(data);
+    return Promise.resolve(result);
+  }
+  @Action({ rawError: true })
+  public async getFollowList(data: any) {
+    const result = await getFollowList(data);
+    return Promise.resolve(result);
+  }
+  @Action({ rawError: true })
+  public async getFans(data: any) {
+    const result = await getFans(data);
+    return Promise.resolve(result);
+  }
+  @Action({ rawError: true })
+  public async getFavoriteList(data: any) {
+    const result = await getFavoriteList(data);
+    return Promise.resolve(result);
+  }
+  @Action({ rawError: true })
+  public async getPushHistory(data: any) {
+    const result = await getPushHistory(data);
+    return Promise.resolve(result);
+  }
+  @Action({ rawError: true })
+  public async getQuanziTopData(data: any) {
+    const result = await getQuanziTopData(data);
+    return Promise.resolve(result);
+  }
+  @Action({ rawError: true })
+  public async getQuanziDiscover(data: any) {
+    const result = await getQuanziDiscover(data);
+    return Promise.resolve(result);
+  }
+  @Action({ rawError: true })
+  public async getOrgBannerData(data: any) {
+    const result = await getOrgBannerData(data);
+    return Promise.resolve(result);
+  }
+  @Action({ rawError: true })
+  public async getOrgUserList(data: any) {
+    const result = await getOrgUserList(data);
+    return Promise.resolve(result);
+  }
+  @Action({ rawError: true })
+  public async getOrgTag(data: any) {
+    const result = await getOrgTag(data);
+    return Promise.resolve(result);
+  }
+  @Action({ rawError: true })
+  public async getOrgContent(data: any) {
+    const result = await getOrgContent(data);
     return Promise.resolve(result);
   }
 }

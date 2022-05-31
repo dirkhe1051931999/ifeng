@@ -453,7 +453,6 @@ export default class extends Vue {
       if (!arr.length) {
         this.load_more_no_data = '没有更多数据了';
       }
-      console.log(arr)
       this.dianshangyanjiuyuanNewsList = arr;
       if (result.length === 2) {
         this.$nextTick(() => {

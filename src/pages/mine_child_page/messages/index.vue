@@ -2,7 +2,7 @@
   <div class="messages-container">
     <div class="navbar-container">
       <q-icon name="arrow_back_ios" class="arrow" @click="$router.back()"></q-icon>
-      <div class="title">荣誉勋章墙</div>
+      <div class="title">消息</div>
     </div>
     <div class="p-t-50">
       <q-card flat>

@@ -13,24 +13,23 @@
             {{ loginInfo.nickname }}
           </div>
           <div class="title">
-            <span class="label">{{ loginInfo.credit.title_1 }}</span>
-            <span class="medal">勋章墙</span>
+            <span class="label" @click="handleClickLabel">{{ loginInfo.credit.title_1 }}</span>
+            <span class="medal" @click="handleClickMedal">勋章墙</span>
           </div>
           <div class="follow-fans">
-            <div class="follow">关注 {{ loginInfo.feeds_num }}</div>
-            <div class="fans">关注 {{ loginInfo.fans_num }}</div>
+            <div class="follow" @click="handleClickFollow">关注 {{ loginInfo.follow_num }}</div>
+            <div class="fans" @click="handleClickFans">粉丝 {{ loginInfo.fans_num }}</div>
           </div>
         </div>
         <div class="profile" @click="$router.push('/mine_child_page/profile')">
           <span>个人主页</span>
           <q-icon name="chevron_right"></q-icon>
         </div>
-        <!-- <div class="logout" @click="handleCLickLogout">退出登录</div> -->
       </div>
       <div class="common-feature">
         <div class="title">常用功能</div>
         <ul>
-          <li v-for="(item, index) in platform_service" :key="index">
+          <li v-for="(item, index) in platform_service" :key="index" @click="handleClickFeatureItem(item)">
             <q-icon :name="item.icon" class="icon"></q-icon>
             <span>{{ item.name }}</span>
           </li>
@@ -39,7 +38,7 @@
       <div class="service_customs">
         <div class="title">平台服务</div>
         <ul>
-          <li v-for="(item, index) in service_customs" :key="index">
+          <li v-for="(item, index) in service_customs" :key="index" @click="handleClickServiceItem(item)">
             <img :src="item.icon_img.day_icon" alt="" class="icon" />
             <span>{{ item.title }}</span>
           </li>
@@ -57,6 +56,7 @@
 </template>
 <script lang="ts">
 import { UserModule } from '@/store/modules/user';
+import { Dialog } from 'quasar';
 import { Component, Vue } from 'vue-property-decorator';
 import { platFormService } from './platform_service';
 @Component({
@@ -85,6 +85,61 @@ export default class extends Vue {
   private loginInfo: any = {};
   /**event */
   private monitorScrollEvent(e: any) {}
+  private handleClickLabel() {
+    this.$router.push('/mine_child_page/level');
+  }
+  private handleClickMedal() {
+    this.$router.push('/mine_child_page/medal');
+  }
+  private handleClickFollow() {
+    this.$router.push('/mine_child_page/follow');
+  }
+  private handleClickFans() {
+    this.$router.push('/mine_child_page/fans');
+  }
+  private handleClickFeatureItem(item: any) {
+    switch (item.id) {
+      case 'xiaoxi':
+        this.$router.push('/mine_child_page/messages');
+        break;
+      case 'guanzhu':
+        this.handleClickFollow();
+        break;
+      case 'shoucang':
+        this.$router.push('/mine_child_page/favorite');
+        break;
+      case 'lishi':
+        this.$router.push('/mine_child_page/push_history');
+        break;
+      case 'shezhi':
+        this.$q
+          .dialog({
+            title: '提示',
+            message: '需要退出登录？',
+            ok: true,
+            cancel: true,
+            persistent: true,
+          })
+          .onOk(() => {
+            this.handleCLickLogout();
+          });
+        break;
+      default:
+        this.$toast('哦呦，还没有开发~');
+        break;
+    }
+  }
+  private handleClickServiceItem(item: any) {
+    console.log(item);
+    switch (item.name) {
+      case 'quan':
+        this.$router.push('/mine_child_page/quanzi');
+        break;
+      default:
+        this.$toast('哦呦，还没有开发~');
+        break;
+    }
+  }
   /**http */
   private async getUserPlatService() {
     const result = await UserModule.getUserPlatService({});
