@@ -111,6 +111,21 @@
       }
     }
     .discoverData {
+      .slide-img-wrap {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        &::after {
+          content: '';
+          width: 124px;
+        }
+        .slide-img {
+          width: 124px;
+          height: 124px;
+          border-radius: 6px;
+          margin-bottom: 10px;
+        }
+      }
       ul {
         li {
           width: 100%;

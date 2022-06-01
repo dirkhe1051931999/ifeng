@@ -135,6 +135,9 @@ export default class extends Vue {
       case 'quan':
         this.$router.push('/mine_child_page/quanzi');
         break;
+      case 'hot_trail':
+        this.$router.push('/mine_child_page/zhuizong');
+        break;
       default:
         this.$toast('哦呦，还没有开发~');
         break;

@@ -15,6 +15,8 @@ const api = {
   getOrgUserList: 'group_ifeng/gateway/search/ifengUserList',
   getOrgTag: 'group_ifeng/gateway/orgtag/page',
   getOrgContent: 'group_ifeng/gateway/search/multiContent',
+  getZhuiZongTop: 'external_ifeng/timeline/front/api/hot/timeline',
+  getZhuiZongList: 'external_ifeng/timeline/front/api/nodes/updates',
 };
 export const myList = (data: any) =>
   request({
@@ -120,4 +122,16 @@ export const getOrgContent = (data: any): any =>
     url: api.getOrgContent,
     method: 'post',
     data,
+  });
+export const getZhuiZongTop = (data: any): any =>
+  request({
+    url: api.getZhuiZongTop,
+    method: 'get',
+    params: data,
+  });
+export const getZhuiZongList = (data: any): any =>
+  request({
+    url: api.getZhuiZongList,
+    method: 'get',
+    params: data,
   });

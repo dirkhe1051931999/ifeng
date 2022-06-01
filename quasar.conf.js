@@ -183,6 +183,13 @@ module.exports = configure(function(ctx) {
             '^/group_ifeng': '',
           },
         },
+        '/external_ifeng': {
+          target: `http://${settings.proxy_ip}:${settings.proxy_ip_port}/external_ifeng`,
+          changeOrigin: true,
+          pathRewrite: {
+            '^/external_ifeng': '',
+          },
+        },
         '/default': {
           target: `http://${settings.proxy_ip}:${settings.proxy_ip_port}/`,
           changeOrigin: true,

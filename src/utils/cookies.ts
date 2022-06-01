@@ -30,20 +30,20 @@ export const setSize = (size: string) => Cookies.set(sizeKey, size, config);
 // token
 const tokenKey = settings.title + '-' + 'token';
 export const getToken = () => Cookies.get(tokenKey);
-export const setToken = (data: string) => Cookies.set(tokenKey, data);
+export const setToken = (data: string) => Cookies.set(tokenKey, data, config);
 export const removeToken = () => Cookies.remove(tokenKey);
 // guid
 const guidKey = settings.title + '-' + 'guid';
 export const getGuid = (): any => Cookies.get(guidKey);
-export const setGuid = (data: string) => Cookies.set(guidKey, data);
+export const setGuid = (data: string) => Cookies.set(guidKey, data, config);
 export const removeGuid = () => Cookies.remove(guidKey);
 // username
 const usernameKey = settings.title + '-' + 'username';
 export const getUsername = (): any => Cookies.get(usernameKey);
-export const setUsername = (data: string) => Cookies.set(usernameKey, data);
+export const setUsername = (data: string) => Cookies.set(usernameKey, data, config);
 export const removeUsername = () => Cookies.remove(usernameKey);
 // msmfastpass
 const smsFastPassKey = settings.title + '-' + 'sms_fast_pass';
 export const getSmsFastPass = (): any => (Cookies.get(smsFastPassKey) ? JSON.parse(Cookies.get(smsFastPassKey)) : {});
-export const setSmsFastPass = (data: any) => Cookies.set(smsFastPassKey, JSON.stringify(data));
+export const setSmsFastPass = (data: any) => Cookies.set(smsFastPassKey, JSON.stringify(data), config);
 export const removeSmsFastPass = () => Cookies.remove(smsFastPassKey);

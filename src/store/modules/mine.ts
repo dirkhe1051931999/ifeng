@@ -14,6 +14,8 @@ import {
   getQuanziTopData,
   getReplyMessages,
   getSystemReplyMessages,
+  getZhuiZongList,
+  getZhuiZongTop,
   myList,
   taskList,
 } from '@/api/mine';
@@ -96,6 +98,16 @@ class User extends VuexModule implements IMineState {
   @Action({ rawError: true })
   public async getOrgContent(data: any) {
     const result = await getOrgContent(data);
+    return Promise.resolve(result);
+  }
+  @Action({ rawError: true })
+  public async getZhuiZongList(data: any) {
+    const result = await getZhuiZongList(data);
+    return Promise.resolve(result);
+  }
+  @Action({ rawError: true })
+  public async getZhuiZongTop(data: any) {
+    const result = await getZhuiZongTop(data);
     return Promise.resolve(result);
   }
 }

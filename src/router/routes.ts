@@ -251,6 +251,21 @@ export const constantRoutes: RouteConfig[] = [
     component: () => import(/* webpackChunkName: "mine_child_page_quanzi" */ 'pages/mine_child_page/quanzi/index.vue'),
     meta: {},
   },
+  {
+    path: '/mine_child_page/quanzi_detail',
+    component: () => import(/* webpackChunkName: "mine_child_page_quanzi_detail" */ 'pages/mine_child_page/quanzi_detail/index.vue'),
+    meta: {},
+  },
+  {
+    path: '/mine_child_page/quanzi_quanyou',
+    component: () => import(/* webpackChunkName: "mine_child_page_quanzi_quanyou" */ 'pages/mine_child_page/quanzi_quanyou/index.vue'),
+    meta: {},
+  },
+  {
+    path: '/mine_child_page/zhuizong',
+    component: () => import(/* webpackChunkName: "mine_child_page_zhuizong" */ 'pages/mine_child_page/zhuizong/index.vue'),
+    meta: {},
+  },
 ];
 /**
  * 有权限限制

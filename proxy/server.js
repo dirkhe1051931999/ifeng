@@ -27,6 +27,7 @@ app.use(
       '/user_ifeng': 'https://user.iclient.ifeng.com',
       '/id_ifeng': 'https://id.ifeng.com',
       '/group_ifeng': 'https://api-group.ifeng.com',
+      '/external_ifeng': 'https://external-gateway.ifengidc.com',
     },
     target: 'https://nine.ifeng.com',
     onProxyReq(proxyReq, req, res) {
@@ -43,6 +44,7 @@ app.use(
       '^/user_ifeng': '',
       '^/id_ifeng': '',
       '^/group_ifeng': '',
+      '^/external_ifeng': '',
     },
     onError(err, req, res, target) {},
     onClose(res, socket, head) {},

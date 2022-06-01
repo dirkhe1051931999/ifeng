@@ -10,13 +10,13 @@
       </div>
       <div class="topData" v-if="!getDataLoading">
         <ul>
-          <li v-for="(item, index) in topData.slice(0, 1)" :key="index" class="left">
+          <li v-for="(item, index) in topData.slice(0, 1)" :key="index" class="left" @click="handleClickQuanzi(item)">
             <img :src="item.org.thumbnailDescImage" alt="" class="img" />
             <div class="title">{{ item.org.title }}</div>
             <div class="userFake">{{ item.orgStatistics.userFake }} 位凤友加入</div>
           </li>
           <div class="right">
-            <li v-for="(item, index) in topData.slice(1, 3)" :key="index">
+            <li v-for="(item, index) in topData.slice(1, 3)" :key="index" @click="handleClickQuanzi(item)">
               <img :src="item.org.thumbnailDescImage" alt="" class="img" />
               <div class="r">
                 <div class="title">{{ item.org.title }}</div>
@@ -39,10 +39,27 @@
             <div class="content">
               {{ JSON_PARSE(item.content.link, item.content.txt).title }}
             </div>
-            <q-img :src="JSON_PARSE(item.content.link, item.content.txt).img" v-if="JSON_PARSE(item.content.link, item.content.txt).img" class="img">
+            <q-img
+              :src="JSON_PARSE(item.content.link, item.content.txt).img"
+              v-if="JSON_PARSE(item.content.link, item.content.txt).img && typeof JSON_PARSE(item.content.link, item.content.txt).img === 'string'"
+              class="img"
+            >
               <img src="~assets/play-video-button.png" alt="" class="play" v-if="JSON_PARSE(item.content.link, item.content.txt).type === 'video'" />
             </q-img>
-            <div class="org">
+            <div
+              v-if="JSON_PARSE(item.content.link, item.content.txt).img && typeof JSON_PARSE(item.content.link, item.content.txt).img === 'object'"
+              class="slide-img-wrap"
+            >
+              <q-img
+                class="slide-img"
+                v-for="(img, imgIndex) in JSON_PARSE(item.content.link, item.content.txt).img"
+                :key="imgIndex"
+                :src="img.link"
+                @click.stop.prevent="previewImage(JSON_PARSE(item.content.link, item.content.txt).img, imgIndex)"
+              >
+              </q-img>
+            </div>
+            <div class="org" @click="handleClickQuanzi(item)">
               <img :src="item.org.thumbnailDescImage" alt="" class="img" />
               <div class="title">{{ item.org.title }}</div>
               <div class="join">加入</div>
@@ -61,11 +78,19 @@
 
 <script lang="ts">
 import { MineModule } from '@/store/modules/mine';
-import { Component, Vue } from 'vue-property-decorator';
-
+import { compact } from 'lodash';
+import { ImagePreview } from 'vant';
+import { Component, Vue, Watch } from 'vue-property-decorator';
+const ifengImgDomain = ['player-proxy.ifengidc.com'];
 @Component
 export default class extends Vue {
   $refs: any;
+  @Watch('$route')
+  onchange(newVal: any) {
+    if (newVal.path === '/mine_child_page/quanzi') {
+      this.$refs['quanzi-wrap'].scrollTop = this.containerPositionY;
+    }
+  }
   async mounted() {
     this.getDataLoading = true;
     await this.getQuanziTopData();
@@ -103,9 +128,20 @@ export default class extends Vue {
     }
   }
   private JSON_PARSE(data: string, txt: string) {
-    console.log();
     try {
       const arr = JSON.parse(data);
+      for (let item of arr) {
+        let urls = item.link.split('/');
+        if (ifengImgDomain.includes(urls[2])) {
+          urls[0] = '';
+          urls[1] = '';
+          urls[2] = '';
+          urls[3] = '';
+          urls = compact(urls);
+          let url = urls.join('/');
+          item.link = `https://d.ifengimg.com/w340_h340_q90/ugc-img.ifengimg.com/${url}`;
+        }
+      }
       const txtObject = JSON.parse(txt);
       if (arr && arr.length) {
         const img = arr.find((item: any) => {
@@ -129,6 +165,12 @@ export default class extends Vue {
             type: 'img',
             title: text.title,
           };
+        } else {
+          return {
+            type: 'imgs',
+            title: txtObject.text,
+            img: arr,
+          };
         }
       } else if (txtObject) {
         const obj = {
@@ -146,7 +188,35 @@ export default class extends Vue {
         obj.title += txtObject.text;
         return obj;
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  private handleClickQuanzi(item: any) {
+    this.$router.push('/mine_child_page/quanzi_detail?orgId=' + item.org.id);
+  }
+  private previewImage(images: any, index: number) {
+    const arr = [];
+    for (let item of images) {
+      let urls = item.link.split('/');
+      if (ifengImgDomain.includes(urls[2])) {
+        urls[0] = '';
+        urls[1] = '';
+        urls[2] = '';
+        urls[3] = '';
+        urls = compact(urls);
+        let url = urls.join('/');
+        item.link = `https://d.ifengimg.com/w340_h340_q90/ugc-img.ifengimg.com/${url}`;
+      }
+    }
+    for (let item of images) {
+      arr.push(item.link);
+    }
+    ImagePreview({
+      images: arr,
+      startPosition: index,
+      closeable: true,
+    });
   }
   /* http */
   private async getQuanziTopData() {
@@ -164,7 +234,6 @@ export default class extends Vue {
     const result = await MineModule.getQuanziTopData(data);
     const { records } = result.data;
     this.topData = records;
-    console.log(this.topData);
     return Promise.resolve();
   }
   private async getQuanziDiscover() {
@@ -203,6 +272,7 @@ export default class extends Vue {
     if (records.length === 0) {
       this.load_more_no_data = '没有更多数据了';
       this.load_more_loading_lock = true;
+      this.load_more_loading = false;
       return Promise.reject();
     }
     this.discoverData = this.discoverData.concat(records);

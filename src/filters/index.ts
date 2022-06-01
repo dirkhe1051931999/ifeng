@@ -57,6 +57,9 @@ export function getDateDiff(str: string) {
   let hour = minute * 60;
   let day = hour * 24;
   let halfamonth = day * 15;
+  if (String(str).length === 10) {
+    str += '000';
+  }
   let dateTimeStamp = +new Date(str);
   let month = day * 30;
   let now = new Date().getTime();
