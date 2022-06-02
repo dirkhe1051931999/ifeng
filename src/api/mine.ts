@@ -17,6 +17,10 @@ const api = {
   getOrgContent: 'group_ifeng/gateway/search/multiContent',
   getZhuiZongTop: 'external_ifeng/timeline/front/api/hot/timeline',
   getZhuiZongList: 'external_ifeng/timeline/front/api/nodes/updates',
+  getZhuiZongDetail: 'external_ifeng/timeline/front/api/timelines/',
+  getZhuiZongDetailComment: 'external_ifeng/timeline/front/api/timelines/',
+  getZhuiZongDetailPosition: 'external_ifeng/timeline/front/api/nodes/',
+  getZhuiZongDetailComment2: 'commoncomment_ifeng/queryCommentForPage',
 };
 export const myList = (data: any) =>
   request({
@@ -134,4 +138,30 @@ export const getZhuiZongList = (data: any): any =>
     url: api.getZhuiZongList,
     method: 'get',
     params: data,
+  });
+export const getZhuiZongDetail = (data: any): any =>
+  request({
+    url: api.getZhuiZongDetail + data.id,
+    method: 'get',
+    params: data,
+  });
+export const getZhuiZongDetailComment = (data: any): any =>
+  request({
+    url: api.getZhuiZongDetailComment + data.id + '/bullet-comments',
+    method: 'get',
+    params: data,
+  });
+export const getZhuiZongDetailPosition = (data: any): any =>{
+  console.log(api.getZhuiZongDetailPosition + data.id + '/position')
+  return request({
+    url: api.getZhuiZongDetailPosition + data.id + '/position',
+    method: 'get',
+  });
+}
+  
+export const getZhuiZongDetailComment2 = (data: any): any =>
+  request({
+    url: api.getZhuiZongDetailComment2,
+    method: 'post',
+    data,
   });

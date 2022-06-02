@@ -46,7 +46,7 @@
       </div>
       <div class="service_slides">
         <ul>
-          <li v-for="(item, index) in service_slides" :key="index">
+          <li v-for="(item, index) in service_slides" :key="index" @click="handleClickSlideItem(item)">
             <img :src="item.slide_image" alt="" />
           </li>
         </ul>
@@ -98,6 +98,10 @@ export default class extends Vue {
     this.$router.push('/mine_child_page/fans');
   }
   private handleClickFeatureItem(item: any) {
+    if (!UserModule.token) {
+      this.$router.push('/login');
+      return;
+    }
     switch (item.id) {
       case 'xiaoxi':
         this.$router.push('/mine_child_page/messages');
@@ -130,13 +134,30 @@ export default class extends Vue {
     }
   }
   private handleClickServiceItem(item: any) {
-    console.log(item);
+    if (!UserModule.token) {
+      this.$router.push('/login');
+      return;
+    }
     switch (item.name) {
       case 'quan':
         this.$router.push('/mine_child_page/quanzi');
         break;
       case 'hot_trail':
         this.$router.push('/mine_child_page/zhuizong');
+        break;
+      default:
+        this.$toast('哦呦，还没有开发~');
+        break;
+    }
+  }
+  private handleClickSlideItem(item: any) {
+    if (!UserModule.token) {
+      this.$router.push('/login');
+      return;
+    }
+    switch (item.icon_id) {
+      case 203:
+        this.$router.push('/tab_home_hot/0');
         break;
       default:
         this.$toast('哦呦，还没有开发~');

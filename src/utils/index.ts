@@ -70,3 +70,15 @@ export function findStrImgSrc(str: any) {
   }
   return result;
 }
+
+/**
+ * @desc 是否滚到到容器底部
+ * @param {滚动容器} ele
+ * @param {容器高度} wrapHeight
+ */
+export function isScrollBottom(ele: any, wrapHeight: any, threshold = 30) {
+  const h1 = ele.scrollHeight - ele.scrollTop;
+  const h2 = wrapHeight + threshold;
+  const isBottom = h1 <= h2;
+  return isBottom;
+}

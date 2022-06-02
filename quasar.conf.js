@@ -190,6 +190,13 @@ module.exports = configure(function(ctx) {
             '^/external_ifeng': '',
           },
         },
+        '/commoncomment_ifeng': {
+          target: `http://${settings.proxy_ip}:${settings.proxy_ip_port}/commoncomment_ifeng`,
+          changeOrigin: true,
+          pathRewrite: {
+            '^/commoncomment_ifeng': '',
+          },
+        },
         '/default': {
           target: `http://${settings.proxy_ip}:${settings.proxy_ip_port}/`,
           changeOrigin: true,

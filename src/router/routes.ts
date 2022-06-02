@@ -266,6 +266,11 @@ export const constantRoutes: RouteConfig[] = [
     component: () => import(/* webpackChunkName: "mine_child_page_zhuizong" */ 'pages/mine_child_page/zhuizong/index.vue'),
     meta: {},
   },
+  {
+    path: '/mine_child_page/zhuizong_detail',
+    component: () => import(/* webpackChunkName: "mine_child_page_zhuizong_detail" */ 'pages/mine_child_page/zhuizong_detail/index.vue'),
+    meta: {},
+  },
 ];
 /**
  * 有权限限制

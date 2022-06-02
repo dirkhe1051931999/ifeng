@@ -10,7 +10,7 @@
       </div>
       <img src="~assets/mine/zhuizong.png" alt="" class="banner" v-if="!getDataLoading" />
       <ul class="bannerData shadow-5" v-if="!getDataLoading">
-        <li v-for="(item, index) in bannerData" :key="index">
+        <li v-for="(item, index) in bannerData" :key="index" @click="handleClickItem(item)">
           <div class="index">{{ index + 1 }}</div>
           <div class="title">{{ item.title }}</div>
         </li>
@@ -18,7 +18,7 @@
       <div class="progress" v-if="!getDataLoading">
         <div class="top-title">最新进展</div>
         <ul>
-          <li v-for="(item, index) in listData" :key="index">
+          <li v-for="(item, index) in listData" :key="index" @click="handleClickItemChild(item)">
             <div class="title">{{ item.title }}</div>
             <div class="date">{{ new Date(item.updateTime * 1000).toLocaleString() }}</div>
           </li>
@@ -35,13 +35,19 @@
 
 <script lang="ts">
 import { MineModule } from '@/store/modules/mine';
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Watch } from 'vue-property-decorator';
 
 @Component({
   name: 'mine-zhuizong',
 })
 export default class extends Vue {
   $refs: any;
+  @Watch('$route')
+  onchange(newVal: any) {
+    if (newVal.path === '/mine_child_page/zhuizong') {
+      this.$refs['zhuizong-wrap'].scrollTop = this.containerPositionY;
+    }
+  }
   async mounted() {
     this.getDataLoading = true;
     await this.getBannerData();
@@ -76,6 +82,13 @@ export default class extends Vue {
       }
     }
   }
+  private handleClickItem(item: any) {
+    this.$router.push('/mine_child_page/zhuizong_detail?id=' + item.id);
+  }
+  private handleClickItemChild(item: any) {
+    this.$router.push('/mine_child_page/zhuizong_detail?node=true&id=' + item.timelineId + '&nodeId=' + item.nodeId);
+  }
+  /* http */
   private async getBannerData() {
     const result = await MineModule.getZhuiZongTop({});
     this.bannerData = result;

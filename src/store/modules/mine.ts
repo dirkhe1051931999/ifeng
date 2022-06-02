@@ -14,6 +14,10 @@ import {
   getQuanziTopData,
   getReplyMessages,
   getSystemReplyMessages,
+  getZhuiZongDetail,
+  getZhuiZongDetailComment,
+  getZhuiZongDetailComment2,
+  getZhuiZongDetailPosition,
   getZhuiZongList,
   getZhuiZongTop,
   myList,
@@ -108,6 +112,26 @@ class User extends VuexModule implements IMineState {
   @Action({ rawError: true })
   public async getZhuiZongTop(data: any) {
     const result = await getZhuiZongTop(data);
+    return Promise.resolve(result);
+  }
+  @Action({ rawError: true })
+  public async getZhuiZongDetail(data: any) {
+    const result = await getZhuiZongDetail(data);
+    return Promise.resolve(result);
+  }
+  @Action({ rawError: true })
+  public async getZhuiZongDetailComment(data: any) {
+    const result = await getZhuiZongDetailComment(data);
+    return Promise.resolve(result);
+  }
+  @Action({ rawError: true })
+  public async getZhuiZongDetailPosition(data: any) {
+    const result = await getZhuiZongDetailPosition(data);
+    return Promise.resolve(result);
+  }
+  @Action({ rawError: true })
+  public async getZhuiZongDetailComment2(data: any) {
+    const result = await getZhuiZongDetailComment2(data);
     return Promise.resolve(result);
   }
 }
