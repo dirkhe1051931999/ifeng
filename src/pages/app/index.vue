@@ -44,7 +44,7 @@ export default class extends Vue {
       icon: 'icon-communityiconvideo4',
     },
     {
-      name: '平台',
+      name: '看见',
       icon: 'icon-pingtai_mokuai',
     },
     {
