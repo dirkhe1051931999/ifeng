@@ -2,6 +2,7 @@ const express = require('express');
 const randomUseragent = require('random-useragent');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const app = express();
+require('web-streams-polyfill');
 require('./api/ifeng_home_tab_kangyi')(app); // 抗疫
 require('./api/ifeng_home_tab_caijing')(app); // 财经
 require('./api/ifeng_home_tab_yingshiju')(app); // 影视剧

@@ -1,5 +1,6 @@
 let axios = require('axios');
 let cheerio = require('cheerio');
+
 async function parseData(query) {
   try {
     let result1 = await axios.get(`https://ishare.ifeng.com/hotTechRank?aman=733w574v562M142d768`);
@@ -18,11 +19,12 @@ async function parseData(query) {
     const arr = dataStr.split(';');
     let regex3 = /(?<=\{).*(?=\})/g;
     let one = arr[0].match(regex3);
-    let oneObj = JSON.parse(`{${  one[0]  }}`);
+    let oneObj = JSON.parse(`{${one[0]}}`);
     return [oneObj];
   } catch (error) {
     console.log(error);
     return [];
   }
 }
+
 module.exports = parseData;

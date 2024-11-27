@@ -1,12 +1,13 @@
-const settings = require('../../src/settings.json');
 let axios = require('axios');
+let settings = require('../settings.json');
+
 async function loadProvinceJson(name) {
   try {
-    let result = await axios.get(`http://${settings.proxy_ip}:${settings.proxy_ip_port}/static/province/${name}.json`);
+    let result = await axios.get(`${settings.s3}/province/${name}.json`);
     return result.data;
   } catch (err) {
     console.log(err);
-    return {};
   }
 }
+
 module.exports = loadProvinceJson;
