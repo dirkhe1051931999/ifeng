@@ -1,5 +1,6 @@
 const express = require('express');
-const randomUseragent = require('random-useragent');
+const randomUseragent = require('random-useragent')
+const cors = require('cors');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const app = express();
 require('web-streams-polyfill');
@@ -8,6 +9,7 @@ require('./api/ifeng_home_tab_caijing')(app); // 财经
 require('./api/ifeng_home_tab_yingshiju')(app); // 影视剧
 require('./api/ifeng_home_tab_keji')(app); // 科技
 require('./api/ifeng_home_tab_xiaoshuo')(app); // 小说
+app.use(cors());
 // https://nine.ifeng.com
 app.use(
   '/',
