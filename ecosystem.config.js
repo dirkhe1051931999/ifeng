@@ -1,7 +1,7 @@
 module.exports = {
   apps: [{
     name: "ifeng-proxy",
-    script: "index.js",
+    script: "bundle.js",
     instances: 1,
     env: {
       NODE_ENV: "development",

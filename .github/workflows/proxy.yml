@@ -80,4 +80,6 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
             cd /root/ifeng-proxy
+            pm2 stop ifeng-proxy
+            pm2 delete ifeng-proxy
             npm run pm2
