@@ -25,24 +25,50 @@ jobs:
       - name: Build Astro project
         run: yarn build
 
-      - name: Deploy to server
+      - name: Clear destination directory
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USERNAME }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
-            # 删除旧目录（如果存在）
             rm -rf /root/ifeng-proxy
-            
-            # 创建新目录
             mkdir -p /root/ifeng-proxy
-            
-            # 复制文件到新目录
-            cp -r dist/* /root/ifeng-proxy/
-            cp package.json /root/ifeng-proxy/
-            cp -r node_modules /root/ifeng-proxy/
-            
-            # 进入目录并启动服务
+
+      - name: Deploy dist files
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          source: "dist/*"
+          target: "/root/ifeng-proxy"
+          strip_components: 1
+
+      - name: Deploy package.json
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          source: "package.json"
+          target: "/root/ifeng-proxy"
+
+      - name: Deploy node_modules
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          source: "node_modules"
+          target: "/root/ifeng-proxy"
+
+      - name: Start PM2
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          script: |
             cd /root/ifeng-proxy
             npm run pm2
