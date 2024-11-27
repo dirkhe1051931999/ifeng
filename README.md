@@ -14,7 +14,41 @@
 
 ### Preview part of the page
 
-见[screenshot](./screenshot)文件夹或移步[百度网盘](https://pan.baidu.com/s/1d6k9J0ASQD8n29f2vMZ5iA?pwd=3y5n#list/path=%2Fifeng_img)
+## 主要功能
+
+| 短视频                                                                       | 首页                                                                      |
+|---------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| ![短视频](https://cn-sy1.rains3.com/ifeng/screenshot/duanshipin.png)         | ![首页](https://cn-sy1.rains3.com/ifeng/screenshot/home.png)              |
+| 热门                                                                        | 话题                                                                      |
+| ![热门](https://cn-sy1.rains3.com/ifeng/screenshot/hot.png)                 | ![话题](https://cn-sy1.rains3.com/ifeng/screenshot/huati.png)             |
+| 抗疫                                                                        | 视频详情                                                                    |
+| ![抗疫](https://cn-sy1.rains3.com/ifeng/screenshot/kangyi.png)              | ![视频详情](https://cn-sy1.rains3.com/ifeng/screenshot/shipinxiangqing.png) |
+| 输入                                                                        | 图片详情                                                                    |
+| ![输入](https://cn-sy1.rains3.com/ifeng/screenshot/shuru.png)               | ![图片详情](https://cn-sy1.rains3.com/ifeng/screenshot/tupianxiangqing.png) |
+| 文章详情                                                                      | 小说                                                                      |
+| ![文章详情](https://cn-sy1.rains3.com/ifeng/screenshot/wenzhangxiangqing.png) | ![小说](https://cn-sy1.rains3.com/ifeng/screenshot/xiaoshuo.png)          |
+| 音频                                                                        | 音频播放                                                                    |
+| ![音频](https://cn-sy1.rains3.com/ifeng/screenshot/yinpin.png)              | ![音频播放](https://cn-sy1.rains3.com/ifeng/screenshot/yinpinbofang.png)    |
+
+## 个人中心
+
+| 粉丝                                                                             | 关注                                                                            |
+|--------------------------------------------------------------------------------|-------------------------------------------------------------------------------|
+| ![粉丝](https://cn-sy1.rains3.com/ifeng/screenshot/个人中心/fensi.png)               | ![关注](https://cn-sy1.rains3.com/ifeng/screenshot/个人中心/guanzhu.png)            |
+| 奖牌                                                                             | 积分                                                                            |
+| ![奖牌](https://cn-sy1.rains3.com/ifeng/screenshot/个人中心/jiangpai.png)            | ![积分](https://cn-sy1.rains3.com/ifeng/screenshot/个人中心/jifen.png)              |
+| 我的                                                                             | 个人资料                                                                          |
+| ![我的](https://cn-sy1.rains3.com/ifeng/screenshot/个人中心/mine.png)                | ![个人资料](https://cn-sy1.rains3.com/ifeng/screenshot/个人中心/profile.png)          |
+| 圈友                                                                             | 圈子                                                                            |
+| ![圈友](https://cn-sy1.rains3.com/ifeng/screenshot/个人中心/quanyou.png)             | ![圈子](https://cn-sy1.rains3.com/ifeng/screenshot/个人中心/quanzi.png)             |
+| 圈子详情                                                                           | 收藏                                                                            |
+| ![圈子详情](https://cn-sy1.rains3.com/ifeng/screenshot/个人中心/quanzixiangqing.png)   | ![收藏](https://cn-sy1.rains3.com/ifeng/screenshot/个人中心/shoucang.png)           |
+| 推送                                                                             | 详情评论                                                                          |
+| ![推送](https://cn-sy1.rains3.com/ifeng/screenshot/个人中心/tuisong.png)             | ![详情评论](https://cn-sy1.rains3.com/ifeng/screenshot/个人中心/xiangqingpinglun.png) |
+| 消息                                                                             | 追踪                                                                            |
+| ![消息](https://cn-sy1.rains3.com/ifeng/screenshot/个人中心/xiaoxi.png)              | ![追踪](https://cn-sy1.rains3.com/ifeng/screenshot/个人中心/zhuizong.png)           |
+| 最终详情                                                                           |                                                                               |
+| ![最终详情](https://cn-sy1.rains3.com/ifeng/screenshot/个人中心/zuizhongxiangqing.png) |                                                                               |
 
 ## Install the dependencies
 
@@ -49,28 +83,28 @@ yarn dev
 ```js
 // proxy/server.js
 app.use(
-    '/',
-    createProxyMiddleware({
-      router: {
-        // /config=》host:https://config.nine.ifeng.com
-        // 需要pathRewrite
-        '/config': 'https://config.nine.ifeng.com',
-        '/uc': 'https://uc.ifeng.com',
-        '/api_iclient': 'https://api.iclient.ifeng.com',
-        '/shankapi': 'https://shankapi.ifeng.com',
-        '/comment_list': 'https://comment.ifeng.com',
-      },
-      target: 'https://nine.ifeng.com',
-      onProxyReq(proxyReq, req, res) {
-        proxyReq.setHeader('User-Agent', randomUseragent.getRandom());
-      },
-      pathRewrite: {'^/config': '', '^/uc': '', '^/api_iclient': '', '^/shankapi': '', '^/comment_list': ''},
-      onError(err, req, res, target) {
-      },
-      onClose(res, socket, head) {
-      },
-      changeOrigin: true,
-    }),
+  '/',
+  createProxyMiddleware({
+    router: {
+      // /config=》host:https://config.nine.ifeng.com
+      // 需要pathRewrite
+      '/config': 'https://config.nine.ifeng.com',
+      '/uc': 'https://uc.ifeng.com',
+      '/api_iclient': 'https://api.iclient.ifeng.com',
+      '/shankapi': 'https://shankapi.ifeng.com',
+      '/comment_list': 'https://comment.ifeng.com',
+    },
+    target: 'https://nine.ifeng.com',
+    onProxyReq(proxyReq, req, res) {
+      proxyReq.setHeader('User-Agent', randomUseragent.getRandom());
+    },
+    pathRewrite: { '^/config': '', '^/uc': '', '^/api_iclient': '', '^/shankapi': '', '^/comment_list': '' },
+    onError(err, req, res, target) {
+    },
+    onClose(res, socket, head) {
+    },
+    changeOrigin: true,
+  }),
 );
 ```
 
