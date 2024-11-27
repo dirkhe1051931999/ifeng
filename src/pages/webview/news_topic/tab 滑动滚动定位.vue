@@ -45,7 +45,7 @@ import { Component, Vue } from 'vue-property-decorator';
 export default class extends Vue {
   $refs: any;
   mounted() {
-    this.$refs['news-topic-wrap'].style['height'] = window.innerHeight - 38 - 46 + 'px';
+    this.$refs['news-topic-wrap'].style['height'] = `${window.innerHeight - 38 - 46}px`;
     for (let item of this.tabs) {
       const $dom: any = this.$refs[item.id][0];
       this.tabsOffsetTopInterregional.push($dom.offsetTop);
@@ -83,7 +83,6 @@ export default class extends Vue {
   }
 }
 </script>
-
 
 <style lang="scss" scoped>
 .news-topic-container {

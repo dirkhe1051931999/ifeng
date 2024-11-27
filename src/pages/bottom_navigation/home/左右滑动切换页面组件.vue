@@ -1,22 +1,14 @@
 <template>
   <div class="app-home-container">
     <ul class="app-home-tab" ref="app-home-tab">
-      <li
-        class="item"
-        v-for="(item, $index) in categories"
-        :key="$index"
-        @click="toggleTabName($index)"
-        :class="{ 'active-tab': $index == activeTabIndex }"
-      >
+      <li class="item" v-for="(item, $index) in categories" :key="$index" @click="toggleTabName($index)" :class="{ 'active-tab': $index == activeTabIndex }">
         {{ item }}
       </li>
     </ul>
     <div id="app-home-page" class="app-home-page" @touchstart="touchStart" @touchmove="touchMove" @touchend="touchEnd" ref="app-home-page">
       <div class="page page-1 text-center">
         <div id="mescroll" class="mescroll" ref="mescroll">
-          <div v-for="n in 50" :key="n" class="q-py-xs">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </div>
+          <div v-for="n in 50" :key="n" class="q-py-xs">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
         </div>
       </div>
       <div class="page page-2"></div>
@@ -160,7 +152,7 @@ export default class extends Vue {
     const $appHomeTabChildren = Array.from(this.$refs['app-home-tab'].children);
     const $appHomeTab = this.$refs['app-home-tab'];
     let sum = 0;
-    for (var i = 0; i < index; i++) {
+    for (let i = 0; i < index; i++) {
       const item: any = $appHomeTabChildren[i];
       sum += item.clientWidth;
     }
@@ -169,8 +161,8 @@ export default class extends Vue {
   private initialTab() {
     this.toggleTabName(INITIAL_TAB_INDEX);
     this.scrollTab();
-    this.$refs['app-home-page'].style['height'] = this.windowInnerHeight - 100 + 'px';
-    this.$refs['mescroll'].style['height'] = this.windowInnerHeight - 100 + 'px';
+    this.$refs['app-home-page'].style['height'] = `${this.windowInnerHeight - 100}px`;
+    this.$refs['mescroll'].style['height'] = `${this.windowInnerHeight - 100}px`;
     this.mescroll = new window['MeScroll']('mescroll', {
       up: {
         callback: this.upCallback,

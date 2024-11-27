@@ -22,6 +22,7 @@ const shareOption = [
     img: 'https://z3.ax1x.com/2021/07/16/WMr0K0.png',
   },
 ];
+
 export function handlerQuasarShare(from: string, news: any) {
   BottomSheet.create({
     message: '分享是一种快乐',

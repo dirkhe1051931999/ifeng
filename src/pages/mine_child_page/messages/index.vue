@@ -6,16 +6,7 @@
     </div>
     <div class="p-t-50">
       <q-card flat>
-        <q-tabs
-          v-model="tab"
-          dense
-          class="text-grey"
-          active-color="primary"
-          indicator-color="primary"
-          align="justify"
-          narrow-indicator
-          @input="tabChange"
-        >
+        <q-tabs v-model="tab" dense class="text-grey" active-color="primary" indicator-color="primary" align="justify" narrow-indicator @input="tabChange">
           <q-tab name="reply" label="回复" />
           <q-tab name="like" label="点赞" />
           <q-tab name="systemReply" label="通知" />
@@ -143,12 +134,12 @@ export default class extends Vue {
       case 'doc':
         params = getUrlParams(item.link.url);
         urlStr = json2Url(params);
-        this.$router.push('/news_detail/doc?' + urlStr);
+        this.$router.push(`/news_detail/doc?${urlStr}`);
         break;
       case 'short':
         params = getUrlParams(item.link.url);
         urlStr = json2Url(params);
-        this.$router.push('/news_detail/imglist?' + urlStr);
+        this.$router.push(`/news_detail/imglist?${urlStr}`);
         break;
       // case 'phvideo':
       //   params = {
@@ -195,7 +186,6 @@ export default class extends Vue {
   }
 }
 </script>
-
 
 <style lang="scss" scoped>
 @import './index.scss';

@@ -8,7 +8,7 @@ export function loadBdScript(scriptId: string, url: string, callback: () => void
   script.type = 'text/javascript';
   if (script.readyState) {
     //IE
-    script.onreadystatechange = function() {
+    script.onreadystatechange = function () {
       if (script.readyState === 'loaded' || script.readyState === 'complete') {
         script.onreadystatechange = null;
         callback();
@@ -16,7 +16,7 @@ export function loadBdScript(scriptId: string, url: string, callback: () => void
     };
   } else {
     // Others
-    script.onload = function() {
+    script.onload = function () {
       callback();
     };
   }
@@ -26,16 +26,16 @@ export function loadBdScript(scriptId: string, url: string, callback: () => void
 }
 export function getUrlParams(url: any) {
   try {
-    var index = url.indexOf('?');
+    const index = url.indexOf('?');
     url = url.match(/\?([^#]+)/);
     if (!url) return {};
     url = url[1];
-    var obj = {},
+    const obj = {},
       arr = url.split('&');
-    for (var i = 0; i < arr.length; i++) {
-      var subArr = arr[i].split('=');
-      var key = decodeURIComponent(subArr[0]);
-      var value = decodeURIComponent(subArr[1]);
+    for (let i = 0; i < arr.length; i++) {
+      const subArr = arr[i].split('=');
+      const key = decodeURIComponent(subArr[0]);
+      const value = decodeURIComponent(subArr[1]);
       obj[key] = value;
     }
     return obj;
@@ -46,13 +46,13 @@ export function getUrlParams(url: any) {
 }
 export function json2Url(data: any) {
   try {
-    var tempArr = [];
-    for (var i in data) {
-      var key = encodeURIComponent(i);
-      var value = encodeURIComponent(data[i]);
-      tempArr.push(key + '=' + value);
+    const tempArr = [];
+    for (const i in data) {
+      const key = encodeURIComponent(i);
+      const value = encodeURIComponent(data[i]);
+      tempArr.push(`${key}=${value}`);
     }
-    var urlParamsStr = tempArr.join('&');
+    const urlParamsStr = tempArr.join('&');
     return urlParamsStr;
   } catch (err) {
     console.log(err);
@@ -63,9 +63,9 @@ export function findStrImgSrc(str: any) {
   const imgReg = /<img.*?(?:>|\/>)/gi;
   const srcReg = /src=[\'\"]?([^\'\"]*)[\'\"]?/i;
   const arr = str.match(imgReg) || [];
-  let result = [];
-  for (var i = 0; i < arr.length; i++) {
-    var src = arr[i].match(srcReg);
+  const result = [];
+  for (let i = 0; i < arr.length; i++) {
+    const src = arr[i].match(srcReg);
     result.push(src[1]);
   }
   return result;

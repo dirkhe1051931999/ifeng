@@ -1,8 +1,7 @@
 export const testData = {
   type: 'short',
   id: 'ucms_87hgUJFUmTa',
-  thumbnail:
-    'https://d.ifengimg.com/w690_h346_q100_webp/x0.ifengimg.com/ucms/2021_28/25870DEB76458F00305055D9E81AEC8754F605AD_size192_w690_h461.jpg.webp',
+  thumbnail: 'https://d.ifengimg.com/w690_h346_q100_webp/x0.ifengimg.com/ucms/2021_28/25870DEB76458F00305055D9E81AEC8754F605AD_size192_w690_h461.jpg.webp',
   imageList: [
     {
       url: 'https://x0.ifengimg.com/ucms/2021_28/25870DEB76458F00305055D9E81AEC8754F605AD_size192_w690_h461.jpg',
@@ -50,8 +49,7 @@ export const testData = {
     defaultreason: '0_不感兴趣',
     imageList: [
       {
-        url:
-          'https://d.ifengimg.com/w684_h457_q100_webp/x0.ifengimg.com/ucms/2021_28/25870DEB76458F00305055D9E81AEC8754F605AD_size192_w690_h461.jpg.webp',
+        url: 'https://d.ifengimg.com/w684_h457_q100_webp/x0.ifengimg.com/ucms/2021_28/25870DEB76458F00305055D9E81AEC8754F605AD_size192_w690_h461.jpg.webp',
       },
     ],
     previewImages: ['https://x0.ifengimg.com/ucms/2021_28/25870DEB76458F00305055D9E81AEC8754F605AD_size192_w690_h461.jpg'],
@@ -79,8 +77,7 @@ export const testData = {
   shareCount: '10',
   commentLink: {
     type: 'short',
-    url:
-      'https://nine.ifeng.com/getNewsDocs?aid=ucms_87hgUJFUmTa&secret=v006GBcPjHRRKLgJz1lFJs5mSJ9Qm7c2G-_1WWVFvbMbTnWd-_cU6F83Bgh8RkIndIS--zB&channelId=SYLB10NEW&category=&imId=87hgUJFUmTa&channelKey=',
+    url: 'https://nine.ifeng.com/getNewsDocs?aid=ucms_87hgUJFUmTa&secret=v006GBcPjHRRKLgJz1lFJs5mSJ9Qm7c2G-_1WWVFvbMbTnWd-_cU6F83Bgh8RkIndIS--zB&channelId=SYLB10NEW&category=&imId=87hgUJFUmTa&channelKey=',
     weburl: 'https://ishare.ifeng.com/c/s/v006GBcPjHRRKLgJz1lFJs5mSJ9Qm7c2G-_1WWVFvbMbTnWd-_cU6F83Bgh8RkIndIS--zB?spss=np',
     openType: '1',
     backendStaticId: 'ucms_87hgUJFUmTa',
@@ -96,8 +93,7 @@ export const testData = {
 export const shortTestdata = {
   type: 'short',
   id: 'ucms_8CuKgNQr4oz',
-  thumbnail:
-    'https://d.ifengimg.com/w690_h346_q100_webp/x0.ifengimg.com/ucms/2022_04/81372F94959ED6D4331F96EB2DC41B6E6556DB2D_size379_w827_h1253.jpg.webp',
+  thumbnail: 'https://d.ifengimg.com/w690_h346_q100_webp/x0.ifengimg.com/ucms/2022_04/81372F94959ED6D4331F96EB2DC41B6E6556DB2D_size379_w827_h1253.jpg.webp',
   imageList: [
     {
       url: 'https://x0.ifengimg.com/ucms/2022_04/81372F94959ED6D4331F96EB2DC41B6E6556DB2D_size379_w827_h1253.jpg',
@@ -152,8 +148,7 @@ export const shortTestdata = {
     defaultreason: '0_不感兴趣',
     imageList: [
       {
-        url:
-          'https://d.ifengimg.com/w684_h864_q100_webp/x0.ifengimg.com/ucms/2022_04/81372F94959ED6D4331F96EB2DC41B6E6556DB2D_size379_w827_h1253.jpg.webp',
+        url: 'https://d.ifengimg.com/w684_h864_q100_webp/x0.ifengimg.com/ucms/2022_04/81372F94959ED6D4331F96EB2DC41B6E6556DB2D_size379_w827_h1253.jpg.webp',
       },
     ],
     previewImages: ['https://x0.ifengimg.com/ucms/2022_04/81372F94959ED6D4331F96EB2DC41B6E6556DB2D_size379_w827_h1253.jpg'],
@@ -193,8 +188,7 @@ export const shortTestdata = {
   },
   commentLink: {
     type: 'short',
-    url:
-      'https://nine.ifeng.com/getNewsDocs?aid=ucms_8CuKgNQr4oz&secret=v006ZUDIL6SlALNevfOUv7elUQGSA5mN6jMy2DsCKq4WCSIWQFor8cBkZ0eg1NpkWiD9&channelId=SYLB10NEW&category=%E7%A7%91%E6%8A%80&imId=8CuKgNQr4oz&channelKey=',
+    url: 'https://nine.ifeng.com/getNewsDocs?aid=ucms_8CuKgNQr4oz&secret=v006ZUDIL6SlALNevfOUv7elUQGSA5mN6jMy2DsCKq4WCSIWQFor8cBkZ0eg1NpkWiD9&channelId=SYLB10NEW&category=%E7%A7%91%E6%8A%80&imId=8CuKgNQr4oz&channelKey=',
     weburl: 'https://ishare.ifeng.com/c/s/v006ZUDIL6SlALNevfOUv7elUQGSA5mN6jMy2DsCKq4WCSIWQFor8cBkZ0eg1NpkWiD9?spss=np&channelId=SYLB10NEW',
     openType: '1',
     backendStaticId: 'ucms_8CuKgNQr4oz',
@@ -203,16 +197,14 @@ export const shortTestdata = {
   statisticTag: '',
   shareInfo: {
     weburl: 'https://ishare.ifeng.com/c/s/v006ZUDIL6SlALNevfOUv7elUQGSA5mN6jMy2DsCKq4WCSIWQFor8cBkZ0eg1NpkWiD9?spss=np&channelId=SYLB10NEW',
-    weiboshareurl:
-      'https://nine.ifeng.com/shareInfo?id=ucms_8CuKgNQr4oz&type=doc&secret=v006ZUDIL6SlALNevfOUv7elUQGSA5mN6jMy2DsCKq4WCSIWQFor8cBkZ0eg1NpkWiD9',
+    weiboshareurl: 'https://nine.ifeng.com/shareInfo?id=ucms_8CuKgNQr4oz&type=doc&secret=v006ZUDIL6SlALNevfOUv7elUQGSA5mN6jMy2DsCKq4WCSIWQFor8cBkZ0eg1NpkWiD9',
     wechatMiniProgram: 'pages/short/short?aid=ucms_8CuKgNQr4oz&types=short',
     qqMiniProgram: 'pages/new/new?aid=8CuKgNQr4oz',
   },
 };
 export const phvideoData = {
   type: 'phvideo',
-  thumbnail:
-    'https://d.ifengimg.com/w574_h288_q100_webp/x0.ifengimg.com/ucms/2022_04/19E6A85527FE22D92BD012B78B1A90FAB5B35589_size69_w576_h288.jpg.webp',
+  thumbnail: 'https://d.ifengimg.com/w574_h288_q100_webp/x0.ifengimg.com/ucms/2022_04/19E6A85527FE22D92BD012B78B1A90FAB5B35589_size69_w576_h288.jpg.webp',
   imageList: [
     {
       url: 'https://x0.ifengimg.com/ucms/2022_04/19E6A85527FE22D92BD012B78B1A90FAB5B35589_size69_w576_h288.jpg',
@@ -302,8 +294,7 @@ export const phvideoData = {
   },
   shareInfo: {
     weburl: 'https://ishare.ifeng.com/c/s/v0065PG0E6PitYilPk1o3J4mqVEfxfWpMVfy--CPzLb9TPMO-_OTMFOGUytarJ--oLzuYfa?spss=np&channelId=SYLB10NEW',
-    weiboshareurl:
-      'https://nine.ifeng.com/shareInfo?id=8CqaHmbE5nW&type=phvideo&secret=v0065PG0E6PitYilPk1o3J4mqVEfxfWpMVfy--CPzLb9TPMO-_OTMFOGUytarJ--oLzuYfa',
+    weiboshareurl: 'https://nine.ifeng.com/shareInfo?id=8CqaHmbE5nW&type=phvideo&secret=v0065PG0E6PitYilPk1o3J4mqVEfxfWpMVfy--CPzLb9TPMO-_OTMFOGUytarJ--oLzuYfa',
     wechatMiniProgram: 'pages/new/new?aid=8CqaHmbE5nW&types=phvideo',
     qqMiniProgram: 'pages/new/new?aid=8CqaHmbE5nW',
   },

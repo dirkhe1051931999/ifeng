@@ -15,7 +15,7 @@
           <div class="label" v-if="item.user.roleList.includes('OWNER')">圈主</div>
           <div class="label" v-if="item.user.roleList.includes('PARTNER')">合伙人</div>
         </li>
-        <li v-for="(item,index) in memberData" :key="item.userinfo.avatar+index">
+        <li v-for="(item, index) in memberData" :key="item.userinfo.avatar + index">
           <q-img :src="item.userinfo.avatar" class="img"></q-img>
           <div class="nickName">{{ item.userinfo.nickName }}</div>
         </li>
@@ -41,7 +41,7 @@ export default class extends Vue {
   async mounted() {
     this.getDataLoading = true;
     await this.getOrgUserList();
-    this.$refs['quanzi_quanyou-wrap']['style']['height'] = window.innerHeight - 50 + 'px';
+    this.$refs['quanzi_quanyou-wrap']['style']['height'] = `${window.innerHeight - 50}px`;
     this.getDataLoading = false;
   }
   private getDataLoading = false;
@@ -60,7 +60,7 @@ export default class extends Vue {
     const scrollHeight = this.$refs['quanzi_quanyou-wrap'].scrollHeight;
     const scrollTop = this.$refs['quanzi_quanyou-wrap'].scrollTop;
     this.containerPositionY = scrollTop;
-    var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+    let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
     if (scrollTop + windowHeight - 50 >= scrollHeight) {
       if (!this.load_more_loading_lock) {
         this.load_more_loading = true;
@@ -126,7 +126,6 @@ export default class extends Vue {
   }
 }
 </script>
-
 
 <style lang="scss" scoped>
 @import './index.scss';

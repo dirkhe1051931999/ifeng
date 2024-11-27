@@ -360,7 +360,7 @@ export default class extends Vue {
     const scrollHeight = this.$refs['yaowen-container'].scrollHeight;
     const scrollTop = this.$refs['yaowen-container'].scrollTop;
     this.containerPositionY = scrollTop;
-    var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+    let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
     if (scrollTop + windowHeight - AppModule.bottomNavigationAndHomeHeaderHeight >= scrollHeight) {
       if (!this.load_more_loading_lock) {
         this.load_more_loading = true;
@@ -487,7 +487,8 @@ export default class extends Vue {
   }
 }
 </script>
-style.<style lang="scss">
+style.
+<style lang="scss">
 .yaowen-notice-swipe {
   height: 40px;
   line-height: 40px;

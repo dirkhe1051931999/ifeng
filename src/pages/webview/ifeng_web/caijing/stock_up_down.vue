@@ -132,9 +132,9 @@ export default class extends Vue {
       this.scienceListLoading = false;
       this.scienceListLoaded = true;
     }
-    this.$refs['caijing-pindao-stock-up-down-list-content-increase'].style['height'] = window.innerHeight - 48 + 'px';
-    this.$refs['caijing-pindao-stock-up-down-list-content-declining'].style['height'] = window.innerHeight - 48 + 'px';
-    this.$refs['caijing-pindao-stock-up-down-list-content-science'].style['height'] = window.innerHeight - 48 + 'px';
+    this.$refs['caijing-pindao-stock-up-down-list-content-increase'].style['height'] = `${window.innerHeight - 48}px`;
+    this.$refs['caijing-pindao-stock-up-down-list-content-declining'].style['height'] = `${window.innerHeight - 48}px`;
+    this.$refs['caijing-pindao-stock-up-down-list-content-science'].style['height'] = `${window.innerHeight - 48}px`;
   }
   private tabs = ['涨幅榜', '跌幅榜', '科创板'];
   private activeTabIndex = 0;
@@ -207,7 +207,7 @@ export default class extends Vue {
     const scrollHeight = this.$refs['caijing-pindao-stock-up-down-list-content-increase'].scrollHeight;
     const scrollTop = this.$refs['caijing-pindao-stock-up-down-list-content-increase'].scrollTop;
     this.containerPositionY1 = scrollTop;
-    var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+    let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
     if (scrollTop + windowHeight >= scrollHeight) {
       if (!this.upListLoadingLock) {
         this.upListMoreLoading = true;
@@ -223,7 +223,7 @@ export default class extends Vue {
     const scrollHeight = this.$refs['caijing-pindao-stock-up-down-list-content-declining'].scrollHeight;
     const scrollTop = this.$refs['caijing-pindao-stock-up-down-list-content-declining'].scrollTop;
     this.containerPositionY2 = scrollTop;
-    var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+    let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
     if (scrollTop + windowHeight >= scrollHeight) {
       if (!this.downListLoadingLock) {
         this.downListMoreLoading = true;
@@ -239,7 +239,7 @@ export default class extends Vue {
     const scrollHeight = this.$refs['caijing-pindao-stock-up-down-list-content-science'].scrollHeight;
     const scrollTop = this.$refs['caijing-pindao-stock-up-down-list-content-science'].scrollTop;
     this.containerPositionY3 = scrollTop;
-    var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+    let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
     if (scrollTop + windowHeight >= scrollHeight) {
       if (!this.scienceListLoadingLock) {
         this.scienceListMoreLoading = true;
@@ -262,7 +262,7 @@ export default class extends Vue {
     this.scienceListLoading = false;
   }
   private handlerClickStock(item: any) {
-    this.$router.push('/ifeng_web_caijing_pindao/stock_detail?code=' + item.code);
+    this.$router.push(`/ifeng_web_caijing_pindao/stock_detail?code=${item.code}`);
   }
   /**http */
   private async _getCaijingStockUp() {
@@ -353,7 +353,6 @@ export default class extends Vue {
   }
 }
 </script>
-
 
 <style lang="scss" scoped>
 @import '../style/caijing_stock_up_down.scss';

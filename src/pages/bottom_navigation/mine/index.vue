@@ -67,7 +67,7 @@ export default class extends Vue {
   mounted() {
     this.getUserPlatService();
     this.$nextTick(() => {
-      this.$refs['mine-wrap'].style['height'] = window.innerHeight - 60 + 'px';
+      this.$refs['mine-wrap'].style['height'] = `${window.innerHeight - 60}px`;
     });
   }
   activated() {

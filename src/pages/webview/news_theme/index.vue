@@ -28,16 +28,11 @@
       <ul v-for="(list, listIndex) in newsThemeList" :key="listIndex" class="news-item">
         <li v-for="(news, index) in list.items" :key="index" @click="handleClickNewsItem(news)">
           <!-- doc -->
-          <div
-            v-if="news.content.type === 'doc' || news.content.type === 'slide' || (news.content.type === 'topic2' && !news.content.newslist)"
-            class="doc"
-          >
+          <div v-if="news.content.type === 'doc' || news.content.type === 'slide' || (news.content.type === 'topic2' && !news.content.newslist)" class="doc">
             <div class="top">
               <div class="left">
                 <p class="title">
-                  <span class="text-red title-label" v-if="news.content.style && news.content.style.recomTag && news.content.style.recomTag.pos">{{
-                    news.content.style.recomTag.text
-                  }}</span>
+                  <span class="text-red title-label" v-if="news.content.style && news.content.style.recomTag && news.content.style.recomTag.pos">{{ news.content.style.recomTag.text }}</span>
                   {{ news.content.title }}
                 </p>
               </div>
@@ -64,15 +59,11 @@
                   </li>
                 </ul>
               </div>
-              <p class="joinCount">
-                {{ news.content.vote.joinCount | numberFormat }}人参与投票，当前{{ news.content.vote.expire === '1' ? '投票进行中' : '投票已结束' }}
-              </p>
+              <p class="joinCount">{{ news.content.vote.joinCount | numberFormat }}人参与投票，当前{{ news.content.vote.expire === '1' ? '投票进行中' : '投票已结束' }}</p>
             </div>
             <div class="bottom">
               <span v-if="news.content.style.recomTag && news.content.style.recomTag.text === '凤凰卫视'" class="label">凤凰卫视</span>
-              <span v-if="news.content.style.recomTag && !news.content.style.recomTag.pos" class="label-blue">{{
-                news.content.style.recomTag.text
-              }}</span>
+              <span v-if="news.content.style.recomTag && !news.content.style.recomTag.pos" class="label-blue">{{ news.content.style.recomTag.text }}</span>
               <span class="source" v-if="news.content.source">{{ news.content.source }}</span>
               <i class="iconfont icon-duanxin" v-if="news.content.commentsall"></i>
               <span class="count" v-if="news.content.commentsall"> {{ news.content.commentsall }}</span>
@@ -101,9 +92,7 @@
               </div>
             </div>
             <div class="intro p-b-10 fs-18" v-if="news.content.intro">
-              <span class="text-red title-label" v-if="news.content.style.recomTag && news.content.style.recomTag.pos">{{
-                news.content.style.recomTag.text
-              }}</span>
+              <span class="text-red title-label" v-if="news.content.style.recomTag && news.content.style.recomTag.pos">{{ news.content.style.recomTag.text }}</span>
               {{ news.content.intro }}
             </div>
             <ul class="images" v-if="news.content.imageList && news.content.imageList.length">
@@ -125,9 +114,7 @@
             </div>
             <div class="no-action-bottom">
               <span v-if="news.content.style.recomTag && news.content.style.recomTag.text === '凤凰卫视'" class="label">凤凰卫视</span>
-              <span v-if="news.content.style.recomTag && !news.content.style.recomTag.pos" class="label-blue">{{
-                news.content.style.recomTag.text
-              }}</span>
+              <span v-if="news.content.style.recomTag && !news.content.style.recomTag.pos" class="label-blue">{{ news.content.style.recomTag.text }}</span>
               <span class="source" v-if="news.content.source">{{ news.content.source }}</span>
               <i class="iconfont icon-duanxin" v-if="news.content.commentsall"></i>
               <span class="count" v-if="news.content.commentsall"> {{ news.content.commentsall }}</span>
@@ -156,18 +143,11 @@
               </div>
             </div>
             <div class="intro p-b-10 fs-18">
-              <span class="text-red title-label" v-if="news.content.style.recomTag && news.content.style.recomTag.pos">{{
-                news.content.style.recomTag.text
-              }}</span>
+              <span class="text-red title-label" v-if="news.content.style.recomTag && news.content.style.recomTag.pos">{{ news.content.style.recomTag.text }}</span>
               {{ news.content.intro ? news.content.intro : news.content.title }}
             </div>
             <div class="video-placeholder">
-              <img
-                v-if="news.content.seriesTag"
-                src="https://x0.ifengimg.com/cmpp/2021/0401/ced142b6f5d6dc0size6_w144_h60.png"
-                alt=""
-                class="seriesTag"
-              />
+              <img v-if="news.content.seriesTag" src="https://x0.ifengimg.com/cmpp/2021/0401/ced142b6f5d6dc0size6_w144_h60.png" alt="" class="seriesTag" />
               <van-image :src="news.content.imageList[0].url" alt="" class="placeholder" radius="6" />
               <img src="~assets/play-video-button.png" alt="" class="play-video-button" />
               <p class="video-total-time">
@@ -188,9 +168,7 @@
             </div>
             <div v-if="!news.content.subscribe.logo || !news.content.subscribe.honorImg" class="no-action-bottom">
               <span v-if="news.content.style.recomTag && news.content.style.recomTag.text === '凤凰卫视'" class="label">凤凰卫视</span>
-              <span v-if="news.content.style.recomTag && !news.content.style.recomTag.pos" class="label-blue">{{
-                news.content.style.recomTag.text
-              }}</span>
+              <span v-if="news.content.style.recomTag && !news.content.style.recomTag.pos" class="label-blue">{{ news.content.style.recomTag.text }}</span>
               <span class="source" v-if="news.content.source">{{ news.content.source }}</span>
               <i class="iconfont icon-duanxin" v-if="news.content.commentsall"></i>
               <span class="count" v-if="news.content.commentsall"> {{ news.content.commentsall }}</span>
@@ -236,7 +214,7 @@ export default class extends Vue {
     await this._getNewTheme();
     this.pageLoaded = true;
     this.$nextTick(() => {
-      this.$refs['news-theme-wrap'].style['height'] = window.innerHeight - 150 + 'px';
+      this.$refs['news-theme-wrap'].style['height'] = `${window.innerHeight - 150}px`;
     });
   }
   /*event */
@@ -268,12 +246,12 @@ export default class extends Vue {
       case 'doc':
         params = getUrlParams(news.link.url);
         urlStr = json2Url(params);
-        this.$router.push('/news_detail/doc?' + urlStr);
+        this.$router.push(`/news_detail/doc?${urlStr}`);
         break;
       case 'short':
         params = getUrlParams(news.link.url);
         urlStr = json2Url(params);
-        this.$router.push('/news_detail/imglist?' + urlStr);
+        this.$router.push(`/news_detail/imglist?${urlStr}`);
         break;
       case 'phvideo':
         params = {
@@ -283,8 +261,8 @@ export default class extends Vue {
           type: 'video',
         };
         params = Object.assign(params, getUrlParams(news.link.weburl));
-        urlStr = json2Url(params) + '&' + news.link.queryString;
-        this.$router.push('/news_detail/video?' + urlStr);
+        urlStr = `${json2Url(params)}&${news.link.queryString}`;
+        this.$router.push(`/news_detail/video?${urlStr}`);
         break;
       default:
         break;
@@ -325,7 +303,6 @@ export default class extends Vue {
   }
 }
 </script>
-
 
 <style lang="scss" scoped>
 @import './style.scss';

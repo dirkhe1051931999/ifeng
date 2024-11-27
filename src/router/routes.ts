@@ -116,8 +116,7 @@ export const constantRoutes: RouteConfig[] = [
   },
   {
     path: '/ifeng_web_caijing_pindao/stock_up_down_list',
-    component: () =>
-      import(/* webpackChunkName: "ifeng_web_caijing_pindao_stock_up_down_list" */ 'pages/webview/ifeng_web/caijing/stock_up_down.vue'),
+    component: () => import(/* webpackChunkName: "ifeng_web_caijing_pindao_stock_up_down_list" */ 'pages/webview/ifeng_web/caijing/stock_up_down.vue'),
     meta: {},
   },
   {
@@ -132,14 +131,12 @@ export const constantRoutes: RouteConfig[] = [
   },
   {
     path: '/ifeng_web_caijing_pindao/stock_detail_ganggu',
-    component: () =>
-      import(/* webpackChunkName: "ifeng_web_caijing_pindao_stock_detail_ganggu" */ 'pages/webview/ifeng_web/caijing/stock_detail_ganggu.vue'),
+    component: () => import(/* webpackChunkName: "ifeng_web_caijing_pindao_stock_detail_ganggu" */ 'pages/webview/ifeng_web/caijing/stock_detail_ganggu.vue'),
     meta: {},
   },
   {
     path: '/ifeng_web_caijing_pindao/stock_detail_kc50',
-    component: () =>
-      import(/* webpackChunkName: "ifeng_web_caijing_pindao_stock_detail_kc50" */ 'pages/webview/ifeng_web/caijing/stock_detail_kc50.vue'),
+    component: () => import(/* webpackChunkName: "ifeng_web_caijing_pindao_stock_detail_kc50" */ 'pages/webview/ifeng_web/caijing/stock_detail_kc50.vue'),
     meta: {},
   },
   // 音频的子页面

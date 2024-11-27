@@ -91,9 +91,9 @@ export default class extends Vue {
       tooltip: {
         trigger: 'item',
         formatter: (a: any) => {
-          return `${a.name}<br\>${a.data ? (a.data.date ? a.data.date : '') : ''}<br\>累计接种：${numberFormat(
-            a.data ? (a.data.total ? a.data.total : 0) : 0,
-          )}<br/>每百人接种：${a.data ? (a.data.per_hundred ? a.data.per_hundred : '') : ''}`;
+          return `${a.name}<br\>${a.data ? (a.data.date ? a.data.date : '') : ''}<br\>累计接种：${numberFormat(a.data ? (a.data.total ? a.data.total : 0) : 0)}<br/>每百人接种：${
+            a.data ? (a.data.per_hundred ? a.data.per_hundred : '') : ''
+          }`;
         },
       },
       series: [
@@ -144,8 +144,8 @@ export default class extends Vue {
     });
   }
   private _initLineChart(date: any, arr2PerData: any, arr2SumData: any) {
-    var myChart1 = window['echarts'].init(document.getElementById('kangyi-dayimiao-progress-line-chart-sum'));
-    var myChart2 = window['echarts'].init(document.getElementById('kangyi-dayimiao-progress-line-chart-per'));
+    let myChart1 = window['echarts'].init(document.getElementById('kangyi-dayimiao-progress-line-chart-sum'));
+    let myChart2 = window['echarts'].init(document.getElementById('kangyi-dayimiao-progress-line-chart-per'));
     myChart1.setOption({
       tooltip: {
         trigger: 'axis',
@@ -265,13 +265,12 @@ export default class extends Vue {
       // runtime data info
       this.runtimeDataInfo = result[0].sumData.updateTime;
       this.$nextTick(() => {
-        this.$refs['kangyi-dayimiao-progress'].style['height'] = window.innerHeight + 'px';
+        this.$refs['kangyi-dayimiao-progress'].style['height'] = `${window.innerHeight}px`;
       });
     }
   }
 }
 </script>
-
 
 <style lang="scss" scoped>
 .kangyi-dayimiao-progress {

@@ -53,7 +53,8 @@
 import { TabHomeYinpinModule } from '@/store/modules/home_tab/yinpin';
 import { Component, Vue } from 'vue-property-decorator';
 import AudioPlayer from '@liripeng/vue-audio-player';
-import '@liripeng/vue-audio-player/lib/vue-audio-player.css';
+// import '@liripeng/vue-audio-player/lib/vue-audio-player.css';
+
 @Component({
   name: 'tab_yinpin_child_play',
   components: {
@@ -62,6 +63,7 @@ import '@liripeng/vue-audio-player/lib/vue-audio-player.css';
 })
 export default class extends Vue {
   $refs: any;
+
   get playPageList() {
     // return TabHomeYinpinModule.playPageList;
     return TabHomeYinpinModule.playPageList.length
@@ -89,6 +91,7 @@ export default class extends Vue {
           },
         ];
   }
+
   created() {
     this.lastPage = this.$route.query.lastPage;
     const tid = this.$route.query.tid;
@@ -101,11 +104,13 @@ export default class extends Vue {
     this.currentPlayItem = this.playPageList[0];
     this.pageLoaded = true;
   }
+
   private lastPage: any = 1;
   private currentPlayIndex: any = 0;
   private currentPlayItem: any;
   private pageLoaded = false;
   private showPlayPageList = false;
+
   /*event */
   private handleBeforePlay(next: Function) {
     this.$set(this, 'currentPlayIndex', this.$refs.audioPlayer.currentPlayIndex);
@@ -113,6 +118,7 @@ export default class extends Vue {
     this.$refs.title.innerHTML = this.currentPlayItem.title;
     next();
   }
+
   private handleClickItem(item: any, index: number) {
     if (item.link.tid === this.currentPlayItem.link.tid) return;
     // this.$set(this, 'currentPlayIndex', index);
@@ -142,12 +148,15 @@ export default class extends Vue {
 .audio__progress-point {
   box-shadow: none !important;
 }
+
 .audio__time-wrap {
   margin-top: 15px !important;
 }
+
 .audio-player .audio__progress-wrap {
   background: #f3acac !important;
 }
+
 .audio__notice {
   display: none !important;
 }

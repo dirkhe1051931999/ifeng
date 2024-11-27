@@ -114,12 +114,12 @@ export default class extends Vue {
       case 'doc':
         params = getUrlParams(item.link.url);
         urlStr = json2Url(params);
-        this.$router.push('/news_detail/doc?' + urlStr);
+        this.$router.push(`/news_detail/doc?${urlStr}`);
         break;
       case 'short':
         params = getUrlParams(item.link.url);
         urlStr = json2Url(params);
-        this.$router.push('/news_detail/imglist?' + urlStr);
+        this.$router.push(`/news_detail/imglist?${urlStr}`);
         break;
       // case 'phvideo':
       //   params = {
@@ -147,7 +147,6 @@ export default class extends Vue {
   }
 }
 </script>
-
 
 <style lang="scss" scoped>
 @import './index.scss';

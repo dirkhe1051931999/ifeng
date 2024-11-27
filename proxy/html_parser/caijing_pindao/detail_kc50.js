@@ -1,9 +1,9 @@
-var axios = require('axios');
+let axios = require('axios');
 const stockcode = 'sh000688';
 const stockname = '科创50';
 async function parseData(query) {
   let { have_news, firstLoad, page } = query;
-  var regex = /(?<=\{).*(?=\})/g;
+  let regex = /(?<=\{).*(?=\})/g;
   try {
     let news = [];
     let zhishu;
@@ -20,7 +20,7 @@ async function parseData(query) {
       zhishu = await axios.get(`https://hq.finance.ifeng.com/q.php?l=${stockcode}&f=json`);
       zhishu = zhishu.data;
       zhishu = zhishu.match(regex);
-      zhishu = JSON.parse('{' + zhishu[0] + '}');
+      zhishu = JSON.parse(`{${  zhishu[0]  }}`);
       zhishu = zhishu[stockcode];
       // news
       news = await axios.get(`https://api.iclient.ifeng.com/client_search_CJ?k=${encodeURI(stockname)}&page=1&callback=a`);

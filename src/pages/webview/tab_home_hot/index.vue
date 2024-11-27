@@ -192,11 +192,7 @@ export default class extends Vue {
   private handlerClickSpotListItem(news: any) {
     if (news.hotLabel && news.hotLabel.link) {
       this.clickItem = true;
-      this.$router.push(
-        `/news_topic?topicid=${
-          news.hotLabel.link.staticId.split('_')[2] ? news.hotLabel.link.staticId.split('_')[2] : news.hotLabel.link.staticId.split('_')[1]
-        }`,
-      );
+      this.$router.push(`/news_topic?topicid=${news.hotLabel.link.staticId.split('_')[2] ? news.hotLabel.link.staticId.split('_')[2] : news.hotLabel.link.staticId.split('_')[1]}`);
     }
   }
   private handlerClickThemeItem(news: any) {
@@ -226,12 +222,12 @@ export default class extends Vue {
       case 'doc':
         params = getUrlParams(news.link.url);
         urlStr = json2Url(params);
-        this.$router.push('/news_detail/doc?' + urlStr);
+        this.$router.push(`/news_detail/doc?${urlStr}`);
         break;
       case 'short':
         params = getUrlParams(news.link.url);
         urlStr = json2Url(params);
-        this.$router.push('/news_detail/imglist?' + urlStr);
+        this.$router.push(`/news_detail/imglist?${urlStr}`);
         break;
       case 'phvideo':
         params = {
@@ -241,8 +237,8 @@ export default class extends Vue {
           type: 'video',
         };
         params = Object.assign(params, getUrlParams(news.link.weburl));
-        urlStr = json2Url(params) + '&' + news.link.queryString;
-        this.$router.push('/news_detail/video?' + urlStr);
+        urlStr = `${json2Url(params)}&${news.link.queryString}`;
+        this.$router.push(`/news_detail/video?${urlStr}`);
         break;
       default:
         break;
@@ -278,7 +274,7 @@ export default class extends Vue {
       }
     } catch (error) {}
     this.$nextTick(() => {
-      this.$refs['tabs-slide-page-hot-wrapper'].style.height = window.innerHeight - 158 + 'px';
+      this.$refs['tabs-slide-page-hot-wrapper'].style.height = `${window.innerHeight - 158}px`;
       this.$set(this.loaded, this.activeIndex, true);
     });
   }

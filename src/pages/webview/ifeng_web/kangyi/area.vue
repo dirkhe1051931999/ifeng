@@ -112,7 +112,7 @@ export default class extends Vue {
   }
   async mounted() {
     this._getAreaYiqing(this.$route.query.code);
-    this.$refs['kangyi-area-container'].style['height'] = window.innerHeight + 'px';
+    this.$refs['kangyi-area-container'].style['height'] = `${window.innerHeight}px`;
   }
   private pageLoaded = false;
   private pageLoading = false;
@@ -302,14 +302,14 @@ export default class extends Vue {
     const arr2 = [];
     for (let item of child) {
       arr1.push({
-        name: !this.isZhixiashi ? item.name2 + '市' : item.name2,
+        name: !this.isZhixiashi ? `${item.name2}市` : item.name2,
         value: item.quezhen_xianyou,
         value1: item.quezhen,
         zhiyu: item.zhiyu,
         siwang: item.siwang,
       });
       arr2.push({
-        name: !this.isZhixiashi ? item.name2 + '市' : item.name2,
+        name: !this.isZhixiashi ? `${item.name2}市` : item.name2,
         value1: item.quezhen_xianyou,
         value: item.quezhen,
         zhiyu: item.zhiyu,
@@ -322,7 +322,6 @@ export default class extends Vue {
   }
 }
 </script>
-
 
 <style lang="scss" scoped>
 @import '../style/kangyi_area.scss';

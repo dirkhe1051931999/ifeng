@@ -5,12 +5,7 @@
         <q-icon name="arrow_back_ios"></q-icon>
       </div>
       <ul class="m">
-        <li
-          v-for="(item, index) in pindaoTabs"
-          :key="index"
-          :class="pindaoActiveTabIndex === index ? 'active' : ''"
-          @click="handlerClickPindaoTabsItem(index)"
-        >
+        <li v-for="(item, index) in pindaoTabs" :key="index" :class="pindaoActiveTabIndex === index ? 'active' : ''" @click="handlerClickPindaoTabsItem(index)">
           {{ item }}
         </li>
       </ul>
@@ -132,6 +127,7 @@ import { Component, Vue, Watch } from 'vue-property-decorator';
 })
 export default class extends Vue {
   $refs: any;
+
   @Watch('$route')
   onchange(newVal: any) {
     if (this.$route.path === '/ifeng_web_caijing_pindao') {
@@ -141,10 +137,12 @@ export default class extends Vue {
       // this.$refs['caijing-pindao-content-hangqing'].scrollTop = this.containerPositionY2;
     }
   }
+
   mounted() {
     this._getCaijingHangqing();
-    this.$refs['caijing-pindao-content-hangqing'].style['height'] = window.innerHeight - 48 + 'px';
+    this.$refs['caijing-pindao-content-hangqing'].style['height'] = `${window.innerHeight - 48}px`;
   }
+
   private pindaoTabs = ['港股行情', '行情', '自选', '炒股大赛'];
   private pindaoActiveTabIndex = 1;
   private marketList: any[] = [];
@@ -157,10 +155,12 @@ export default class extends Vue {
   private containerPositionY3 = 0;
   private containerPositionY4 = 0;
   private dataLoading = false;
+
   /**event */
   private handlerClickPindaoTabsItem(index: number) {
     this.pindaoActiveTabIndex = index;
   }
+
   private _setMarketData(data: any) {
     const marketList = [];
     for (let key in data) {
@@ -226,31 +226,37 @@ export default class extends Vue {
     }
     return marketList;
   }
+
   private monitorScrollEvent1() {}
+
   private monitorScrollEvent2() {
     const scrollHeight = this.$refs['caijing-pindao-content-hangqing'].scrollHeight;
     const scrollTop = this.$refs['caijing-pindao-content-hangqing'].scrollTop;
     this.containerPositionY2 = scrollTop;
   }
+
   private monitorScrollEvent3() {}
+
   private monitorScrollEvent4() {}
+
   private handlerClickIncreaseOrDecliningBlockTitle(from: string) {
-    this.$router.push('/ifeng_web_caijing_pindao/stock_up_down_list?to=' + from);
+    this.$router.push(`/ifeng_web_caijing_pindao/stock_up_down_list?to=${from}`);
   }
+
   private handlerClickStock(item: any) {
     switch (item.code) {
       case 'hk0000100':
-        this.$router.push('/ifeng_web_caijing_pindao/stock_detail_ganggu?code=' + item.code);
+        this.$router.push(`/ifeng_web_caijing_pindao/stock_detail_ganggu?code=${item.code}`);
         break;
       case 'sh000688':
-        this.$router.push('/ifeng_web_caijing_pindao/stock_detail_kc50?code=' + item.code);
+        this.$router.push(`/ifeng_web_caijing_pindao/stock_detail_kc50?code=${item.code}`);
         break;
       default:
-        this.$router.push('/ifeng_web_caijing_pindao/stock_detail?code=' + item.code);
+        this.$router.push(`/ifeng_web_caijing_pindao/stock_detail?code=${item.code}`);
         break;
     }
-    return;
   }
+
   /**http */
   private async _getCaijingHangqing() {
     this.dataLoading = true;
@@ -291,7 +297,6 @@ export default class extends Vue {
   }
 }
 </script>
-
 
 <style lang="scss" scoped>
 @import '../style/caijing_pindao.scss';

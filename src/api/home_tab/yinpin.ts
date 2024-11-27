@@ -8,7 +8,7 @@ const api = {
 };
 export const getRecomlistForYinpin = (data: any): any => {
   let str = '?';
-  for (let key in data.params) {
+  for (const key in data.params) {
     str += `${key}=${data.params[key]}&`;
   }
   str = str.slice(0, -1);
@@ -19,7 +19,7 @@ export const getRecomlistForYinpin = (data: any): any => {
 };
 export const getGuesslikeRefreshForYinpin = (data: any): any => {
   let str = '?';
-  for (let key in data.params) {
+  for (const key in data.params) {
     str += `${key}=${data.params[key]}&`;
   }
   str = str.slice(0, -1);
@@ -30,7 +30,7 @@ export const getGuesslikeRefreshForYinpin = (data: any): any => {
 };
 export const getDirectory = (data: any): any => {
   let str = '?';
-  for (let key in data.params) {
+  for (const key in data.params) {
     str += `${key}=${data.params[key]}&`;
   }
   str = str.slice(0, -1);
@@ -41,7 +41,7 @@ export const getDirectory = (data: any): any => {
 };
 export const getCate = (data: any): any => {
   let str = '?';
-  for (let key in data.params) {
+  for (const key in data.params) {
     str += `${key}=${data.params[key]}&`;
   }
   str = str.slice(0, -1);
@@ -53,7 +53,7 @@ export const getCate = (data: any): any => {
 };
 export const getCateAlbums = (data: any): any => {
   let str = '?';
-  for (let key in data.params) {
+  for (const key in data.params) {
     str += `${key}=${data.params[key]}&`;
   }
   str = str.slice(0, -1);

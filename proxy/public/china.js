@@ -9,8 +9,8 @@
         // Browser globals
         factory({}, root.echarts);
     }
-}(this, function (exports, echarts) {
-    var log = function (msg) {
+}(this, (exports, echarts) => {
+    let log = function (msg) {
         if (typeof console !== 'undefined') {
             console && console.error && console.error(msg);
         }

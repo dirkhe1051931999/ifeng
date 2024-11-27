@@ -1,55 +1,18 @@
-const { resolve } = require('path');
 module.exports = {
   root: true,
+  parser: 'vue-eslint-parser',
   parserOptions: {
-    // extraFileExtensions: ['.vue'],
-    // parser: '@typescript-eslint/parser',
-    project: resolve(__dirname, './tsconfig.json'),
-    // tsconfigRootDir: __dirname,
-    ecmaVersion: 2020, // Allows for the parsing of modern ECMAScript features
-    sourceType: 'module', // Allows for the use of imports
+    parser: '@typescript-eslint/parser',
+    ecmaVersion: 2020,
   },
   env: {
     browser: true,
   },
 
   // Rules order is important, please avoid shuffling them
-  extends: [
-    // Base ESLint recommended rules
-    'eslint:recommended',
-    '@vue/typescript/recommended',
-    '@vue/prettier',
-    '@vue/prettier/@typescript-eslint',
-    // https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin#usage
-    // ESLint typescript rules
-    'plugin:@typescript-eslint/recommended',
-    // consider disabling this class of rules if linting takes too long
-    'plugin:@typescript-eslint/recommended-requiring-type-checking',
+  extends: ['plugin:vue/essential', '@vue/prettier', '@vue/typescript/recommended'],
 
-    // Uncomment any of the lines below to choose desired strictness,
-    // but leave only one uncommented!
-    // See https://eslint.vuejs.org/rules/#available-rules
-    'plugin:vue/essential', // Priority A: Essential (Error Prevention)
-    // 'plugin:vue/strongly-recommended', // Priority B: Strongly Recommended (Improving Readability)
-    // 'plugin:vue/recommended', // Priority C: Recommended (Minimizing Arbitrary Choices and Cognitive Overhead)
-
-    // https://github.com/prettier/eslint-config-prettier#installation
-    // usage with Prettier, provided by 'eslint-config-prettier'.
-    'prettier',
-    'prettier/@typescript-eslint',
-    'prettier/vue',
-  ],
-
-  plugins: [
-    // required to apply rules which need type information
-    '@typescript-eslint',
-    // https://eslint.vuejs.org/user-guide/#why-doesn-t-it-work-on-vue-file
-    // required to lint *.vue files
-    'vue',
-    // https://github.com/typescript-eslint/typescript-eslint/issues/389#issuecomment-509292674
-    // Prettier has not been included as plugin to avoid performance impact
-    // add it as an extension for your IDE
-  ],
+  plugins: ['@typescript-eslint', 'vue', 'prettier'],
 
   globals: {
     ga: true, // Google Analytics
@@ -59,21 +22,11 @@ module.exports = {
     Capacitor: true,
     chrome: true,
   },
-
   // add your custom rules here
   rules: {
-    'prefer-promise-reject-errors': 'off',
-    // TypeScript
-    quotes: ['warn', 'single', { avoidEscape: true }],
-    '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/explicit-module-boundary-types': 'off',
-    // allow debugger during development only
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    // 禁用 tab
-    'no-tabs': 'off',
-    // 禁止空格和 tab 的混合缩进
-    'no-mixed-spaces-and-tabs': 'warn',
-    // 要求使用 === 和 !==
+    'prettier/prettier': 'off',
+    'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     eqeqeq: ['error', 'always'],
     '@typescript-eslint/class-name-casing': 'off',
     // 禁止使用 var
@@ -94,15 +47,14 @@ module.exports = {
     'no-useless-return': 'error',
     // 禁止类成员中出现重复的名称
     'no-dupe-class-members': 'error',
-    // 禁止重复模块导入
-    // 'no-duplicate-imports': 'error',
-    // 禁止console
-    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    // 禁止debugger
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     // allow async-await 强制 generator 函数中 * 号周围使用一致的空格
     'generator-star-spacing': 'off',
     'no-unsafe-any': 0,
-    allowUsingIterationVar: true,
+    '@typescript-eslint/no-explicit-any': 0,
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    '@typescript-eslint/no-empty-function': 'off',
+    'vue/no-deprecated-filter': 'off',
+    '@typescript-eslint/no-empty-interface': 'off',
+    '@typescript-eslint/no-var-requires': 'off',
   },
 };

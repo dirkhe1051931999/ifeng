@@ -72,7 +72,7 @@ export default class extends Vue {
   async monitorScrollEvent(e: any) {
     const scrollHeight = this.$refs['tab_keji_child_xinshijie'].scrollHeight;
     const scrollTop = this.$refs['tab_keji_child_xinshijie'].scrollTop;
-    var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+    let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
     if (scrollTop + windowHeight >= scrollHeight) {
       if (!this.load_more_loading_lock) {
         this.load_more_loading = true;
@@ -148,7 +148,6 @@ export default class extends Vue {
   }
 }
 </script>
-
 
 <style lang="scss" scoped>
 @import './style/xinshijie.scss';

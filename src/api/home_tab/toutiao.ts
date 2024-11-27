@@ -11,7 +11,7 @@ export const getHeadline = (data: any): any =>
   });
 export const getQualityReadingList = (data: any): any =>
   request({
-    url: api.getQualityReadingList + '?page=' + data.page,
+    url: `${api.getQualityReadingList}?page=${data.page}`,
     method: 'post',
     data: {
       ltoken: '',

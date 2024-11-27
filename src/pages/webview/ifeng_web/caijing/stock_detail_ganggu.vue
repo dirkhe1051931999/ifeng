@@ -18,9 +18,7 @@
         <div class="top">
           <span class="price">{{ basehq.last || '--' }}</span>
           <span class="change">{{ basehq.chg || basehq.chg === 0 ? basehq.chg : '--' }}</span>
-          <span class="rise">{{
-            basehq.chg_pct || basehq.chg_pct === 0 ? (basehq.chg_pct > 0 ? '+' + basehq.chg_pct + '%' : basehq.chg_pct + '%') : '--'
-          }}</span>
+          <span class="rise">{{ basehq.chg_pct || basehq.chg_pct === 0 ? (basehq.chg_pct > 0 ? '+' + basehq.chg_pct + '%' : basehq.chg_pct + '%') : '--' }}</span>
         </div>
         <div class="bottom">
           <span class="start">今开：{{ basehq.open || '--' }}</span>
@@ -34,12 +32,7 @@
       </div>
       <div class="chart">
         <ul>
-          <li
-            v-for="(item, index) in ['分时', '日K', '周K', '月K']"
-            :key="index"
-            :class="[activeChartNavItemIndex === index ? 'active' : '']"
-            @click="handleClickNavItem(index)"
-          >
+          <li v-for="(item, index) in ['分时', '日K', '周K', '月K']" :key="index" :class="[activeChartNavItemIndex === index ? 'active' : '']" @click="handleClickNavItem(index)">
             {{ item }}
           </li>
         </ul>
@@ -104,7 +97,7 @@ import kLineChart from './components/ganggu_k_line.vue';
 export default class extends Vue {
   $refs: any;
   mounted() {
-    this.$refs['caijing-stock-detail-ganggu-content'].style['height'] = window.innerHeight - 48 + 'px';
+    this.$refs['caijing-stock-detail-ganggu-content'].style['height'] = `${window.innerHeight - 48}px`;
     this._getCaijingStockGangGuDetail();
   }
   private lastUpdateTime: any = '';
@@ -149,7 +142,7 @@ export default class extends Vue {
     const scrollHeight = this.$refs['caijing-stock-detail-ganggu-content'].scrollHeight;
     const scrollTop = this.$refs['caijing-stock-detail-ganggu-content'].scrollTop;
     this.containerPositionY = scrollTop;
-    var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+    let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
     if (scrollTop + windowHeight >= scrollHeight) {
       if (this.noMoreNews) return;
       if (!this.pageMoreLocking) {
@@ -327,7 +320,6 @@ export default class extends Vue {
   }
 }
 </script>
-
 
 <style lang="scss" scoped>
 @import '../style/caijing_stock_detail_ganggu.scss';

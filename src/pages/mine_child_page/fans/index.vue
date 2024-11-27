@@ -40,14 +40,13 @@ export default class extends Vue {
   /* http */
   private async getData() {
     this.getDataLoading = true;
-    const { data } = await MineModule.getFans({ params: { followid: 'user_' + UserModule.guid, page: '1', pagesize: 20 } });
+    const { data } = await MineModule.getFans({ params: { followid: `user_${UserModule.guid}`, page: '1', pagesize: 20 } });
     const { list } = data;
     this.fansData = list;
     this.getDataLoading = false;
   }
 }
 </script>
-
 
 <style lang="scss" scoped>
 @import './index.scss';

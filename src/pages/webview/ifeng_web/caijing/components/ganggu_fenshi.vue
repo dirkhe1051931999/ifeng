@@ -16,7 +16,7 @@ export default class extends Vue {
   @Prop({ default: [] }) private data!: any[];
   @Prop({ default: [] }) private date!: any[];
   mounted() {
-    var myChart = window['echarts'].init(document.getElementById(this.cid));
+    let myChart = window['echarts'].init(document.getElementById(this.cid));
     myChart.setOption(this.option);
   }
   private option: any = {
@@ -120,6 +120,4 @@ export default class extends Vue {
 }
 </script>
 
-
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

@@ -1,5 +1,5 @@
-var axios = require('axios');
-var cheerio = require('cheerio');
+let axios = require('axios');
+let cheerio = require('cheerio');
 async function parseData(query) {
   let { count } = query;
   count = count || 0;

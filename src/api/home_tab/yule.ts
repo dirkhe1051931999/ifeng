@@ -7,7 +7,7 @@ const api = {
 };
 export const getRecomlistForYule = (data: any): any => {
   let str = '?';
-  for (let key in data.params) {
+  for (const key in data.params) {
     str += `${key}=${data.params[key]}&`;
   }
   str = str.slice(0, -1);

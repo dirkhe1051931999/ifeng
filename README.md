@@ -49,26 +49,28 @@ yarn dev
 ```js
 // proxy/server.js
 app.use(
-  '/',
-  createProxyMiddleware({
-    router: {
-      // /config=》host:https://config.nine.ifeng.com
-      // 需要pathRewrite
-      '/config': 'https://config.nine.ifeng.com',
-      '/uc': 'https://uc.ifeng.com',
-      '/api_iclient': 'https://api.iclient.ifeng.com',
-      '/shankapi': 'https://shankapi.ifeng.com',
-      '/comment_list': 'https://comment.ifeng.com',
-    },
-    target: 'https://nine.ifeng.com',
-    onProxyReq(proxyReq, req, res) {
-      proxyReq.setHeader('User-Agent', randomUseragent.getRandom());
-    },
-    pathRewrite: { '^/config': '', '^/uc': '', '^/api_iclient': '', '^/shankapi': '', '^/comment_list': '' },
-    onError(err, req, res, target) {},
-    onClose(res, socket, head) {},
-    changeOrigin: true,
-  }),
+    '/',
+    createProxyMiddleware({
+      router: {
+        // /config=》host:https://config.nine.ifeng.com
+        // 需要pathRewrite
+        '/config': 'https://config.nine.ifeng.com',
+        '/uc': 'https://uc.ifeng.com',
+        '/api_iclient': 'https://api.iclient.ifeng.com',
+        '/shankapi': 'https://shankapi.ifeng.com',
+        '/comment_list': 'https://comment.ifeng.com',
+      },
+      target: 'https://nine.ifeng.com',
+      onProxyReq(proxyReq, req, res) {
+        proxyReq.setHeader('User-Agent', randomUseragent.getRandom());
+      },
+      pathRewrite: {'^/config': '', '^/uc': '', '^/api_iclient': '', '^/shankapi': '', '^/comment_list': ''},
+      onError(err, req, res, target) {
+      },
+      onClose(res, socket, head) {
+      },
+      changeOrigin: true,
+    }),
 );
 ```
 

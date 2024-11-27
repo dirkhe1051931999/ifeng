@@ -23,12 +23,7 @@
       <div class="albums">
         <div class="tags">
           <ul>
-            <li
-              v-for="(item, index) in categoriesActiveNavAlbumTagList"
-              :key="index"
-              :class="[categoriesActiveTagIndex === index ? 'active' : '']"
-              @click="handleClickTagItem(item, index)"
-            >
+            <li v-for="(item, index) in categoriesActiveNavAlbumTagList" :key="index" :class="[categoriesActiveTagIndex === index ? 'active' : '']" @click="handleClickTagItem(item, index)">
               {{ item }}
             </li>
           </ul>
@@ -76,8 +71,8 @@ export default class extends Vue {
   $refs: any;
   mounted() {
     this.getCate(this.$route.query.cateid);
-    this.$refs.navs.style.height = window.innerHeight - 40 + 'px';
-    this.$refs.albums.style.height = window.innerHeight - 80 + 'px';
+    this.$refs.navs.style.height = `${window.innerHeight - 40}px`;
+    this.$refs.albums.style.height = `${window.innerHeight - 80}px`;
   }
   activated() {
     this.$nextTick(() => {
@@ -129,14 +124,14 @@ export default class extends Vue {
   }
   private handleClickAlbumItem(item: any, index: number) {
     if (this.getAlbumLoading) return;
-    this.$router.push('/tab_yinpin_child/directory?aid=' + item.link.aid);
+    this.$router.push(`/tab_yinpin_child/directory?aid=${item.link.aid}`);
   }
   private async monitorScrollEvent(e: any) {
     if (this.doSelect) return;
     const scrollHeight = this.$refs['albums'].scrollHeight;
     const scrollTop = this.$refs['albums'].scrollTop;
     this.containerPositionY = scrollTop;
-    var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+    let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
     if (scrollTop + windowHeight >= scrollHeight) {
       if (!this.load_more_loading_lock) {
         this.load_more_loading = true;
@@ -208,7 +203,6 @@ export default class extends Vue {
   }
 }
 </script>
-
 
 <style lang="scss" scoped>
 @import './style/categories.scss';

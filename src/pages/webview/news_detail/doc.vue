@@ -37,18 +37,10 @@
         </div>
       </div>
       <div class="news-link">
-        <div
-          v-if="news_details.topbanner && news_details.topbanner.type === 'qualityReadingList'"
-          class="qualityReadingList"
-          @click="handleClickNewsDetailTheme(news_details.topbanner)"
-        >
+        <div v-if="news_details.topbanner && news_details.topbanner.type === 'qualityReadingList'" class="qualityReadingList" @click="handleClickNewsDetailTheme(news_details.topbanner)">
           <img :src="news_details.topbanner.thumbnail" alt="" />
         </div>
-        <div
-          class="topbanner"
-          v-if="news_details.topbanner && news_details.topbanner.type !== 'qualityReadingList'"
-          @click="handleClickNewsDetailTheme(news_details.topbanner)"
-        >
+        <div class="topbanner" v-if="news_details.topbanner && news_details.topbanner.type !== 'qualityReadingList'" @click="handleClickNewsDetailTheme(news_details.topbanner)">
           <div class="t">
             <div class="ll">
               {{ news_details.topbanner.source }}
@@ -203,11 +195,7 @@
                     <q-icon name="close" class="close"></q-icon>
                   </div>
                 </div>
-                <div
-                  class="more"
-                  @click="handlerClickComentsChildMore(father)"
-                  v-if="father.children.comments.length < Number(father.children.count)"
-                >
+                <div class="more" @click="handlerClickComentsChildMore(father)" v-if="father.children.comments.length < Number(father.children.count)">
                   查看全部{{ father.children.count }}条
                   <q-icon name="expand_circle_down" class="arrow"></q-icon>
                 </div>
@@ -332,7 +320,7 @@ export default class extends Vue {
     await this.getNewsDetail(this.$route.query);
     this.pageLoaded = true;
     await this.$nextTick(() => {
-      this.$refs['news-detail-doc-wrap'].style['height'] = window.innerHeight - 46 - 38 + 'px';
+      this.$refs['news-detail-doc-wrap'].style['height'] = `${window.innerHeight - 46 - 38}px`;
       this.$dom = this.$refs['news-detail-doc-wrap'];
     });
   }
@@ -385,13 +373,7 @@ export default class extends Vue {
       const index = this.imgViewsList.indexOf(children[0].src);
       this.previewImage(this.imgViewsList, index);
     }
-    if (
-      children.length &&
-      children[0] &&
-      children[0].children &&
-      children[0].children[0] &&
-      children[0].children[0].nodeName.toLocaleLowerCase() === 'img'
-    ) {
+    if (children.length && children[0] && children[0].children && children[0].children[0] && children[0].children[0].nodeName.toLocaleLowerCase() === 'img') {
       const index = this.imgViewsList.indexOf(children[0].children[0].src);
       this.previewImage(this.imgViewsList, index);
     }
@@ -428,7 +410,7 @@ export default class extends Vue {
       const urlStr = json2Url(params);
       switch (news.type) {
         case 'doc':
-          this.$router.push('/news_detail/doc?' + urlStr);
+          this.$router.push(`/news_detail/doc?${urlStr}`);
           break;
         default:
           break;
@@ -443,7 +425,7 @@ export default class extends Vue {
       this.activeShow = false;
     }
     this.containerPositionY = scrollTop;
-    var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+    let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
     if (scrollTop + windowHeight - 46 - 38 >= this.$dom.scrollHeight) {
       if (this.commentsMap.newComments.length < this.commentsPaginationParams.pagesize) {
         this.load_more_no_data = '没有更多数据了';
@@ -485,7 +467,7 @@ export default class extends Vue {
     this.commentsChildrenMoreLoading = true;
     this.showCommentsChildrenMore = true;
     this.$nextTick(async () => {
-      this.$refs['comment-children-more'].style['height'] = this.$refs['van-popup-for-comments-children'].$el.clientHeight - 46 + 'px';
+      this.$refs['comment-children-more'].style['height'] = `${this.$refs['van-popup-for-comments-children'].$el.clientHeight - 46}px`;
       const params = {
         doc_url: news.doc_url,
         comment_id: news.comment_id,

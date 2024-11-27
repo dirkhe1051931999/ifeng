@@ -14,7 +14,7 @@ const api = {
 };
 export const getRecomlistForCaijing = (data: any): any => {
   let str = '?';
-  for (let key in data.params) {
+  for (const key in data.params) {
     str += `${key}=${data.params[key]}&`;
   }
   str = str.slice(0, -1);
@@ -26,7 +26,7 @@ export const getRecomlistForCaijing = (data: any): any => {
 };
 export const getFinance_a_and_hk_stock_market = (data: any): any => {
   let str = '?';
-  for (let key in data.params) {
+  for (const key in data.params) {
     str += `${key}=${data.params[key]}&`;
   }
   str = str.slice(0, -1);
@@ -38,7 +38,7 @@ export const getFinance_a_and_hk_stock_market = (data: any): any => {
 };
 export const getCaijingZhiboshi1 = (data: any): any => {
   let str = '?';
-  for (let key in data.params) {
+  for (const key in data.params) {
     str += `${key}=${data.params[key]}&`;
   }
   str = str.slice(0, -1);
@@ -49,7 +49,7 @@ export const getCaijingZhiboshi1 = (data: any): any => {
 };
 export const getCaijingZhiboshi2 = (data: any): any => {
   let str = '?';
-  for (let key in data.params) {
+  for (const key in data.params) {
     str += `${key}=${data.params[key]}&`;
   }
   str = str.slice(0, -1);
@@ -60,7 +60,7 @@ export const getCaijingZhiboshi2 = (data: any): any => {
 };
 export const getCaijingHangqing = (data: any): any => {
   let str = '?';
-  for (let key in data.params) {
+  for (const key in data.params) {
     str += `${key}=${data.params[key]}&`;
   }
   str = str.slice(0, -1);
@@ -71,7 +71,7 @@ export const getCaijingHangqing = (data: any): any => {
 };
 export const getCaijingStockUpOrDown = (data: any): any => {
   let str = '?';
-  for (let key in data.params) {
+  for (const key in data.params) {
     str += `${key}=${data.params[key]}&`;
   }
   str = str.slice(0, -1);
@@ -82,7 +82,7 @@ export const getCaijingStockUpOrDown = (data: any): any => {
 };
 export const getCaijingStockKCB = (data: any): any => {
   let str = '?';
-  for (let key in data.params) {
+  for (const key in data.params) {
     str += `${key}=${data.params[key]}&`;
   }
   str = str.slice(0, -1);
@@ -93,7 +93,7 @@ export const getCaijingStockKCB = (data: any): any => {
 };
 export const getCaijingStockSearch = (data: any): any => {
   let str = '?';
-  for (let key in data.params) {
+  for (const key in data.params) {
     str += `${key}=${data.params[key]}&`;
   }
   str = str.slice(0, -1);
@@ -104,7 +104,7 @@ export const getCaijingStockSearch = (data: any): any => {
 };
 export const getCaijingStockDetail = (data: any): any => {
   let str = '?';
-  for (let key in data.params) {
+  for (const key in data.params) {
     str += `${key}=${data.params[key]}&`;
   }
   str = str.slice(0, -1);
@@ -115,7 +115,7 @@ export const getCaijingStockDetail = (data: any): any => {
 };
 export const getCaijingStockDetailGangGu = (data: any): any => {
   let str = '?';
-  for (let key in data.params) {
+  for (const key in data.params) {
     str += `${key}=${data.params[key]}&`;
   }
   str = str.slice(0, -1);
@@ -126,7 +126,7 @@ export const getCaijingStockDetailGangGu = (data: any): any => {
 };
 export const getCaijingStockDetailKc50 = (data: any): any => {
   let str = '?';
-  for (let key in data.params) {
+  for (const key in data.params) {
     str += `${key}=${data.params[key]}&`;
   }
   str = str.slice(0, -1);

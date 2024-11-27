@@ -21,14 +21,17 @@ import { Component, Vue } from 'vue-property-decorator';
 @Component
 export default class extends Vue {
   $refs: any;
+
   created() {
     this.themeTitle = this.$route.query.theme_title;
     this.themeIndex = this.$route.query.index;
     this.getDataByThemeIndex(this.themeIndex);
   }
+
   mounted() {
-    this.$refs['yule-theme-wrap'].style['height'] = window.innerHeight - 50 + 'px';
+    this.$refs['yule-theme-wrap'].style['height'] = `${window.innerHeight - 50}px`;
   }
+
   /*data */
   private themeTitle: any = '';
   private pageNum = 1;
@@ -40,12 +43,13 @@ export default class extends Vue {
   private pageLoading = false;
   private load_more_no_data = '';
   private themeNewsList = [];
+
   /*event*/
   private monitorScroll(e: any) {
     const scrollHeight = this.$refs['yule-theme--container'].scrollHeight;
     const scrollTop = this.$refs['yule-theme--container'].scrollTop;
     this.containerPositionY = scrollTop;
-    var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+    let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
     if (scrollTop + windowHeight >= scrollHeight) {
       if (!this.load_more_loading_lock) {
         this.load_more_loading = true;
@@ -56,6 +60,7 @@ export default class extends Vue {
       }
     }
   }
+
   private async getDataByThemeIndex(index: any) {
     this.pageLoading = true;
     this.firstLoadData = true;
@@ -79,6 +84,7 @@ export default class extends Vue {
     this.firstLoadData = false;
     this.pageLoading = false;
   }
+
   private async getMoreDataByThemeIndex(index: any) {
     switch (index) {
       case 0:
@@ -97,30 +103,38 @@ export default class extends Vue {
         break;
     }
   }
+
   private handlerClickHeaderBack() {
     this.$router.back();
   }
+
   /*http*/
   private async _getChasingHotSpot() {
     const result = TabHomeYuleModule.getChasingHotSpot({ page: this.pageNum });
   }
+
   private async _getVeryMuchDao() {}
+
   private async _getUpConstellation() {}
+
   private async _getPublicScreeningCeremony() {}
 
   private async _getChasingHotSpotMore() {
     const result = TabHomeYuleModule.getChasingHotSpot({ page: this.pageNum });
   }
+
   private async _getVeryMuchDaoMore() {}
+
   private async _getUpConstellationMore() {}
+
   private async _getPublicScreeningCeremonyMore() {}
 }
 </script>
 
-
 <style lang="scss" scoped>
 .yule-theme-container {
   background: #f7f7f7;
+
   .header {
     display: flex;
     align-items: center;
@@ -132,20 +146,24 @@ export default class extends Vue {
     left: 0;
     top: 0;
     background: $white;
+
     .icon {
       display: block;
       width: 45%;
       font-size: 22px;
       text-align: left;
     }
+
     .theme-title {
       width: 55%;
       text-align: left;
     }
   }
+
   .yule-theme-wrap {
     overflow: scroll;
   }
+
   .load-more-loading {
     width: 100%;
     height: 50px;

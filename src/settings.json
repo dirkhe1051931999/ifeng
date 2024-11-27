@@ -6,7 +6,7 @@
   "errorLog": ["production"],
   "logUrl": "/",
   "pro": "",
-  "proxy_ip": "192.168.3.70",
+  "proxy_ip": "192.168.124.76",
   "proxy_ip_port": "3000",
   "errorCode": [],
   "succCode": [],

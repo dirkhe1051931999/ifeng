@@ -70,10 +70,7 @@
             >
               <img src="~assets/play-video-button.png" alt="" class="play" v-if="JSON_PARSE(item.content.link, item.content.txt).type === 'video'" />
             </q-img>
-            <div
-              v-if="JSON_PARSE(item.content.link, item.content.txt).img && typeof JSON_PARSE(item.content.link, item.content.txt).img === 'object'"
-              class="slide-img-wrap"
-            >
+            <div v-if="JSON_PARSE(item.content.link, item.content.txt).img && typeof JSON_PARSE(item.content.link, item.content.txt).img === 'object'" class="slide-img-wrap">
               <q-img
                 class="slide-img"
                 v-for="(img, imgIndex) in JSON_PARSE(item.content.link, item.content.txt).img"
@@ -115,7 +112,7 @@ export default class extends Vue {
     await this.getOrgUserList();
     await this.getOrgTag();
     await this.getOrgContent();
-    this.$refs['quanzi_detail-wrap']['style']['height'] = window.innerHeight - 50 + 'px';
+    this.$refs['quanzi_detail-wrap']['style']['height'] = `${window.innerHeight - 50}px`;
     this.getDataLoading = false;
   }
   private getDataLoading = false;
@@ -139,7 +136,7 @@ export default class extends Vue {
     const scrollHeight = this.$refs['quanzi_detail-wrap'].scrollHeight;
     const scrollTop = this.$refs['quanzi_detail-wrap'].scrollTop;
     this.containerPositionY = scrollTop;
-    var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+    let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
     if (scrollTop + windowHeight - 50 >= scrollHeight) {
       if (!this.load_more_loading_lock) {
         this.load_more_loading = true;
@@ -249,7 +246,7 @@ export default class extends Vue {
     });
   }
   private handleClickQuanyou() {
-    this.$router.push('/mine_child_page/quanzi_quanyou?orgId=' + this.$route.query.orgId);
+    this.$router.push(`/mine_child_page/quanzi_quanyou?orgId=${this.$route.query.orgId}`);
   }
   private handleClickQuangui() {
     // this.$router.push('/news_detail/doc?aid=8BmVY6afyK0');
@@ -369,7 +366,6 @@ export default class extends Vue {
   }
 }
 </script>
-
 
 <style lang="scss" scoped>
 @import './index.scss';

@@ -8,22 +8,11 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const { configure } = require('quasar/wrappers');
 const path = require('path');
-// extract css
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-// clean dist
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-// build list
-var ManifestPlugin = require('webpack-manifest-plugin');
-const webpack = require('webpack');
 const settings = require('./src/settings.json');
-module.exports = configure(function(ctx) {
+module.exports = configure((ctx) => {
   return {
     // https://quasar.dev/quasar-cli/supporting-ts
-    supportTS: {
-      tsCheckerConfig: {
-        eslint: true,
-      },
-    },
+    supportTS: true,
     // https://quasar.dev/quasar-cli/prefetch-feature
     // preFetch: true,
     // app boot file (/src/boot)
@@ -64,33 +53,6 @@ module.exports = configure(function(ctx) {
             loader: 'eslint-loader',
             exclude: /node_modules/,
           });
-          cfg.plugins.push(
-            ...[
-              new CleanWebpackPlugin(),
-              new ManifestPlugin({
-                fileName: 'list.json',
-              }),
-              new webpack.BannerPlugin({
-                banner: 'design: redteamobile.com\nhash: [hash]\nchunkhash: [chunkhash]\nname: [name]\n_: ' + new Date().toLocaleString(),
-                raw: false,
-              }),
-              new MiniCssExtractPlugin({
-                // Options similar to the same options in webpackOptions.output
-                // all options are optional
-                filename: '[name].[hash:6].css',
-                chunkFilename: '[id].[hash:6].css',
-                ignoreOrder: false, // Enable to remove warnings about conflicting order
-                options: {
-                  rules: [
-                    {
-                      test: /\.(sa|sc|c)ss$/,
-                      use: ['css-loader', 'postcss-loader', 'sass-loader'],
-                    },
-                  ],
-                },
-              }),
-            ],
-          );
         }
         cfg.resolve.alias = {
           ...cfg.resolve.alias, // This adds the existing alias
@@ -249,33 +211,7 @@ module.exports = configure(function(ctx) {
         orientation: 'portrait',
         background_color: '#ffffff',
         theme_color: '#0080ff',
-        icons: [
-          {
-            src: 'icons/icon-128x128.png',
-            sizes: '128x128',
-            type: 'image/png',
-          },
-          {
-            src: 'icons/icon-192x192.png',
-            sizes: '192x192',
-            type: 'image/png',
-          },
-          {
-            src: 'icons/icon-256x256.png',
-            sizes: '256x256',
-            type: 'image/png',
-          },
-          {
-            src: 'icons/icon-384x384.png',
-            sizes: '384x384',
-            type: 'image/png',
-          },
-          {
-            src: 'icons/icon-512x512.png',
-            sizes: '512x512',
-            type: 'image/png',
-          },
-        ],
+        icons: [],
       },
     },
 

@@ -6,7 +6,7 @@ const api = {
 };
 export const hotSpotDetailListV2 = (data: any): any => {
   let str = '?';
-  for (let key in data.params) {
+  for (const key in data.params) {
     str += `${key}=${data.params[key]}&`;
   }
   str = str.slice(0, -1);
@@ -17,7 +17,7 @@ export const hotSpotDetailListV2 = (data: any): any => {
 };
 export const hotSpotCrowdV2 = (data: any): any => {
   let str = '?';
-  for (let key in data.params) {
+  for (const key in data.params) {
     str += `${key}=${data.params[key]}&`;
   }
   str = str.slice(0, -1);
@@ -28,7 +28,7 @@ export const hotSpotCrowdV2 = (data: any): any => {
 };
 export const soleNewsListV2 = (data: any): any => {
   let str = '?';
-  for (let key in data.params) {
+  for (const key in data.params) {
     str += `${key}=${data.params[key]}&`;
   }
   str = str.slice(0, -1);

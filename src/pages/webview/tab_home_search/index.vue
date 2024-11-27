@@ -34,9 +34,7 @@
         <p class="loading" v-show="loadRecommend">加载中...</p>
         <ul class="hotList">
           <li v-for="(item, index) in hotList" :key="index" @click="handlerCLickHotListItem(item)">
-            <span class="index" :class="{ 'text-red': index === 0, 'text-orange-10': index === 1, 'text-orange-8': index === 2 }">{{
-              index + 1
-            }}</span>
+            <span class="index" :class="{ 'text-red': index === 0, 'text-orange-10': index === 1, 'text-orange-8': index === 2 }">{{ index + 1 }}</span>
             <span class="tag" v-if="item.style.recomTag">{{ item.style.recomTag.text }}</span>
             <span class="title">{{ item.title }}</span>
             <q-icon name="arrow_downward" v-if="item.hotTrend === '0'" class="text-blue fs-16 arrow"></q-icon>
@@ -72,12 +70,7 @@
       </ul>
       <div class="search-result" v-if="inSearch && !inGuess">
         <ul class="tabs">
-          <li
-            v-for="(item, index) in searchResultTabs"
-            :key="index"
-            @click="handlerClickSerachResultTab(index)"
-            :class="{ active: index === searchResultActiveIndex }"
-          >
+          <li v-for="(item, index) in searchResultTabs" :key="index" @click="handlerClickSerachResultTab(index)" :class="{ active: index === searchResultActiveIndex }">
             {{ item }}
           </li>
         </ul>
@@ -134,9 +127,7 @@
                         </li>
                       </ul>
                     </div>
-                    <p class="joinCount">
-                      {{ item.vote.joinCount | numberFormat }}人参与投票，当前{{ item.vote.expire === '1' ? '投票进行中' : '投票已结束' }}
-                    </p>
+                    <p class="joinCount">{{ item.vote.joinCount | numberFormat }}人参与投票，当前{{ item.vote.expire === '1' ? '投票进行中' : '投票已结束' }}</p>
                   </div>
                   <div class="bottom">
                     <span v-if="item.style.recomTag && item.style.recomTag.text === '凤凰卫视'" class="label">凤凰卫视</span>
@@ -172,9 +163,7 @@
                     <div class="top">
                       <div class="left">
                         <p class="title">
-                          <span class="text-red title-label" v-if="item.style.recomTag && item.style.recomTag.pos">{{
-                            item.style.recomTag.text
-                          }}</span>
+                          <span class="text-red title-label" v-if="item.style.recomTag && item.style.recomTag.pos">{{ item.style.recomTag.text }}</span>
                           <span v-html="item.title"></span>
                         </p>
                       </div>
@@ -199,9 +188,7 @@
                           </li>
                         </ul>
                       </div>
-                      <p class="joinCount">
-                        {{ item.vote.joinCount | numberFormat }}人参与投票，当前{{ item.vote.expire === '1' ? '投票进行中' : '投票已结束' }}
-                      </p>
+                      <p class="joinCount">{{ item.vote.joinCount | numberFormat }}人参与投票，当前{{ item.vote.expire === '1' ? '投票进行中' : '投票已结束' }}</p>
                     </div>
                     <div class="bottom">
                       <span v-if="item.style.recomTag && item.style.recomTag.text === '凤凰卫视'" class="label">凤凰卫视</span>
@@ -249,9 +236,7 @@
                     </li>
                   </ul>
                 </div>
-                <p class="joinCount">
-                  {{ news.vote.joinCount | numberFormat }}人参与投票，当前{{ news.vote.expire === '1' ? '投票进行中' : '投票已结束' }}
-                </p>
+                <p class="joinCount">{{ news.vote.joinCount | numberFormat }}人参与投票，当前{{ news.vote.expire === '1' ? '投票进行中' : '投票已结束' }}</p>
               </div>
               <div class="bottom">
                 <span v-if="news.style.recomTag && news.style.recomTag.text === '凤凰卫视'" class="label">凤凰卫视</span>
@@ -402,7 +387,7 @@ export default class extends Vue {
   }
   mounted() {
     const $wrapper = this.$refs['tab-slide-page-search-wrapper'];
-    $wrapper.style['height'] = window.innerHeight - 56 + 'px';
+    $wrapper.style['height'] = `${window.innerHeight - 56}px`;
   }
   private containerPositionY = 0;
   private searchText = '';
@@ -499,7 +484,7 @@ export default class extends Vue {
     const scrollHeight = this.$refs['tab-slide-page-search-wrapper'].scrollHeight;
     const scrollTop = this.$refs['tab-slide-page-search-wrapper'].scrollTop;
     this.containerPositionY = scrollTop;
-    var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+    let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
     if (scrollTop + windowHeight - 56 >= scrollHeight) {
       if (!this.loadMoreLoadingLock) {
         this.loadMoreLoading = true;
@@ -534,12 +519,12 @@ export default class extends Vue {
       case 'doc':
         params = getUrlParams(news.link.url);
         urlStr = json2Url(params);
-        this.$router.push('/news_detail/doc?' + urlStr);
+        this.$router.push(`/news_detail/doc?${urlStr}`);
         break;
       case 'short':
         params = getUrlParams(news.link.url);
         urlStr = json2Url(params);
-        this.$router.push('/news_detail/imglist?' + urlStr);
+        this.$router.push(`/news_detail/imglist?${urlStr}`);
         break;
       case 'phvideo':
         params = {
@@ -549,8 +534,8 @@ export default class extends Vue {
           type: 'video',
         };
         params = Object.assign(params, getUrlParams(news.link.weburl));
-        urlStr = json2Url(params) + '&' + news.link.queryString;
-        this.$router.push('/news_detail/video?' + urlStr);
+        urlStr = `${json2Url(params)}&${news.link.queryString}`;
+        this.$router.push(`/news_detail/video?${urlStr}`);
         break;
       default:
         break;

@@ -44,7 +44,7 @@ export default class extends Vue {
     this.firstLoadData = false;
     this.pageLoading = false;
     this.$nextTick(() => {
-      this.$refs['yule-theme-wrap'].style['height'] = window.innerHeight - 50 + 'px';
+      this.$refs['yule-theme-wrap'].style['height'] = `${window.innerHeight - 50}px`;
     });
   }
   /*data */
@@ -63,7 +63,7 @@ export default class extends Vue {
     const scrollHeight = this.$refs['yule-theme-wrap'].scrollHeight;
     const scrollTop = this.$refs['yule-theme-wrap'].scrollTop;
     this.containerPositionY = scrollTop;
-    var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+    let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
     if (scrollTop + windowHeight - 50 >= scrollHeight) {
       if (!this.load_more_loading_lock) {
         this.load_more_loading = true;
@@ -79,7 +79,7 @@ export default class extends Vue {
   }
   private handlerClickNewsItem(news: any) {
     if (news.type === 'topic') {
-      this.$router.push('/news_topic?topicid=ucms_' + news.base62Id);
+      this.$router.push(`/news_topic?topicid=ucms_${news.base62Id}`);
     } else {
       console.log(news.type);
     }
@@ -140,7 +140,6 @@ export default class extends Vue {
   }
 }
 </script>
-
 
 <style lang="scss" scoped>
 .yule-theme-container {

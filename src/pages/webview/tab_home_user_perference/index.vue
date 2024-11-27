@@ -22,12 +22,7 @@
       <div class="select-tag" v-for="(item, index) in questionDataList" :key="index">
         <p class="title">{{ item.question }}</p>
         <ul>
-          <li
-            v-for="q in item.option"
-            :key="q.itemId"
-            :class="[q.title.length < 3 ? 'fs-16' : 'fs-12', q.selected === '0' ? '' : 'selected']"
-            @click="handlerClickSlectTag(item, q, index)"
-          >
+          <li v-for="q in item.option" :key="q.itemId" :class="[q.title.length < 3 ? 'fs-16' : 'fs-12', q.selected === '0' ? '' : 'selected']" @click="handlerClickSlectTag(item, q, index)">
             {{ q.title }}
             <q-icon class="check" name="check_circle" :class="q.selected === '0' ? 'hide' : ''"></q-icon>
           </li>
@@ -55,7 +50,7 @@ export default class extends Vue {
   }
   mounted() {
     const $wrapper = this.$refs['user-perference-wrapper'];
-    $wrapper.style['height'] = window.innerHeight - 56 + 'px';
+    $wrapper.style['height'] = `${window.innerHeight - 56}px`;
   }
   private questionDataList: any = [];
   private selectManOrWoman = {};
@@ -103,7 +98,6 @@ export default class extends Vue {
   }
 }
 </script>
-
 
 <style lang="scss" scoped>
 .user-perference-container {

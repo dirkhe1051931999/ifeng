@@ -5,6 +5,46 @@ import router from 'src/router/index';
 import settings from '@/settings.json';
 // vueg
 import vueg from 'vueg';
+// vue-page-stack
+import VuePageStack from 'vue-page-stack';
+// mobile dom事件
+import jeftDirective from 'jeft-vue-directive';
+// 指令过滤器
+import * as directives from '@/directives/';
+import * as filters from '@/filters';
+import Vue, { DirectiveOptions } from 'vue';
+// vue lazyload
+import VueLazyload from 'vue-lazyload';
+import 'vant/lib/index.css';
+import {
+  Badge as VanBadge,
+  Collapse as VanCollapse,
+  CollapseItem as VanCollapseItem,
+  Empty as VanEmpty,
+  Image as VanImage,
+  ImagePreview,
+  IndexAnchor as VanIndexAnchor,
+  IndexBar as VanIndexBar,
+  Lazyload,
+  Loading as VanLoading,
+  NoticeBar as VanNoticeBar,
+  Picker as VanPicker,
+  Popover as VanPopover,
+  Popup as VanPopup,
+  PullRefresh as VanPullRefresh,
+  ShareSheet as VanShareSheet,
+  Sidebar as VanSidebar,
+  SidebarItem as VanSidebarItem,
+  Swipe as VanSwipe,
+  SwipeItem as VanSwipeItem,
+  Tab as VanTab,
+  Tabbar as VanTabbar,
+  TabbarItem as VanTabbarItem,
+  Tabs as VanTabs,
+  Toast,
+  TreeSelect as VanTreeSelect,
+} from 'vant';
+
 const options = {
   duration: '0.3', //转场动画时长，默认为0.3，单位秒
   firstEntryDisable: true, //值为true时禁用首次进入应用时的渐现动画，默认为false
@@ -25,18 +65,11 @@ const options = {
   disable: false, //禁用转场动画，默认为false，嵌套路由默认为true
 };
 Vue.use(vueg, router, options);
-// vue-page-stack
-import VuePageStack from 'vue-page-stack';
+
 Vue.use(VuePageStack, { router });
-// mobile dom事件
-import jeftDirective from 'jeft-vue-directive';
+
 Vue.use(jeftDirective);
-// 指令过滤器
-import * as directives from '@/directives/';
-import * as filters from '@/filters';
-import Vue, { DirectiveOptions } from 'vue';
-// vue lazyload
-import VueLazyload from 'vue-lazyload';
+
 Vue.use(VueLazyload);
 const loadimage = require('../assets/nwes-loading-placeholder.png');
 const errorimage = require('../assets/nwes-loading-placeholder.png');
@@ -46,35 +79,7 @@ Vue.use(VueLazyload, {
   loading: loadimage,
   attempt: 1,
 });
-import 'vant/lib/index.css';
-import {
-  Image as VanImage,
-  Lazyload,
-  Popover as VanPopover,
-  Collapse as VanCollapse,
-  CollapseItem as VanCollapseItem,
-  Swipe as VanSwipe,
-  SwipeItem as VanSwipeItem,
-  PullRefresh as VanPullRefresh,
-  ImagePreview,
-  ShareSheet as VanShareSheet,
-  IndexBar as VanIndexBar,
-  IndexAnchor as VanIndexAnchor,
-  Empty as VanEmpty,
-  NoticeBar as VanNoticeBar,
-  Tabbar as VanTabbar,
-  TabbarItem as VanTabbarItem,
-  Tab as VanTab,
-  Tabs as VanTabs,
-  Badge as VanBadge,
-  Popup as VanPopup,
-  Loading as VanLoading,
-  Picker as VanPicker,
-  TreeSelect as VanTreeSelect,
-  Sidebar as VanSidebar,
-  SidebarItem as VanSidebarItem,
-  Toast,
-} from 'vant';
+
 Vue.use(VanPopover);
 Vue.use(VanImage);
 Vue.use(Lazyload);
@@ -115,5 +120,5 @@ Object.keys(filters).forEach((key) => {
 console.log(
   '\n'.concat(` %c ${settings.title} v`, settings.version, ' ').concat(settings['app-desc'], ` %c ${settings.policy} `, '\n', '\n'),
   'color: #fadfa3; background: #030307; padding:5px 0;',
-  'background: #fadfa3; padding:5px 0;',
+  'background: #fadfa3; padding:5px 0;'
 );

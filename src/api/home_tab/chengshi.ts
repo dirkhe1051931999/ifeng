@@ -6,7 +6,7 @@ const api = {
 };
 export const getRegionConfig = (data: any): any => {
   let str = '?';
-  for (let key in data.params) {
+  for (const key in data.params) {
     str += `${key}=${data.params[key]}&`;
   }
   str = str.slice(0, -1);
@@ -18,7 +18,7 @@ export const getRegionConfig = (data: any): any => {
 };
 export const getRegionlist = (data: any): any => {
   let str = '?';
-  for (let key in data.params) {
+  for (const key in data.params) {
     str += `${key}=${data.params[key]}&`;
   }
   str = str.slice(0, -1);
@@ -30,7 +30,7 @@ export const getRegionlist = (data: any): any => {
 };
 export const getIndexTips = (data: any): any => {
   let str = '?';
-  for (let key in data.params) {
+  for (const key in data.params) {
     str += `${key}=${data.params[key]}&`;
   }
   str = str.slice(0, -1);

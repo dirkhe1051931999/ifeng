@@ -35,20 +35,10 @@
         <div class="country">
           <span v-for="(item, index) in guowaiCountryCanSee" :key="index" @click="handlerClickOtherGuojia(item)">{{ item.name }}</span>
         </div>
-        <div
-          class="kangyi-quanqiu-map1 text-center"
-          id="kangyi-quanqiu-map1"
-          style="width: 100%; height: 250px"
-          :class="[activeMapIndex === 0 ? 'active-map' : '']"
-        >
+        <div class="kangyi-quanqiu-map1 text-center" id="kangyi-quanqiu-map1" style="width: 100%; height: 250px" :class="[activeMapIndex === 0 ? 'active-map' : '']">
           <van-loading size="12px" color="#969799">加载中...</van-loading>
         </div>
-        <div
-          class="kangyi-quanqiu-map2 text-center"
-          id="kangyi-quanqiu-map2"
-          style="width: 100%; height: 250px"
-          :class="[activeMapIndex === 1 ? 'active-map' : '']"
-        >
+        <div class="kangyi-quanqiu-map2 text-center" id="kangyi-quanqiu-map2" style="width: 100%; height: 250px" :class="[activeMapIndex === 1 ? 'active-map' : '']">
           <van-loading size="12px" color="#969799">加载中...</van-loading>
         </div>
         <div class="switch">
@@ -57,24 +47,9 @@
         </div>
       </div>
       <div class="line">
-        <div
-          class="kangyi-quanqiu-line1"
-          id="kangyi-quanqiu-line1"
-          style="width: 100%; height: 250px"
-          :class="[activeLineIndex === 0 ? 'active-line' : '']"
-        ></div>
-        <div
-          class="kangyi-quanqiu-line2"
-          id="kangyi-quanqiu-line2"
-          style="width: 100%; height: 250px"
-          :class="[activeLineIndex === 1 ? 'active-line' : '']"
-        ></div>
-        <div
-          class="kangyi-quanqiu-line3"
-          id="kangyi-quanqiu-line3"
-          style="width: 100%; height: 250px"
-          :class="[activeLineIndex === 2 ? 'active-line' : '']"
-        ></div>
+        <div class="kangyi-quanqiu-line1" id="kangyi-quanqiu-line1" style="width: 100%; height: 250px" :class="[activeLineIndex === 0 ? 'active-line' : '']"></div>
+        <div class="kangyi-quanqiu-line2" id="kangyi-quanqiu-line2" style="width: 100%; height: 250px" :class="[activeLineIndex === 1 ? 'active-line' : '']"></div>
+        <div class="kangyi-quanqiu-line3" id="kangyi-quanqiu-line3" style="width: 100%; height: 250px" :class="[activeLineIndex === 2 ? 'active-line' : '']"></div>
         <div class="switch">
           <span :class="activeLineIndex === 0 ? 'active' : ''" @click="activeLineIndex = 0">累计/现存确诊</span>
           <span :class="activeLineIndex === 1 ? 'active' : ''" @click="activeLineIndex = 1">治愈/死亡</span>
@@ -163,7 +138,7 @@ export default class extends Vue {
   }
   mounted() {
     this._getKangyiQuanqiu();
-    this.$refs['kangyi-quanqiu-container'].style['height'] = window.innerHeight + 'px';
+    this.$refs['kangyi-quanqiu-container'].style['height'] = `${window.innerHeight}px`;
   }
   private endDate: any = '';
   private activeMapIndex = 0;
@@ -206,9 +181,9 @@ export default class extends Vue {
         trigger: 'item',
         formatter: (a: any) => {
           try {
-            return `${a.data.name}<br\>现存确诊：${numberFormat(a.data.value)}<br/>累计确诊：${numberFormat(
-              a.data.value1,
-            )}<br/>累计治愈：${numberFormat(a.data.value2)}<br/>累计死亡：${numberFormat(a.data.value3)}<br/>`;
+            return `${a.data.name}<br\>现存确诊：${numberFormat(a.data.value)}<br/>累计确诊：${numberFormat(a.data.value1)}<br/>累计治愈：${numberFormat(a.data.value2)}<br/>累计死亡：${numberFormat(
+              a.data.value3
+            )}<br/>`;
           } catch (error) {
             return '暂无数据';
           }
@@ -259,9 +234,9 @@ export default class extends Vue {
         trigger: 'item',
         formatter: (a: any) => {
           try {
-            return `${a.data.name}<br\>现存确诊：${numberFormat(a.data.value1)}<br/>累计确诊：${numberFormat(
-              a.data.value,
-            )}<br/>累计治愈：${numberFormat(a.data.value2)}<br/>累计死亡：${numberFormat(a.data.value3)}<br/>`;
+            return `${a.data.name}<br\>现存确诊：${numberFormat(a.data.value1)}<br/>累计确诊：${numberFormat(a.data.value)}<br/>累计治愈：${numberFormat(a.data.value2)}<br/>累计死亡：${numberFormat(
+              a.data.value3
+            )}<br/>`;
           } catch (error) {
             return '暂无数据';
           }
@@ -586,7 +561,6 @@ export default class extends Vue {
   }
 }
 </script>
-
 
 <style lang="scss" scoped>
 @import '../style/kangyi_quanqiu.scss';

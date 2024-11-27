@@ -68,14 +68,13 @@ export default class extends Vue {
   @Watch('activeTabIndex')
   onchange() {
     setTimeout(() => {
-      if (!this.$refs['caijing-zhioboshi-chosen'].style['height'])
-        this.$refs['caijing-zhioboshi-chosen'].style['height'] = window.innerHeight - 60 - 156 + 'px';
+      if (!this.$refs['caijing-zhioboshi-chosen'].style['height']) this.$refs['caijing-zhioboshi-chosen'].style['height'] = `${window.innerHeight - 60 - 156}px`;
     }, 200);
   }
   mounted() {
     this._getCaijingZhiboshi();
     setTimeout(() => {
-      this.$refs['caijing-zhioboshi-all'].style['height'] = window.innerHeight - 60 - 156 + 'px';
+      this.$refs['caijing-zhioboshi-all'].style['height'] = `${window.innerHeight - 60 - 156}px`;
     }, 200);
   }
   private activeTabIndex = 0;
@@ -106,7 +105,7 @@ export default class extends Vue {
     const scrollHeight = this.$refs['caijing-zhioboshi-all'].scrollHeight;
     const scrollTop = this.$refs['caijing-zhioboshi-all'].scrollTop;
     this.containerPositionY1 = scrollTop;
-    var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+    let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
     if (scrollTop + windowHeight >= scrollHeight) {
       if (!this.allListMoreLocking) {
         this.allListMoreLoading = true;
@@ -121,7 +120,7 @@ export default class extends Vue {
     const scrollHeight = this.$refs['caijing-zhioboshi-chosen'].scrollHeight;
     const scrollTop = this.$refs['caijing-zhioboshi-chosen'].scrollTop;
     this.containerPositionY1 = scrollTop;
-    var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+    let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
     if (scrollTop + windowHeight >= scrollHeight) {
       if (!this.chosenListMoreLocking) {
         this.chosenListMoreLoading = true;

@@ -70,7 +70,7 @@ export const bakCategories = [
 ];
 export const allCategories = [...defaultCategories, ...bakCategories];
 const _defaultCategoriesNames = [];
-for (let item of defaultCategories) {
+for (const item of defaultCategories) {
   _defaultCategoriesNames.push(item.name);
 }
 export const defaultCategoriesNames = _defaultCategoriesNames;

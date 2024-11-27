@@ -127,11 +127,7 @@
                     <q-icon name="close" class="close"></q-icon>
                   </div>
                 </div>
-                <div
-                  class="more"
-                  @click="handlerClickComentsChildMore(father)"
-                  v-if="father.children.comments.length < Number(father.children.count)"
-                >
+                <div class="more" @click="handlerClickComentsChildMore(father)" v-if="father.children.comments.length < Number(father.children.count)">
                   查看全部{{ father.children.count }}条
                   <q-icon name="expand_circle_down" class="arrow"></q-icon>
                 </div>
@@ -285,7 +281,7 @@ export default class extends Vue {
     await this.getNewsDetail(this.$route.query);
     this.pageLoaded = true;
     await this.$nextTick(() => {
-      this.$refs['news-detail-video-wrap'].style['height'] = window.innerHeight - 46 - 220 + 'px';
+      this.$refs['news-detail-video-wrap'].style['height'] = `${window.innerHeight - 46 - 220}px`;
       this.$dom = this.$refs['news-detail-video-wrap'];
     });
   }
@@ -302,14 +298,14 @@ export default class extends Vue {
         type: 'video',
       };
       params = Object.assign(params, getUrlParams(news.link.weburl));
-      let urlStr = json2Url(params) + '&' + news.link.queryString;
-      this.$router.push('/news_detail/video?' + urlStr);
+      let urlStr = `${json2Url(params)}&${news.link.queryString}`;
+      this.$router.push(`/news_detail/video?${urlStr}`);
     }
   }
   private async monitorScrollEvent() {
     const scrollTop = this.$dom.scrollTop;
     this.containerPositionY = scrollTop;
-    var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+    let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
     if (scrollTop + windowHeight - 46 - 220 >= this.$dom.scrollHeight) {
       if (this.commentsMap.newComments.length < this.commentsPaginationParams.pagesize) {
         this.load_more_no_data = '没有更多数据了';
@@ -369,7 +365,7 @@ export default class extends Vue {
     this.commentsChildrenMoreLoading = true;
     this.showCommentsChildrenMore = true;
     this.$nextTick(async () => {
-      this.$refs['comment-children-more'].style['height'] = this.$refs['van-popup-for-comments-children'].$el.clientHeight - 46 + 'px';
+      this.$refs['comment-children-more'].style['height'] = `${this.$refs['van-popup-for-comments-children'].$el.clientHeight - 46}px`;
       const params = {
         doc_url: news.doc_url,
         comment_id: news.comment_id,
@@ -431,7 +427,6 @@ export default class extends Vue {
   }
 }
 </script>
-
 
 <style lang="scss" scoped>
 @import './video.scss';

@@ -1,6 +1,7 @@
-import Router, { RouteConfig } from 'vue-router';
+import Router from 'vue-router';
 import { constantRoutes } from './routes';
 import Vue from 'vue';
+
 Vue.use(Router);
 const createRouter = () =>
   new Router({
@@ -10,9 +11,10 @@ const createRouter = () =>
   });
 
 const router = createRouter();
-router.beforeEach((to, from, next) => {
+router.beforeEach((to: any, from, next) => {
   next(to.meta.default);
 });
+
 // Detail see: https://github.com/vuejs/vue-router/issues/1234#issuecomment-357941465
 export function resetRouter() {
   const newRouter = createRouter();

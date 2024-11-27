@@ -85,9 +85,9 @@ export default class extends Vue {
   private handleClickCaptchaImg(e: any) {
     if (this.clickImgCount === 4) return;
     this.clickImgCount++;
-    if (this.$refs['img_count_' + this.clickImgCount]) {
-      this.$refs['img_count_' + this.clickImgCount][0].style['left'] = e.offsetX + 'px';
-      this.$refs['img_count_' + this.clickImgCount][0].style['top'] = e.offsetY + 'px';
+    if (this.$refs[`img_count_${this.clickImgCount}`]) {
+      this.$refs[`img_count_${this.clickImgCount}`][0].style['left'] = `${e.offsetX}px`;
+      this.$refs[`img_count_${this.clickImgCount}`][0].style['top'] = `${e.offsetY}px`;
     }
     this.positions.push({
       x: e.offsetX,
@@ -95,13 +95,13 @@ export default class extends Vue {
     });
   }
   private startCount() {
-    var start = +new Date();
-    var count = this.count;
+    let start = +new Date();
+    let count = this.count;
     const _count = this.count;
     this.count_down = _count;
     this.show_count_down = true;
     var timer = setInterval(() => {
-      var cur = +new Date();
+      let cur = +new Date();
       count--;
       this.count_down = count;
       if (cur - start >= _count * 1000) {

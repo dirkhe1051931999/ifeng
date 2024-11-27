@@ -330,7 +330,7 @@ export default class extends Vue {
     const scrollHeight = this.$refs['junshi-container'].scrollHeight;
     const scrollTop = this.$refs['junshi-container'].scrollTop;
     this.containerPositionY = scrollTop;
-    var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+    let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
     if (scrollTop + windowHeight - AppModule.bottomNavigationAndHomeHeaderHeight >= scrollHeight) {
       if (!this.load_more_loading_lock) {
         this.load_more_loading = true;
@@ -355,7 +355,7 @@ export default class extends Vue {
   private handlerClickGridItem(item: any, index: number) {
     console.log(item, index);
     if (index === 0) {
-      this.$router.push('/news_topic?topicid=' + item.documentId);
+      this.$router.push(`/news_topic?topicid=${item.documentId}`);
     }
   }
   /*http*/

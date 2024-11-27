@@ -12,9 +12,7 @@
             <div class="l">
               新增
               <span v-if="summaryData.child">{{
-                summaryData.child[0].quezhen_jingwaishuru || summaryData.child[0].quezhen_jingwaishuru === 0
-                  ? summaryData.child[0].quezhen_jingwaishuru
-                  : '--'
+                summaryData.child[0].quezhen_jingwaishuru || summaryData.child[0].quezhen_jingwaishuru === 0 ? summaryData.child[0].quezhen_jingwaishuru : '--'
               }}</span>
               例
             </div>
@@ -52,16 +50,7 @@
           <img src="~assets/kangyi/area-index.png" alt="" />
           <span>境外输入确诊病例</span>
         </div>
-        <q-table
-          class="list"
-          :data="tableData"
-          :columns="tableColumns"
-          row-key="name"
-          hide-pagination
-          flat
-          dense
-          :pagination="{ rowsPerPage: tableData.length }"
-        />
+        <q-table class="list" :data="tableData" :columns="tableColumns" row-key="name" hide-pagination flat dense :pagination="{ rowsPerPage: tableData.length }" />
       </div>
     </div>
   </div>
@@ -80,7 +69,7 @@ export default class extends Vue {
   $refs: any;
   mounted() {
     this._getKangyiJingwai();
-    this.$refs['kangyi-jingwai-container'].style['height'] = window.innerHeight + 'px';
+    this.$refs['kangyi-jingwai-container'].style['height'] = `${window.innerHeight}px`;
   }
   private endDate: any = '';
   private summaryData: any = {};
@@ -129,7 +118,7 @@ export default class extends Vue {
       return res;
     };
     let series = [];
-    [['中国', outputData]].forEach(function (item, i) {
+    [['中国', outputData]].forEach((item, i) => {
       series.push(
         {
           type: 'lines',
@@ -171,7 +160,7 @@ export default class extends Vue {
             },
           },
           data: convertData(item[1]), // 特效的起始、终点位置，一个二维数组，相当于coords: convertData(item[1])
-        },
+        }
       );
     });
     // 显示终点位置,类似于上面最后一个效果，放在外面写，是为了防止被循环执行多次

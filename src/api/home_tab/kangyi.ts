@@ -6,12 +6,12 @@ const api = {
   getKangyiSummary: 'default/ifeng_web/kangyi/summary',
   getKangyiJingwai: '/default/ifeng_web/kangyi/jingwai',
   getKangyiQuanqiu: '/default/ifeng_web/kangyi/quanqiu',
-  getKangyiOtherGuojia:'default/ifeng_web/kangyi/other_guojia',
+  getKangyiOtherGuojia: 'default/ifeng_web/kangyi/other_guojia',
   loadProvinceJson: 'default/load_province_json',
 };
 export const getEditlistFeiyan = (data: any): any => {
   let str = '?';
-  for (let key in data.params) {
+  for (const key in data.params) {
     str += `${key}=${data.params[key]}&`;
   }
   str = str.slice(0, -1);
@@ -23,7 +23,7 @@ export const getEditlistFeiyan = (data: any): any => {
 };
 export const getVaccinationProgress = (data: any): any => {
   let str = '?';
-  for (let key in data.params) {
+  for (const key in data.params) {
     str += `${key}=${data.params[key]}&`;
   }
   str = str.slice(0, -1);
@@ -34,7 +34,7 @@ export const getVaccinationProgress = (data: any): any => {
 };
 export const getAreaYiqing = (data: any): any => {
   let str = '?';
-  for (let key in data.params) {
+  for (const key in data.params) {
     str += `${key}=${data.params[key]}&`;
   }
   str = str.slice(0, -1);
@@ -45,7 +45,7 @@ export const getAreaYiqing = (data: any): any => {
 };
 export const loadProvinceJson = (data: any): any => {
   let str = '?';
-  for (let key in data.params) {
+  for (const key in data.params) {
     str += `${key}=${data.params[key]}&`;
   }
   str = str.slice(0, -1);
@@ -56,7 +56,7 @@ export const loadProvinceJson = (data: any): any => {
 };
 export const getKangyiSummary = (data: any): any => {
   let str = '?';
-  for (let key in data.params) {
+  for (const key in data.params) {
     str += `${key}=${data.params[key]}&`;
   }
   str = str.slice(0, -1);
@@ -67,7 +67,7 @@ export const getKangyiSummary = (data: any): any => {
 };
 export const getKangyiJingwai = (data: any): any => {
   let str = '?';
-  for (let key in data.params) {
+  for (const key in data.params) {
     str += `${key}=${data.params[key]}&`;
   }
   str = str.slice(0, -1);
@@ -78,7 +78,7 @@ export const getKangyiJingwai = (data: any): any => {
 };
 export const getKangyiQuanqiu = (data: any): any => {
   let str = '?';
-  for (let key in data.params) {
+  for (const key in data.params) {
     str += `${key}=${data.params[key]}&`;
   }
   str = str.slice(0, -1);
@@ -89,7 +89,7 @@ export const getKangyiQuanqiu = (data: any): any => {
 };
 export const getKangyiOtherGuojia = (data: any): any => {
   let str = '?';
-  for (let key in data.params) {
+  for (const key in data.params) {
     str += `${key}=${data.params[key]}&`;
   }
   str = str.slice(0, -1);

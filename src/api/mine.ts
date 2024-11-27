@@ -24,7 +24,7 @@ const api = {
 };
 export const myList = (data: any) =>
   request({
-    url: api.myList + '?guid_feeds=' + data.guid_feeds,
+    url: `${api.myList}?guid_feeds=${data.guid_feeds}`,
     method: 'post',
   });
 export const taskList = (data: any): any =>
@@ -34,23 +34,23 @@ export const taskList = (data: any): any =>
   });
 export const getReplyMessages = (data: any): any =>
   request({
-    url: api.getReplyMessages + '?page=' + data.page,
+    url: `${api.getReplyMessages}?page=${data.page}`,
     method: 'post',
   });
 
 export const getLikeMessages = (data: any): any =>
   request({
-    url: api.getLikeMessages + '?page=' + data.page,
+    url: `${api.getLikeMessages}?page=${data.page}`,
     method: 'post',
   });
 export const getSystemReplyMessages = (data: any): any =>
   request({
-    url: api.getSystemReplyMessages + '?page=' + data.page,
+    url: `${api.getSystemReplyMessages}?page=${data.page}`,
     method: 'post',
   });
 export const getFollowList = (data: any): any => {
   let str = '?';
-  for (let key in data.params) {
+  for (const key in data.params) {
     str += `${key}=${data.params[key]}&`;
   }
   str = str.slice(0, -1);
@@ -61,7 +61,7 @@ export const getFollowList = (data: any): any => {
 };
 export const getFans = (data: any): any => {
   let str = '?';
-  for (let key in data.params) {
+  for (const key in data.params) {
     str += `${key}=${data.params[key]}&`;
   }
   str = str.slice(0, -1);
@@ -72,7 +72,7 @@ export const getFans = (data: any): any => {
 };
 export const getFavoriteList = (data: any): any => {
   let str = '?';
-  for (let key in data.params) {
+  for (const key in data.params) {
     str += `${key}=${data.params[key]}&`;
   }
   str = str.slice(0, -1);
@@ -83,7 +83,7 @@ export const getFavoriteList = (data: any): any => {
 };
 export const getPushHistory = (data: any): any => {
   let str = '?';
-  for (let key in data.params) {
+  for (const key in data.params) {
     str += `${key}=${data.params[key]}&`;
   }
   str = str.slice(0, -1);
@@ -106,7 +106,7 @@ export const getQuanziDiscover = (data: any): any =>
   });
 export const getOrgBannerData = (data: any): any =>
   request({
-    url: api.getOrgBannerData + '/' + data.id,
+    url: `${api.getOrgBannerData}/${data.id}`,
     method: 'get',
   });
 export const getOrgUserList = (data: any): any =>
@@ -147,18 +147,18 @@ export const getZhuiZongDetail = (data: any): any =>
   });
 export const getZhuiZongDetailComment = (data: any): any =>
   request({
-    url: api.getZhuiZongDetailComment + data.id + '/bullet-comments',
+    url: `${api.getZhuiZongDetailComment + data.id}/bullet-comments`,
     method: 'get',
     params: data,
   });
-export const getZhuiZongDetailPosition = (data: any): any =>{
-  console.log(api.getZhuiZongDetailPosition + data.id + '/position')
+export const getZhuiZongDetailPosition = (data: any): any => {
+  console.log(`${api.getZhuiZongDetailPosition + data.id}/position`);
   return request({
-    url: api.getZhuiZongDetailPosition + data.id + '/position',
+    url: `${api.getZhuiZongDetailPosition + data.id}/position`,
     method: 'get',
   });
-}
-  
+};
+
 export const getZhuiZongDetailComment2 = (data: any): any =>
   request({
     url: api.getZhuiZongDetailComment2,

@@ -1,4 +1,3 @@
-
 <template>
   <div class="inline-video-component">
     <div id="ifeng-dplayer" style="width: 100%; height: 220px"></div>
@@ -26,5 +25,4 @@ export default class extends Vue {
 }
 </script>
 
-<style scoped lang='scss'>
-</style>
+<style scoped lang="scss"></style>

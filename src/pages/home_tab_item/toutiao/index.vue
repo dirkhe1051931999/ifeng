@@ -32,19 +32,9 @@
           </li>
         </div>
         <!-- 轮播图 -->
-        <div
-          class="swiper-container bg-white toutiaoHotSpot-container"
-          style="margin-bottom: 10px; height: 240px; padding-top: 10px; padding-bottom: 40px"
-          v-if="toutiaoHotSpot.relation"
-        >
+        <div class="swiper-container bg-white toutiaoHotSpot-container" style="margin-bottom: 10px; height: 240px; padding-top: 10px; padding-bottom: 40px" v-if="toutiaoHotSpot.relation">
           <div class="swiper-wrapper p-r-16" style="margin-left: 10px">
-            <div
-              class="swiper-slide toutiaoHotSpot-slide"
-              v-for="(item, index) in toutiaoHotSpot.relation"
-              :key="index"
-              style="width: 90%"
-              @click.stop.prevent="handlerClickNewsItem(item)"
-            >
+            <div class="swiper-slide toutiaoHotSpot-slide" v-for="(item, index) in toutiaoHotSpot.relation" :key="index" style="width: 90%" @click.stop.prevent="handlerClickNewsItem(item)">
               <p class="title">{{ item.title }}</p>
               <p class="dateDiff">{{ item.updateTime | getDateDiff }}</p>
               <van-image class="thumbnail" :src="item.thumbnail" lazy-load radius="6" />
@@ -56,12 +46,7 @@
           </div>
         </div>
         <!-- 其他新闻 -->
-        <li
-          v-for="news in toutiaoData"
-          :key="news.id + Math.random().toString()"
-          class="list"
-          :class="[['qualityReading', 'marquee', 'videoshortlist'].includes(news.type) ? 'swipe-more-bg' : '']"
-        >
+        <li v-for="news in toutiaoData" :key="news.id + Math.random().toString()" class="list" :class="[['qualityReading', 'marquee', 'videoshortlist'].includes(news.type) ? 'swipe-more-bg' : '']">
           <!-- mustseemarquee -->
           <div v-if="news.type === 'mustseemarquee'" class="mustseemarquee">
             <div class="top">
@@ -116,13 +101,7 @@
             </div>
             <div class="swiper-container qualityReading-container" style="height: 230px; padding-bottom: 20px">
               <div class="swiper-wrapper">
-                <div
-                  class="swiper-slide qualityReading-slide"
-                  style="width: 90%"
-                  v-for="(item, index) in news.relation"
-                  :key="index"
-                  @click.stop.prevent="handlerClickNewsItem(item)"
-                >
+                <div class="swiper-slide qualityReading-slide" style="width: 90%" v-for="(item, index) in news.relation" :key="index" @click.stop.prevent="handlerClickNewsItem(item)">
                   <p class="title">{{ item.title }}</p>
                   <van-image class="thumbnail" :src="item.thumbnail" lazy-load radius="4" />
                 </div>
@@ -141,13 +120,7 @@
             </div>
             <div class="swiper-container marquee-container" style="height: 230px; padding-bottom: 20px">
               <div class="swiper-wrapper">
-                <div
-                  class="swiper-slide marquee-slide"
-                  style="width: 90%"
-                  v-for="(item, index) in news.marqueeList"
-                  :key="index"
-                  @click.stop.prevent="handlerClickNewsItem(item)"
-                >
+                <div class="swiper-slide marquee-slide" style="width: 90%" v-for="(item, index) in news.marqueeList" :key="index" @click.stop.prevent="handlerClickNewsItem(item)">
                   <p class="title">{{ item.title }}</p>
                   <div class="bottom" v-if="item.source">
                     <span class="source">{{ item.source }}</span>
@@ -281,9 +254,7 @@
                   </li>
                 </ul>
               </div>
-              <p class="joinCount">
-                {{ news.vote.joinCount | numberFormat }}人参与投票，当前{{ news.vote.expire === '1' ? '投票进行中' : '投票已结束' }}
-              </p>
+              <p class="joinCount">{{ news.vote.joinCount | numberFormat }}人参与投票，当前{{ news.vote.expire === '1' ? '投票进行中' : '投票已结束' }}</p>
             </div>
             <div class="bottom">
               <span v-if="news.style.recomTag && news.style.recomTag.text === '凤凰卫视'" class="label">凤凰卫视</span>
@@ -569,17 +540,14 @@ export default class extends Vue {
   async onRefresh() {
     this.pagination_params.num = 1;
     await this._downCallback();
-    this.refreshSuccessText =
-      this.toutiaoData.length + this.toutiaoZhidingData.length
-        ? `已为您推荐 ${this.toutiaoData.length + this.toutiaoZhidingData.length} 条新内容`
-        : '已更新到最新';
+    this.refreshSuccessText = this.toutiaoData.length + this.toutiaoZhidingData.length ? `已为您推荐 ${this.toutiaoData.length + this.toutiaoZhidingData.length} 条新内容` : '已更新到最新';
     this.isDownRefresh = false;
   }
   async monitorScrollEvent(e: any) {
     const scrollHeight = this.$refs['toutiao-container'].scrollHeight;
     let scrollTop = this.$refs['toutiao-container'].scrollTop;
     this.containerPositionY = scrollTop;
-    var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+    let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
     if (scrollTop + windowHeight - AppModule.bottomNavigationAndHomeHeaderHeight >= scrollHeight) {
       if (!this.load_more_loading_lock) {
         this.load_more_loading = true;
@@ -632,12 +600,12 @@ export default class extends Vue {
       case 'doc':
         params = getUrlParams(news.link.url);
         urlStr = json2Url(params);
-        this.$router.push('/news_detail/doc?' + urlStr);
+        this.$router.push(`/news_detail/doc?${urlStr}`);
         break;
       case 'short':
         params = getUrlParams(news.link.url);
         urlStr = json2Url(params);
-        this.$router.push('/news_detail/imglist?' + urlStr);
+        this.$router.push(`/news_detail/imglist?${urlStr}`);
         break;
       case 'phvideo':
         params = {
@@ -647,8 +615,8 @@ export default class extends Vue {
           type: 'video',
         };
         params = Object.assign(params, getUrlParams(news.link.weburl));
-        urlStr = json2Url(params) + '&' + news.link.queryString;
-        this.$router.push('/news_detail/video?' + urlStr);
+        urlStr = `${json2Url(params)}&${news.link.queryString}`;
+        this.$router.push(`/news_detail/video?${urlStr}`);
         break;
       default:
         break;

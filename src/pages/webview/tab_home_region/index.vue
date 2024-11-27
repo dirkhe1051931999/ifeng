@@ -16,13 +16,7 @@
 </template>
 
 <script lang="ts">
-import {
-  get_user_bak_categories,
-  get_user_current_categories,
-  set_user_bak_categories,
-  set_user_current_categories,
-  set_user_current_region,
-} from 'src/utils/db';
+import { get_user_bak_categories, get_user_current_categories, set_user_bak_categories, set_user_current_categories, set_user_current_region } from 'src/utils/db';
 import { cloneDeep } from 'lodash';
 import { TabHomeChengshiModule } from '@/store/modules/home_tab/chengshi';
 import { Component, Vue } from 'vue-property-decorator';
@@ -67,12 +61,11 @@ export default class extends Vue {
   }
   mounted() {
     this.$nextTick(() => {
-      this.$refs.list.style['height'] = window.innerHeight - 32 + 'px';
+      this.$refs.list.style['height'] = `${window.innerHeight - 32}px`;
     });
   }
 }
 </script>
-
 
 <style lang="scss" scoped>
 .region-list-container {

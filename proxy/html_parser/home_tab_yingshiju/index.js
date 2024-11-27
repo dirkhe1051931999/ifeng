@@ -1,5 +1,5 @@
-var axios = require('axios');
-var cheerio = require('cheerio');
+let axios = require('axios');
+let cheerio = require('cheerio');
 async function parseData(query) {
   const cb = 'getPPVideoStreamCb';
   try {
@@ -15,7 +15,7 @@ async function parseData(query) {
     jingcaijuji = jingcaijuji.slice(cb.length + 1, -1);
     jingcaijuji = JSON.parse(jingcaijuji);
     // banner data
-    var $ = cheerio.load(result1.data);
+    let $ = cheerio.load(result1.data);
     let dataStr = '';
     $('script').map((i, el) => {
       if (el.children[0]) {
@@ -27,9 +27,9 @@ async function parseData(query) {
       }
     });
     const arr = dataStr.split(';');
-    var regex3 = /(?<=\{).*(?=\})/g;
-    var one = arr[0].match(regex3);
-    var oneObj = JSON.parse('{' + one[0] + '}');
+    let regex3 = /(?<=\{).*(?=\})/g;
+    let one = arr[0].match(regex3);
+    let oneObj = JSON.parse(`{${  one[0]  }}`);
     return [oneObj, yuanxianjingdian, jingcaijuji];
   } catch (error) {
     console.log(error);

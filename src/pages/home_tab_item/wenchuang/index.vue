@@ -367,7 +367,7 @@ export default class extends Vue {
     const scrollHeight = this.$refs['wenchuang-container'].scrollHeight;
     const scrollTop = this.$refs['wenchuang-container'].scrollTop;
     this.containerPositionY = scrollTop;
-    var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+    let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
     if (scrollTop + windowHeight - AppModule.bottomNavigationAndHomeHeaderHeight >= scrollHeight) {
       if (!this.load_more_loading_lock) {
         this.load_more_loading = true;
@@ -393,7 +393,7 @@ export default class extends Vue {
     if (item.type === 'newlist') {
       this.$router.push('/tab_wenchuang_child/jingxuan');
     } else if (item.type === 'topic2') {
-      this.$router.push('/news_topic?topicid=' + item.id);
+      this.$router.push(`/news_topic?topicid=${item.id}`);
     }
   }
   /*http*/

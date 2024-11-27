@@ -1,16 +1,7 @@
 <template>
   <div class="see-container">
     <q-card flat>
-      <q-tabs
-        v-model="tab"
-        dense
-        class="text-grey"
-        active-color="primary"
-        indicator-color="primary"
-        align="justify"
-        narrow-indicator
-        @input="tabChange"
-      >
+      <q-tabs v-model="tab" dense class="text-grey" active-color="primary" indicator-color="primary" align="justify" narrow-indicator @input="tabChange">
         <q-tab name="recommend" label="推荐" />
         <q-tab name="ifengSay" label="凤凰说" />
       </q-tabs>
@@ -132,7 +123,7 @@ export default class extends Vue {
   mounted() {
     this.getSquarerecommend();
     this.$nextTick(() => {
-      this.$refs['recommend-container'].style.height = window.innerHeight - 36 - 60 + 'px';
+      this.$refs['recommend-container'].style.height = `${window.innerHeight - 36 - 60}px`;
     });
   }
   private tab = 'recommend';
@@ -164,7 +155,7 @@ export default class extends Vue {
     const scrollHeight = this.$refs['recommend-container'].scrollHeight;
     const scrollTop = this.$refs['recommend-container'].scrollTop;
     this.containerPositionY_recommend = scrollTop;
-    var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+    let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
     if (scrollTop + windowHeight - 60 - 36 >= scrollHeight) {
       if (!this.load_more_loading_lock_recommend) {
         this.load_more_loading_recommend = true;
@@ -179,7 +170,7 @@ export default class extends Vue {
     const scrollHeight = this.$refs['ifengSay-container'].scrollHeight;
     const scrollTop = this.$refs['ifengSay-container'].scrollTop;
     this.containerPositionY_ifengSay = scrollTop;
-    var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+    let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
     if (scrollTop + windowHeight - 60 - 36 >= scrollHeight) {
       if (!this.load_more_loading_lock_ifengSay) {
         this.load_more_loading_ifengSay = true;
@@ -205,7 +196,7 @@ export default class extends Vue {
     this.$nextTick(() => {
       if (this.tab === 'ifengSay' && this.$refs['ifengSay-container'] && !this.$refs['ifengSay-container'].style.height) {
         this.getnNwsSquareColumn();
-        this.$refs['ifengSay-container'].style.height = window.innerHeight - 36 - 60 + 'px';
+        this.$refs['ifengSay-container'].style.height = `${window.innerHeight - 36 - 60}px`;
       }
     });
   }

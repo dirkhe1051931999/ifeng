@@ -66,4 +66,3 @@ export default class extends Vue {
   width: 100%;
 }
 </style>
-

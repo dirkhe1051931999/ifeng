@@ -5,21 +5,21 @@ export function parseTimeFromDateString(str: string) {
   let stamp = 0;
   stamp = str.length === 10 ? Number(str) * 1000 : Number(str);
   const timestamp = +new Date(stamp);
-  let formattedString = date.formatDate(timestamp, 'YYYY-MM-DD ');
+  const formattedString = date.formatDate(timestamp, 'YYYY-MM-DD ');
   return formattedString;
 }
 export function parseTimeFromDateString2(str: string) {
   let stamp = 0;
   stamp = str.length === 10 ? Number(str) * 1000 : Number(str);
   const timestamp = +new Date(stamp);
-  let formattedString = date.formatDate(timestamp, 'YYYY-MM-DD');
+  const formattedString = date.formatDate(timestamp, 'YYYY-MM-DD');
   return formattedString;
 }
 export function parseTimeFromDateString3(str: string) {
   let stamp = 0;
   stamp = str.length === 10 ? Number(str) * 1000 : Number(str);
   const timestamp = +new Date(stamp);
-  let formattedString = date.formatDate(timestamp, 'HH:mm');
+  const formattedString = date.formatDate(timestamp, 'HH:mm');
   return formattedString;
 }
 // 秒转成分：秒
@@ -45,49 +45,49 @@ export function getVideoTotalTime(num: number) {
       }
     }
     let result: any[] = [];
-    result[0] = Math.floor(secondTime) !== 0 ? (Math.floor(secondTime) < 10 ? '0' + String(Math.floor(secondTime)) : Math.floor(secondTime)) : '';
-    result[1] = Math.floor(minuteTime) !== 0 ? (Math.floor(minuteTime) < 10 ? '0' + String(Math.floor(minuteTime)) : Math.floor(minuteTime)) : '';
-    result[2] = Math.floor(hourTime) !== 0 ? (Math.floor(hourTime) < 10 ? '0' + String(Math.floor(hourTime)) : Math.floor(hourTime)) : '';
+    result[0] = Math.floor(secondTime) !== 0 ? (Math.floor(secondTime) < 10 ? `0${String(Math.floor(secondTime))}` : Math.floor(secondTime)) : '';
+    result[1] = Math.floor(minuteTime) !== 0 ? (Math.floor(minuteTime) < 10 ? `0${String(Math.floor(minuteTime))}` : Math.floor(minuteTime)) : '';
+    result[2] = Math.floor(hourTime) !== 0 ? (Math.floor(hourTime) < 10 ? `0${String(Math.floor(hourTime))}` : Math.floor(hourTime)) : '';
     result = result.filter((d) => d);
     return result.join(':');
   }
 }
 export function getDateDiff(str: string) {
-  let minute = 1000 * 60;
-  let hour = minute * 60;
-  let day = hour * 24;
-  let halfamonth = day * 15;
+  const minute = 1000 * 60;
+  const hour = minute * 60;
+  const day = hour * 24;
+  const halfamonth = day * 15;
   if (String(str).length === 10) {
     str += '000';
   }
-  let dateTimeStamp = +new Date(str);
-  let month = day * 30;
-  let now = new Date().getTime();
-  let diffValue = now - dateTimeStamp;
+  const dateTimeStamp = +new Date(str);
+  const month = day * 30;
+  const now = new Date().getTime();
+  const diffValue = now - dateTimeStamp;
   if (diffValue < 0) {
     return;
   }
-  let monthC = diffValue / month;
-  let weekC = diffValue / (7 * day);
-  let dayC = diffValue / day;
-  let hourC = diffValue / hour;
-  let minC = diffValue / minute;
+  const monthC = diffValue / month;
+  const weekC = diffValue / (7 * day);
+  const dayC = diffValue / day;
+  const hourC = diffValue / hour;
+  const minC = diffValue / minute;
   let result = '';
   if (monthC >= 1) {
-    result = '' + Math.floor(monthC) + ' 月前';
+    result = `${Math.floor(monthC)} 月前`;
   } else if (weekC >= 1) {
-    result = '' + Math.floor(weekC) + ' 周前';
+    result = `${Math.floor(weekC)} 周前`;
   } else if (dayC >= 1) {
-    result = '' + Math.floor(dayC) + ' 天前';
+    result = `${Math.floor(dayC)} 天前`;
   } else if (hourC >= 1) {
-    result = '' + Math.floor(hourC) + ' 小时前';
+    result = `${Math.floor(hourC)} 小时前`;
   } else if (minC >= 1) {
-    result = '' + Math.floor(minC) + ' 分钟前';
+    result = `${Math.floor(minC)} 分钟前`;
   } else result = '刚刚';
   return result;
 }
 export const numberFormat = (value: number) => {
-  let param: any = {};
+  const param: any = {};
   let k = 10000,
     sizes = ['', '万', '亿', '万亿'],
     i;

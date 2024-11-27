@@ -50,7 +50,7 @@ export default class extends Vue {
   async monitorScrollEvent(e: any) {
     const scrollHeight = this.$refs['tab_yingshiju_child_dajurebo'].scrollHeight;
     const scrollTop = this.$refs['tab_yingshiju_child_dajurebo'].scrollTop;
-    var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+    let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
     if (scrollTop + windowHeight >= scrollHeight) {
       if (!this.load_more_loading_lock) {
         this.load_more_loading = true;
@@ -88,7 +88,6 @@ export default class extends Vue {
   }
 }
 </script>
-
 
 <style lang="scss" scoped>
 @import './style/dajurebo.scss';

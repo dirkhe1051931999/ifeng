@@ -54,8 +54,8 @@ export default class extends Vue {
   async queue(data: any) {
     for (let i = 0; i < data.length; i++) {
       const opt = {
-        name: i + '-用户名',
-        content: i + '-评论内容',
+        name: `${i}-用户名`,
+        content: `${i}-评论内容`,
         id: Date.now(),
       };
       await this.addTimeOut(opt);
@@ -122,7 +122,6 @@ export default class extends Vue {
   }
 }
 </script>
-
 
 <style lang="scss" scoped>
 .comment {

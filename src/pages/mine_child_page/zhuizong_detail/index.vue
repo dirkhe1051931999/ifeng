@@ -19,12 +19,7 @@
       <div class="bannerData" v-if="!getDataLoading">
         <div class="title"><q-icon name="tag" class="icon"></q-icon>{{ bannerData.title }}</div>
         <ul class="tag">
-          <li
-            v-for="(item, index) in bannerData.tag"
-            :key="index"
-            @click="handleClickParty(item)"
-            :class="{ active: pagination_params.party === item.id }"
-          >
+          <li v-for="(item, index) in bannerData.tag" :key="index" @click="handleClickParty(item)" :class="{ active: pagination_params.party === item.id }">
             {{ item.name }}
           </li>
         </ul>
@@ -46,13 +41,7 @@
           <van-loading size="12px" color="#969799">加载中...</van-loading>
         </div>
         <q-timeline color="secondary" v-if="!getDataLoading2">
-          <q-timeline-entry
-            :subtitle="new Date(item.nodeTime * 1000).toLocaleString()"
-            color="primary"
-            v-for="(item, index) in nodesList"
-            :key="index"
-            ref="timelineDomArr"
-          >
+          <q-timeline-entry :subtitle="new Date(item.nodeTime * 1000).toLocaleString()" color="primary" v-for="(item, index) in nodesList" :key="index" ref="timelineDomArr">
             <div class="card">
               <div class="description">
                 {{ item.description || item.title }}
@@ -147,7 +136,7 @@ export default class extends Vue {
         });
       }
     }
-    this.$refs['zhuizong_detail-wrap']['style']['height'] = window.innerHeight - 50 + 'px';
+    this.$refs['zhuizong_detail-wrap']['style']['height'] = `${window.innerHeight - 50}px`;
     this.getDataLoading = false;
   }
   $refs: any;
@@ -178,7 +167,7 @@ export default class extends Vue {
     const scrollHeight = this.$refs['zhuizong_detail-wrap'].scrollHeight;
     const scrollTop = this.$refs['zhuizong_detail-wrap'].scrollTop;
     this.containerPositionY = scrollTop;
-    var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+    let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
     if (scrollTop + windowHeight - 50 >= scrollHeight) {
       if (!this.load_more_loading_lock) {
         this.load_more_loading = true;

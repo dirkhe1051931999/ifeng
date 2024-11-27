@@ -4,7 +4,7 @@ const api = {
 };
 export const getQingchunBANGNewsList = (data: any): any => {
   let str = '?';
-  for (let key in data.params) {
+  for (const key in data.params) {
     str += `${key}=${data.params[key]}&`;
   }
   str = str.slice(0, -1);
@@ -14,4 +14,3 @@ export const getQingchunBANGNewsList = (data: any): any => {
     data: data.formData,
   });
 };
-

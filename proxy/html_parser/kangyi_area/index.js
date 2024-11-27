@@ -1,5 +1,5 @@
-var axios = require('axios');
-var cheerio = require('cheerio');
+let axios = require('axios');
+let cheerio = require('cheerio');
 async function parseData(query) {
   let { code, data, areaName, prov } = query;
   try {
@@ -9,7 +9,7 @@ async function parseData(query) {
     let provNews = result2.data;
     provNews = provNews.slice(2, -1);
     provNews = JSON.parse(provNews);
-    var $ = cheerio.load(result.data);
+    let $ = cheerio.load(result.data);
     let dataStr = '';
     $('script').map((i, el) => {
       if (el.children[0]) {
@@ -21,11 +21,11 @@ async function parseData(query) {
       }
     });
     const arr = dataStr.split(';');
-    var regex3 = /(?<=\{).*(?=\})/g;
-    var one = arr[0].match(regex3);
-    var two = arr[1].match(regex3);
-    var oneObj = JSON.parse('{' + one[0] + '}');
-    var twoObj = JSON.parse('{' + two[0] + '}');
+    let regex3 = /(?<=\{).*(?=\})/g;
+    let one = arr[0].match(regex3);
+    let two = arr[1].match(regex3);
+    let oneObj = JSON.parse(`{${  one[0]  }}`);
+    let twoObj = JSON.parse(`{${  two[0]  }}`);
     return [oneObj, twoObj, provNews.data ? provNews.data : []];
   } catch (error) {
     console.log(error);

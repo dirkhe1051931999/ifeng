@@ -13,15 +13,7 @@
           </div>
           <button class="r" @click="handlerClickEdit">{{ enableDraggle ? '完成' : '编辑' }}</button>
         </div>
-        <draggable
-          v-if="currentUserCategories.length"
-          :list="currentUserCategories"
-          :disabled="!enableDraggle"
-          @change="handlerDragend"
-          class="list-group"
-          ghost-class="ghost"
-          draggable=".drag-item"
-        >
+        <draggable v-if="currentUserCategories.length" :list="currentUserCategories" :disabled="!enableDraggle" @change="handlerDragend" class="list-group" ghost-class="ghost" draggable=".drag-item">
           <button
             class="list-group-item"
             v-for="(element, index) in currentUserCategories"
@@ -29,11 +21,7 @@
             :class="[element.name.length > 2 ? 'fs-12' : 'fs-16', element.name === '关注' || element.name === '头条' ? 'fixed-item' : 'drag-item']"
           >
             {{ element.name }}
-            <span
-              class="iconfont icon-close2 remove"
-              v-show="enableDraggle && element.name !== '关注' && element.name !== '头条'"
-              @click.prevent="handlerClickRemoveItem(element, index)"
-            ></span>
+            <span class="iconfont icon-close2 remove" v-show="enableDraggle && element.name !== '关注' && element.name !== '头条'" @click.prevent="handlerClickRemoveItem(element, index)"></span>
           </button>
         </draggable>
         <div class="more">
@@ -78,7 +66,7 @@ export default class extends Vue {
   created() {}
   mounted() {
     const $scroll: any = this.$refs['tabs-slide-page-more-categories-wrapper'];
-    $scroll.style['height'] = window.innerHeight - 32 + 'px';
+    $scroll.style['height'] = `${window.innerHeight - 32}px`;
   }
   beforeDestroy() {
     this.enableDraggle = false;

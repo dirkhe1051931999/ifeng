@@ -40,24 +40,24 @@ axios.interceptors.request.use(
         authConfig['auth'] = UserModule.auth;
       }
       let str = '';
-      for (let key in authConfig) {
+      for (const key in authConfig) {
         str += `${key}=${authConfig[key]}&`;
       }
       if (config.url.indexOf('?') === -1) {
-        config.url = config.url + '?' + str;
+        config.url = `${config.url}?${str}`;
       } else {
-        config.url = config.url + '&' + str;
+        config.url = `${config.url}&${str}`;
       }
     }
     if (!notAddUrlParamsWhiteList.includes(config.url)) {
       let str = '';
-      for (let key in commonUrlParams) {
+      for (const key in commonUrlParams) {
         str += `${key}=${commonUrlParams[key]}&`;
       }
       if (config.url.indexOf('?') === -1) {
-        config.url = config.url + '?' + str;
+        config.url = `${config.url}?${str}`;
       } else {
-        config.url = config.url + '&' + str;
+        config.url = `${config.url}&${str}`;
       }
     }
     return config;
@@ -65,7 +65,7 @@ axios.interceptors.request.use(
   (error) => {
     console.log(error);
     Promise.reject(error);
-  },
+  }
 );
 
 // Response interceptors
@@ -81,7 +81,7 @@ axios.interceptors.response.use(
   (error: any) => {
     console.info(error);
     return Promise.reject('error');
-  },
+  }
 );
 
 export default axios;

@@ -5,17 +5,7 @@
         <q-icon name="arrow_back_ios"></q-icon>
       </div>
       <div class="m">
-        <q-input
-          color="grey"
-          v-model="searchText"
-          label="搜索输入股票代码/股票名称/首字母"
-          dense
-          borderless
-          clearable
-          debounce="300"
-          @input="handlerSearch"
-        >
-        </q-input>
+        <q-input color="grey" v-model="searchText" label="搜索输入股票代码/股票名称/首字母" dense borderless clearable debounce="300" @input="handlerSearch"> </q-input>
       </div>
     </div>
     <div class="caijing-pindao-search-content" ref="caijing-pindao-search-content" @scroll="monitorScrollEvent">
@@ -46,7 +36,7 @@ import { Component, Vue } from 'vue-property-decorator';
 export default class extends Vue {
   $refs: any;
   mounted() {
-    this.$refs['caijing-pindao-search-content'].style['height'] = window.innerHeight - 48 + 'px';
+    this.$refs['caijing-pindao-search-content'].style['height'] = `${window.innerHeight - 48}px`;
   }
   private searchText = '';
   private searchLoaded = false;
@@ -55,7 +45,7 @@ export default class extends Vue {
   /**event */
   private monitorScrollEvent() {}
   private handlerClickSearchItem(item: any) {
-    this.$router.push('/ifeng_web_caijing_pindao/stock_detail?code=' + item.c);
+    this.$router.push(`/ifeng_web_caijing_pindao/stock_detail?code=${item.c}`);
   }
   /**http */
   private async handlerSearch() {
@@ -73,7 +63,6 @@ export default class extends Vue {
   }
 }
 </script>
-
 
 <style lang="scss" scoped>
 @import '../style/caijing-pindao-search.scss';

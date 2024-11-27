@@ -40,7 +40,7 @@ export default class extends Vue {
   $refs: any;
   mounted() {
     this.$nextTick(() => {
-      this.$refs['push_history-wrap'].style['height'] = window.innerHeight - 50 + 'px';
+      this.$refs['push_history-wrap'].style['height'] = `${window.innerHeight - 50}px`;
       this.getData();
     });
   }
@@ -61,7 +61,7 @@ export default class extends Vue {
     const scrollHeight = this.$refs['push_history-wrap'].scrollHeight;
     const scrollTop = this.$refs['push_history-wrap'].scrollTop;
     this.containerPositionY = scrollTop;
-    var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+    let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
     if (scrollTop + windowHeight - 50 >= scrollHeight) {
       if (!this.load_more_loading_lock) {
         this.load_more_loading = true;
@@ -94,7 +94,6 @@ export default class extends Vue {
   }
 }
 </script>
-
 
 <style lang="scss" scoped>
 @import './index.scss';

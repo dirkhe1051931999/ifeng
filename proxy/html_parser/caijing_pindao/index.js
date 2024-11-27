@@ -1,12 +1,12 @@
-var axios = require('axios');
+let axios = require('axios');
 async function parseData(query) {
-  var regex = /(?<=\{).*(?=\})/g;
+  let regex = /(?<=\{).*(?=\})/g;
   try {
     // 行情
     let hq = await axios.get(`https://hq.finance.ifeng.com/q.php?l=sh000001,sz399001,sz399006,sh000016,sh000300,sh000688&f=json`);
     hq = hq.data;
     hq = hq.match(regex);
-    hq = JSON.parse('{' + hq[0] + '}');
+    hq = JSON.parse(`{${  hq[0]  }}`);
     // 恒生指数
     let hengsheng = await axios.get(`https://api.iclient.ifeng.com/hkStockMarke?callback=a`);
     hengsheng = hengsheng.data;

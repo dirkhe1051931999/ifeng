@@ -29,7 +29,7 @@ export const getCaptcha = (data: any) =>
   });
 export const checkMobile = (data: any) => {
   let str = '?';
-  for (let key in data.params) {
+  for (const key in data.params) {
     str += `${key}=${data.params[key]}&`;
   }
   str = str.slice(0, -1);
@@ -46,7 +46,7 @@ export const smsFastPass = (data: any): any =>
   });
 export const api_user_userbasic = (data: any): any => {
   let str = '?';
-  for (let key in data.params) {
+  for (const key in data.params) {
     str += `${key}=${data.params[key]}&`;
   }
   str = str.slice(0, -1);
@@ -57,7 +57,7 @@ export const api_user_userbasic = (data: any): any => {
 };
 export const getUserInfo = (data: any): any => {
   let str = '?';
-  for (let key in data.params) {
+  for (const key in data.params) {
     str += `${key}=${data.params[key]}&`;
   }
   str = str.slice(0, -1);

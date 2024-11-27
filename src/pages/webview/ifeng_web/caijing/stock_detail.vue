@@ -77,7 +77,7 @@ export default class extends Vue {
   $refs: any;
   mounted() {
     this._getCaijingStockDetail();
-    this.$refs['caijing-stock-detail-content'].style['height'] = window.innerHeight - 48 + 'px';
+    this.$refs['caijing-stock-detail-content'].style['height'] = `${window.innerHeight - 48}px`;
   }
   private lastUpdateTime: any = '';
   private stockName = {
@@ -108,7 +108,7 @@ export default class extends Vue {
     const scrollHeight = this.$refs['caijing-stock-detail-content'].scrollHeight;
     const scrollTop = this.$refs['caijing-stock-detail-content'].scrollTop;
     this.containerPositionY = scrollTop;
-    var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+    let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
     if (scrollTop + windowHeight >= scrollHeight) {
       if (this.noMoreNews) return;
       if (!this.pageMoreLocking) {
@@ -171,7 +171,6 @@ export default class extends Vue {
   }
 }
 </script>
-
 
 <style lang="scss" scoped>
 @import '../style/caijing_stock_detail.scss';

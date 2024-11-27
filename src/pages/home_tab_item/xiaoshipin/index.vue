@@ -122,7 +122,7 @@ export default class extends Vue {
     const scrollHeight = this.$refs['xiaoshipin-container'].scrollHeight;
     const scrollTop = this.$refs['xiaoshipin-container'].scrollTop;
     this.containerPositionY = scrollTop;
-    var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+    let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
     if (scrollTop + windowHeight - AppModule.bottomNavigationAndHomeHeaderHeight >= scrollHeight) {
       if (!this.load_more_loading_lock) {
         this.load_more_loading = true;

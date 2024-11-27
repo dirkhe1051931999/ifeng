@@ -5,7 +5,7 @@ const api = {
 };
 export const getSquarerecommend = (data: any): any => {
   let str = '?';
-  for (let key in data.params) {
+  for (const key in data.params) {
     str += `${key}=${data.params[key]}&`;
   }
   str = str.slice(0, -1);
@@ -16,7 +16,7 @@ export const getSquarerecommend = (data: any): any => {
 };
 export const getnNwsSquareColumn = (data: any): any => {
   let str = '?';
-  for (let key in data.params) {
+  for (const key in data.params) {
     str += `${key}=${data.params[key]}&`;
   }
   str = str.slice(0, -1);

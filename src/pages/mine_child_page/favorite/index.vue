@@ -6,16 +6,7 @@
     </div>
     <div class="p-t-50">
       <q-card flat>
-        <q-tabs
-          v-model="tab"
-          dense
-          class="text-grey"
-          active-color="primary"
-          indicator-color="primary"
-          align="justify"
-          narrow-indicator
-          @input="tabChange"
-        >
+        <q-tabs v-model="tab" dense class="text-grey" active-color="primary" indicator-color="primary" align="justify" narrow-indicator @input="tabChange">
           <q-tab name="all" label="全部" />
           <q-tab name="doc" label="文章" />
           <q-tab name="videoPage" label="视频" />
@@ -180,7 +171,6 @@ export default class extends Vue {
   }
 }
 </script>
-
 
 <style lang="scss" scoped>
 @import './index.scss';

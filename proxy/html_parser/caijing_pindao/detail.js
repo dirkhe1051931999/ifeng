@@ -1,8 +1,8 @@
-var axios = require('axios');
+let axios = require('axios');
 const defaultCode = 'sz300033';
 async function parseData(query) {
   let { code, onlynews, page, stockname } = query;
-  var regex = /(?<=\{).*(?=\})/g;
+  let regex = /(?<=\{).*(?=\})/g;
   try {
     let news;
     let zhishu;
@@ -24,7 +24,7 @@ async function parseData(query) {
       zhishu = await axios.get(`https://hq.finance.ifeng.com/q.php?l=${code || defaultCode}&f=json`);
       zhishu = zhishu.data;
       zhishu = zhishu.match(regex);
-      zhishu = JSON.parse('{' + zhishu[0] + '}');
+      zhishu = JSON.parse(`{${  zhishu[0]  }}`);
       // 股票名称
       stockname1 = await axios.get(`https://apiapp.finance.ifeng.com/getstockname?code=${code || defaultCode}&type=wx&callback=a`);
       stockname1 = stockname1.data;

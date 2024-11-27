@@ -3,12 +3,7 @@
     <ul class="tabs" ref="tabs" :class="activeShow ? 'active-show' : ''">
       <q-icon class="back" name="arrow_back_ios" @click.stop.prevent="hanlderClickTabBack" :class="activeShow ? 'active-show' : ''"></q-icon>
       <div class="tab-name" ref="tab-name" :style="activeShow ? 'width:100%' : ''">
-        <li
-          v-for="(item, index) in tabsList"
-          :key="index"
-          :class="[index === activeTabIndex ? 'active' : '', activeShow ? 'active-show' : '']"
-          @click.stop.prevent="handlerClickTabItem(index)"
-        >
+        <li v-for="(item, index) in tabsList" :key="index" :class="[index === activeTabIndex ? 'active' : '', activeShow ? 'active-show' : '']" @click.stop.prevent="handlerClickTabItem(index)">
           {{ item.name }}
         </li>
       </div>
@@ -18,9 +13,9 @@
       <div
         class="banner"
         ref="banner"
-        :style="`background-image: url(${
-          bannerMap.bannerImg ? bannerMap.bannerImg : bannerMap.newBannerImg ? bannerMap.newBannerImg : 'https://z3.ax1x.com/2021/07/26/WRhRns.png'
-        });padding-top:${bannerMap.newBannerImg ? '360px' : '150px'}`"
+        :style="`background-image: url(${bannerMap.bannerImg ? bannerMap.bannerImg : bannerMap.newBannerImg ? bannerMap.newBannerImg : 'https://z3.ax1x.com/2021/07/26/WRhRns.png'});padding-top:${
+          bannerMap.newBannerImg ? '360px' : '150px'
+        }`"
       ></div>
       <div class="header" v-if="pageLoaded">
         <p class="one">{{ bannerMap.title }}</p>
@@ -52,11 +47,7 @@
             <span class="index" v-if="_ < 9">0{{ _ + 1 }}</span>
             <span class="index" v-else>{{ _ + 1 }}</span>
             {{ _tab.name }}
-            <div
-              class="comment-sort"
-              v-if="_tab.type === 'comment' && _tab.list && _tab.list.length"
-              @click.stop.prevent="handlerClickCommentsSort(commentsSort.sortMethod)"
-            >
+            <div class="comment-sort" v-if="_tab.type === 'comment' && _tab.list && _tab.list.length" @click.stop.prevent="handlerClickCommentsSort(commentsSort.sortMethod)">
               <q-icon name="sort" class="icon"></q-icon>
               <span class="method"> {{ commentsSort.sortMethod }}</span>
               <q-spinner color="#afafaf" size="12px" :thickness="2" class="m-l-10" v-show="commentSorting" />
@@ -95,9 +86,7 @@
                       </li>
                     </ul>
                   </div>
-                  <p class="joinCount">
-                    {{ news.vote.joinCount | numberFormat }}人参与投票，当前{{ news.vote.expire === '1' ? '投票进行中' : '投票已结束' }}
-                  </p>
+                  <p class="joinCount">{{ news.vote.joinCount | numberFormat }}人参与投票，当前{{ news.vote.expire === '1' ? '投票进行中' : '投票已结束' }}</p>
                 </div>
                 <div class="bottom">
                   <span v-if="news.style.recomTag && news.style.recomTag.text === '凤凰卫视'" class="label">凤凰卫视</span>
@@ -185,12 +174,7 @@
                   {{ news.intro ? news.intro : news.title }}
                 </div>
                 <div class="video-placeholder">
-                  <img
-                    v-if="news.seriesTag"
-                    src="https://x0.ifengimg.com/cmpp/2021/0401/ced142b6f5d6dc0size6_w144_h60.png"
-                    alt=""
-                    class="seriesTag"
-                  />
+                  <img v-if="news.seriesTag" src="https://x0.ifengimg.com/cmpp/2021/0401/ced142b6f5d6dc0size6_w144_h60.png" alt="" class="seriesTag" />
                   <van-image :src="news.imageList[0].url" alt="" class="placeholder" radius="6" />
                   <img src="~assets/play-video-button.png" alt="" class="play-video-button" />
                   <p class="video-total-time">
@@ -297,11 +281,7 @@
                         <q-icon name="close" class="close"></q-icon>
                       </div>
                     </div>
-                    <div
-                      class="more"
-                      @click.stop.prevent="handlerClickComentsChildMore(news)"
-                      v-if="news.children.comments.length < Number(news.children.count)"
-                    >
+                    <div class="more" @click.stop.prevent="handlerClickComentsChildMore(news)" v-if="news.children.comments.length < Number(news.children.count)">
                       查看更多
                       <q-icon name="expand_circle_down" class="arrow"></q-icon>
                     </div>
@@ -414,7 +394,7 @@ export default class extends Vue {
   async mounted() {
     await this._getNewTopic();
     await this.$nextTick(async () => {
-      this.$refs['news-topic-wrap'].style['height'] = window.innerHeight - 46 + 'px';
+      this.$refs['news-topic-wrap'].style['height'] = `${window.innerHeight - 46}px`;
       for (let item of this.tabsList) {
         const $dom: any = this.$refs[item.id][0];
         this.tabsOffsetTopInterregional.push($dom.offsetTop - 40);
@@ -481,7 +461,7 @@ export default class extends Vue {
         }
       }
     }
-    var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+    let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
     if (scrollTop + windowHeight - 46 >= this.$refs['news-topic-wrap'].scrollHeight) {
       if (!this.load_more_loading_lock && this.tabsList[this.tabsList.length - 1] && this.tabsList[this.tabsList.length - 1].type === 'comment') {
         this.load_more_loading = true;
@@ -523,12 +503,12 @@ export default class extends Vue {
       case 'doc':
         params = getUrlParams(news.link.url);
         urlStr = json2Url(params);
-        this.$router.push('/news_detail/doc?' + urlStr);
+        this.$router.push(`/news_detail/doc?${urlStr}`);
         break;
       case 'short':
         params = getUrlParams(news.link.url);
         urlStr = json2Url(params);
-        this.$router.push('/news_detail/imglist?' + urlStr);
+        this.$router.push(`/news_detail/imglist?${urlStr}`);
         break;
       case 'phvideo':
         params = {
@@ -538,8 +518,8 @@ export default class extends Vue {
           type: 'video',
         };
         params = Object.assign(params, getUrlParams(news.link.weburl));
-        urlStr = json2Url(params) + '&' + news.link.queryString;
-        this.$router.push('/news_detail/video?' + urlStr);
+        urlStr = `${json2Url(params)}&${news.link.queryString}`;
+        this.$router.push(`/news_detail/video?${urlStr}`);
         break;
       default:
         break;
@@ -552,7 +532,7 @@ export default class extends Vue {
     this.commentsChildrenMoreLoading = true;
     this.showCommentsChildrenMore = true;
     this.$nextTick(async () => {
-      this.$refs['comment-children-more'].style['height'] = this.$refs['van-popup-for-comments-children'].$el.clientHeight - 50 - 38 + 'px';
+      this.$refs['comment-children-more'].style['height'] = `${this.$refs['van-popup-for-comments-children'].$el.clientHeight - 50 - 38}px`;
       const params = {
         doc_url: news.doc_url,
         comment_id: news.comment_id,
@@ -650,7 +630,6 @@ export default class extends Vue {
   }
 }
 </script>
-
 
 <style lang="scss" scoped>
 @import './style.scss';

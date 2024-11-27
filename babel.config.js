@@ -1,6 +1,16 @@
 /* eslint-env node */
 module.exports = {
-  presets: ['@quasar/babel-preset-app'],
+  presets: [
+    '@quasar/babel-preset-app',
+    [
+      '@babel/preset-env',
+      {
+        targets: {
+          node: 'current',
+        },
+      },
+    ],
+  ],
   plugins: [
     [
       'prismjs',

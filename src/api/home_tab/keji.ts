@@ -10,7 +10,7 @@ const api = {
 };
 export const getKejiNewsList = (data: any): any => {
   let str = '?';
-  for (let key in data.params) {
+  for (const key in data.params) {
     str += `${key}=${data.params[key]}&`;
   }
   str = str.slice(0, -1);
@@ -22,7 +22,7 @@ export const getKejiNewsList = (data: any): any => {
 };
 export const getKejiNewsRebangList = (data: any): any => {
   let str = '?';
-  for (let key in data.params) {
+  for (const key in data.params) {
     str += `${key}=${data.params[key]}&`;
   }
   str = str.slice(0, -1);
@@ -33,7 +33,7 @@ export const getKejiNewsRebangList = (data: any): any => {
 };
 export const getKejiNewsXinshijieList = (data: any): any => {
   let str = '?';
-  for (let key in data.params) {
+  for (const key in data.params) {
     str += `${key}=${data.params[key]}&`;
   }
   str = str.slice(0, -1);
@@ -45,7 +45,7 @@ export const getKejiNewsXinshijieList = (data: any): any => {
 };
 export const getKejiNewsPingceList = (data: any): any => {
   let str = '?';
-  for (let key in data.params) {
+  for (const key in data.params) {
     str += `${key}=${data.params[key]}&`;
   }
   str = str.slice(0, -1);
@@ -57,7 +57,7 @@ export const getKejiNewsPingceList = (data: any): any => {
 };
 export const getKejiNewsHuaixiaoxiList = (data: any): any => {
   let str = '?';
-  for (let key in data.params) {
+  for (const key in data.params) {
     str += `${key}=${data.params[key]}&`;
   }
   str = str.slice(0, -1);
@@ -69,7 +69,7 @@ export const getKejiNewsHuaixiaoxiList = (data: any): any => {
 };
 export const getKejiNewsYuanchuangList = (data: any): any => {
   let str = '?';
-  for (let key in data.params) {
+  for (const key in data.params) {
     str += `${key}=${data.params[key]}&`;
   }
   str = str.slice(0, -1);
@@ -81,7 +81,7 @@ export const getKejiNewsYuanchuangList = (data: any): any => {
 };
 export const getKejiNewsShenduList = (data: any): any => {
   let str = '?';
-  for (let key in data.params) {
+  for (const key in data.params) {
     str += `${key}=${data.params[key]}&`;
   }
   str = str.slice(0, -1);

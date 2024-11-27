@@ -54,7 +54,7 @@ export default class extends Vue {
   async mounted() {
     await this._getQualityReadingList();
     const $scroll: any = this.$refs['tabs-slide-page-qualityReading-wrapper'];
-    $scroll.style['height'] = window.innerHeight - 158 + 'px';
+    $scroll.style['height'] = `${window.innerHeight - 158}px`;
     this.bscroll = new BScroll('.tabs-slide-page-qualityReading-wrapper', { pullUpLoad: true });
     this.bscroll.on('pullingUp', this._pullingUpHandler);
   }

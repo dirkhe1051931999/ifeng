@@ -330,7 +330,7 @@ export default class extends Vue {
     const scrollHeight = this.$refs['kangyi-container'].scrollHeight;
     const scrollTop = this.$refs['kangyi-container'].scrollTop;
     this.containerPositionY = scrollTop;
-    var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+    let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
     if (scrollTop + windowHeight - AppModule.bottomNavigationAndHomeHeaderHeight >= scrollHeight) {
       if (!this.load_more_loading_lock) {
         this.load_more_loading = true;
@@ -360,7 +360,7 @@ export default class extends Vue {
         this.$router.push('/ifeng_web_kangyi_yimiao_progress');
       } else if (index === 3) {
         if (item.id.split('prov=')[1]) {
-          this.$router.push('/ifeng_web_kangyi_area?code=' + item.id.split('prov=')[1]);
+          this.$router.push(`/ifeng_web_kangyi_area?code=${item.id.split('prov=')[1]}`);
         }
       } else if (item.title === '国内疫情') {
         this.$router.push('/ifeng_web_kangyi_summary');

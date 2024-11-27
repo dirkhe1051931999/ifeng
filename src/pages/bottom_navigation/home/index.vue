@@ -120,14 +120,7 @@ import YuanchuangPage from 'src/pages/home_tab_item/yuanchuang/index.vue';
 import XianggangPage from 'src/pages/home_tab_item/xianggang/index.vue';
 
 import { AppModule } from 'src/store/modules/app';
-import {
-  get_user_bak_categories,
-  get_user_current_categories,
-  get_user_current_region,
-  set_user_bak_categories,
-  set_user_current_categories,
-  set_user_current_region,
-} from 'src/utils/db';
+import { get_user_bak_categories, get_user_current_categories, get_user_current_region, set_user_bak_categories, set_user_current_categories, set_user_current_region } from 'src/utils/db';
 import { cloneDeep } from 'lodash';
 import { TabHomeChengshiModule } from '@/store/modules/home_tab/chengshi';
 import { tabPageClassNameList, tabPageRefNameList } from './container_arr';
@@ -215,7 +208,7 @@ export default class extends Vue {
       } else {
         for (let i = 0; i < tabPageClassNameList.length; i++) {
           const _class: any = tabPageClassNameList[i];
-          const _dom: any = document.querySelector('.' + _class);
+          const _dom: any = document.querySelector(`.${_class}`);
           const _ref: any = tabPageRefNameList[i];
           if (!this.$refs[_ref]) {
             console.error(tabPageRefNameList[i], '不存在');
@@ -376,7 +369,7 @@ export default class extends Vue {
     const $appHomeTabChildren = Array.from(this.$refs['app-home-tab'].children);
     const $appHomeTab = this.$refs['app-home-tab'];
     let sum = 0;
-    for (var i = 0; i < index; i++) {
+    for (let i = 0; i < index; i++) {
       const item: any = $appHomeTabChildren[i];
       sum += item.clientWidth;
     }
@@ -399,9 +392,9 @@ export default class extends Vue {
   /*跑马灯 */
   private _verticalScrollAddItem() {
     const $hotKey = this.$refs['hot-key'];
-    var content = this.verticalScrollrollIndexData[this.verticalScrollrollIndex];
+    let content = this.verticalScrollrollIndexData[this.verticalScrollrollIndex];
     if ($hotKey.childNodes.length <= 1) {
-      var div = document.createElement('li');
+      let div = document.createElement('li');
       div.innerHTML = content;
       $hotKey.appendChild(div);
     } else {
@@ -426,7 +419,7 @@ export default class extends Vue {
   private _initialTab() {
     this.toggleTabName(this.INITIAL_TAB_INDEX);
     this._scrollTab();
-    this.$refs['app-home-page'].style['height'] = this.windowInnerHeight - AppModule.bottomNavigationAndHomeHeaderHeight + 'px';
+    this.$refs['app-home-page'].style['height'] = `${this.windowInnerHeight - AppModule.bottomNavigationAndHomeHeaderHeight}px`;
     if (!get_user_current_categories()) {
       set_user_current_categories(this.categories);
     }
@@ -446,7 +439,7 @@ export default class extends Vue {
     }
     this.verticalScrollrollIndexData = arr;
     this.$nextTick(() => {
-      this.$refs['hot-key'].style.height = this.verticalScrollHeight + 'px';
+      this.$refs['hot-key'].style.height = `${this.verticalScrollHeight}px`;
       this._verticalScrollAddItem();
       this.verticalScrollIntervalIds[0] = setInterval(this._verticalScrollAddItem, 2000);
     });

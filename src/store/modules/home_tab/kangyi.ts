@@ -1,15 +1,6 @@
 import { VuexModule, Module, Action, Mutation, getModule } from 'vuex-module-decorators';
 import store from '@/store';
-import {
-  getAreaYiqing,
-  getEditlistFeiyan,
-  getKangyiJingwai,
-  getKangyiOtherGuojia,
-  getKangyiQuanqiu,
-  getKangyiSummary,
-  getVaccinationProgress,
-  loadProvinceJson,
-} from 'src/api/home_tab/kangyi';
+import { getAreaYiqing, getEditlistFeiyan, getKangyiJingwai, getKangyiOtherGuojia, getKangyiQuanqiu, getKangyiSummary, getVaccinationProgress, loadProvinceJson } from 'src/api/home_tab/kangyi';
 
 export interface IKangyiState {}
 

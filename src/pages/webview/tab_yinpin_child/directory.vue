@@ -49,13 +49,7 @@
     </div>
     <div class="introduce" v-show="activeNavIndex === 1" ref="introduce">{{ bannerData.intro }}</div>
     <van-popup v-model="showSelectCount" position="bottom" :style="{ height: '30%' }">
-      <van-picker
-        title="选择集数"
-        show-toolbar
-        :columns="selectCountColumns"
-        @confirm="handleClickSelectCountConfirm"
-        @cancel="handleClickSelectCountCancel"
-      />
+      <van-picker title="选择集数" show-toolbar :columns="selectCountColumns" @confirm="handleClickSelectCountConfirm" @cancel="handleClickSelectCountCancel" />
     </van-popup>
     <van-popup v-model="showSelectResult" position="bottom" :style="{ height: '80%' }">
       <div class="list2" style="height: 100%">
@@ -97,8 +91,8 @@ export default class extends Vue {
   async mounted() {
     await this.getDirectory();
     await this.$nextTick(async () => {
-      this.$refs['list'].style['height'] = window.innerHeight - 278 + 10 + 'px';
-      this.$refs['introduce'].style['height'] = window.innerHeight - 278 + 10 + 'px';
+      this.$refs['list'].style['height'] = `${window.innerHeight - 278 + 10}px`;
+      this.$refs['introduce'].style['height'] = `${window.innerHeight - 278 + 10}px`;
       this.$list = this.$refs['list'];
     });
   }
@@ -131,7 +125,7 @@ export default class extends Vue {
   }
   private async monitorScrollEvent() {
     const scrollTop = this.$list.scrollTop;
-    var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+    let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
     if (scrollTop + windowHeight - 278 + 10 >= this.$refs['list'].scrollHeight) {
       if (!this.load_more_loading_lock) {
         this.load_more_loading = true;
@@ -189,7 +183,7 @@ export default class extends Vue {
       this.bannerData.total_count = total_count;
       this.bannerData.intro = info.intro;
       this.directoryList = list;
-      for (var i = 0; i < Math.ceil(total_count / 20); i++) {
+      for (let i = 0; i < Math.ceil(total_count / 20); i++) {
         this.selectCountColumns.push(`${i * 20 + 1}~${(i + 1) * 20 > total_count ? total_count : (i + 1) * 20}`);
       }
       this.hasLoadedData = true;
@@ -222,7 +216,6 @@ export default class extends Vue {
   }
 }
 </script>
-
 
 <style lang="scss" scoped>
 @import './style/directory.scss';

@@ -11,14 +11,14 @@ const upBorderColor = '#8A0000';
 const downColor = '#009d8d';
 const downBorderColor = '#008F28';
 function calculateMA(dayCount: any) {
-  var result = [];
-  for (var i = 0, len = data0.values.length; i < len; i++) {
+  let result = [];
+  for (let i = 0, len = data0.values.length; i < len; i++) {
     if (i < dayCount) {
       result.push('-');
       continue;
     }
-    var sum = 0;
-    for (var j = 0; j < dayCount; j++) {
+    let sum = 0;
+    for (let j = 0; j < dayCount; j++) {
       sum += +data0.values[i - j][1];
     }
     result.push(sum / dayCount);
@@ -28,7 +28,7 @@ function calculateMA(dayCount: any) {
 function splitData(rawData: any) {
   const categoryData = [];
   const values = [];
-  for (var i = 0; i < rawData.length; i++) {
+  for (let i = 0; i < rawData.length; i++) {
     categoryData.push(rawData[i].splice(0, 1)[0]);
     values.push(rawData[i]);
   }
@@ -141,7 +141,7 @@ export default class extends Vue {
     this.option.xAxis.data = arr0.categoryData;
     this.option.series[0].data = arr0.values;
     this.option.yAxis.min = this.min;
-    var myChart = window['echarts'].init(document.getElementById(this.cid));
+    let myChart = window['echarts'].init(document.getElementById(this.cid));
     myChart.setOption(this.option);
   }
   private data0: any = {};
@@ -203,7 +203,7 @@ export default class extends Vue {
         markPoint: {
           label: {
             formatter: function (param: any) {
-              return param != null ? Math.round(param.value) + '' : '';
+              return param != null ? `${Math.round(param.value)}` : '';
             },
           },
           data: [
@@ -233,7 +233,7 @@ export default class extends Vue {
           ],
           tooltip: {
             formatter: function (param: any) {
-              return param.name + '<br>' + (param.data.coord || '');
+              return `${param.name}<br>${param.data.coord || ''}`;
             },
           },
         },
@@ -316,6 +316,4 @@ export default class extends Vue {
 }
 </script>
 
-
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

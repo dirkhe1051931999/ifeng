@@ -52,7 +52,7 @@ export default class extends Vue {
     this.getDataLoading = true;
     await this.getBannerData();
     await this.getZhuiZongList();
-    this.$refs['zhuizong-wrap']['style']['height'] = window.innerHeight - 50 + 'px';
+    this.$refs['zhuizong-wrap']['style']['height'] = `${window.innerHeight - 50}px`;
     this.getDataLoading = false;
   }
   private getDataLoading = false;
@@ -71,7 +71,7 @@ export default class extends Vue {
     const scrollHeight = this.$refs['zhuizong-wrap'].scrollHeight;
     const scrollTop = this.$refs['zhuizong-wrap'].scrollTop;
     this.containerPositionY = scrollTop;
-    var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+    let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
     if (scrollTop + windowHeight - 50 >= scrollHeight) {
       if (!this.load_more_loading_lock) {
         this.load_more_loading = true;
@@ -83,10 +83,10 @@ export default class extends Vue {
     }
   }
   private handleClickItem(item: any) {
-    this.$router.push('/mine_child_page/zhuizong_detail?id=' + item.id);
+    this.$router.push(`/mine_child_page/zhuizong_detail?id=${item.id}`);
   }
   private handleClickItemChild(item: any) {
-    this.$router.push('/mine_child_page/zhuizong_detail?node=true&id=' + item.timelineId + '&nodeId=' + item.nodeId);
+    this.$router.push(`/mine_child_page/zhuizong_detail?node=true&id=${item.timelineId}&nodeId=${item.nodeId}`);
   }
   /* http */
   private async getBannerData() {
@@ -119,7 +119,6 @@ export default class extends Vue {
   }
 }
 </script>
-
 
 <style lang="scss" scoped>
 @import './index.scss';

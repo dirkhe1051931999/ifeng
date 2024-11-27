@@ -35,11 +35,7 @@
           </li>
         </div>
         <div class="yuleNewsList" v-if="yuleNewsList.length">
-          <li
-            v-for="news in yuleNewsList"
-            :key="news.id + Math.random().toString()"
-            :style="news.type === 'topic2' && news.newslist ? 'border:0' : ''"
-          >
+          <li v-for="news in yuleNewsList" :key="news.id + Math.random().toString()" :style="news.type === 'topic2' && news.newslist ? 'border:0' : ''">
             <!-- topic2 -->
             <div v-if="news.type === 'topic2' && news.newslist" class="topic2">
               <div class="topic2-title">
@@ -222,12 +218,7 @@
                     {{ item.intro ? item.intro : item.title }}
                   </div>
                   <div class="video-placeholder">
-                    <img
-                      v-if="item.seriesTag"
-                      src="https://x0.ifengimg.com/cmpp/2021/0401/ced142b6f5d6dc0size6_w144_h60.png"
-                      alt=""
-                      class="seriesTag"
-                    />
+                    <img v-if="item.seriesTag" src="https://x0.ifengimg.com/cmpp/2021/0401/ced142b6f5d6dc0size6_w144_h60.png" alt="" class="seriesTag" />
                     <van-image :src="item.imageList[0].url" alt="" class="placeholder" radius="6" />
                     <img src="~assets/play-video-button.png" alt="" class="play-video-button" />
                     <p class="video-total-time">
@@ -548,7 +539,7 @@ export default class extends Vue {
     const scrollHeight = this.$refs['yule-container'].scrollHeight;
     const scrollTop = this.$refs['yule-container'].scrollTop;
     this.containerPositionY = scrollTop;
-    var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+    let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
     if (scrollTop + windowHeight - AppModule.bottomNavigationAndHomeHeaderHeight >= scrollHeight) {
       if (!this.load_more_loading_lock) {
         this.load_more_loading = true;

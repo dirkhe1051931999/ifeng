@@ -8,4 +8,3 @@ export const permission: DirectiveOptions = {
     !that.$route.meta.modify ? el.remove() : () => 0;
   },
 };
-

@@ -1,8 +1,8 @@
-var axios = require('axios');
+let axios = require('axios');
 const stockname = '恒生指数';
 async function parseData(query) {
   let { code, have_news, have_minutely, have_daily, have_weekly, have_monthly, firstLoad, page, stockname } = query;
-  var regex = /(?<=\{).*(?=\})/g;
+  let regex = /(?<=\{).*(?=\})/g;
   try {
     let news = [];
     let zhishu;

@@ -23,13 +23,7 @@
         <div style="padding: 0 16px; margin-top: 10px">
           <div class="swiper-container bg-white yinpinSwiperList-container" style="height: 180px" v-if="yinpinSwiperList.length">
             <div class="swiper-wrapper">
-              <div
-                class="swiper-slide yinpinSwiperList-slide"
-                v-for="(item, index) in yinpinSwiperList"
-                :key="index"
-                style="width: 100%"
-                @click="toDirectory(item, index)"
-              >
+              <div class="swiper-slide yinpinSwiperList-slide" v-for="(item, index) in yinpinSwiperList" :key="index" style="width: 100%" @click="toDirectory(item, index)">
                 <van-image class="thumbnail" :src="item.thumbnail" lazy-load />
               </div>
             </div>
@@ -63,11 +57,7 @@
           </div>
         </div>
         <!-- 排行榜 -->
-        <div
-          class="swiper-container bg-white yinpinRankList-container"
-          style="margin-bottom: 10px; padding-top: 10px; padding-bottom: 10px"
-          v-if="yinpinRankList.length"
-        >
+        <div class="swiper-container bg-white yinpinRankList-container" style="margin-bottom: 10px; padding-top: 10px; padding-bottom: 10px" v-if="yinpinRankList.length">
           <div class="swiper-wrapper p-r-16" style="margin-left: 10px">
             <div class="swiper-slide yinpinRankList-slide shadow-3" v-for="(father, i) in yinpinRankList" :key="i" style="width: 90%">
               <div class="top">
@@ -217,7 +207,7 @@ export default class extends Vue {
     const scrollHeight = this.$refs['yinpin-container'].scrollHeight;
     const scrollTop = this.$refs['yinpin-container'].scrollTop;
     this.containerPositionY = scrollTop;
-    var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+    let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
     if (scrollTop + windowHeight - AppModule.bottomNavigationAndHomeHeaderHeight >= scrollHeight) {
       if (!this.load_more_loading_lock) {
         this.load_more_loading = true;
@@ -230,12 +220,12 @@ export default class extends Vue {
   }
   private handlerClickGridItem(item: any, index: number) {
     if (item.id !== 'audiomy') {
-      this.$router.push('/tab_yinpin_child/categories?cateid=' + item.link.cateid);
+      this.$router.push(`/tab_yinpin_child/categories?cateid=${item.link.cateid}`);
     }
     console.log(item, index);
   }
   private toDirectory(item: any, index: number) {
-    this.$router.push('/tab_yinpin_child/directory?aid=' + item.link.aid);
+    this.$router.push(`/tab_yinpin_child/directory?aid=${item.link.aid}`);
   }
   /*http*/
   private async _downCallback() {

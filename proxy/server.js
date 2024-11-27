@@ -51,7 +51,7 @@ app.use(
     onError(err, req, res, target) {},
     onClose(res, socket, head) {},
     changeOrigin: true,
-  }),
+  })
 );
 app.listen(3000, () => {
   console.log(`server is running on port ${3000}`);

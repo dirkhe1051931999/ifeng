@@ -1,10 +1,10 @@
 // import { UserModule } from '@/store/modules/user';
-import settings from '@/settings.json';
-import { VuexModule, Module, Mutation, Action, getModule } from 'vuex-module-decorators';
+import { Action, getModule, Module, Mutation, VuexModule } from 'vuex-module-decorators';
 import { RouteConfig } from 'vue-router';
 import { asyncRoutes, constantRoutes } from '@/router/routes';
 import store from '@/store';
-const hasPermission = (pagePermissionId: string[], asyncRoute: RouteConfig) => {
+
+const hasPermission = (pagePermissionId: string[], asyncRoute: any) => {
   if (asyncRoute.meta && asyncRoute.meta.pagePermissionId) {
     return pagePermissionId.includes('-1')
       ? true
@@ -30,7 +30,7 @@ export const filterAsyncRoutes = (asyncRoutes: RouteConfig[], pagePermissionId: 
 };
 export const filterAsyncRoutesEdit = (accessedRoutes: RouteConfig[], pageEditPermission: any, pagePermissionId: any) => {
   const res: RouteConfig[] = [];
-  accessedRoutes.forEach((route) => {
+  accessedRoutes.forEach((route: any) => {
     const r = { ...route };
     if (r.meta && r.meta.pagePermissionId && !pagePermissionId.includes('-1')) {
       if (r.children && r.children.length) {
@@ -50,6 +50,7 @@ export const filterAsyncRoutesEdit = (accessedRoutes: RouteConfig[], pageEditPer
   });
   return res;
 };
+
 export interface IPermissionState {
   routes: RouteConfig[];
   dynamicRoutes: RouteConfig[];
@@ -68,7 +69,7 @@ class Permission extends VuexModule implements IPermissionState {
 
   @Action({ rawError: true })
   public GenerateRoutes(data: any) {
-    let { pagePermissionId, pageEditPermission } = data;
+    const { pagePermissionId, pageEditPermission } = data;
     // if (settings.adminName.includes(UserModule.username)) {
     pagePermissionId.push('-1');
     // }

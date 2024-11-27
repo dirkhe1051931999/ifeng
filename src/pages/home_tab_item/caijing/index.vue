@@ -28,14 +28,7 @@
             </div>
           </div>
         </div>
-        <van-notice-bar
-          left-icon="volume-o"
-          :scrollable="false"
-          color="#1989fa"
-          background="#ecf9ff"
-          v-if="caijingFastmessagescrollList.length"
-          @click="handlerClickNoticeBar"
-        >
+        <van-notice-bar left-icon="volume-o" :scrollable="false" color="#1989fa" background="#ecf9ff" v-if="caijingFastmessagescrollList.length" @click="handlerClickNoticeBar">
           <van-swipe vertical class="caijing-notice-swipe" :autoplay="3000" :show-indicators="false">
             <van-swipe-item v-for="(item, index) in caijingFastmessagescrollList" :key="index" class="text-dot-1">{{ item.title }}</van-swipe-item>
           </van-swipe>
@@ -44,9 +37,7 @@
           <ul>
             <li v-for="(item, index) in dapanzhishuList" :key="index">
               <span class="name fs-14">{{ item.name }}</span>
-              <span class="last fs-14" :class="item.chg_pct.indexOf('-') === -1 ? (Number(item.chg_pct) === 0 ? '' : 'text-red') : 'text-green'">{{
-                item.last
-              }}</span>
+              <span class="last fs-14" :class="item.chg_pct.indexOf('-') === -1 ? (Number(item.chg_pct) === 0 ? '' : 'text-red') : 'text-green'">{{ item.last }}</span>
               <span class="chg_pct fs-14" :class="item.chg_pct.indexOf('-') === -1 ? (Number(item.chg_pct) === 0 ? '' : 'text-red') : 'text-green'"
                 >{{ item.chg_pct.indexOf('-') === -1 ? (Number(item.chg_pct) === 0 ? '' : '+') : '' }}{{ item.chg_pct }}%</span
               >
@@ -274,28 +265,34 @@ import { cloneDeep } from 'lodash';
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import { TabHomeCaijingModule } from '@/store/modules/home_tab/caijing';
 import { ImagePreview } from 'vant';
+
 @Component({
   name: 'home_tab_item_caijing',
 })
 export default class extends Vue {
   $refs: any;
+
   get currentTabId() {
     return 'caijing';
   }
+
   get activeTabIndex() {
     return TabHomeModule.activeTabIndex;
   }
+
   get currentIndex() {
     const categories: any = get_user_current_categories() ? cloneDeep(get_user_current_categories()) : [];
     const cur = categories.find((d: any) => d.id === this.currentTabId);
     const curIndex = categories.findIndex((d: any) => d.id === this.currentTabId);
     return curIndex;
   }
+
   get defaultbackreason() {
     const result: any = AppModule.config_backreason;
     if (result) return result['defaultbackreason'];
     else return [];
   }
+
   get currentPageIsLoaded() {
     const loadedCurrentCategoriesData: any = TabHomeModule.loadedCurrentCategoriesData;
     const cur = loadedCurrentCategoriesData.find((d: any) => d.id === this.currentTabId);
@@ -305,6 +302,7 @@ export default class extends Vue {
       return false;
     }
   }
+
   @Watch('activeTabIndex')
   async getFollowList(newVal: number, oldVal: number) {
     if (newVal === this.currentIndex) {
@@ -319,6 +317,7 @@ export default class extends Vue {
       }
     }
   }
+
   // 数据
   public containerPositionY = 0;
   private firstLoadData = true;
@@ -337,6 +336,7 @@ export default class extends Vue {
     size: 10,
     num: 1,
   };
+
   /*event*/
   async onRefresh() {
     this.pagination_params.num = 1;
@@ -345,11 +345,12 @@ export default class extends Vue {
     this.refreshSuccessText = this.caijingNewsList.length ? `已为您推荐 ${this.caijingNewsList.length} 条新内容` : '已更新到最新';
     this.isDownRefresh = false;
   }
+
   async monitorScrollEvent(e: any) {
     const scrollHeight = this.$refs['caijing-container'].scrollHeight;
     const scrollTop = this.$refs['caijing-container'].scrollTop;
     this.containerPositionY = scrollTop;
-    var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+    const windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
     if (scrollTop + windowHeight - AppModule.bottomNavigationAndHomeHeaderHeight >= scrollHeight) {
       if (!this.load_more_loading_lock) {
         this.load_more_loading = true;
@@ -360,6 +361,7 @@ export default class extends Vue {
       }
     }
   }
+
   private previewImage(images: any, index: number) {
     const arr = [];
     for (let item of images) {
@@ -371,12 +373,15 @@ export default class extends Vue {
       closeable: true,
     });
   }
+
   private handlerClickNoticeBar() {
     this.$router.push('/ifeng_web_caijing_zhiboshi');
   }
+
   private handlerClickDapanzhishuList() {
     this.$router.push('/ifeng_web_caijing_pindao');
   }
+
   /*http*/
   private async _downCallback() {
     let params: any = {
@@ -438,6 +443,7 @@ export default class extends Vue {
       console.log('err');
     }
   }
+
   private async _upCallback() {
     let params: any = {
       id: 'CJ33',
@@ -483,6 +489,7 @@ export default class extends Vue {
       this.load_more_loading = false;
     }
   }
+
   private async _getFinance_a_and_hk_stock_market() {
     let params: any = {};
     let form = {};

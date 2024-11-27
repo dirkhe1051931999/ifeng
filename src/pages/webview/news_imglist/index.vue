@@ -142,7 +142,7 @@ export default class extends Vue {
     await this.getShortList();
     this.pageLoaded = true;
     await this.$nextTick(() => {
-      this.$refs['news-detail-shortlist-wrap'].style['height'] = window.innerHeight - 38 + 'px';
+      this.$refs['news-detail-shortlist-wrap'].style['height'] = `${window.innerHeight - 38}px`;
       this.$dom = this.$refs['news-detail-shortlist-wrap'];
     });
   }
@@ -164,7 +164,7 @@ export default class extends Vue {
       const urlStr = json2Url(params);
       switch (news.type) {
         case 'short':
-          this.$router.push('/news_detail/doc?' + urlStr);
+          this.$router.push(`/news_detail/doc?${urlStr}`);
           break;
         default:
           break;
@@ -174,7 +174,7 @@ export default class extends Vue {
   private async monitorScrollEvent() {
     const scrollTop = this.$dom.scrollTop;
     this.containerPositionY = scrollTop;
-    var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+    let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
     if (scrollTop + windowHeight - 38 >= this.$dom.scrollHeight) {
       if (!this.load_more_loading_lock) {
         this.load_more_loading = true;

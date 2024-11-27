@@ -35,20 +35,10 @@
         <div class="kangyi-other-guojia-map1 hide" id="kangyi-other-guojia-map1" style="width: 100%; height: 300px"></div>
       </div>
       <div class="line">
-        <div
-          class="kangyi-other-guojia-line1"
-          id="kangyi-other-guojia-line1"
-          style="width: 100%; height: 250px"
-          :class="[activeLineIndex === 0 ? 'active-line' : '']"
-        >
+        <div class="kangyi-other-guojia-line1" id="kangyi-other-guojia-line1" style="width: 100%; height: 250px" :class="[activeLineIndex === 0 ? 'active-line' : '']">
           <van-loading size="12px" color="#969799">加载中...</van-loading>
         </div>
-        <div
-          class="kangyi-other-guojia-line2"
-          id="kangyi-other-guojia-line2"
-          style="width: 100%; height: 250px"
-          :class="[activeLineIndex === 1 ? 'active-line' : '']"
-        >
+        <div class="kangyi-other-guojia-line2" id="kangyi-other-guojia-line2" style="width: 100%; height: 250px" :class="[activeLineIndex === 1 ? 'active-line' : '']">
           <van-loading size="12px" color="#969799">加载中...</van-loading>
         </div>
         <div class="switch">
@@ -142,7 +132,7 @@ export default class extends Vue {
   }
   mounted() {
     this.ohterGuojiaData.name = this.$route.query.name;
-    this.$refs['kangyi-other-guojia-container'].style['height'] = window.innerHeight + 'px';
+    this.$refs['kangyi-other-guojia-container'].style['height'] = `${window.innerHeight}px`;
     this._getKangyiOtherGuojia();
   }
   private ohterGuojiaData: any = {
@@ -352,7 +342,6 @@ export default class extends Vue {
   }
 }
 </script>
-
 
 <style lang="scss" scoped>
 @import '../style/kangyi_other_guojia.scss';

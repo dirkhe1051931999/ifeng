@@ -1,4 +1,4 @@
-var axios = require('axios');
+let axios = require('axios');
 async function parseData(query) {
   try {
     // 大盘开盘与时间

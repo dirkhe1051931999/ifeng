@@ -241,7 +241,7 @@ export default class extends Vue {
   }
   mounted() {
     this._getKangyiSummary();
-    this.$refs['kangyi-summary-container'].style['height'] = window.innerHeight + 'px';
+    this.$refs['kangyi-summary-container'].style['height'] = `${window.innerHeight}px`;
   }
   private activeMapIndex = 0;
   private activeLineIndex = 0;
@@ -508,7 +508,7 @@ export default class extends Vue {
         code = key;
       }
     }
-    this.$router.push('/ifeng_web_kangyi_area?code=' + code);
+    this.$router.push(`/ifeng_web_kangyi_area?code=${code}`);
   }
   private handlerClickGuowaiTableDetail() {}
   private minitorScrollEvent() {
@@ -675,7 +675,6 @@ export default class extends Vue {
   }
 }
 </script>
-
 
 <style lang="scss" scoped>
 @import '../style/kangyi_summary.scss';
