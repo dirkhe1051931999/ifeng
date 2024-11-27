@@ -511,7 +511,7 @@ export default class extends Vue {
     num: 1,
   };
   /*event*/
-  private previewImage(images: any, index: number) {
+  private previewImage(images: any, index: any) {
     const arr = [];
     for (let item of images) {
       arr.push(item.url);
@@ -543,7 +543,7 @@ export default class extends Vue {
     this.refreshSuccessText = this.toutiaoData.length + this.toutiaoZhidingData.length ? `已为您推荐 ${this.toutiaoData.length + this.toutiaoZhidingData.length} 条新内容` : '已更新到最新';
     this.isDownRefresh = false;
   }
-  async monitorScrollEvent(e: any) {
+  async monitorScrollEvent() {
     const scrollHeight = this.$refs['toutiao-container'].scrollHeight;
     let scrollTop = this.$refs['toutiao-container'].scrollTop;
     this.containerPositionY = scrollTop;
@@ -565,7 +565,7 @@ export default class extends Vue {
         slidesPerView: 'auto',
         spaceBetween: 10,
         on: {
-          touchEnd: function (swiper: any, event: any) {
+          touchEnd: function (swiper: any) {
             if (swiper.changedTouches[0].pageX < 100 && this['realIndex'] === this['slides'].length - 1) {
               that.$router.push('/tab_home_qualityReading');
             }
@@ -576,7 +576,7 @@ export default class extends Vue {
         slidesPerView: 'auto',
         spaceBetween: 10,
         on: {
-          touchEnd: function (swiper: any, event: any) {
+          touchEnd: function () {
             console.log('marquee');
           },
         },
@@ -585,7 +585,7 @@ export default class extends Vue {
         slidesPerView: 'auto',
         spaceBetween: 10,
         on: {
-          touchEnd: function (swiper: any, event: any) {
+          touchEnd: function () {
             console.log('videoshortlist');
           },
         },

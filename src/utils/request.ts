@@ -1,6 +1,7 @@
-import settings from '../settings.json';
 import axios from 'axios';
-import { UserModule } from '../store/modules/user';
+import { UserModule } from '@/store/modules/user';
+import settings from 'src/settings.json';
+
 const isPro = process.env.NODE_ENV === 'production';
 const notAddUrlParamsWhiteList: any[] = [];
 const haveAuthParams: any[] = ['user_ifeng/api_user_userbasic/login'];
@@ -24,11 +25,37 @@ const commonUrlParams = {
   st: '16395595277916',
   sn: 'fcb480832205d27372f8e66d260e69d8',
 };
-
+const routeMap = {
+  'nine_ifeng/': '',
+  'config_nine_ifeng/': 'config/',
+  'uc_ifeng/': 'uc/',
+  'api_iclient_ifeng/': 'api_iclient/',
+  'shankapi_ifeng/': 'shankapi/',
+  'comment_ifeng/': 'comment_ifeng/',
+  'ximalaya_ifeng/': 'ximalaya_ifeng/',
+  'xiaoshuo_ifeng/': 'xiaoshuo_ifeng/',
+  'user_ifeng/': 'user_ifeng/',
+  'id_ifeng/': 'id_ifeng/',
+  'group_ifeng/': 'group_ifeng/',
+  'external_ifeng/': 'external_ifeng/',
+  'commoncomment_ifeng/': 'commoncomment_ifeng/',
+};
+// 转换URL的函数
+const transformUrl = (url: string, baseUrl: string) => {
+  for (const key in routeMap) {
+    if (url.indexOf(key) !== -1) {
+      return url.replace(key, routeMap[key]);
+    }
+  }
+  return url;
+};
+const baseUrl = `http://${settings.proxy_ip}:${settings.proxy_ip_port}/`;
 axios.defaults.timeout = 25000;
+axios.defaults.baseURL = isPro ? baseUrl : `http://127.0.0.1:${settings.proxy_ip_port}/`;
 // Request interceptors
 axios.interceptors.request.use(
   (config: any) => {
+    config.url = transformUrl(config.url, baseUrl);
     if (UserModule.token && !openAPI.includes(config.url.split('/')[0])) {
       const authConfig = {
         token: UserModule.token,

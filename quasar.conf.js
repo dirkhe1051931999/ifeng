@@ -39,10 +39,6 @@ module.exports = configure((ctx) => {
       // Options below are automatically set depending on the env, set them if you want to override
       extractCSS: false,
       distDir: ctx.modeName === 'spa' ? 'dist' : `dist/${ctx.modeName}`,
-      // html里面可以获取到的变量
-      env: {
-        ip: ctx.dev ? `http://${settings.proxy_ip}:${settings.proxy_ip_port}` : `http://${settings.proxy_ip}:${settings.proxy_ip_port}`,
-      },
       // https://quasar.dev/quasar-cli/handling-webpack
       extendWebpack(cfg) {
         // linting is slow in TS projects, we execute it only for production builds
@@ -66,107 +62,6 @@ module.exports = configure((ctx) => {
       https: false,
       port: 9102,
       open: true, // opens browser window automatically
-      proxy: {
-        // proxy all requests starting with /api to jsonplaceholder
-        '/nine_ifeng': {
-          target: `http://${settings.proxy_ip}:${settings.proxy_ip_port}`,
-          changeOrigin: true,
-          pathRewrite: {
-            '^/nine_ifeng': '',
-          },
-        },
-        '/config_nine_ifeng': {
-          target: `http://${settings.proxy_ip}:${settings.proxy_ip_port}/config`,
-          changeOrigin: true,
-          pathRewrite: {
-            '^/config_nine_ifeng': '',
-          },
-        },
-        '/uc_ifeng': {
-          target: `http://${settings.proxy_ip}:${settings.proxy_ip_port}/uc`,
-          changeOrigin: true,
-          pathRewrite: {
-            '^/uc_ifeng': '',
-          },
-        },
-        '/api_iclient_ifeng': {
-          target: `http://${settings.proxy_ip}:${settings.proxy_ip_port}/api_iclient`,
-          changeOrigin: true,
-          pathRewrite: {
-            '^/api_iclient_ifeng': '',
-          },
-        },
-        '/shankapi_ifeng': {
-          target: `http://${settings.proxy_ip}:${settings.proxy_ip_port}/shankapi`,
-          changeOrigin: true,
-          pathRewrite: {
-            '^/shankapi_ifeng': '',
-          },
-        },
-        '/comment_ifeng': {
-          target: `http://${settings.proxy_ip}:${settings.proxy_ip_port}/comment_ifeng`,
-          changeOrigin: true,
-          pathRewrite: {
-            '^/comment_ifeng': '',
-          },
-        },
-        '/ximalaya_ifeng': {
-          target: `http://${settings.proxy_ip}:${settings.proxy_ip_port}/ximalaya_ifeng`,
-          changeOrigin: true,
-          pathRewrite: {
-            '^/ximalaya_ifeng': '',
-          },
-        },
-        '/xiaoshuo_ifeng': {
-          target: `http://${settings.proxy_ip}:${settings.proxy_ip_port}/xiaoshuo_ifeng`,
-          changeOrigin: true,
-          pathRewrite: {
-            '^/xiaoshuo_ifeng': '',
-          },
-        },
-        '/user_ifeng': {
-          target: `http://${settings.proxy_ip}:${settings.proxy_ip_port}/user_ifeng`,
-          changeOrigin: true,
-          pathRewrite: {
-            '^/user_ifeng': '',
-          },
-        },
-        '/id_ifeng': {
-          target: `http://${settings.proxy_ip}:${settings.proxy_ip_port}/id_ifeng`,
-          changeOrigin: true,
-          pathRewrite: {
-            '^/id_ifeng': '',
-          },
-        },
-        '/group_ifeng': {
-          target: `http://${settings.proxy_ip}:${settings.proxy_ip_port}/group_ifeng`,
-          changeOrigin: true,
-          pathRewrite: {
-            '^/group_ifeng': '',
-          },
-        },
-        '/external_ifeng': {
-          target: `http://${settings.proxy_ip}:${settings.proxy_ip_port}/external_ifeng`,
-          changeOrigin: true,
-          pathRewrite: {
-            '^/external_ifeng': '',
-          },
-        },
-        '/commoncomment_ifeng': {
-          target: `http://${settings.proxy_ip}:${settings.proxy_ip_port}/commoncomment_ifeng`,
-          changeOrigin: true,
-          pathRewrite: {
-            '^/commoncomment_ifeng': '',
-          },
-        },
-        '/default': {
-          target: `http://${settings.proxy_ip}:${settings.proxy_ip_port}/`,
-          changeOrigin: true,
-          pathRewrite: {
-            '^/default': '',
-          },
-        },
-      },
     },
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-framework
     framework: {

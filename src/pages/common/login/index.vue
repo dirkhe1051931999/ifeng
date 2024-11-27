@@ -100,7 +100,7 @@ export default class extends Vue {
     const _count = this.count;
     this.count_down = _count;
     this.show_count_down = true;
-    var timer = setInterval(() => {
+    const timer = setInterval(() => {
       let cur = +new Date();
       count--;
       this.count_down = count;

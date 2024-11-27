@@ -112,7 +112,7 @@ export default class extends Vue {
   private showPlayPageList = false;
 
   /*event */
-  private handleBeforePlay(next: Function) {
+  private handleBeforePlay(next: any) {
     this.$set(this, 'currentPlayIndex', this.$refs.audioPlayer.currentPlayIndex);
     this.$set(this, 'currentPlayItem', this.playPageList[this.$refs.audioPlayer.currentPlayIndex]);
     this.$refs.title.innerHTML = this.currentPlayItem.title;
@@ -120,7 +120,7 @@ export default class extends Vue {
   }
 
   private handleClickItem(item: any, index: number) {
-    if (item.link.tid === this.currentPlayItem.link.tid) return;
+    // if (item.link.tid === this.currentPlayItem.link.tid) return;
     // this.$set(this, 'currentPlayIndex', index);
     // this.$set(this, 'currentPlayItem', this.playPageList[index]);
     // this.$refs.title.innerHTML = this.currentPlayItem.title;

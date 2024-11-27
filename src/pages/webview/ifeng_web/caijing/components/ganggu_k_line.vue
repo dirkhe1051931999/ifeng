@@ -6,25 +6,12 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
+
 const upColor = '#cf2a2a';
 const upBorderColor = '#8A0000';
 const downColor = '#009d8d';
 const downBorderColor = '#008F28';
-function calculateMA(dayCount: any) {
-  let result = [];
-  for (let i = 0, len = data0.values.length; i < len; i++) {
-    if (i < dayCount) {
-      result.push('-');
-      continue;
-    }
-    let sum = 0;
-    for (let j = 0; j < dayCount; j++) {
-      sum += +data0.values[i - j][1];
-    }
-    result.push(sum / dayCount);
-  }
-  return result;
-}
+
 function splitData(rawData: any) {
   const categoryData = [];
   const values = [];
@@ -37,6 +24,7 @@ function splitData(rawData: any) {
     values: values,
   };
 }
+
 const data0 = splitData([
   ['2013/1/24', 2320.26, 2320.26, 2287.3, 2362.94],
   ['2013/1/25', 2300, 2291.3, 2288.26, 2308.38],
@@ -127,11 +115,29 @@ const data0 = splitData([
   ['2013/6/7', 2242.26, 2210.9, 2205.07, 2250.63],
   ['2013/6/13', 2190.1, 2148.35, 2126.22, 2190.1],
 ]);
+
+function calculateMA(dayCount: any) {
+  let result = [];
+  for (let i = 0, len = data0.values.length; i < len; i++) {
+    if (i < dayCount) {
+      result.push('-');
+      continue;
+    }
+    let sum = 0;
+    for (let j = 0; j < dayCount; j++) {
+      sum += +data0.values[i - j][1];
+    }
+    result.push(sum / dayCount);
+  }
+  return result;
+}
+
 @Component({ name: 'ganggu_k_line' })
 export default class extends Vue {
   @Prop({ default: '' }) private cid!: string;
   @Prop({ default: [] }) private data!: any[];
   @Prop({ default: '0' }) private min!: string;
+
   mounted() {
     const arr = [];
     for (let item of this.data) {
@@ -144,6 +150,7 @@ export default class extends Vue {
     let myChart = window['echarts'].init(document.getElementById(this.cid));
     myChart.setOption(this.option);
   }
+
   private data0: any = {};
   private option: any = {
     tooltip: {
@@ -203,7 +210,7 @@ export default class extends Vue {
         markPoint: {
           label: {
             formatter: function (param: any) {
-              return param != null ? `${Math.round(param.value)}` : '';
+              return param !== null ? `${Math.round(param.value)}` : '';
             },
           },
           data: [
