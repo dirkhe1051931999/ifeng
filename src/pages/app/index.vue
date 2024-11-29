@@ -35,8 +35,8 @@ export default class extends Vue {
     this._getBaseConfig();
   }
 
-  private activeNavigateIndex = 0;
-  private navigationArr = [
+  public activeNavigateIndex = 0;
+  public navigationArr = [
     {
       name: '新闻',
       icon: 'icon-news',
@@ -55,7 +55,7 @@ export default class extends Vue {
     },
   ];
 
-  private async _getBaseConfig() {
+  public async _getBaseConfig() {
     if (!get_config_backreason_key()) {
       const result = await AppModule.getBaseConfig({ headLogoType: '3', province: '', city: '', statusHeight: '29' });
       set_config_backreason_key(result['backreason']);
@@ -69,3 +69,4 @@ export default class extends Vue {
   width: 100%;
 }
 </style>
+>

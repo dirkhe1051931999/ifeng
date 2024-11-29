@@ -44,31 +44,31 @@
 //   }
 
 //   @Mutation
-//   private SET_TOKEN(token: string) {
+//   public SET_TOKEN(token: string) {
 //     this.token = token;
 //   }
 
 //   @Mutation
-//   private SET_USERNAME(username: string) {
+//   public SET_USERNAME(username: string) {
 //     this.username = username;
 //   }
 
 //   @Mutation
-//   private SET_AVATAR(avatar: string) {
+//   public SET_AVATAR(avatar: string) {
 //     this.avatar = avatar;
 //   }
 //   @Mutation
-//   private SET_INTRODUCTION(introduction: string) {
+//   public SET_INTRODUCTION(introduction: string) {
 //     this.introduction = introduction;
 //   }
 
 //   @Mutation
-//   private SET_PAGE_EDIT_PERMISSION(data: any) {
+//   public SET_PAGE_EDIT_PERMISSION(data: any) {
 //     this.pageEditPermission = data;
 //   }
 
 //   @Mutation
-//   private SET_EMAIL(email: string) {
+//   public SET_EMAIL(email: string) {
 //     this.email = email;
 //   }
 //   // 登录

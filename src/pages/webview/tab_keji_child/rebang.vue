@@ -46,20 +46,20 @@ export default class extends Vue {
       }
     });
   }
-  private rebangList: any[] = [];
-  private getDataLoading = false;
-  private containerPositionY = 0;
+  public rebangList: any[] = [];
+  public getDataLoading = false;
+  public containerPositionY = 0;
   /*event */
   async monitorScrollEvent(e: any) {
     const scrollTop = this.$refs['tab_keji_child_rebang'].scrollTop;
     this.containerPositionY = scrollTop;
   }
-  private handleClickRebangItem(item: any, index: number) {
+  public handleClickRebangItem(item: any, index: number) {
     console.log(item);
     this.$router.push(`/news_theme?groupid=${item.id}`);
   }
   /*http*/
-  private async getList() {
+  public async getList() {
     try {
       this.getDataLoading = true;
       const result = await TabHomeKejiModule.getKejiNewsRebangList({ params: {} });

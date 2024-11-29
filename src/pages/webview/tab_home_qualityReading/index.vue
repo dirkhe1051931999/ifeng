@@ -58,31 +58,31 @@ export default class extends Vue {
     this.bscroll = new BScroll('.tabs-slide-page-qualityReading-wrapper', { pullUpLoad: true });
     this.bscroll.on('pullingUp', this._pullingUpHandler);
   }
-  private bscroll: any;
-  private pagination = {
+  public bscroll: any;
+  public pagination = {
     page: 1,
     pageSize: 10,
   };
-  private isPullUpLoad = false;
-  private newsList = [];
-  private loadingTip = '加载中...';
+  public isPullUpLoad = false;
+  public newsList = [];
+  public loadingTip = '加载中...';
 
   // event
-  private handlerClickBack() {
+  public handlerClickBack() {
     this.$router.back();
   }
-  private handlerClickShare() {
+  public handlerClickShare() {
     handlerQuasarShare('sec', {});
   }
   // http
-  private async _getQualityReadingList() {
+  public async _getQualityReadingList() {
     const { data } = await TabHomeToutiaoModule.getQualityReadingList({ page: this.pagination.page });
     const { shareInfo, list } = data;
     this.newsList = list;
     AppModule.SET_ShareInfo(shareInfo);
     return Promise.resolve(true);
   }
-  private async _pullingUpHandler() {
+  public async _pullingUpHandler() {
     try {
       if (!this.isPullUpLoad) {
         this.pagination.page++;

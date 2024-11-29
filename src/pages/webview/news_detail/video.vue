@@ -1,10 +1,7 @@
 <template>
   <div class="news-detail-video">
     <div class="loading-page" v-if="!pageLoaded">
-      <div class="p-t-30">
-        <q-spinner color="primary" size="22px" :thickness="2" class="m-r-10" />
-        努力加载中...
-      </div>
+      <DetailLoading />
     </div>
     <div class="video-player" v-if="pageLoaded">
       <InlineVideo :src="singleVideoInfo.videoURL" :poster="singleVideoInfo.trimImgURL" class="player"></InlineVideo>
@@ -85,7 +82,7 @@
                     </div>
                   </div>
                   <div class="b">
-                    <span class="time" v-if="father.comment_date">{{ father.comment_date | getDateDiff }}</span>
+                    <span class="time" v-if="father.comment_date">{{ father.comment_date | relativeTime }}</span>
                     <span class="split"></span>
                     <span class="reply">回复</span>
                   </div>
@@ -116,7 +113,7 @@
                       </div>
                     </div>
                     <div class="b">
-                      <span class="time" v-if="child.comment_date">{{ child.comment_date | getDateDiff }}</span>
+                      <span class="time" v-if="child.comment_date">{{ child.comment_date | relativeTime }}</span>
                       <span class="split"></span>
                       <span class="reply">回复</span>
                     </div>
@@ -163,7 +160,7 @@
               </div>
               <div class="c">{{ commentsOwnerMap.comment_contents }}</div>
               <div class="b">
-                <span class="time" v-if="commentsOwnerMap.comment_date">{{ commentsOwnerMap.comment_date | getDateDiff }}</span>
+                <span class="time" v-if="commentsOwnerMap.comment_date">{{ commentsOwnerMap.comment_date | relativeTime }}</span>
                 <span class="split"></span>
                 <span class="reply">回复</span>
               </div>
@@ -187,7 +184,7 @@
               </div>
               <div class="c">{{ child.comment_contents }}</div>
               <div class="b">
-                <span class="time" v-if="child.comment_date">{{ child.comment_date | getDateDiff }}</span>
+                <span class="time" v-if="child.comment_date">{{ child.comment_date | relativeTime }}</span>
                 <span class="split"></span>
                 <span class="reply">回复</span>
               </div>
@@ -225,14 +222,18 @@ import { Component, Vue, Watch } from 'vue-property-decorator';
 import InlineVideo from '@/components/inlineVideo/index.vue';
 import { getUrlParams, json2Url } from '@/utils';
 import { handlerQuasarShare } from '@/utils/share';
+import DetailLoading from '@/components/detailLoading/index.vue';
+
 @Component({
   name: 'news-detail-video',
   components: {
+    DetailLoading,
     InlineVideo,
   },
 })
 export default class extends Vue {
   $refs: any;
+
   @Watch('$route')
   onchange(to: any, from: any) {
     if (to.path === '/news_detail/video') {
@@ -246,50 +247,54 @@ export default class extends Vue {
       }
     }
   }
-  private $dom: any;
-  private pageLoaded = false;
-  private containerPositionY = 0;
-  private commentResult = {};
-  private relatedVideos: any[] = [];
-  private singleVideoInfo = {};
+
+  public $dom: any;
+  public pageLoaded = false;
+  public containerPositionY = 0;
+  public commentResult = {};
+  public relatedVideos: any[] = [];
+  public singleVideoInfo = {};
   // 评论排序，分页相关
-  private commentsPaginationParams = {
+  public commentsPaginationParams = {
     num: 1,
     orderby: 'integral',
     pagesize: 10,
   };
-  private commentsSort = {
+  public commentsSort = {
     sortMethod: '按时间',
     sortTitle: '热门评论',
   };
-  private commentsMap = {
+  public commentsMap = {
     count: 0,
     join_count: 0,
     comments: [],
     allow_comment: 1,
     newComments: [],
   };
-  private commentsChildrenMoreList: any[] = [];
-  private commentsOwnerMap: any = {};
-  private commentSorting = false;
-  private load_more_loading_lock = false;
-  private load_more_loading = false;
-  private load_more_no_data = '';
-  private showCommentsChildrenMore = false;
-  private commentsChildrenMoreLoading = false;
+  public commentsChildrenMoreList: any[] = [];
+  public commentsOwnerMap: any = {};
+  public commentSorting = false;
+  public load_more_loading_lock = false;
+  public load_more_loading = false;
+  public load_more_no_data = '';
+  public showCommentsChildrenMore = false;
+  public commentsChildrenMoreLoading = false;
+
   async mounted() {
     await this.getNewsDetail(this.$route.query);
     this.pageLoaded = true;
-    await this.$nextTick(() => {
+    this.$nextTick(() => {
       this.$refs['news-detail-video-wrap'].style['height'] = `${window.innerHeight - 46 - 220}px`;
       this.$dom = this.$refs['news-detail-video-wrap'];
     });
   }
+
   /**event */
-  private handleClickShare() {
+  public handleClickShare() {
     handlerQuasarShare('app', {});
   }
-  private handlerClickNewsItem(news: any) {
+
+  public handlerClickNewsItem(news: any) {
     if (news.type === 'phvideo') {
       let params = {
         guid: news.link.url,
@@ -302,7 +307,8 @@ export default class extends Vue {
       this.$router.push(`/news_detail/video?${urlStr}`);
     }
   }
-  private async monitorScrollEvent() {
+
+  public async monitorScrollEvent() {
     const scrollTop = this.$dom.scrollTop;
     this.containerPositionY = scrollTop;
     let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
@@ -322,8 +328,9 @@ export default class extends Vue {
       }
     }
   }
+
   /**http */
-  private async getNewsDetail(params: any) {
+  public async getNewsDetail(params: any) {
     let commentParams: any = {
       doc_url: params.doc_url,
       p: this.commentsPaginationParams.num,
@@ -359,7 +366,8 @@ export default class extends Vue {
     this.commentsMap.newComments = commentResult.comments;
     return Promise.resolve();
   }
-  private handlerClickComentsChildMore(news: any) {
+
+  public handlerClickComentsChildMore(news: any) {
     this.commentsOwnerMap = {};
     this.commentsChildrenMoreList = [];
     this.commentsChildrenMoreLoading = true;
@@ -378,7 +386,8 @@ export default class extends Vue {
       this.commentsChildrenMoreLoading = false;
     });
   }
-  private async handlerClickCommentsSort(method: string) {
+
+  public async handlerClickCommentsSort(method: string) {
     if (this.commentSorting) {
       return;
     }
@@ -398,7 +407,8 @@ export default class extends Vue {
     this.commentsMap.newComments = commentResult.comments;
     this.commentSorting = false;
   }
-  private async _getCommentsMore() {
+
+  public async _getCommentsMore() {
     let commentParams: any = {
       doc_url: this.$route.query.doc_url,
       p: this.commentsPaginationParams.num,

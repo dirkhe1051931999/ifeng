@@ -44,14 +44,14 @@ export default class extends Vue {
     this.$refs['quanzi_quanyou-wrap']['style']['height'] = `${window.innerHeight - 50}px`;
     this.getDataLoading = false;
   }
-  private getDataLoading = false;
-  private ownerData = [];
-  private memberData = [];
+  public getDataLoading = false;
+  public ownerData = [];
+  public memberData = [];
   public containerPositionY = 0;
-  private load_more_loading = false;
-  private load_more_loading_lock = false;
-  private load_more_no_data = '';
-  private pagination_params = {
+  public load_more_loading = false;
+  public load_more_loading_lock = false;
+  public load_more_no_data = '';
+  public pagination_params = {
     size: 10,
     num: 1,
   };
@@ -72,7 +72,7 @@ export default class extends Vue {
     }
   }
   /* http */
-  private async getOrgUserList() {
+  public async getOrgUserList() {
     const owner = await MineModule.getOrgUserList({
       pages: {
         current: 1,
@@ -101,7 +101,7 @@ export default class extends Vue {
     this.memberData = member.data.records;
     return Promise.resolve();
   }
-  private async _upCallback() {
+  public async _upCallback() {
     const member = await MineModule.getOrgUserList({
       pages: {
         current: this.pagination_params.num,

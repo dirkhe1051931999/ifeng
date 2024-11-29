@@ -80,12 +80,12 @@ export default class extends Vue {
   mounted() {
     this._getVaccinationProgress();
   }
-  private headerImg = '';
-  private runtimeData: any = {};
-  private runtimeDataInfo: any = {};
-  private areaData: any[] = [];
+  public headerImg = '';
+  public runtimeData: any = {};
+  public runtimeDataInfo: any = {};
+  public areaData: any[] = [];
   /**event */
-  private _initMap(data: any) {
+  public _initMap(data: any) {
     let chart = window['echarts'].init(document.getElementById('kangyi-dayimiao-progress-map'));
     chart.setOption({
       tooltip: {
@@ -143,7 +143,7 @@ export default class extends Vue {
       ],
     });
   }
-  private _initLineChart(date: any, arr2PerData: any, arr2SumData: any) {
+  public _initLineChart(date: any, arr2PerData: any, arr2SumData: any) {
     let myChart1 = window['echarts'].init(document.getElementById('kangyi-dayimiao-progress-line-chart-sum'));
     let myChart2 = window['echarts'].init(document.getElementById('kangyi-dayimiao-progress-line-chart-per'));
     myChart1.setOption({
@@ -229,7 +229,7 @@ export default class extends Vue {
     });
   }
   /**http */
-  private async _getVaccinationProgress() {
+  public async _getVaccinationProgress() {
     const result = await TabHomeKangyiModule.getVaccinationProgress({});
     if (result[0]) {
       const arr1 = [];

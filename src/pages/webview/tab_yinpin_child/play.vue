@@ -105,21 +105,21 @@ export default class extends Vue {
     this.pageLoaded = true;
   }
 
-  private lastPage: any = 1;
-  private currentPlayIndex: any = 0;
-  private currentPlayItem: any;
-  private pageLoaded = false;
-  private showPlayPageList = false;
+  public lastPage: any = 1;
+  public currentPlayIndex: any = 0;
+  public currentPlayItem: any;
+  public pageLoaded = false;
+  public showPlayPageList = false;
 
   /*event */
-  private handleBeforePlay(next: any) {
+  public handleBeforePlay(next: any) {
     this.$set(this, 'currentPlayIndex', this.$refs.audioPlayer.currentPlayIndex);
     this.$set(this, 'currentPlayItem', this.playPageList[this.$refs.audioPlayer.currentPlayIndex]);
     this.$refs.title.innerHTML = this.currentPlayItem.title;
     next();
   }
 
-  private handleClickItem(item: any, index: number) {
+  public handleClickItem(item: any, index: number) {
     // if (item.link.tid === this.currentPlayItem.link.tid) return;
     // this.$set(this, 'currentPlayIndex', index);
     // this.$set(this, 'currentPlayItem', this.playPageList[index]);

@@ -11,15 +11,15 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
   name: 'ganggu_fenshi',
 })
 export default class extends Vue {
-  @Prop({ default: '' }) private cid!: string;
-  @Prop({ default: '0' }) private min!: string;
-  @Prop({ default: [] }) private data!: any[];
-  @Prop({ default: [] }) private date!: any[];
+  @Prop({ default: '' }) public cid!: string;
+  @Prop({ default: '0' }) public min!: string;
+  @Prop({ default: [] }) public data!: any[];
+  @Prop({ default: [] }) public date!: any[];
   mounted() {
     let myChart = window['echarts'].init(document.getElementById(this.cid));
     myChart.setOption(this.option);
   }
-  private option: any = {
+  public option: any = {
     tooltip: {
       trigger: 'axis',
       position: function (pt: any) {

@@ -9,8 +9,8 @@ import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 
 @Component
 export default class extends Vue {
-  @Prop({ default: '' }) private src!: string;
-  @Prop({ default: '' }) private poster!: string;
+  @Prop({ default: '' }) public src!: string;
+  @Prop({ default: '' }) public poster!: string;
   mounted() {
     const dp = new window['DPlayer']({
       container: document.getElementById('ifeng-dplayer'),

@@ -33,7 +33,7 @@
               <img :src="item.userinfo.avatar" alt="" class="img" />
               <div>
                 <div class="nickName">{{ item.userinfo.nickName }}</div>
-                <div class="editTime">{{ item.content.editTime | getDateDiff }}</div>
+                <div class="editTime">{{ item.content.editTime | relativeTime }}</div>
               </div>
             </div>
             <div class="content">
@@ -97,17 +97,17 @@ export default class extends Vue {
       this.$refs['quanzi-wrap'].style['height'] = `${window.innerHeight - 50}px`;
     });
   }
-  private getDataLoading = false;
+  public getDataLoading = false;
   public containerPositionY = 0;
-  private load_more_loading = false;
-  private load_more_loading_lock = false;
-  private load_more_no_data = '';
-  private pagination_params = {
+  public load_more_loading = false;
+  public load_more_loading_lock = false;
+  public load_more_no_data = '';
+  public pagination_params = {
     size: 10,
     num: 1,
   };
-  private topData = [];
-  private discoverData = [];
+  public topData = [];
+  public discoverData = [];
   /* event */
   async monitorScrollEvent(e: any) {
     const scrollHeight = this.$refs['quanzi-wrap'].scrollHeight;
@@ -124,7 +124,7 @@ export default class extends Vue {
       }
     }
   }
-  private JSON_PARSE(data: string, txt: string) {
+  public JSON_PARSE(data: string, txt: string) {
     try {
       const arr = JSON.parse(data);
       for (let item of arr) {
@@ -189,10 +189,10 @@ export default class extends Vue {
       console.log(error);
     }
   }
-  private handleClickQuanzi(item: any) {
+  public handleClickQuanzi(item: any) {
     this.$router.push(`/mine_child_page/quanzi_detail?orgId=${item.org.id}`);
   }
-  private previewImage(images: any, index: number) {
+  public previewImage(images: any, index: number) {
     const arr = [];
     for (let item of images) {
       let urls = item.link.split('/');
@@ -216,7 +216,7 @@ export default class extends Vue {
     });
   }
   /* http */
-  private async getQuanziTopData() {
+  public async getQuanziTopData() {
     const data = {
       pages: {
         current: 1,
@@ -233,7 +233,7 @@ export default class extends Vue {
     this.topData = records;
     return Promise.resolve();
   }
-  private async getQuanziDiscover() {
+  public async getQuanziDiscover() {
     const data = {
       pages: {
         current: 1,
@@ -251,7 +251,7 @@ export default class extends Vue {
     this.discoverData = records;
     return Promise.resolve();
   }
-  private async _upCallback() {
+  public async _upCallback() {
     const data = {
       pages: {
         current: this.pagination_params.num,

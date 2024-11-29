@@ -33,19 +33,19 @@ export default class extends Vue {
   }
 
   /*data */
-  private themeTitle: any = '';
-  private pageNum = 1;
-  private themeIndex: any = 0;
-  private containerPositionY = 0;
-  private firstLoadData = false;
-  private load_more_loading = false;
-  private load_more_loading_lock = false;
-  private pageLoading = false;
-  private load_more_no_data = '';
-  private themeNewsList = [];
+  public themeTitle: any = '';
+  public pageNum = 1;
+  public themeIndex: any = 0;
+  public containerPositionY = 0;
+  public firstLoadData = false;
+  public load_more_loading = false;
+  public load_more_loading_lock = false;
+  public pageLoading = false;
+  public load_more_no_data = '';
+  public themeNewsList = [];
 
   /*event*/
-  private monitorScroll(e: any) {
+  public monitorScroll(e: any) {
     const scrollHeight = this.$refs['yule-theme--container'].scrollHeight;
     const scrollTop = this.$refs['yule-theme--container'].scrollTop;
     this.containerPositionY = scrollTop;
@@ -61,7 +61,7 @@ export default class extends Vue {
     }
   }
 
-  private async getDataByThemeIndex(index: any) {
+  public async getDataByThemeIndex(index: any) {
     this.pageLoading = true;
     this.firstLoadData = true;
     this.themeNewsList = [];
@@ -85,7 +85,7 @@ export default class extends Vue {
     this.pageLoading = false;
   }
 
-  private async getMoreDataByThemeIndex(index: any) {
+  public async getMoreDataByThemeIndex(index: any) {
     switch (index) {
       case 0:
         await this._getChasingHotSpotMore();
@@ -104,30 +104,30 @@ export default class extends Vue {
     }
   }
 
-  private handlerClickHeaderBack() {
+  public handlerClickHeaderBack() {
     this.$router.back();
   }
 
   /*http*/
-  private async _getChasingHotSpot() {
+  public async _getChasingHotSpot() {
     const result = TabHomeYuleModule.getChasingHotSpot({ page: this.pageNum });
   }
 
-  private async _getVeryMuchDao() {}
+  public async _getVeryMuchDao() {}
 
-  private async _getUpConstellation() {}
+  public async _getUpConstellation() {}
 
-  private async _getPublicScreeningCeremony() {}
+  public async _getPublicScreeningCeremony() {}
 
-  private async _getChasingHotSpotMore() {
+  public async _getChasingHotSpotMore() {
     const result = TabHomeYuleModule.getChasingHotSpot({ page: this.pageNum });
   }
 
-  private async _getVeryMuchDaoMore() {}
+  public async _getVeryMuchDaoMore() {}
 
-  private async _getUpConstellationMore() {}
+  public async _getUpConstellationMore() {}
 
-  private async _getPublicScreeningCeremonyMore() {}
+  public async _getPublicScreeningCeremonyMore() {}
 }
 </script>
 

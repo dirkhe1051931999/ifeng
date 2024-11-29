@@ -111,21 +111,21 @@ export default class extends Vue {
   mounted() {
     this.getAllData();
   }
-  private tab = 'all';
-  private allData = [];
-  private docData = [];
-  private videoPageData = [];
-  private slideData = [];
-  private allLock = false;
-  private docLock = false;
-  private videoPageLock = false;
-  private slideLock = false;
-  private allLoading = false;
-  private docLoading = false;
-  private videoPageLoading = false;
-  private slideLoading = false;
+  public tab = 'all';
+  public allData = [];
+  public docData = [];
+  public videoPageData = [];
+  public slideData = [];
+  public allLock = false;
+  public docLock = false;
+  public videoPageLock = false;
+  public slideLock = false;
+  public allLoading = false;
+  public docLoading = false;
+  public videoPageLoading = false;
+  public slideLoading = false;
   /* event */
-  private tabChange() {
+  public tabChange() {
     if (this.tab === 'all') {
       this.getAllData();
     } else if (this.tab === 'doc') {
@@ -137,7 +137,7 @@ export default class extends Vue {
     }
   }
   /* http */
-  private async getAllData() {
+  public async getAllData() {
     if (this.allLock) return;
     this.allLoading = true;
     const { list } = await MineModule.getFavoriteList({ params: { page: 1 } });
@@ -145,7 +145,7 @@ export default class extends Vue {
     this.allLoading = false;
     this.allLock = true;
   }
-  private async getDocData() {
+  public async getDocData() {
     if (this.docLock) return;
     this.docLoading = true;
     const { list } = await MineModule.getFavoriteList({ params: { page: 1, type: 'doc' } });
@@ -153,7 +153,7 @@ export default class extends Vue {
     this.docLoading = false;
     this.docLock = true;
   }
-  private async getVideoPageData() {
+  public async getVideoPageData() {
     if (this.videoPageLock) return;
     this.videoPageLoading = true;
     const { list } = await MineModule.getFavoriteList({ params: { page: 1, type: 'videoPage' } });
@@ -161,7 +161,7 @@ export default class extends Vue {
     this.videoPageLoading = false;
     this.videoPageLock = true;
   }
-  private async getSlideData() {
+  public async getSlideData() {
     if (this.slideLock) return;
     this.slideLoading = true;
     const { list } = await MineModule.getFavoriteList({ params: { page: 1, type: 'slide' } });

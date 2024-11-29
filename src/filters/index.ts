@@ -1,103 +1,118 @@
-import { AppModule } from './../store/modules/app';
 import { date } from 'quasar';
-// 2021/07/01 13:50:11 =>YYYY-MM-DD HH:mm
-export function parseTimeFromDateString(str: string) {
-  let stamp = 0;
-  stamp = str.length === 10 ? Number(str) * 1000 : Number(str);
-  const timestamp = +new Date(stamp);
-  const formattedString = date.formatDate(timestamp, 'YYYY-MM-DD ');
-  return formattedString;
-}
-export function parseTimeFromDateString2(str: string) {
-  let stamp = 0;
-  stamp = str.length === 10 ? Number(str) * 1000 : Number(str);
-  const timestamp = +new Date(stamp);
-  const formattedString = date.formatDate(timestamp, 'YYYY-MM-DD');
-  return formattedString;
-}
-export function parseTimeFromDateString3(str: string) {
-  let stamp = 0;
-  stamp = str.length === 10 ? Number(str) * 1000 : Number(str);
-  const timestamp = +new Date(stamp);
-  const formattedString = date.formatDate(timestamp, 'HH:mm');
-  return formattedString;
-}
-// 秒转成分：秒
-export function getVideoTotalTime(num: number) {
-  if (num <= 60) {
-    return `${num} s`;
-  } else {
-    let secondTime = num; // 秒
-    let minuteTime = 0; // 分
-    let hourTime = 0; // 小时
-    if (secondTime > 60) {
-      //如果秒数大于60，将秒数转换成整数
-      //获取分钟，除以60取整数，得到整数分钟
-      minuteTime = Math.floor(secondTime / 60);
-      //获取秒数，秒数取佘，得到整数秒数
-      secondTime = Math.floor(secondTime % 60);
-      //如果分钟大于60，将分钟转换成小时
-      if (minuteTime > 60) {
-        //获取小时，获取分钟除以60，得到整数小时
-        hourTime = Math.floor(minuteTime / 60);
-        //获取小时后取佘的分，获取分钟除以60取佘的分
-        minuteTime = Math.floor(minuteTime % 60);
-      }
-    }
-    let result: any[] = [];
-    result[0] = Math.floor(secondTime) !== 0 ? (Math.floor(secondTime) < 10 ? `0${String(Math.floor(secondTime))}` : Math.floor(secondTime)) : '';
-    result[1] = Math.floor(minuteTime) !== 0 ? (Math.floor(minuteTime) < 10 ? `0${String(Math.floor(minuteTime))}` : Math.floor(minuteTime)) : '';
-    result[2] = Math.floor(hourTime) !== 0 ? (Math.floor(hourTime) < 10 ? `0${String(Math.floor(hourTime))}` : Math.floor(hourTime)) : '';
-    result = result.filter((d) => d);
-    return result.join(':');
+
+// 时间处理 --------------------- start
+const formatTimestamp = (timestamp: number, formatStr: string): string => {
+  try {
+    return date.formatDate(+new Date(timestamp), formatStr);
+  } catch (error) {
+    console.error('日期格式化错误:', error);
+    return '';
   }
-}
-export function getDateDiff(str: string) {
-  const minute = 1000 * 60;
-  const hour = minute * 60;
-  const day = hour * 24;
-  const halfamonth = day * 15;
-  if (String(str).length === 10) {
-    str += '000';
-  }
-  const dateTimeStamp = +new Date(str);
-  const month = day * 30;
-  const now = new Date().getTime();
-  const diffValue = now - dateTimeStamp;
-  if (diffValue < 0) {
-    return;
-  }
-  const monthC = diffValue / month;
-  const weekC = diffValue / (7 * day);
-  const dayC = diffValue / day;
-  const hourC = diffValue / hour;
-  const minC = diffValue / minute;
-  let result = '';
-  if (monthC >= 1) {
-    result = `${Math.floor(monthC)} 月前`;
-  } else if (weekC >= 1) {
-    result = `${Math.floor(weekC)} 周前`;
-  } else if (dayC >= 1) {
-    result = `${Math.floor(dayC)} 天前`;
-  } else if (hourC >= 1) {
-    result = `${Math.floor(hourC)} 小时前`;
-  } else if (minC >= 1) {
-    result = `${Math.floor(minC)} 分钟前`;
-  } else result = '刚刚';
-  return result;
-}
-export const numberFormat = (value: number) => {
-  const param: any = {};
-  let k = 10000,
-    sizes = ['', '万', '亿', '万亿'],
-    i;
-  if (value < k) {
-    param.value = value;
-    param.unit = '';
-  } else {
-    i = Math.floor(Math.log(value) / Math.log(k));
-    param.value = (value / Math.pow(k, i)).toFixed(2);
-    param.unit = sizes[i];
-  }
-  return `${param.value} ${param.unit}`;
 };
+const getTimestamp = (str: string): number => {
+  if (!str) return 0;
+
+  if (str.includes('-') || str.includes('/')) {
+    return new Date(str).getTime();
+  }
+
+  const num = Number(str);
+  // 处理10位时间戳
+  if (String(num).length === 10) {
+    return num * 1000;
+  }
+  // 处理13位时间戳
+  if (String(num).length === 13) {
+    return num;
+  }
+
+  return 0;
+};
+
+export const formatDate = (value: string, formatStr = 'YYYY-MM-DD'): string => {
+  if (!value) return '';
+  const timestamp = getTimestamp(value);
+  return formatTimestamp(timestamp, formatStr);
+};
+
+export const dateOnly = (value: string): string => {
+  if (!value) return '';
+  const timestamp = getTimestamp(value);
+  return formatTimestamp(timestamp, 'YYYY-MM-DD');
+};
+
+export const timeOnly = (value: string): string => {
+  if (!value) return '';
+  const timestamp = getTimestamp(value);
+  return formatTimestamp(timestamp, 'HH:MM');
+};
+
+export const fullDateTime = (value: string): string => {
+  if (!value) return '';
+  const timestamp = getTimestamp(value);
+  return formatTimestamp(timestamp, 'YYYY-MM-DD HH:mm:ss');
+};
+
+export const relativeTime = (value: string): string => {
+  if (!value) return '';
+  const timestamp = getTimestamp(value);
+  const now = Date.now();
+  const diff = now - timestamp;
+
+  // 刚刚: 小于1分钟
+  if (diff < 60000) return '刚刚';
+
+  // 分钟: 小于1小时
+  if (diff < 3600000) return `${Math.floor(diff / 60000)}分钟前`;
+
+  // 小时: 小于1天
+  if (diff < 86400000) return `${Math.floor(diff / 3600000)}小时前`;
+
+  // 天: 小于1周
+  if (diff < 604800000) return `${Math.floor(diff / 86400000)}天前`;
+
+  // 周: 小于1个月
+  if (diff < 2592000000) return `${Math.floor(diff / 604800000)}周前`;
+
+  // 月: 小于1年
+  if (diff < 31536000000) return `${Math.floor(diff / 2592000000)}个月前`;
+
+  // 年: 小于2年
+  if (diff < 63072000000) return `${Math.floor(diff / 31536000000)}年前`;
+
+  // 超过2年显示具体日期
+  return formatTimestamp(timestamp, 'YYYY-MM-DD HH:mm:ss');
+};
+
+export function getVideoTotalTime(seconds: number): string {
+  // 处理小于60秒的情况
+  if (seconds <= 60) {
+    return `${seconds} s`;
+  }
+  // 计算小时、分钟、秒
+  const hours = Math.floor(seconds / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
+  const remainingSeconds = Math.floor(seconds % 60);
+  // 格式化数字为两位数
+  const formatNumber = (num: number): string => (num > 0 ? (num < 10 ? `0${num}` : String(num)) : '');
+  // 构建结果数组并过滤空值
+  const result = [formatNumber(remainingSeconds), formatNumber(minutes), formatNumber(hours)].filter(Boolean);
+  // 反转数组并用冒号连接
+  return result.reverse().join(':');
+}
+
+export function numberFormat(value: number): string {
+  const units = ['', '万', '亿', '万亿'];
+  const base = 10000;
+  // 处理小于基数的情况
+  if (value < base) {
+    return `${value} `;
+  }
+  // 计算单位索引
+  const unitIndex = Math.floor(Math.log(value) / Math.log(base));
+  // 计算格式化后的值
+  const formattedValue = (value / Math.pow(base, unitIndex)).toFixed(2);
+  return `${formattedValue} ${units[unitIndex]}`;
+}
+
+// 时间处理 --------------------- end

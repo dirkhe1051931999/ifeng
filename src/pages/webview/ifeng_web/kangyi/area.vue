@@ -114,21 +114,21 @@ export default class extends Vue {
     this._getAreaYiqing(this.$route.query.code);
     this.$refs['kangyi-area-container'].style['height'] = `${window.innerHeight}px`;
   }
-  private pageLoaded = false;
-  private pageLoading = false;
-  private mapData: any = {};
-  private endDate: any = '';
-  private newsDataList: any[] = [];
-  private activeMapIndex = 0;
-  private currentCity = 'shanxi1';
-  private zhixiashi = ['北京', '天津', '上海', '重庆'];
-  private isZhixiashi = false;
-  private showSelectProvince = false;
-  private allProvinces: any[] = [];
-  private map1: any;
-  private map2: any;
+  public pageLoaded = false;
+  public pageLoading = false;
+  public mapData: any = {};
+  public endDate: any = '';
+  public newsDataList: any[] = [];
+  public activeMapIndex = 0;
+  public currentCity = 'shanxi1';
+  public zhixiashi = ['北京', '天津', '上海', '重庆'];
+  public isZhixiashi = false;
+  public showSelectProvince = false;
+  public allProvinces: any[] = [];
+  public map1: any;
+  public map2: any;
   /**event */
-  private handlerClickSelectProvince() {
+  public handlerClickSelectProvince() {
     this.showSelectProvince = true;
   }
   async onConfirm(value: any, index: any) {
@@ -152,11 +152,11 @@ export default class extends Vue {
   onCancel() {
     this.showSelectProvince = false;
   }
-  private handlerClickToKangyiSummary() {
+  public handlerClickToKangyiSummary() {
     this.$router.push('/ifeng_web_kangyi_summary');
   }
   /**http */
-  private async _initMap1(data: any, result: any) {
+  public async _initMap1(data: any, result: any) {
     //注册可用的地图,必须在包括 geo 组件或者 map 图表类型的时候才能使用。
     window['echarts'].registerMap(this.currentCity, result);
     //初始化
@@ -208,7 +208,7 @@ export default class extends Vue {
       ],
     });
   }
-  private async _initMap2(data: any, result: any) {
+  public async _initMap2(data: any, result: any) {
     //注册可用的地图,必须在包括 geo 组件或者 map 图表类型的时候才能使用。
     window['echarts'].registerMap(this.currentCity, result);
     //初始化
@@ -260,7 +260,7 @@ export default class extends Vue {
       ],
     });
   }
-  private async _getAreaYiqing(code: any) {
+  public async _getAreaYiqing(code: any) {
     code = code ? code : '029';
     let obj: any = {};
     for (let key in provs) {

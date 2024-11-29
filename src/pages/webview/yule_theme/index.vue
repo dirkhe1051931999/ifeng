@@ -48,18 +48,18 @@ export default class extends Vue {
     });
   }
   /*data */
-  private themeTitle: any = '';
-  private pageNum = 1;
-  private themeIndex: any = 0;
-  private containerPositionY = 0;
-  private firstLoadData = false;
-  private load_more_loading = false;
-  private load_more_loading_lock = false;
-  private pageLoading = false;
-  private load_more_no_data = '';
-  private themeNewsList = [];
+  public themeTitle: any = '';
+  public pageNum = 1;
+  public themeIndex: any = 0;
+  public containerPositionY = 0;
+  public firstLoadData = false;
+  public load_more_loading = false;
+  public load_more_loading_lock = false;
+  public pageLoading = false;
+  public load_more_no_data = '';
+  public themeNewsList = [];
   /*event*/
-  private async monitorScroll(e: any) {
+  public async monitorScroll(e: any) {
     const scrollHeight = this.$refs['yule-theme-wrap'].scrollHeight;
     const scrollTop = this.$refs['yule-theme-wrap'].scrollTop;
     this.containerPositionY = scrollTop;
@@ -74,10 +74,10 @@ export default class extends Vue {
       }
     }
   }
-  private handlerClickHeaderBack() {
+  public handlerClickHeaderBack() {
     this.$router.back();
   }
-  private handlerClickNewsItem(news: any) {
+  public handlerClickNewsItem(news: any) {
     if (news.type === 'topic') {
       this.$router.push(`/news_topic?topicid=ucms_${news.base62Id}`);
     } else {
@@ -85,7 +85,7 @@ export default class extends Vue {
     }
   }
   /*http*/
-  private async _getData(index: number) {
+  public async _getData(index: number) {
     try {
       let _result: any;
       if (index === 0) {
@@ -107,7 +107,7 @@ export default class extends Vue {
       return Promise.reject();
     }
   }
-  private async _getDataMore(index: number) {
+  public async _getDataMore(index: number) {
     try {
       let _result: any;
       if (index === 0) {

@@ -134,9 +134,9 @@ function calculateMA(dayCount: any) {
 
 @Component({ name: 'ganggu_k_line' })
 export default class extends Vue {
-  @Prop({ default: '' }) private cid!: string;
-  @Prop({ default: [] }) private data!: any[];
-  @Prop({ default: '0' }) private min!: string;
+  @Prop({ default: '' }) public cid!: string;
+  @Prop({ default: [] }) public data!: any[];
+  @Prop({ default: '0' }) public min!: string;
 
   mounted() {
     const arr = [];
@@ -151,8 +151,8 @@ export default class extends Vue {
     myChart.setOption(this.option);
   }
 
-  private data0: any = {};
-  private option: any = {
+  public data0: any = {};
+  public option: any = {
     tooltip: {
       trigger: 'axis',
       axisPointer: {

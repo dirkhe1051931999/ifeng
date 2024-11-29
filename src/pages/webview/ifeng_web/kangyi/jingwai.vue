@@ -71,10 +71,10 @@ export default class extends Vue {
     this._getKangyiJingwai();
     this.$refs['kangyi-jingwai-container'].style['height'] = `${window.innerHeight}px`;
   }
-  private endDate: any = '';
-  private summaryData: any = {};
-  private tableData: any = [];
-  private tableColumns: any = [
+  public endDate: any = '';
+  public summaryData: any = {};
+  public tableData: any = [];
+  public tableColumns: any = [
     {
       name: 'area',
       label: '省市',
@@ -90,7 +90,7 @@ export default class extends Vue {
     },
   ];
   /**event */
-  private _initMap(data: any) {
+  public _initMap(data: any) {
     let { geoCoordMap, outputList_sorted } = data;
     let outputData: any[] = [];
     for (let item of outputList_sorted) {
@@ -222,7 +222,7 @@ export default class extends Vue {
     let chart = window['echarts'].init(document.getElementById('kangyi-jingwai-map'));
     chart.setOption(option);
   }
-  private _initSankey(data: any) {
+  public _initSankey(data: any) {
     let { allData, allLink } = data;
     let myChart = window['echarts'].init(document.getElementById('kangyi-jingwai-sankey'));
     let option = {
@@ -246,7 +246,7 @@ export default class extends Vue {
     };
     option && myChart.setOption(option);
   }
-  private _initLine1(data: any) {
+  public _initLine1(data: any) {
     let echarts = window['echarts'].init(document.getElementById('kangyi-jingwai-line1'));
     let option;
     option = {
@@ -284,7 +284,7 @@ export default class extends Vue {
     };
     option && echarts.setOption(option);
   }
-  private _initLine2(data: any) {
+  public _initLine2(data: any) {
     let echarts = window['echarts'].init(document.getElementById('kangyi-jingwai-line2'));
     let option;
     option = {
@@ -324,7 +324,7 @@ export default class extends Vue {
     option && echarts.setOption(option);
   }
   /**http */
-  private async _getKangyiJingwai() {
+  public async _getKangyiJingwai() {
     const result = await TabHomeKangyiModule.getKangyiJingwai({});
     if (result[0]) {
       let { timestamp, dataList } = result[0].yiqing_v2;

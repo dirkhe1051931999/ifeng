@@ -57,7 +57,7 @@
               <img :src="item.userinfo.avatar" alt="" class="img" />
               <div>
                 <div class="nickName">{{ item.userinfo.nickName }}</div>
-                <div class="editTime">{{ item.content.editTime | getDateDiff }}</div>
+                <div class="editTime">{{ item.content.editTime | relativeTime }}</div>
               </div>
             </div>
             <div class="content">
@@ -115,19 +115,19 @@ export default class extends Vue {
     this.$refs['quanzi_detail-wrap']['style']['height'] = `${window.innerHeight - 50}px`;
     this.getDataLoading = false;
   }
-  private getDataLoading = false;
-  private clickTagGetDataLoading = false;
-  private bannerData = {};
-  private ownerData = [];
-  private memberData = [];
-  private tagData = [];
-  private contentData = [];
-  private currentTag = '热点';
+  public getDataLoading = false;
+  public clickTagGetDataLoading = false;
+  public bannerData = {};
+  public ownerData = [];
+  public memberData = [];
+  public tagData = [];
+  public contentData = [];
+  public currentTag = '热点';
   public containerPositionY = 0;
-  private load_more_loading = false;
-  private load_more_loading_lock = false;
-  private load_more_no_data = '';
-  private pagination_params = {
+  public load_more_loading = false;
+  public load_more_loading_lock = false;
+  public load_more_no_data = '';
+  public pagination_params = {
     size: 10,
     num: 1,
   };
@@ -147,7 +147,7 @@ export default class extends Vue {
       }
     }
   }
-  private async handleClickTag(item: any) {
+  public async handleClickTag(item: any) {
     this.pagination_params.num = 1;
     this.currentTag = item.tag;
     this.contentData = [];
@@ -157,7 +157,7 @@ export default class extends Vue {
     await this.getOrgContent();
     this.clickTagGetDataLoading = false;
   }
-  private JSON_PARSE(data: string, txt: string) {
+  public JSON_PARSE(data: string, txt: string) {
     try {
       const arr = JSON.parse(data);
       for (let item of arr) {
@@ -222,7 +222,7 @@ export default class extends Vue {
       console.log(error);
     }
   }
-  private previewImage(images: any, index: number) {
+  public previewImage(images: any, index: number) {
     const arr = [];
     for (let item of images) {
       let urls = item.link.split('/');
@@ -245,22 +245,22 @@ export default class extends Vue {
       closeable: true,
     });
   }
-  private handleClickQuanyou() {
+  public handleClickQuanyou() {
     this.$router.push(`/mine_child_page/quanzi_quanyou?orgId=${this.$route.query.orgId}`);
   }
-  private handleClickQuangui() {
+  public handleClickQuangui() {
     // this.$router.push('/news_detail/doc?aid=8BmVY6afyK0');
   }
-  private handleClickOtherQuanzi() {
+  public handleClickOtherQuanzi() {
     this.$router.push('/mine_child_page/quanzi');
   }
   /* http */
-  private async getOrgBannerData() {
+  public async getOrgBannerData() {
     const { data } = await MineModule.getOrgBannerData({ id: this.$route.query.orgId });
     this.bannerData = data;
     return Promise.resolve();
   }
-  private async getOrgUserList() {
+  public async getOrgUserList() {
     const owner = await MineModule.getOrgUserList({
       pages: {
         current: 1,
@@ -289,7 +289,7 @@ export default class extends Vue {
     this.memberData = member.data.records;
     return Promise.resolve();
   }
-  private async getOrgTag() {
+  public async getOrgTag() {
     const tag = await MineModule.getOrgTag({
       pages: {
         current: 1,
@@ -305,7 +305,7 @@ export default class extends Vue {
     this.tagData = tag.data.records;
     return Promise.resolve();
   }
-  private async getOrgContent() {
+  public async getOrgContent() {
     const data = {
       pages: {
         current: this.pagination_params.num,
@@ -331,7 +331,7 @@ export default class extends Vue {
     this.contentData = content.data.records;
     return Promise.resolve();
   }
-  private async _upCallback() {
+  public async _upCallback() {
     const data = {
       pages: {
         current: this.pagination_params.num,

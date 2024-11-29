@@ -82,23 +82,23 @@ export default class extends Vue {
       }
     });
   }
-  private getNavItemLoading = false;
-  private getAlbumLoading = false;
-  private categoriesActiveNavItemIndex = 0;
-  private categoriesActiveNavItemId = '';
-  private categoriesActiveNavItemName = '';
-  private categoriesActiveTagIndex = 0;
-  private categoriesActiveNavList: any[] = [];
-  private categoriesActiveNavAlbumTagList: any[] = [];
-  private categoriesAlbumList: any[] = [];
-  private doSelect = false;
-  private load_more_loading = false;
-  private load_more_loading_lock = false;
-  private load_more_no_data = '';
-  private load_more_pagination_page = 1;
-  private containerPositionY = 0;
+  public getNavItemLoading = false;
+  public getAlbumLoading = false;
+  public categoriesActiveNavItemIndex = 0;
+  public categoriesActiveNavItemId = '';
+  public categoriesActiveNavItemName = '';
+  public categoriesActiveTagIndex = 0;
+  public categoriesActiveNavList: any[] = [];
+  public categoriesActiveNavAlbumTagList: any[] = [];
+  public categoriesAlbumList: any[] = [];
+  public doSelect = false;
+  public load_more_loading = false;
+  public load_more_loading_lock = false;
+  public load_more_no_data = '';
+  public load_more_pagination_page = 1;
+  public containerPositionY = 0;
   /*event*/
-  private async handleClickNavItem(item: any, index: number) {
+  public async handleClickNavItem(item: any, index: number) {
     if (this.getAlbumLoading) return;
     this.categoriesActiveNavAlbumTagList = item.taglist;
     this.categoriesActiveNavItemId = item.id;
@@ -111,7 +111,7 @@ export default class extends Vue {
     this.getAlbumLoading = true;
     await this.getCate(this.categoriesActiveNavItemId);
   }
-  private handleClickTagItem(item: any, index: number) {
+  public handleClickTagItem(item: any, index: number) {
     if (this.getAlbumLoading) return;
     this.categoriesActiveTagIndex = index;
     this.categoriesActiveNavItemName = item;
@@ -122,11 +122,11 @@ export default class extends Vue {
     this.doSelect = true;
     this.getCateAlbums(this.categoriesActiveNavItemId, item);
   }
-  private handleClickAlbumItem(item: any, index: number) {
+  public handleClickAlbumItem(item: any, index: number) {
     if (this.getAlbumLoading) return;
     this.$router.push(`/tab_yinpin_child/directory?aid=${item.link.aid}`);
   }
-  private async monitorScrollEvent(e: any) {
+  public async monitorScrollEvent(e: any) {
     if (this.doSelect) return;
     const scrollHeight = this.$refs['albums'].scrollHeight;
     const scrollTop = this.$refs['albums'].scrollTop;
@@ -143,7 +143,7 @@ export default class extends Vue {
     }
   }
   /*http*/
-  private async getCate(cateid: any) {
+  public async getCate(cateid: any) {
     try {
       this.categoriesAlbumList = [];
       this.getNavItemLoading = true;
@@ -176,7 +176,7 @@ export default class extends Vue {
       console.log(error);
     }
   }
-  private async getCateAlbums(cateid: any, tagname: string) {
+  public async getCateAlbums(cateid: any, tagname: string) {
     try {
       this.categoriesAlbumList = [];
       this.getAlbumLoading = true;
@@ -190,7 +190,7 @@ export default class extends Vue {
       console.log(error);
     }
   }
-  private async getMoreCateAlbums(cateid: any, tagname: string) {
+  public async getMoreCateAlbums(cateid: any, tagname: string) {
     try {
       const formData = new FormData();
       const { data } = await TabHomeYinpinModule.getCateAlbums({ params: { cateid, tagname, page: this.load_more_pagination_page }, formData });

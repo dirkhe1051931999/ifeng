@@ -68,7 +68,7 @@
               <i class="iconfont icon-duanxin" v-if="news.content.commentsall"></i>
               <span class="count" v-if="news.content.commentsall"> {{ news.content.commentsall }}</span>
               <i class="iconfont icon-lishi" v-if="news.content.updateTime"></i>
-              <span class="count" v-if="news.content.updateTime">{{ news.content.updateTime | getDateDiff }}</span>
+              <span class="count" v-if="news.content.updateTime">{{ news.content.updateTime | relativeTime }}</span>
             </div>
           </div>
           <!-- picture -->
@@ -84,7 +84,7 @@
                 </div>
                 <div class="r">
                   <div class="t">{{ news.content.subscribe.catename }}</div>
-                  <div class="b">{{ news.content.updateTime | getDateDiff }}</div>
+                  <div class="b">{{ news.content.updateTime | relativeTime }}</div>
                 </div>
               </div>
               <div class="right hide">
@@ -119,7 +119,7 @@
               <i class="iconfont icon-duanxin" v-if="news.content.commentsall"></i>
               <span class="count" v-if="news.content.commentsall"> {{ news.content.commentsall }}</span>
               <i class="iconfont icon-lishi" v-if="news.content.updateTime"></i>
-              <span class="count" v-if="news.content.updateTime">{{ news.content.updateTime | getDateDiff }}</span>
+              <span class="count" v-if="news.content.updateTime">{{ news.content.updateTime | relativeTime }}</span>
             </div>
           </div>
           <!-- video -->
@@ -135,7 +135,7 @@
                 </div>
                 <div class="r">
                   <div class="t">{{ news.content.subscribe.catename }}</div>
-                  <div class="b">{{ news.content.updateTime | getDateDiff }}</div>
+                  <div class="b">{{ news.content.updateTime | relativeTime }}</div>
                 </div>
               </div>
               <div class="right hide">
@@ -173,7 +173,7 @@
               <i class="iconfont icon-duanxin" v-if="news.content.commentsall"></i>
               <span class="count" v-if="news.content.commentsall"> {{ news.content.commentsall }}</span>
               <i class="iconfont icon-lishi" v-if="news.content.updateTime"></i>
-              <span class="count" v-if="news.content.updateTime">{{ news.content.updateTime | getDateDiff }}</span>
+              <span class="count" v-if="news.content.updateTime">{{ news.content.updateTime | relativeTime }}</span>
             </div>
             <div v-if="news.content.subscribe.logo || news.content.subscribe.honorImg" class="action-bottom">
               <div class="like">
@@ -205,10 +205,10 @@ import { getUrlParams, json2Url } from '@/utils';
 @Component
 export default class extends Vue {
   $refs: any;
-  private activeShow = false;
-  private pageLoaded = false;
-  private bannerMap: any = {};
-  private newsThemeList: any[] = [];
+  public activeShow = false;
+  public pageLoaded = false;
+  public bannerMap: any = {};
+  public newsThemeList: any[] = [];
   async mounted() {
     this.pageLoaded = false;
     await this._getNewTheme();
@@ -218,16 +218,16 @@ export default class extends Vue {
     });
   }
   /*event */
-  private hanlderClickTabBack() {
+  public hanlderClickTabBack() {
     this.$router.back();
   }
-  private handlerClickPhvideoShare(news: any) {
+  public handlerClickPhvideoShare(news: any) {
     handlerQuasarShare('news_topic', news);
   }
-  private handlerClickToutiaoHotSpotMore() {
+  public handlerClickToutiaoHotSpotMore() {
     this.$router.push('/tab_home_hot/0');
   }
-  private previewImage(images: any, index: number) {
+  public previewImage(images: any, index: number) {
     const arr = [];
     for (let item of images) {
       arr.push(item.url);
@@ -238,7 +238,7 @@ export default class extends Vue {
       closeable: true,
     });
   }
-  private handleClickNewsItem(news: any) {
+  public handleClickNewsItem(news: any) {
     let params;
     let urlStr: string;
     news = news.content;
@@ -269,7 +269,7 @@ export default class extends Vue {
     }
   }
   /*http */
-  private async _getNewTheme() {
+  public async _getNewTheme() {
     try {
       let params: any = {
         groupid: this.$route.query.groupid || '',

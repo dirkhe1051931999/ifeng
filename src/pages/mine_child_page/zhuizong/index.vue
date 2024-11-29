@@ -55,14 +55,14 @@ export default class extends Vue {
     this.$refs['zhuizong-wrap']['style']['height'] = `${window.innerHeight - 50}px`;
     this.getDataLoading = false;
   }
-  private getDataLoading = false;
-  private bannerData = [];
-  private listData = [];
+  public getDataLoading = false;
+  public bannerData = [];
+  public listData = [];
   public containerPositionY = 0;
-  private load_more_loading = false;
-  private load_more_loading_lock = false;
-  private load_more_no_data = '';
-  private pagination_params = {
+  public load_more_loading = false;
+  public load_more_loading_lock = false;
+  public load_more_no_data = '';
+  public pagination_params = {
     size: 10,
     num: 1,
   };
@@ -82,19 +82,19 @@ export default class extends Vue {
       }
     }
   }
-  private handleClickItem(item: any) {
+  public handleClickItem(item: any) {
     this.$router.push(`/mine_child_page/zhuizong_detail?id=${item.id}`);
   }
-  private handleClickItemChild(item: any) {
+  public handleClickItemChild(item: any) {
     this.$router.push(`/mine_child_page/zhuizong_detail?node=true&id=${item.timelineId}&nodeId=${item.nodeId}`);
   }
   /* http */
-  private async getBannerData() {
+  public async getBannerData() {
     const result = await MineModule.getZhuiZongTop({});
     this.bannerData = result;
     return Promise.resolve();
   }
-  private async getZhuiZongList() {
+  public async getZhuiZongList() {
     const { list } = await MineModule.getZhuiZongList({
       page: 1,
       size: this.pagination_params.size,
@@ -102,7 +102,7 @@ export default class extends Vue {
     this.listData = list;
     return Promise.resolve();
   }
-  private async _upCallback() {
+  public async _upCallback() {
     const { list } = await MineModule.getZhuiZongList({
       page: this.pagination_params.num,
       size: this.pagination_params.size,

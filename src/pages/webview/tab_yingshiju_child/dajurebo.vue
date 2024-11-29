@@ -37,12 +37,12 @@ export default class extends Vue {
   mounted() {
     this.getList();
   }
-  private dajureboList: any[] = [];
-  private getDataLoading = false;
-  private load_more_loading = false;
-  private load_more_loading_lock = false;
-  private load_more_no_data = '';
-  private pagination_params = {
+  public dajureboList: any[] = [];
+  public getDataLoading = false;
+  public load_more_loading = false;
+  public load_more_loading_lock = false;
+  public load_more_no_data = '';
+  public pagination_params = {
     size: 10,
     num: 1,
   };
@@ -62,7 +62,7 @@ export default class extends Vue {
     }
   }
   /*http */
-  private async getList() {
+  public async getList() {
     try {
       this.getDataLoading = true;
       const result = await TabHomeYingshijuModule.getYingshijuDajureboList({ params: { page: this.pagination_params.num } });
@@ -72,7 +72,7 @@ export default class extends Vue {
       console.log(error);
     }
   }
-  private async getMoreList() {
+  public async getMoreList() {
     try {
       const result = await TabHomeYingshijuModule.getYingshijuDajureboList({ params: { page: this.pagination_params.num } });
       if (!result.data.list.length) {

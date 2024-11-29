@@ -31,7 +31,7 @@
           <div class="swiper-wrapper">
             <div class="swiper-slide chengshiSwiperList-slide" v-for="(news, index) in chengshiSwiperList" :key="index" style="width: 100%">
               <p class="title">{{ news.title }}</p>
-              <p class="dateDiff">{{ news.updateTime | getDateDiff }}</p>
+              <p class="dateDiff">{{ news.updateTime | relativeTime }}</p>
               <van-image class="thumbnail" :src="news.thumbnail" lazy-load />
             </div>
           </div>
@@ -62,8 +62,8 @@
                 <i class="iconfont icon-duanxin" v-if="news.commentsall"></i>
                 <span class="count" v-if="news.commentsall"> {{ news.commentsall }}</span>
                 <i class="iconfont icon-lishi" v-if="news.updateTime"></i>
-                <span class="count" v-if="news.updateTime">{{ news.updateTime | getDateDiff }}</span>
-                <span class="iconfont icon-close1 close">
+                <span class="count" v-if="news.updateTime">{{ news.updateTime | relativeTime }}</span>
+                <span class="iconfont icon-close1 close" @click.stop.prevent>
                   <q-popup-proxy>
                     <q-card class="w-full backreason">
                       <p class="p-t-10 p-b-10 p-l-16 p-r-16 fs-14 text-_6b6a6a">选择原因，为您优化</p>
@@ -96,12 +96,12 @@
                   </div>
                   <div class="r">
                     <div class="t">{{ news.subscribe.catename }}</div>
-                    <div class="b">{{ news.updateTime | getDateDiff }}</div>
+                    <div class="b">{{ news.updateTime | relativeTime }}</div>
                   </div>
                 </div>
                 <div class="right">
                   <span class="follow">关注</span>
-                  <span class="iconfont icon-close1 close">
+                  <span class="iconfont icon-close1 close" @click.stop.prevent>
                     <q-popup-proxy>
                       <q-card class="w-full backreason">
                         <p class="p-t-10 p-b-10 p-l-16 p-r-16 fs-14 text-_6b6a6a">选择原因，为您优化</p>
@@ -149,8 +149,8 @@
                 <i class="iconfont icon-duanxin" v-if="news.commentsall"></i>
                 <span class="count" v-if="news.commentsall"> {{ news.commentsall }}</span>
                 <i class="iconfont icon-lishi" v-if="news.updateTime"></i>
-                <span class="count" v-if="news.updateTime">{{ news.updateTime | getDateDiff }}</span>
-                <span class="iconfont icon-close1 close">
+                <span class="count" v-if="news.updateTime">{{ news.updateTime | relativeTime }}</span>
+                <span class="iconfont icon-close1 close" @click.stop.prevent>
                   <q-popup-proxy>
                     <q-card class="w-full backreason">
                       <p class="p-t-10 p-b-10 p-l-16 p-r-16 fs-14 text-_6b6a6a">选择原因，为您优化</p>
@@ -183,12 +183,12 @@
                   </div>
                   <div class="r">
                     <div class="t">{{ news.subscribe.catename }}</div>
-                    <div class="b">{{ news.updateTime | getDateDiff }}</div>
+                    <div class="b">{{ news.updateTime | relativeTime }}</div>
                   </div>
                 </div>
                 <div class="right">
                   <span class="follow">关注</span>
-                  <span class="iconfont icon-close1 close">
+                  <span class="iconfont icon-close1 close" @click.stop.prevent>
                     <q-popup-proxy>
                       <q-card class="w-full backreason">
                         <p class="p-t-10 p-b-10 p-l-16 p-r-16 fs-14 text-_6b6a6a">选择原因，为您优化</p>
@@ -235,7 +235,7 @@
                 <i class="iconfont icon-duanxin" v-if="news.commentsall"></i>
                 <span class="count" v-if="news.commentsall"> {{ news.commentsall }}</span>
                 <i class="iconfont icon-lishi" v-if="news.updateTime"></i>
-                <span class="count" v-if="news.updateTime">{{ news.updateTime | getDateDiff }}</span>
+                <span class="count" v-if="news.updateTime">{{ news.updateTime | relativeTime }}</span>
               </div>
             </div>
           </li>
@@ -308,17 +308,17 @@ export default class extends Vue {
   }
   // 数据
   public containerPositionY = 0;
-  private firstLoadData = true;
-  private pageLoading = false;
-  private chengshiNewsList: any = [];
-  private chengshiSwiperList: any = [];
+  public firstLoadData = true;
+  public pageLoading = false;
+  public chengshiNewsList: any = [];
+  public chengshiSwiperList: any = [];
   // 下拉刷新，上拉加载的数据
-  private isDownRefresh = false;
-  private refreshSuccessText = '';
-  private load_more_loading = false;
-  private load_more_loading_lock = false;
-  private load_more_no_data = '';
-  private pagination_params = {
+  public isDownRefresh = false;
+  public refreshSuccessText = '';
+  public load_more_loading = false;
+  public load_more_loading_lock = false;
+  public load_more_no_data = '';
+  public pagination_params = {
     size: 10,
     num: 1,
   };
@@ -345,7 +345,7 @@ export default class extends Vue {
       }
     }
   }
-  private previewImage(images: any, index: number) {
+  public previewImage(images: any, index: number) {
     const arr = [];
     for (let item of images) {
       arr.push(item.url);
@@ -357,7 +357,7 @@ export default class extends Vue {
     });
   }
   /*http*/
-  private async _downCallback() {
+  public async _downCallback() {
     let params: any = {
       id: 'LOCAL',
       ch: 'local',
@@ -411,7 +411,7 @@ export default class extends Vue {
       console.log('err');
     }
   }
-  private async _upCallback() {
+  public async _upCallback() {
     let params: any = {
       id: 'LOCAL',
       ch: 'local',
@@ -455,7 +455,7 @@ export default class extends Vue {
       this.load_more_loading = false;
     }
   }
-  private async _getRegionConfig() {
+  public async _getRegionConfig() {
     const formData = new FormData();
     const params = { id: 'local' };
     const result = await TabHomeChengshiModule.getRegionConfig({ params, formData });

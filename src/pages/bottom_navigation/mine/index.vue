@@ -78,26 +78,26 @@ export default class extends Vue {
   get token() {
     return UserModule.token;
   }
-  private service_customs: any[] = [];
-  private service_slides: any[] = [];
-  private service_medals: any[] = [];
-  private platform_service: any[] = platFormService;
-  private loginInfo: any = {};
+  public service_customs: any[] = [];
+  public service_slides: any[] = [];
+  public service_medals: any[] = [];
+  public platform_service: any[] = platFormService;
+  public loginInfo: any = {};
   /**event */
-  private monitorScrollEvent(e: any) {}
-  private handleClickLabel() {
+  public monitorScrollEvent(e: any) {}
+  public handleClickLabel() {
     this.$router.push('/mine_child_page/level');
   }
-  private handleClickMedal() {
+  public handleClickMedal() {
     this.$router.push('/mine_child_page/medal');
   }
-  private handleClickFollow() {
+  public handleClickFollow() {
     this.$router.push('/mine_child_page/follow');
   }
-  private handleClickFans() {
+  public handleClickFans() {
     this.$router.push('/mine_child_page/fans');
   }
-  private handleClickFeatureItem(item: any) {
+  public handleClickFeatureItem(item: any) {
     if (!UserModule.token) {
       this.$router.push('/login');
       return;
@@ -133,7 +133,7 @@ export default class extends Vue {
         break;
     }
   }
-  private handleClickServiceItem(item: any) {
+  public handleClickServiceItem(item: any) {
     if (!UserModule.token) {
       this.$router.push('/login');
       return;
@@ -150,7 +150,7 @@ export default class extends Vue {
         break;
     }
   }
-  private handleClickSlideItem(item: any) {
+  public handleClickSlideItem(item: any) {
     if (!UserModule.token) {
       this.$router.push('/login');
       return;
@@ -165,19 +165,19 @@ export default class extends Vue {
     }
   }
   /**http */
-  private async getUserPlatService() {
+  public async getUserPlatService() {
     const result = await UserModule.getUserPlatService({});
     const { customs, slides, medals } = result.data;
     this.service_customs = customs;
     this.service_slides = slides;
     this.service_medals = medals;
   }
-  private async getUserInfo() {
+  public async getUserInfo() {
     const { data } = await UserModule.getUserInfo({ params: {} });
     const { user_info } = data;
     this.loginInfo = user_info;
   }
-  private async handleCLickLogout() {
+  public async handleCLickLogout() {
     await UserModule.logout({});
     this.$toast('退出成功');
     this.loginInfo = {};

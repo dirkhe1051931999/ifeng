@@ -32,27 +32,27 @@ const ACTIVE_TAB_NAME = CATEGORIES[ACTIVE_TAB_INDEX];
 })
 export default class extends Vue {
   $refs: any;
-  private activeTabIndex = ACTIVE_TAB_INDEX;
-  private activeTabName = ACTIVE_TAB_NAME;
-  private categories = CATEGORIES;
-  private swipeDistanceToScreenPercent = 0;
-  private touchCache: any = {};
-  private stopMovePage = false;
-  private windowInnerHeight = window.innerHeight;
-  private mescroll: any;
-  private toggleTabName(index: number) {
+  public activeTabIndex = ACTIVE_TAB_INDEX;
+  public activeTabName = ACTIVE_TAB_NAME;
+  public categories = CATEGORIES;
+  public swipeDistanceToScreenPercent = 0;
+  public touchCache: any = {};
+  public stopMovePage = false;
+  public windowInnerHeight = window.innerHeight;
+  public mescroll: any;
+  public toggleTabName(index: number) {
     this.activeTabName = this.categories[index];
     let offsetWidth = -window.innerWidth * index;
     this.activeTabIndex = index;
     //这里的transform是针对最开始的位置而言，而不是移动过程中的位置
     this.$refs['app-home-page'].style['transform'] = `translate3d(${offsetWidth}px,0,0)`;
   }
-  private touchStart(e: any) {
+  public touchStart(e: any) {
     const touch = e.touches[0];
     this.touchCache.startX = touch.pageX;
     this.touchCache.startY = touch.pageY;
   }
-  private touchMove(e: any) {
+  public touchMove(e: any) {
     const touch = e.touches[0];
     //横向和纵向偏离位置
     const deltaX = touch.pageX - this.touchCache.startX;
@@ -94,7 +94,7 @@ export default class extends Vue {
     //设置动画时间
     this.$refs['app-home-page'].style['transitionDuration'] = 10;
   }
-  private touchEnd(e: any) {
+  public touchEnd(e: any) {
     let offsetWidth;
     if (this.activeTabIndex === 0) {
       // 第一个只能向左滑动
@@ -147,7 +147,7 @@ export default class extends Vue {
     this.$refs['app-home-page'].style['transitionDuration'] = 10;
     // if (this.activeTabIndex > 3) this.scrollTab();
   }
-  private scrollTab() {
+  public scrollTab() {
     const index = this.activeTabIndex;
     const $appHomeTabChildren = Array.from(this.$refs['app-home-tab'].children);
     const $appHomeTab = this.$refs['app-home-tab'];
@@ -158,7 +158,7 @@ export default class extends Vue {
     }
     $appHomeTab.scrollLeft = sum;
   }
-  private initialTab() {
+  public initialTab() {
     this.toggleTabName(INITIAL_TAB_INDEX);
     this.scrollTab();
     this.$refs['app-home-page'].style['height'] = `${this.windowInnerHeight - 100}px`;
@@ -172,14 +172,14 @@ export default class extends Vue {
       },
     });
   }
-  private downCallback(data: any) {
+  public downCallback(data: any) {
     setTimeout(() => {
       this.mescroll.endSuccess(10, true);
       console.log('downCallback');
       console.log(data);
     }, 1000);
   }
-  private upCallback(data: any) {
+  public upCallback(data: any) {
     setTimeout(() => {
       console.log('upCallback');
       console.log(data);

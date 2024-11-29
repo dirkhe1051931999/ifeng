@@ -91,19 +91,19 @@ export default class extends Vue {
   mounted() {
     this.getTaskList();
   }
-  private loading = false;
-  private progress = 0;
-  private userLevel = {
+  public loading = false;
+  public progress = 0;
+  public userLevel = {
     exp_next: 0,
     title: '',
     exp_now: 0,
     exp_level: 0,
   };
-  private task1 = [];
-  private task2 = [];
+  public task1 = [];
+  public task2 = [];
   /* event */
   /* http */
-  private async getTaskList() {
+  public async getTaskList() {
     this.loading = true;
     const { data } = await MineModule.taskList({});
     const { OnceExpTask, DailyExpTask, exp_next, exp_now, level, title } = data;

@@ -87,7 +87,7 @@
             <div class="right">
               <div class="nickname">{{ item.commentUserName }}</div>
               <div class="comment">{{ item.comment }}</div>
-              <div class="createTime">{{ item.createTime | getDateDiff }}</div>
+              <div class="createTime">{{ item.createTime | relativeTime }}</div>
             </div>
           </li>
         </ul>
@@ -105,7 +105,7 @@
             <div class="right">
               <div class="nickname">{{ item.commentUserName }}</div>
               <div class="comment">{{ item.comment }}</div>
-              <div class="createTime">{{ item.createTime | getDateDiff }}</div>
+              <div class="createTime">{{ item.createTime | relativeTime }}</div>
             </div>
           </li>
         </ul>
@@ -140,22 +140,22 @@ export default class extends Vue {
     this.getDataLoading = false;
   }
   $refs: any;
-  private getDataLoading = false;
-  private getDataLoading2 = false;
-  private bannerData = { title: '', tag: [] };
-  private nodesList = [];
-  private commentData = [];
-  private showDetailComment = false;
-  private showCardComment = false;
-  private detailCommentData = [];
-  private detailCardCommentData = [];
-  private detailCommentLoading = false;
-  private detailCardCommentLoading = false;
+  public getDataLoading = false;
+  public getDataLoading2 = false;
+  public bannerData = { title: '', tag: [] };
+  public nodesList = [];
+  public commentData = [];
+  public showDetailComment = false;
+  public showCardComment = false;
+  public detailCommentData = [];
+  public detailCardCommentData = [];
+  public detailCommentLoading = false;
+  public detailCardCommentLoading = false;
   public containerPositionY = 0;
-  private load_more_loading = false;
-  private load_more_loading_lock = false;
-  private load_more_no_data = '';
-  private pagination_params = {
+  public load_more_loading = false;
+  public load_more_loading_lock = false;
+  public load_more_no_data = '';
+  public pagination_params = {
     size: 10,
     num: 1,
     order: 'desc',
@@ -178,7 +178,7 @@ export default class extends Vue {
       }
     }
   }
-  private previewImage(images: any, index: number) {
+  public previewImage(images: any, index: number) {
     const arr = [];
     for (let item of images) {
       arr.push(item.url);
@@ -189,7 +189,7 @@ export default class extends Vue {
       closeable: true,
     });
   }
-  private async handleClickParty(item: any) {
+  public async handleClickParty(item: any) {
     this.pagination_params.party = item.id;
     this.pagination_params.num = 1;
     this.nodesList = [];
@@ -197,7 +197,7 @@ export default class extends Vue {
     await this.getZhuiZongDetail();
     this.getDataLoading2 = false;
   }
-  private async handleClickHighlight() {
+  public async handleClickHighlight() {
     this.pagination_params.highlights = this.pagination_params.highlights === 1 ? 0 : 1;
     this.pagination_params.num = 1;
     this.nodesList = [];
@@ -205,7 +205,7 @@ export default class extends Vue {
     await this.getZhuiZongDetail();
     this.getDataLoading2 = false;
   }
-  private async handleClickSort(item: any) {
+  public async handleClickSort(item: any) {
     this.pagination_params.order = item;
     this.pagination_params.num = 1;
     this.nodesList = [];
@@ -213,7 +213,7 @@ export default class extends Vue {
     await this.getZhuiZongDetail();
     this.getDataLoading2 = false;
   }
-  private async handleClickNotice() {
+  public async handleClickNotice() {
     this.showDetailComment = true;
     this.detailCommentData = [];
     this.detailCommentLoading = true;
@@ -227,7 +227,7 @@ export default class extends Vue {
     this.detailCommentLoading = false;
     this.detailCommentData = result.data.list;
   }
-  private async handleClickCardComment(item: any) {
+  public async handleClickCardComment(item: any) {
     this.showCardComment = true;
     this.detailCardCommentData = [];
     this.detailCardCommentLoading = true;
@@ -242,7 +242,7 @@ export default class extends Vue {
     this.detailCardCommentData = result.data.list;
   }
   /* http */
-  private async getZhuiZongDetail() {
+  public async getZhuiZongDetail() {
     const result = await MineModule.getZhuiZongDetail({
       page: 1,
       size: this.pagination_params.size,
@@ -256,7 +256,7 @@ export default class extends Vue {
     this.nodesList = result.nodes;
     return Promise.resolve();
   }
-  private async getZhuiZongDetailComment() {
+  public async getZhuiZongDetailComment() {
     const result = await MineModule.getZhuiZongDetailComment({
       size: 50,
       id: this.$route.query.id,
@@ -264,11 +264,11 @@ export default class extends Vue {
     this.commentData = result;
     return Promise.resolve();
   }
-  private async getZhuiZongDetailPosition() {
+  public async getZhuiZongDetailPosition() {
     const { position } = await MineModule.getZhuiZongDetailPosition({ id: this.$route.query.nodeId });
     return Promise.resolve(position);
   }
-  private async _upCallback() {
+  public async _upCallback() {
     const result = await MineModule.getZhuiZongDetail({
       page: this.pagination_params.size,
       size: this.pagination_params.size,

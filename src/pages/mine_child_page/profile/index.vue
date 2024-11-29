@@ -80,34 +80,34 @@ import { getUrlParams, json2Url } from '@/utils';
 })
 export default class extends Vue {
   $refs: any;
-  private profileData = {
+  public profileData = {
     loading: false,
   };
-  private feeds = {};
-  private userInfo = {};
+  public feeds = {};
+  public userInfo = {};
   mounted() {
     this.getMyList();
   }
   /* event */
-  private handleClickMore() {
+  public handleClickMore() {
     handlerQuasarShare('profile', {});
   }
-  private handleClickLabel() {
+  public handleClickLabel() {
     this.$router.push('/mine_child_page/level');
   }
-  private handleClickMedal() {
+  public handleClickMedal() {
     this.$router.push('/mine_child_page/medal');
   }
-  private handleClickMessages() {
+  public handleClickMessages() {
     this.$router.push('/mine_child_page/messages');
   }
-  private handleClickFollow() {
+  public handleClickFollow() {
     this.$router.push('/mine_child_page/follow');
   }
-  private handleClickFans() {
+  public handleClickFans() {
     this.$router.push('/mine_child_page/fans');
   }
-  private handleClickDocDetails(item: any) {
+  public handleClickDocDetails(item: any) {
     let params;
     let urlStr: string;
     switch (item.link.type) {
@@ -137,7 +137,7 @@ export default class extends Vue {
     }
   }
   /* http */
-  private async getMyList() {
+  public async getMyList() {
     this.profileData.loading = true;
     const { data } = await MineModule.myList({ guid_feeds: UserModule.guid });
     const { userinfo, feeds } = data;
