@@ -20,6 +20,7 @@ import TabHomePage from 'src/pages/bottom_navigation/home/index.vue';
 import TabShortVideoPage from 'src/pages/bottom_navigation/shortVideo/index.vue';
 import TabPlazaPage from 'src/pages/bottom_navigation/plaza/index.vue';
 import TabMinePage from 'src/pages/bottom_navigation/mine/index.vue';
+
 @Component({
   name: 'App',
   components: {
@@ -33,6 +34,7 @@ export default class extends Vue {
   created() {
     this._getBaseConfig();
   }
+
   private activeNavigateIndex = 0;
   private navigationArr = [
     {
@@ -52,6 +54,7 @@ export default class extends Vue {
       icon: 'icon-account',
     },
   ];
+
   private async _getBaseConfig() {
     if (!get_config_backreason_key()) {
       const result = await AppModule.getBaseConfig({ headLogoType: '3', province: '', city: '', statusHeight: '29' });

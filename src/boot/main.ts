@@ -114,7 +114,7 @@ Object.keys(directives).forEach((key) => {
 
 // 注册全局过滤器功能
 Object.keys(filters).forEach((key) => {
-  Vue.filter(key, (filters as { [key: string]: Function })[key]);
+  Vue.filter(key, (filters as { [key: string]: any })[key]);
 });
 
 console.log(

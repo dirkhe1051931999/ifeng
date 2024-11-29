@@ -5,8 +5,8 @@ import Vue from 'vue';
 Vue.use(Router);
 const createRouter = () =>
   new Router({
-    mode: 'history',
-    base: '/',
+    mode: 'hash',
+    base: process.env.NODE_ENV === 'production' ? '/ifeng-app' : '/',
     routes: constantRoutes,
   });
 

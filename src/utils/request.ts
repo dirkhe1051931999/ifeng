@@ -43,8 +43,9 @@ const routeMap = {
 // 转换URL的函数
 const transformUrl = (url: string, baseUrl: string) => {
   for (const key in routeMap) {
-    if (url.indexOf(key) !== -1) {
-      return url.replace(key, routeMap[key]);
+    const reg = new RegExp(`\\b${key}\\b`, 'gi');
+    if (reg.test(url)) {
+      return url.replace(reg, routeMap[key]);
     }
   }
   return url;
