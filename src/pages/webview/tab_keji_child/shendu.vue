@@ -33,7 +33,7 @@
             <i class="iconfont icon-duanxin" v-if="news.commentsall"></i>
             <span class="count" v-if="news.commentsall"> {{ news.commentsall }}</span>
             <i class="iconfont icon-lishi" v-if="news.updateTime"></i>
-            <span class="count" v-if="news.updateTime">{{ news.updateTime | getDateDiff }}</span>
+            <span class="count" v-if="news.updateTime">{{ news.updateTime | relativeTime }}</span>
           </div>
         </div>
       </li>
@@ -58,12 +58,12 @@ export default class extends Vue {
   mounted() {
     this.getList();
   }
-  private shenduList: any[] = [];
-  private getDataLoading = false;
-  private load_more_loading = false;
-  private load_more_loading_lock = false;
-  private load_more_no_data = '';
-  private pagination_params = {
+  public shenduList: any[] = [];
+  public getDataLoading = false;
+  public load_more_loading = false;
+  public load_more_loading_lock = false;
+  public load_more_no_data = '';
+  public pagination_params = {
     size: 10,
     num: 1,
   };
@@ -84,7 +84,7 @@ export default class extends Vue {
     }
   }
   /*http*/
-  private async getList() {
+  public async getList() {
     try {
       this.getDataLoading = true;
       let params: any = {
@@ -112,7 +112,7 @@ export default class extends Vue {
       console.log(error);
     }
   }
-  private async getMoreList() {
+  public async getMoreList() {
     try {
       let params: any = {
         id: 'KJDEEP',

@@ -38,17 +38,17 @@ export default class extends Vue {
   mounted() {
     this.$refs['caijing-pindao-search-content'].style['height'] = `${window.innerHeight - 48}px`;
   }
-  private searchText = '';
-  private searchLoaded = false;
-  private searchLoading = false;
-  private searchList: any[] = [];
+  public searchText = '';
+  public searchLoaded = false;
+  public searchLoading = false;
+  public searchList: any[] = [];
   /**event */
-  private monitorScrollEvent() {}
-  private handlerClickSearchItem(item: any) {
+  public monitorScrollEvent() {}
+  public handlerClickSearchItem(item: any) {
     this.$router.push(`/ifeng_web_caijing_pindao/stock_detail?code=${item.c}`);
   }
   /**http */
-  private async handlerSearch() {
+  public async handlerSearch() {
     if (!this.searchText) {
       this.searchList = [];
       return;

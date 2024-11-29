@@ -20,13 +20,13 @@ smoothscroll.polyfill(); // 移动端scrollTo behavior: "smooth"动画失效的p
 
 @Component
 export default class extends Vue {
-  private list: any = [];
-  private restComment: any = 0;
-  private restNums: any = 0;
-  private wrapperDom: any = null;
-  private listDom: any = null;
-  private wrapperHeight: any = 0;
-  private isBindScrolled = false;
+  public list: any = [];
+  public restComment: any = 0;
+  public restNums: any = 0;
+  public wrapperDom: any = null;
+  public listDom: any = null;
+  public wrapperHeight: any = 0;
+  public isBindScrolled = false;
   mounted() {
     this.initDom();
     // ajax...

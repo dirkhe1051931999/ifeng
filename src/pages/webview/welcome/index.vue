@@ -13,7 +13,7 @@
       <div class="logo">
         <img src="~assets/welcome/fenghuang.png" alt="" />
       </div>
-      <div class="copy">Copyright © 2017 Phoenix New Media Limited All Rights Reserved</div>
+      <div class="copy">Copyright © {{ new Date().getFullYear() }} Phoenix New Media Limited All Rights Reserved</div>
     </footer>
   </div>
 </template>
@@ -24,7 +24,7 @@ import { Vue, Component } from 'vue-property-decorator';
   name: 'welcome-index',
 })
 export default class extends Vue {
-  private onExperience() {
+  public onExperience() {
     this.$router.replace('/app/0');
   }
 }

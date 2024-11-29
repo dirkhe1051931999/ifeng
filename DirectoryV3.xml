@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+ <trees>
+     <tree path="/src/pages/app" title="app container" extension="" presentableText="" tooltipTitle="" icon="" textColor="" backgroundColor=""/>
+     <tree path="/src/pages/common" title="公共页面"/>
+     <tree path="/src/pages/common/login" title="登录页"/>
+     <tree path="/src/pages/home_tab_item" title="首页的导航栏" extension="" presentableText="" tooltipTitle="" icon="" textColor="" backgroundColor=""/>
+     <tree path="/src/pages/mine_child_page" title="个人中心下的子页面"/>
+     <tree path="/src/pages/webview" title="类webview 页面"/>
+     <tree path="/src/pages/bottom_navigation" title="底部的导航"/>
+ </trees>

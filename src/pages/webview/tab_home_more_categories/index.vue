@@ -71,29 +71,29 @@ export default class extends Vue {
   beforeDestroy() {
     this.enableDraggle = false;
   }
-  private allCategories = [1, 2, 3, 4, 56, 7];
-  private enableDraggle = false;
+  public allCategories = [1, 2, 3, 4, 56, 7];
+  public enableDraggle = false;
   /*event */
-  private handlerClickClose() {
+  public handlerClickClose() {
     this.$router.back();
   }
-  private handlerClickEdit() {
+  public handlerClickEdit() {
     this.enableDraggle = !this.enableDraggle;
     if (!this.enableDraggle) {
       set_user_current_categories(this.currentUserCategories);
       set_user_bak_categories(this.bakUserCategories);
     }
   }
-  private handlerClickRemoveItem(item: any, index: number) {
+  public handlerClickRemoveItem(item: any, index: number) {
     this.bakUserCategories.unshift(item);
     this.currentUserCategories.splice(index, 1);
   }
-  private handlerClickBakItem(item: any, index: number) {
+  public handlerClickBakItem(item: any, index: number) {
     if (!this.enableDraggle) return;
     this.currentUserCategories.push(item);
     this.bakUserCategories.splice(index, 1);
   }
-  private handlerDragend(data: any) {
+  public handlerDragend(data: any) {
     // for (let i = 0; i < this.currentUserCategories.length; i++) {
     //   this.currentUserCategories[i].index = String(i);
     // }

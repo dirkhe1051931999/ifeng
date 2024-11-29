@@ -23,7 +23,7 @@
                   <q-img :src="item.imgurl" class="img"></q-img>
                   <div class="r">
                     <div class="nickname">{{ item.nickname }}</div>
-                    <div class="ctime">{{ item.ctime | parseTimeFromDateString }} {{ item.ctime | parseTimeFromDateString3 }}</div>
+                    <div class="ctime">{{ item.ctime | fullDateTime }}</div>
                   </div>
                 </div>
                 <div class="content">
@@ -52,7 +52,7 @@
                     <q-img :src="voter.voter_imgs" class="img"></q-img>
                     <div class="r">
                       <div class="nickname">{{ voter.voter_names }}</div>
-                      <div class="ctime">{{ item.createTime | parseTimeFromDateString }} {{ item.createTime | parseTimeFromDateString3 }}</div>
+                      <div class="ctime">{{ item.createTime | fullDateTime }}</div>
                     </div>
                   </div>
                   <div class="text">等人点赞了你的评论</div>
@@ -80,7 +80,7 @@
                   <q-img :src="item.userimg" class="img"></q-img>
                   <div class="r">
                     <div class="nickname">{{ item.nickname }}</div>
-                    <div class="ctime">{{ item.ctime | parseTimeFromDateString }} {{ item.ctime | parseTimeFromDateString3 }}</div>
+                    <div class="ctime">{{ item.ctime | fullDateTime }}</div>
                   </div>
                 </div>
                 <div class="content">
@@ -99,26 +99,28 @@
 import { getUrlParams, json2Url } from '@/utils';
 import { MineModule } from '@/store/modules/mine';
 import { Component, Vue } from 'vue-property-decorator';
+import { fullDateTime } from '@/filters';
 
 @Component({
   name: 'mine-messages',
+  methods: { fullDateTime },
 })
 export default class extends Vue {
   mounted() {
     this.getReplyMessages();
   }
-  private tab = 'reply';
-  private replyLoading = false;
-  private replyLock = false;
-  private likeLoading = false;
-  private likeLock = false;
-  private systemReplyLoading = false;
-  private systemReplyLock = false;
-  private replyData = [];
-  private likeData = [];
-  private systemReplyData = [];
+  public tab = 'reply';
+  public replyLoading = false;
+  public replyLock = false;
+  public likeLoading = false;
+  public likeLock = false;
+  public systemReplyLoading = false;
+  public systemReplyLock = false;
+  public replyData = [];
+  public likeData = [];
+  public systemReplyData = [];
   /* event */
-  private tabChange() {
+  public tabChange() {
     if (this.tab === 'reply') {
       this.getReplyMessages();
     } else if (this.tab === 'like') {
@@ -127,7 +129,7 @@ export default class extends Vue {
       this.getSystemReplyMessages();
     }
   }
-  private handleClickDocDetails(item: any) {
+  public handleClickDocDetails(item: any) {
     let params;
     let urlStr: string;
     switch (item.link.type) {
@@ -157,7 +159,7 @@ export default class extends Vue {
     }
   }
   /* http */
-  private async getReplyMessages() {
+  public async getReplyMessages() {
     if (this.replyLock) return;
     this.replyLoading = true;
     const { data } = await MineModule.getReplyMessages({ page: 1 });
@@ -166,7 +168,7 @@ export default class extends Vue {
     this.replyLoading = false;
     this.replyLock = true;
   }
-  private async getLikeMessages() {
+  public async getLikeMessages() {
     if (this.likeLock) return;
     this.likeLoading = true;
     const { data } = await MineModule.getLikeMessages({ page: 1 });
@@ -175,7 +177,7 @@ export default class extends Vue {
     this.likeLoading = false;
     this.likeLock = true;
   }
-  private async getSystemReplyMessages() {
+  public async getSystemReplyMessages() {
     if (this.systemReplyLock) return;
     this.systemReplyLoading = true;
     const { data } = await MineModule.getSystemReplyMessages({ page: 1 });

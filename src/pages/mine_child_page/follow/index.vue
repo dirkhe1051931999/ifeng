@@ -83,21 +83,21 @@ export default class extends Vue {
   mounted() {
     this.getAuthorData();
   }
-  private tab = 'author';
-  private authorLoading = false;
-  private columnLoading = false;
-  private topicLoading = false;
-  private hotspotLoading = false;
-  private authorLock = false;
-  private columnLock = false;
-  private topicLock = false;
-  private hotSpotLock = false;
-  private authorData = [];
-  private columnData = [];
-  private topicData = [];
-  private hotSpotData = [];
+  public tab = 'author';
+  public authorLoading = false;
+  public columnLoading = false;
+  public topicLoading = false;
+  public hotspotLoading = false;
+  public authorLock = false;
+  public columnLock = false;
+  public topicLock = false;
+  public hotSpotLock = false;
+  public authorData = [];
+  public columnData = [];
+  public topicData = [];
+  public hotSpotData = [];
   /* event */
-  private tabChange() {
+  public tabChange() {
     if (this.tab === 'author') {
       this.getAuthorData();
     } else if (this.tab === 'column') {
@@ -110,7 +110,7 @@ export default class extends Vue {
   }
 
   /* http */
-  private async getAuthorData() {
+  public async getAuthorData() {
     if (this.authorLock) return;
     this.authorLoading = true;
     const { data } = await MineModule.getFollowList({ params: { page: 1, pagesize: 20, tabtype: 'author' } });
@@ -119,7 +119,7 @@ export default class extends Vue {
     this.authorLoading = false;
     this.authorLock = true;
   }
-  private async getColumnData() {
+  public async getColumnData() {
     if (this.columnLock) return;
     this.columnLoading = true;
     const { data } = await MineModule.getFollowList({ params: { page: 1, pagesize: 20, tabtype: 'column' } });
@@ -128,7 +128,7 @@ export default class extends Vue {
     this.columnLoading = false;
     this.columnLock = true;
   }
-  private async getTopicData() {
+  public async getTopicData() {
     if (this.topicLock) return;
     this.topicLoading = true;
     const { data } = await MineModule.getFollowList({ params: { page: 1, pagesize: 20, tabtype: 'topic' } });
@@ -137,7 +137,7 @@ export default class extends Vue {
     this.topicLoading = false;
     this.topicLock = true;
   }
-  private async getHotSpotData() {
+  public async getHotSpotData() {
     if (this.hotSpotLock) return;
     this.hotspotLoading = true;
     const { data } = await MineModule.getFollowList({ params: { page: 1, pagesize: 20, tabtype: 'hotspot' } });

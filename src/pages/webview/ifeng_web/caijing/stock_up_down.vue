@@ -136,32 +136,32 @@ export default class extends Vue {
     this.$refs['caijing-pindao-stock-up-down-list-content-declining'].style['height'] = `${window.innerHeight - 48}px`;
     this.$refs['caijing-pindao-stock-up-down-list-content-science'].style['height'] = `${window.innerHeight - 48}px`;
   }
-  private tabs = ['涨幅榜', '跌幅榜', '科创板'];
-  private activeTabIndex = 0;
-  private upListLoaded = false;
-  private downListLoaded = false;
-  private scienceListLoaded = false;
-  private upListPaginationNum = 1;
-  private downListPaginationNum = 1;
-  private scienceListPaginationNum = 1;
-  private scienceListPaginationSort = 'desc';
-  private upListLoading = false;
-  private downListLoading = false;
-  private scienceListLoading = false;
-  private upListMoreLoading = false;
-  private downListMoreLoading = false;
-  private scienceListMoreLoading = false;
-  private upListLoadingLock = false;
-  private downListLoadingLock = false;
-  private scienceListLoadingLock = false;
-  private increaseList: any[] = [];
-  private decliningList: any[] = [];
-  private scienceList: any[] = [];
-  private containerPositionY1 = 0;
-  private containerPositionY2 = 0;
-  private containerPositionY3 = 0;
+  public tabs = ['涨幅榜', '跌幅榜', '科创板'];
+  public activeTabIndex = 0;
+  public upListLoaded = false;
+  public downListLoaded = false;
+  public scienceListLoaded = false;
+  public upListPaginationNum = 1;
+  public downListPaginationNum = 1;
+  public scienceListPaginationNum = 1;
+  public scienceListPaginationSort = 'desc';
+  public upListLoading = false;
+  public downListLoading = false;
+  public scienceListLoading = false;
+  public upListMoreLoading = false;
+  public downListMoreLoading = false;
+  public scienceListMoreLoading = false;
+  public upListLoadingLock = false;
+  public downListLoadingLock = false;
+  public scienceListLoadingLock = false;
+  public increaseList: any[] = [];
+  public decliningList: any[] = [];
+  public scienceList: any[] = [];
+  public containerPositionY1 = 0;
+  public containerPositionY2 = 0;
+  public containerPositionY3 = 0;
   /**event */
-  private async handlerClickTabsItem(index: number) {
+  public async handlerClickTabsItem(index: number) {
     this.activeTabIndex = index;
     this.upListLoading = false;
     this.downListLoading = false;
@@ -203,7 +203,7 @@ export default class extends Vue {
       });
     }
   }
-  private async monitorScrollEvent1() {
+  public async monitorScrollEvent1() {
     const scrollHeight = this.$refs['caijing-pindao-stock-up-down-list-content-increase'].scrollHeight;
     const scrollTop = this.$refs['caijing-pindao-stock-up-down-list-content-increase'].scrollTop;
     this.containerPositionY1 = scrollTop;
@@ -219,7 +219,7 @@ export default class extends Vue {
       }
     }
   }
-  private async monitorScrollEvent2() {
+  public async monitorScrollEvent2() {
     const scrollHeight = this.$refs['caijing-pindao-stock-up-down-list-content-declining'].scrollHeight;
     const scrollTop = this.$refs['caijing-pindao-stock-up-down-list-content-declining'].scrollTop;
     this.containerPositionY2 = scrollTop;
@@ -235,7 +235,7 @@ export default class extends Vue {
       }
     }
   }
-  private async monitorScrollEvent3() {
+  public async monitorScrollEvent3() {
     const scrollHeight = this.$refs['caijing-pindao-stock-up-down-list-content-science'].scrollHeight;
     const scrollTop = this.$refs['caijing-pindao-stock-up-down-list-content-science'].scrollTop;
     this.containerPositionY3 = scrollTop;
@@ -251,7 +251,7 @@ export default class extends Vue {
       }
     }
   }
-  private async handlerClickScienceSort() {
+  public async handlerClickScienceSort() {
     if (this.scienceListLoading) {
       return;
     }
@@ -261,11 +261,11 @@ export default class extends Vue {
     await this._getCaijingStockScience();
     this.scienceListLoading = false;
   }
-  private handlerClickStock(item: any) {
+  public handlerClickStock(item: any) {
     this.$router.push(`/ifeng_web_caijing_pindao/stock_detail?code=${item.code}`);
   }
   /**http */
-  private async _getCaijingStockUp() {
+  public async _getCaijingStockUp() {
     const result = await TabHomeCaijingModule.getCaijingStockUpOrDown({ params: { sort: 'desc', page: 1 } });
     const arr = [];
     for (let item of result[0]) {
@@ -279,7 +279,7 @@ export default class extends Vue {
     this.increaseList = arr;
     return Promise.resolve();
   }
-  private async _getCaijingStockDown() {
+  public async _getCaijingStockDown() {
     const result = await TabHomeCaijingModule.getCaijingStockUpOrDown({ params: { sort: 'asc', page: 1 } });
     const arr = [];
     for (let item of result[0]) {
@@ -293,7 +293,7 @@ export default class extends Vue {
     this.decliningList = arr;
     return Promise.resolve();
   }
-  private async _getCaijingStockScience() {
+  public async _getCaijingStockScience() {
     const result = await TabHomeCaijingModule.getCaijingStockKCB({ params: { sort: this.scienceListPaginationSort, page: 1 } });
     const arr = [];
     for (let item of result[0]) {
@@ -307,7 +307,7 @@ export default class extends Vue {
     this.scienceList = arr;
     return Promise.resolve();
   }
-  private async _getCaijingMoreStockUp() {
+  public async _getCaijingMoreStockUp() {
     const result = await TabHomeCaijingModule.getCaijingStockUpOrDown({ params: { sort: 'desc', page: this.upListPaginationNum } });
     const arr = [];
     for (let item of result[0]) {
@@ -321,7 +321,7 @@ export default class extends Vue {
     this.increaseList = this.increaseList.concat(arr);
     return Promise.resolve();
   }
-  private async _getCaijingMoreStockDown() {
+  public async _getCaijingMoreStockDown() {
     const result = await TabHomeCaijingModule.getCaijingStockUpOrDown({ params: { sort: 'asc', page: this.downListPaginationNum } });
     const arr = [];
     for (let item of result[0]) {
@@ -335,7 +335,7 @@ export default class extends Vue {
     this.decliningList = this.decliningList.concat(arr);
     return Promise.resolve();
   }
-  private async _getCaijingMoreStockScience() {
+  public async _getCaijingMoreStockScience() {
     const result = await TabHomeCaijingModule.getCaijingStockKCB({
       params: { sort: this.scienceListPaginationSort, page: this.scienceListPaginationNum },
     });

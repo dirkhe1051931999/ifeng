@@ -28,7 +28,7 @@
             <p class="title">{{ news.title }}</p>
             <p class="info">
               <span v-if="news.source">{{ news.source }}</span>
-              <span>{{ news.updateTime | getDateDiff }}</span>
+              <span>{{ news.updateTime | relativeTime }}</span>
               <span>{{ news.commentsall }} 评</span>
             </p>
             <van-image class="thumbnail" :src="news.thumbnail" lazy-load />
@@ -95,7 +95,7 @@
                   <i class="iconfont icon-duanxin" v-if="news.commentsall"></i>
                   <span class="count" v-if="news.commentsall"> {{ news.commentsall }}</span>
                   <i class="iconfont icon-lishi" v-if="news.updateTime"></i>
-                  <span class="count" v-if="news.updateTime">{{ news.updateTime | getDateDiff }}</span>
+                  <span class="count" v-if="news.updateTime">{{ news.updateTime | relativeTime }}</span>
                 </div>
               </div>
               <!-- picture -->
@@ -111,7 +111,7 @@
                     </div>
                     <div class="r">
                       <div class="t">{{ news.subscribe.catename }}</div>
-                      <div class="b">{{ news.updateTime | getDateDiff }}</div>
+                      <div class="b">{{ news.updateTime | relativeTime }}</div>
                     </div>
                   </div>
                   <div class="right hide">
@@ -146,7 +146,7 @@
                   <i class="iconfont icon-duanxin" v-if="news.commentsall"></i>
                   <span class="count" v-if="news.commentsall"> {{ news.commentsall }}</span>
                   <i class="iconfont icon-lishi" v-if="news.updateTime"></i>
-                  <span class="count" v-if="news.updateTime">{{ news.updateTime | getDateDiff }}</span>
+                  <span class="count" v-if="news.updateTime">{{ news.updateTime | relativeTime }}</span>
                 </div>
               </div>
               <!-- video -->
@@ -162,7 +162,7 @@
                     </div>
                     <div class="r">
                       <div class="t">{{ news.subscribe.catename }}</div>
-                      <div class="b">{{ news.updateTime | getDateDiff }}</div>
+                      <div class="b">{{ news.updateTime | relativeTime }}</div>
                     </div>
                   </div>
                   <div class="right hide">
@@ -200,7 +200,7 @@
                   <i class="iconfont icon-duanxin" v-if="news.commentsall"></i>
                   <span class="count" v-if="news.commentsall"> {{ news.commentsall }}</span>
                   <i class="iconfont icon-lishi" v-if="news.updateTime"></i>
-                  <span class="count" v-if="news.updateTime">{{ news.updateTime | getDateDiff }}</span>
+                  <span class="count" v-if="news.updateTime">{{ news.updateTime | relativeTime }}</span>
                 </div>
                 <div v-if="news.subscribe.logo || news.subscribe.honorImg" class="action-bottom">
                   <div class="like">
@@ -239,7 +239,7 @@
                         </div>
                       </div>
                       <div class="b">
-                        <span class="time" v-if="news.comment_date">{{ news.comment_date | getDateDiff }}</span>
+                        <span class="time" v-if="news.comment_date">{{ news.comment_date | relativeTime }}</span>
                         <span class="split"></span>
                         <span class="reply">回复</span>
                       </div>
@@ -270,7 +270,7 @@
                           </div>
                         </div>
                         <div class="b">
-                          <span class="time" v-if="child.comment_date">{{ child.comment_date | getDateDiff }}</span>
+                          <span class="time" v-if="child.comment_date">{{ child.comment_date | relativeTime }}</span>
                           <span class="split"></span>
                           <span class="reply">回复</span>
                         </div>
@@ -330,7 +330,7 @@
               </div>
               <div class="c">{{ commentsOwnerMap.comment_contents }}</div>
               <div class="b">
-                <span class="time" v-if="commentsOwnerMap.comment_date">{{ commentsOwnerMap.comment_date | getDateDiff }}</span>
+                <span class="time" v-if="commentsOwnerMap.comment_date">{{ commentsOwnerMap.comment_date | relativeTime }}</span>
                 <span class="split"></span>
                 <span class="reply">回复</span>
               </div>
@@ -354,7 +354,7 @@
               </div>
               <div class="c">{{ child.comment_contents }}</div>
               <div class="b">
-                <span class="time" v-if="child.comment_date">{{ child.comment_date | getDateDiff }}</span>
+                <span class="time" v-if="child.comment_date">{{ child.comment_date | relativeTime }}</span>
                 <span class="split"></span>
                 <span class="reply">回复</span>
               </div>
@@ -393,7 +393,7 @@ export default class extends Vue {
   async created() {}
   async mounted() {
     await this._getNewTopic();
-    await this.$nextTick(async () => {
+    this.$nextTick(async () => {
       this.$refs['news-topic-wrap'].style['height'] = `${window.innerHeight - 46}px`;
       for (let item of this.tabsList) {
         const $dom: any = this.$refs[item.id][0];
@@ -407,41 +407,41 @@ export default class extends Vue {
     this.pageLoaded = true;
   }
   /*data*/
-  private pageLoaded = false;
-  private activeShow = false;
-  private activeTabIndex = 0;
-  private $dom: any;
-  private $tabs: any;
-  private $tabsChildren: any;
-  private tabsOffsetTopInterregional: number[] = [0];
-  private tabsList: any[] = [];
-  private newsTopicSwiperList: any[] = [];
-  private newsTopicSecondnavList: any[] = [];
-  private commentsChildrenMoreList: any[] = [];
-  private commentsOwnerMap: any = {};
-  private bannerMap: any = {};
-  private commentsPaginationParams = {
+  public pageLoaded = false;
+  public activeShow = false;
+  public activeTabIndex = 0;
+  public $dom: any;
+  public $tabs: any;
+  public $tabsChildren: any;
+  public tabsOffsetTopInterregional: number[] = [0];
+  public tabsList: any[] = [];
+  public newsTopicSwiperList: any[] = [];
+  public newsTopicSecondnavList: any[] = [];
+  public commentsChildrenMoreList: any[] = [];
+  public commentsOwnerMap: any = {};
+  public bannerMap: any = {};
+  public commentsPaginationParams = {
     num: 1,
     orderby: 'integral',
     pagesize: '10',
   };
-  private commentsSort = {
+  public commentsSort = {
     sortMethod: '按时间',
   };
-  private commentsMap = {
+  public commentsMap = {
     count: 0,
     join_count: 0,
     comments: [],
     allow_comment: 1,
   };
-  private commentSorting = false;
-  private load_more_loading_lock = false;
-  private load_more_loading = false;
-  private load_more_no_data = '';
-  private showCommentsChildrenMore = false;
-  private commentsChildrenMoreLoading = false;
+  public commentSorting = false;
+  public load_more_loading_lock = false;
+  public load_more_loading = false;
+  public load_more_no_data = '';
+  public showCommentsChildrenMore = false;
+  public commentsChildrenMoreLoading = false;
   /*event */
-  private async monitorScrollEvent() {
+  public async monitorScrollEvent() {
     const scrollTop = this.$dom.scrollTop;
     if (scrollTop >= 115) {
       this.activeShow = true;
@@ -472,20 +472,20 @@ export default class extends Vue {
       }
     }
   }
-  private handlerClickTabItem(index: number) {
+  public handlerClickTabItem(index: number) {
     if (!this.activeShow) return;
     this.$refs['news-topic-wrap'].scrollTop = this.tabsOffsetTopInterregional[index + 1];
   }
-  private hanlderClickTabBack() {
+  public hanlderClickTabBack() {
     this.$router.back();
   }
-  private handlerClickPhvideoShare(news: any) {
+  public handlerClickPhvideoShare(news: any) {
     handlerQuasarShare('news_topic', news);
   }
-  private handlerClickToutiaoHotSpotMore() {
+  public handlerClickToutiaoHotSpotMore() {
     this.$router.push('/tab_home_hot/0');
   }
-  private previewImage(images: any, index: number) {
+  public previewImage(images: any, index: number) {
     const arr = [];
     for (let item of images) {
       arr.push(item.url);
@@ -496,7 +496,7 @@ export default class extends Vue {
       closeable: true,
     });
   }
-  private handleClickNewsItem(news: any) {
+  public handleClickNewsItem(news: any) {
     let params;
     let urlStr: string;
     switch (news.type) {
@@ -526,7 +526,7 @@ export default class extends Vue {
     }
   }
   /*http */
-  private handlerClickComentsChildMore(news: any) {
+  public handlerClickComentsChildMore(news: any) {
     this.commentsOwnerMap = {};
     this.commentsChildrenMoreList = [];
     this.commentsChildrenMoreLoading = true;
@@ -545,7 +545,7 @@ export default class extends Vue {
       this.commentsChildrenMoreLoading = false;
     });
   }
-  private async handlerClickCommentsSort(method: string) {
+  public async handlerClickCommentsSort(method: string) {
     if (this.commentSorting) {
       return;
     }
@@ -564,7 +564,7 @@ export default class extends Vue {
     this.commentsMap = commentResult;
     this.commentSorting = false;
   }
-  private async _getNewTopic() {
+  public async _getNewTopic() {
     try {
       let params = {
         topicid: this.$route.query.topicid,
@@ -604,7 +604,7 @@ export default class extends Vue {
       return Promise.reject();
     }
   }
-  private async _getCommentsMore() {
+  public async _getCommentsMore() {
     let commentParams: any = {
       doc_url: this.$route.query.topicid.indexOf('ucms_') !== -1 ? this.$route.query.topicid : `ucms_${this.$route.query.topicid}`,
       p: this.commentsPaginationParams.num,

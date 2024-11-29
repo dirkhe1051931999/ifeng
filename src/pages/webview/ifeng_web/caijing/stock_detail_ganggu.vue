@@ -100,45 +100,45 @@ export default class extends Vue {
     this.$refs['caijing-stock-detail-ganggu-content'].style['height'] = `${window.innerHeight - 48}px`;
     this._getCaijingStockGangGuDetail();
   }
-  private lastUpdateTime: any = '';
-  private stockName = {
+  public lastUpdateTime: any = '';
+  public stockName = {
     code: this.$route.query.code,
     name: '',
     code2: '',
   };
-  private basehq: any = {};
-  private newsList: any[] = [];
-  private activeChartNavItemIndex = 0;
+  public basehq: any = {};
+  public newsList: any[] = [];
+  public activeChartNavItemIndex = 0;
   // chart loading
-  private minutelyLoading = false;
-  private dailyLoading = false;
-  private weeklyLoading = false;
-  private monthlyLoading = false;
+  public minutelyLoading = false;
+  public dailyLoading = false;
+  public weeklyLoading = false;
+  public monthlyLoading = false;
   // chart load lock
-  private minutelyLock = false;
-  private dailyLock = false;
-  private weeklyLock = false;
-  private monthlyLock = false;
+  public minutelyLock = false;
+  public dailyLock = false;
+  public weeklyLock = false;
+  public monthlyLock = false;
   // chart data
-  private minutelyDate: any[] = [];
-  private minutelyData: any[] = [];
-  private minutelyDataAmount: any[] = [];
-  private minutelyMinY = 0;
-  private dailyData: any[] = [];
-  private dailyMinY = 0;
-  private weeklyData: any[] = [];
-  private weeklyMinY = 0;
-  private monthlyData: any[] = [];
-  private monthlyMinY = 0;
-  private pageLoading = false;
-  private containerPositionY = 0;
-  private pageMoreLoading = false;
-  private pageLoaded = false;
-  private pageMoreLocking = false;
-  private pageMorePaginationNum = 1;
-  private noMoreNews = false;
+  public minutelyDate: any[] = [];
+  public minutelyData: any[] = [];
+  public minutelyDataAmount: any[] = [];
+  public minutelyMinY = 0;
+  public dailyData: any[] = [];
+  public dailyMinY = 0;
+  public weeklyData: any[] = [];
+  public weeklyMinY = 0;
+  public monthlyData: any[] = [];
+  public monthlyMinY = 0;
+  public pageLoading = false;
+  public containerPositionY = 0;
+  public pageMoreLoading = false;
+  public pageLoaded = false;
+  public pageMoreLocking = false;
+  public pageMorePaginationNum = 1;
+  public noMoreNews = false;
   /**event */
-  private async monitorScrollEvent() {
+  public async monitorScrollEvent() {
     const scrollHeight = this.$refs['caijing-stock-detail-ganggu-content'].scrollHeight;
     const scrollTop = this.$refs['caijing-stock-detail-ganggu-content'].scrollTop;
     this.containerPositionY = scrollTop;
@@ -155,7 +155,7 @@ export default class extends Vue {
       }
     }
   }
-  private async handleClickNavItem(index: number) {
+  public async handleClickNavItem(index: number) {
     this.activeChartNavItemIndex = index;
     switch (index) {
       case 1:
@@ -203,7 +203,7 @@ export default class extends Vue {
   }
 
   /**http */
-  private async _getCaijingStockGangGuDetail() {
+  public async _getCaijingStockGangGuDetail() {
     this.pageLoading = true;
     this.minutelyLoading = true;
     const result: any = await TabHomeCaijingModule.getCaijingStockDetailGangGu({
@@ -247,7 +247,7 @@ export default class extends Vue {
     this.pageLoading = false;
     this.pageLoaded = true;
   }
-  private async _getChartData(index: number) {
+  public async _getChartData(index: number) {
     if (index === 1) {
       const result: any = await TabHomeCaijingModule.getCaijingStockDetailGangGu({
         params: {
@@ -295,7 +295,7 @@ export default class extends Vue {
       }
     }
   }
-  private async _getCaijingMoreStockDetail() {
+  public async _getCaijingMoreStockDetail() {
     const result: any = await TabHomeCaijingModule.getCaijingStockDetailGangGu({
       params: {
         stockname: '恒生指数',

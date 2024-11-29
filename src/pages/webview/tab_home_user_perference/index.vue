@@ -52,13 +52,13 @@ export default class extends Vue {
     const $wrapper = this.$refs['user-perference-wrapper'];
     $wrapper.style['height'] = `${window.innerHeight - 56}px`;
   }
-  private questionDataList: any = [];
-  private selectManOrWoman = {};
+  public questionDataList: any = [];
+  public selectManOrWoman = {};
   /*event*/
-  private handlerClickBack() {
+  public handlerClickBack() {
     this.$router.back();
   }
-  private handlerClickSlectTag(item: any, q: any, index: number) {
+  public handlerClickSlectTag(item: any, q: any, index: number) {
     if (item.isMulti) {
       q.selected = q.selected === '1' ? '0' : '1';
     } else {
@@ -72,8 +72,8 @@ export default class extends Vue {
       }
     }
   }
-  private handlerClickSave() {}
-  private handlerClickReset() {
+  public handlerClickSave() {}
+  public handlerClickReset() {
     for (let cur of this.questionDataList) {
       for (let j of cur.option) {
         j.selected = '0';
@@ -81,7 +81,7 @@ export default class extends Vue {
     }
   }
   /*http */
-  private async _getDeviceSurveyMyList() {
+  public async _getDeviceSurveyMyList() {
     const formdata = new FormData();
     const data = {
       ltoken: '',

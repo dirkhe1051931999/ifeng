@@ -124,6 +124,7 @@ import { get_user_bak_categories, get_user_current_categories, get_user_current_
 import { cloneDeep } from 'lodash';
 import { TabHomeChengshiModule } from '@/store/modules/home_tab/chengshi';
 import { tabPageClassNameList, tabPageRefNameList } from './container_arr';
+
 @Component({
   name: 'tab_home',
   components: {
@@ -171,12 +172,15 @@ import { tabPageClassNameList, tabPageRefNameList } from './container_arr';
 })
 export default class extends Vue {
   $refs: any;
+
   get activeTabIndex() {
     return TabHomeModule.activeTabIndex;
   }
+
   get activeTabName() {
     return TabHomeModule.activeTabName;
   }
+
   get categories(): any {
     const _defaultCategories = cloneDeep(defaultCategories);
     for (let item of _defaultCategories) {
@@ -187,6 +191,7 @@ export default class extends Vue {
     }
     return get_user_current_categories() ? cloneDeep(get_user_current_categories()) : cloneDeep(_defaultCategories);
   }
+
   get bak_categories(): any {
     const _bakCategories = cloneDeep(bakCategories);
     for (let item of _bakCategories) {
@@ -197,9 +202,11 @@ export default class extends Vue {
     }
     return get_user_bak_categories() ? cloneDeep(get_user_bak_categories()) : cloneDeep(_bakCategories);
   }
+
   get INITIAL_TAB_INDEX() {
     return TabHomeModule.INITIAL_TAB_INDEX;
   }
+
   @Watch('$route')
   onchange(to: any, from: any) {
     if (this.$route.path === '/app/0') {
@@ -222,9 +229,11 @@ export default class extends Vue {
       }
     }
   }
+
   created() {
     this._searchHotwordSroll();
   }
+
   mounted() {
     const loadedArr = [];
     for (let item of this.categories) {
@@ -235,34 +244,39 @@ export default class extends Vue {
     TabHomeModule.SET_activeTabIndex_loaded(loadedArr);
     this._initialTab();
   }
+
   beforeDestroy() {
     clearInterval(this.verticalScrollIntervalIds[0]);
     clearInterval(this.verticalScrollIntervalIds[1]);
   }
-  private isTouching = false;
-  private swipeDistanceToScreenPercent = 0;
-  private touchCache: any = {};
-  private stopMovePage = false;
-  private windowInnerHeight = window.innerHeight;
+
+  public isTouching = false;
+  public swipeDistanceToScreenPercent = 0;
+  public touchCache: any = {};
+  public stopMovePage = false;
+  public windowInnerHeight = window.innerHeight;
   /*跑马灯 */
-  private verticalScrollrollIndexData: any = [];
-  private verticalScrollrollIndex = 0; //当前滚动的索引
-  private verticalScrollIntervalIds: any[] = [];
-  private verticalScrollHeight = 34;
+  public verticalScrollrollIndexData: any = [];
+  public verticalScrollrollIndex = 0; //当前滚动的索引
+  public verticalScrollIntervalIds: any[] = [];
+  public verticalScrollHeight = 34;
+
   /*左右滑动切换页面 */
-  private toggleTabName(index: number) {
+  public toggleTabName(index: any) {
     TabHomeModule.SET_activeTabName(this.categories[index].name);
     let offsetWidth = -window.innerWidth * index;
     TabHomeModule.SET_activeTabIndex(index);
     //这里的transform是针对最开始的位置而言，而不是移动过程中的位置
     this.$refs['app-home-page'].style['transform'] = `translate3d(${offsetWidth}px,0,0)`;
   }
-  private touchStart(e: any) {
+
+  public touchStart(e: any) {
     const touch = e.touches[0];
     this.touchCache.startX = touch.pageX;
     this.touchCache.startY = touch.pageY;
   }
-  private touchMove(e: any) {
+
+  public touchMove(e: any) {
     this.isTouching = true;
     const touch = e.touches[0];
     //横向和纵向偏离位置
@@ -306,7 +320,8 @@ export default class extends Vue {
     //设置动画时间
     this.$refs['app-home-page'].style['transitionDuration'] = 1000;
   }
-  private touchEnd(e: any) {
+
+  public touchEnd(e: any) {
     if (!this.isTouching) {
       return;
     } else {
@@ -364,7 +379,8 @@ export default class extends Vue {
     this.$refs['app-home-page'].style['transitionDuration'] = 1000;
     this._scrollTab();
   }
-  private _scrollTab() {
+
+  public _scrollTab() {
     const index = this.activeTabIndex;
     const $appHomeTabChildren = Array.from(this.$refs['app-home-tab'].children);
     const $appHomeTab = this.$refs['app-home-tab'];
@@ -379,18 +395,22 @@ export default class extends Vue {
       $appHomeTab.scrollLeft = 0;
     }
   }
+
   /*event*/
-  private handlerClickMoreCategories() {
+  public handlerClickMoreCategories() {
     this.$router.push('/tab_home_more_categories?reload=true');
   }
-  private handlerClickHotList() {
+
+  public handlerClickHotList() {
     this.$router.push('/tab_home_hot/0');
   }
-  private handlerClickSearch() {
+
+  public handlerClickSearch() {
     this.$router.push('/tab_home_search');
   }
+
   /*跑马灯 */
-  private _verticalScrollAddItem() {
+  public _verticalScrollAddItem() {
     const $hotKey = this.$refs['hot-key'];
     let content = this.verticalScrollrollIndexData[this.verticalScrollrollIndex];
     if ($hotKey.childNodes.length <= 1) {
@@ -409,14 +429,18 @@ export default class extends Vue {
       this.verticalScrollIntervalIds[1] = setInterval(this._setVerticalScroll, 20);
     }
   }
-  private _setVerticalScroll() {
+
+  public _setVerticalScroll() {
     this.$refs['hot-key'].scrollTop++;
     if (this.$refs['hot-key'].scrollTop >= this.verticalScrollHeight) clearInterval(this.verticalScrollIntervalIds[1]);
   }
-  private handleClickSaoma() {}
-  private onScan() {}
+
+  public handleClickSaoma() {}
+
+  public onScan() {}
+
   /*初始化数据 */
-  private _initialTab() {
+  public _initialTab() {
     this.toggleTabName(this.INITIAL_TAB_INDEX);
     this._scrollTab();
     this.$refs['app-home-page'].style['height'] = `${this.windowInnerHeight - AppModule.bottomNavigationAndHomeHeaderHeight}px`;
@@ -430,8 +454,9 @@ export default class extends Vue {
       set_user_current_region('西安');
     }
   }
+
   /*http */
-  private async _searchHotwordSroll() {
+  public async _searchHotwordSroll() {
     const result: any = await TabHomeModule.searchHotwordSroll({});
     const arr = [];
     for (let item of result) {

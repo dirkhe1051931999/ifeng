@@ -97,16 +97,16 @@ export default class extends Vue {
   }
   // 数据
   public containerPositionY = 0;
-  private firstLoadData = true;
-  private pageLoading = false;
-  private xiaoshipinNewsList: any[] = [];
+  public firstLoadData = true;
+  public pageLoading = false;
+  public xiaoshipinNewsList: any[] = [];
   // 下拉刷新，上拉加载的数据
-  private isDownRefresh = false;
-  private refreshSuccessText = '';
-  private load_more_loading = false;
-  private load_more_loading_lock = false;
-  private load_more_no_data = '';
-  private pagination_params = {
+  public isDownRefresh = false;
+  public refreshSuccessText = '';
+  public load_more_loading = false;
+  public load_more_loading_lock = false;
+  public load_more_no_data = '';
+  public pagination_params = {
     size: 10,
     num: 1,
   };
@@ -133,7 +133,7 @@ export default class extends Vue {
       }
     }
   }
-  private previewImage(images: any, index: number) {
+  public previewImage(images: any, index: number) {
     const arr = [];
     for (let item of images) {
       arr.push(item.url);
@@ -145,7 +145,7 @@ export default class extends Vue {
     });
   }
   /*http*/
-  private async _downCallback() {
+  public async _downCallback() {
     let params: any = {
       id: 'VIDEOSHORT',
       ch: 'sv_edit',
@@ -187,7 +187,7 @@ export default class extends Vue {
       console.log('err');
     }
   }
-  private async _upCallback() {
+  public async _upCallback() {
     let params: any = {
       id: 'VIDEOSHORT',
       ch: 'sv_edit',

@@ -135,21 +135,21 @@ export default class extends Vue {
     this.$refs['kangyi-other-guojia-container'].style['height'] = `${window.innerHeight}px`;
     this._getKangyiOtherGuojia();
   }
-  private ohterGuojiaData: any = {
+  public ohterGuojiaData: any = {
     name: '',
     add: '',
     quezhen: '',
     zhiyu: '',
     siwang: '',
   };
-  private newsList: any[] = [];
-  private tableList: any[] = [];
-  private activeLineIndex = 0;
-  private endDate: any = '';
-  private line1: any;
-  private line2: any;
+  public newsList: any[] = [];
+  public tableList: any[] = [];
+  public activeLineIndex = 0;
+  public endDate: any = '';
+  public line1: any;
+  public line2: any;
   /**event */
-  private _initLine1(data: any) {
+  public _initLine1(data: any) {
     this.line1 = window['echarts'].init(document.getElementById('kangyi-other-guojia-line1'));
     let option;
     option = {
@@ -195,7 +195,7 @@ export default class extends Vue {
     };
     option && this.line1.setOption(option);
   }
-  private _initLine2(data: any) {
+  public _initLine2(data: any) {
     this.line2 = window['echarts'].init(document.getElementById('kangyi-other-guojia-line2'));
     let option;
     option = {
@@ -242,7 +242,7 @@ export default class extends Vue {
     option && this.line2.setOption(option);
   }
   /**http */
-  private async _getKangyiOtherGuojia() {
+  public async _getKangyiOtherGuojia() {
     const countryName: any = this.$route.query.name;
     const result = await TabHomeKangyiModule.getKangyiOtherGuojia({
       params: {

@@ -79,32 +79,32 @@ export default class extends Vue {
     this._getCaijingStockDetail();
     this.$refs['caijing-stock-detail-content'].style['height'] = `${window.innerHeight - 48}px`;
   }
-  private lastUpdateTime: any = '';
-  private stockName = {
+  public lastUpdateTime: any = '';
+  public stockName = {
     code: this.$route.query.code,
     name: '',
     code2: '',
   };
-  private basehq: any = {};
-  private otherhq: any = {};
-  private chartsimg: any[] = [];
-  private newsList: any[] = [];
-  private pageLoading = false;
-  private containerPositionY = 0;
-  private pageMoreLoading = false;
-  private pageLoaded = false;
-  private pageMoreLocking = false;
-  private pageMorePaginationNum = 1;
-  private noMoreNews = false;
+  public basehq: any = {};
+  public otherhq: any = {};
+  public chartsimg: any[] = [];
+  public newsList: any[] = [];
+  public pageLoading = false;
+  public containerPositionY = 0;
+  public pageMoreLoading = false;
+  public pageLoaded = false;
+  public pageMoreLocking = false;
+  public pageMorePaginationNum = 1;
+  public noMoreNews = false;
   /**event */
-  private handlerClickChartImg(arr: any, index: number) {
+  public handlerClickChartImg(arr: any, index: number) {
     ImagePreview({
       images: arr,
       startPosition: index,
       closeable: true,
     });
   }
-  private async monitorScrollEvent() {
+  public async monitorScrollEvent() {
     const scrollHeight = this.$refs['caijing-stock-detail-content'].scrollHeight;
     const scrollTop = this.$refs['caijing-stock-detail-content'].scrollTop;
     this.containerPositionY = scrollTop;
@@ -122,7 +122,7 @@ export default class extends Vue {
     }
   }
   /**http */
-  private async _getCaijingStockDetail() {
+  public async _getCaijingStockDetail() {
     this.pageLoading = true;
     const result: any = await TabHomeCaijingModule.getCaijingStockDetail({ params: { code: this.stockName.code } });
     if (result[0]) {
@@ -157,7 +157,7 @@ export default class extends Vue {
     this.pageLoading = false;
     this.pageLoaded = true;
   }
-  private async _getCaijingMoreStockDetail() {
+  public async _getCaijingMoreStockDetail() {
     const result: any = await TabHomeCaijingModule.getCaijingStockDetail({
       params: { code: this.stockName.code, onlynews: true, page: this.pageMorePaginationNum, stockname: this.stockName.name },
     });

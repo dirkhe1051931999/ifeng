@@ -151,19 +151,19 @@ export default class extends Vue {
   }
   // 数据
   public containerPositionY = 0;
-  private firstLoadData = true;
-  private pageLoading = false;
-  private bannerList: any[] = [];
-  private dajureboList: any[] = [];
-  private yuanxianjingdianList: any[] = [];
-  private jingcaijujiList: any[] = [];
+  public firstLoadData = true;
+  public pageLoading = false;
+  public bannerList: any[] = [];
+  public dajureboList: any[] = [];
+  public yuanxianjingdianList: any[] = [];
+  public jingcaijujiList: any[] = [];
   // 下拉刷新，上拉加载的数据
-  private isDownRefresh = false;
-  private refreshSuccessText = '';
-  private load_more_loading = false;
-  private load_more_loading_lock = false;
-  private load_more_no_data = '';
-  private pagination_params = {
+  public isDownRefresh = false;
+  public refreshSuccessText = '';
+  public load_more_loading = false;
+  public load_more_loading_lock = false;
+  public load_more_no_data = '';
+  public pagination_params = {
     size: 10,
     num: 1,
   };
@@ -175,11 +175,11 @@ export default class extends Vue {
     this.refreshSuccessText = '已更新到最新';
     this.isDownRefresh = false;
   }
-  private handleClickDajureboMore() {
+  public handleClickDajureboMore() {
     this.$router.push('/tab_yingshiju_child/dajurebo');
   }
   /*http*/
-  private async _downCallback() {
+  public async _downCallback() {
     let params: any = {};
     let form = {};
     let formData = new FormData();

@@ -177,21 +177,21 @@ export default class extends Vue {
   }
   // 数据
   public containerPositionY = 0;
-  private firstLoadData = true;
-  private pageLoading = false;
-  private yinpinRecommendList: any[] = [];
-  private yinpinSwiperList: any[] = [];
-  private yinpinGirdList: any[] = [];
-  private yinpinGuesslikeListLoading = false;
-  private yinpinGuesslikeList: any[] = [];
-  private yinpinRankList: any[] = [];
+  public firstLoadData = true;
+  public pageLoading = false;
+  public yinpinRecommendList: any[] = [];
+  public yinpinSwiperList: any[] = [];
+  public yinpinGirdList: any[] = [];
+  public yinpinGuesslikeListLoading = false;
+  public yinpinGuesslikeList: any[] = [];
+  public yinpinRankList: any[] = [];
   // 下拉刷新，上拉加载的数据
-  private isDownRefresh = false;
-  private refreshSuccessText = '';
-  private load_more_loading = false;
-  private load_more_loading_lock = false;
-  private load_more_no_data = '';
-  private pagination_params = {
+  public isDownRefresh = false;
+  public refreshSuccessText = '';
+  public load_more_loading = false;
+  public load_more_loading_lock = false;
+  public load_more_no_data = '';
+  public pagination_params = {
     size: 10,
     num: 1,
   };
@@ -218,17 +218,17 @@ export default class extends Vue {
       }
     }
   }
-  private handlerClickGridItem(item: any, index: number) {
+  public handlerClickGridItem(item: any, index: number) {
     if (item.id !== 'audiomy') {
       this.$router.push(`/tab_yinpin_child/categories?cateid=${item.link.cateid}`);
     }
     console.log(item, index);
   }
-  private toDirectory(item: any, index: number) {
+  public toDirectory(item: any, index: number) {
     this.$router.push(`/tab_yinpin_child/directory?aid=${item.link.aid}`);
   }
   /*http*/
-  private async _downCallback() {
+  public async _downCallback() {
     let params: any = {
       id: 'AUDIO',
       ch: 'ximalaya',
@@ -311,7 +311,7 @@ export default class extends Vue {
       console.log(error);
     }
   }
-  private async _upCallback() {
+  public async _upCallback() {
     let params: any = {
       id: 'AUDIO',
       ch: 'ximalaya',
@@ -357,7 +357,7 @@ export default class extends Vue {
       this.load_more_loading = false;
     }
   }
-  private async handleClickRefreshGuesslike() {
+  public async handleClickRefreshGuesslike() {
     if (this.yinpinGuesslikeListLoading) return;
     try {
       let params: any = {};

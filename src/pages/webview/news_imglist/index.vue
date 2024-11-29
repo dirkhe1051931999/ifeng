@@ -26,7 +26,7 @@
               </div>
               <div class="r">
                 <div class="t">{{ news.subscribe.catename }}</div>
-                <div class="b">{{ news.updateTime | getDateDiff }}</div>
+                <div class="b">{{ news.updateTime | relativeTime }}</div>
               </div>
             </div>
             <div class="right">
@@ -61,8 +61,8 @@
             <i class="iconfont icon-duanxin" v-if="news.commentsall"></i>
             <span class="count" v-if="news.commentsall"> {{ news.commentsall }}</span>
             <i class="iconfont icon-lishi" v-if="news.updateTime"></i>
-            <span class="count" v-if="news.updateTime">{{ news.updateTime | getDateDiff }}</span>
-            <span class="iconfont icon-close1 close">
+            <span class="count" v-if="news.updateTime">{{ news.updateTime | relativeTime }}</span>
+            <span class="iconfont icon-close1 close" @click.stop.prevent>
               <q-popup-proxy>
                 <q-card class="w-full backreason">
                   <p class="p-t-10 p-b-10 p-l-16 p-r-16 fs-14 text-_6b6a6a">选择原因，为您优化</p>
@@ -124,18 +124,18 @@ export default class extends Vue {
     if (result) return result['defaultbackreason'];
     else return [];
   }
-  private $dom: any;
-  private containerPositionY = 0;
-  private pageLoaded = false;
-  private shortList: any[] = [];
-  private pagationParams: any = {
+  public $dom: any;
+  public containerPositionY = 0;
+  public pageLoaded = false;
+  public shortList: any[] = [];
+  public pagationParams: any = {
     page: 1,
     dailyOpenNum: 1,
     id: '',
   };
-  private load_more_loading_lock = false;
-  private load_more_loading = false;
-  private load_more_no_data = '';
+  public load_more_loading_lock = false;
+  public load_more_loading = false;
+  public load_more_no_data = '';
   async mounted() {
     this.pagationParams.id = this.$route.query.id;
     this.pageLoaded = false;
@@ -147,7 +147,7 @@ export default class extends Vue {
     });
   }
   /**event */
-  private previewImage(images: any, index: number) {
+  public previewImage(images: any, index: number) {
     const arr = [];
     for (let item of images) {
       arr.push(item.url);
@@ -158,7 +158,7 @@ export default class extends Vue {
       closeable: true,
     });
   }
-  private handlerClickNewsItem(news: any) {
+  public handlerClickNewsItem(news: any) {
     if (news.type === 'short') {
       const params = getUrlParams(news.link.url);
       const urlStr = json2Url(params);
@@ -171,7 +171,7 @@ export default class extends Vue {
       }
     }
   }
-  private async monitorScrollEvent() {
+  public async monitorScrollEvent() {
     const scrollTop = this.$dom.scrollTop;
     this.containerPositionY = scrollTop;
     let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
@@ -186,14 +186,14 @@ export default class extends Vue {
     }
   }
   /**http */
-  private async getShortList() {
+  public async getShortList() {
     const result = await NewsImglistModule.getNewsImglist({ params: this.pagationParams });
     if (result && result[0]) {
       this.shortList = result[0].item;
     }
     return Promise.resolve();
   }
-  private async getMoreShortList() {
+  public async getMoreShortList() {
     try {
       const result = await NewsImglistModule.getNewsImglist({ params: this.pagationParams });
       if (result && result[0]) {

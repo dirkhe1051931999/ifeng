@@ -243,27 +243,27 @@ export default class extends Vue {
     this._getKangyiSummary();
     this.$refs['kangyi-summary-container'].style['height'] = `${window.innerHeight}px`;
   }
-  private activeMapIndex = 0;
-  private activeLineIndex = 0;
-  private mapData: any = {};
-  private endDate: any = '';
-  private map1: any;
-  private map2: any;
-  private line1: any;
-  private line2: any;
-  private line3: any;
-  private provinceYiQingList: any[] = [];
-  private guowaiYiQingList: any[] = [];
-  private timeLineList: any[] = [];
-  private newsDataList: any[] = [];
-  private recentList: any[] = [];
-  private recentData = {
+  public activeMapIndex = 0;
+  public activeLineIndex = 0;
+  public mapData: any = {};
+  public endDate: any = '';
+  public map1: any;
+  public map2: any;
+  public line1: any;
+  public line2: any;
+  public line3: any;
+  public provinceYiQingList: any[] = [];
+  public guowaiYiQingList: any[] = [];
+  public timeLineList: any[] = [];
+  public newsDataList: any[] = [];
+  public recentList: any[] = [];
+  public recentData = {
     now: 0,
     yesterday: 0,
   };
-  private containerPositionY = 0;
+  public containerPositionY = 0;
   /**event */
-  private _initMap1(data: any) {
+  public _initMap1(data: any) {
     //初始化echarts实例
     this.map1 = window['echarts'].init(document.getElementById('kangyi-summary-map1'));
     // 指定图表的配置项和数据
@@ -314,7 +314,7 @@ export default class extends Vue {
     //使用指定的配置项和数据显示图表
     this.map1.setOption(option);
   }
-  private _initMap2(data: any) {
+  public _initMap2(data: any) {
     //初始化echarts实例
     this.map2 = window['echarts'].init(document.getElementById('kangyi-summary-map2'));
     // 指定图表的配置项和数据
@@ -363,7 +363,7 @@ export default class extends Vue {
     //使用指定的配置项和数据显示图表
     this.map2.setOption(option);
   }
-  private _initLine1(data: any) {
+  public _initLine1(data: any) {
     this.line1 = window['echarts'].init(document.getElementById('kangyi-summary-line1'));
     let option;
     option = {
@@ -408,7 +408,7 @@ export default class extends Vue {
     };
     option && this.line1.setOption(option);
   }
-  private _initLine2(data: any) {
+  public _initLine2(data: any) {
     this.line2 = window['echarts'].init(document.getElementById('kangyi-summary-line2'));
     let option;
     option = {
@@ -453,7 +453,7 @@ export default class extends Vue {
     };
     option && this.line2.setOption(option);
   }
-  private _initLine3(data: any) {
+  public _initLine3(data: any) {
     this.line3 = window['echarts'].init(document.getElementById('kangyi-summary-line3'));
     let option;
     option = {
@@ -498,10 +498,10 @@ export default class extends Vue {
     };
     option && this.line3.setOption(option);
   }
-  private handlerClickToKangyiShuru() {
+  public handlerClickToKangyiShuru() {
     this.$router.push('/ifeng_web_kangyi_jingwai');
   }
-  private handlerClickQuanguoTableDetail(name: any) {
+  public handlerClickQuanguoTableDetail(name: any) {
     let code = '';
     for (let key in provs) {
       if (name === provs[key].areaName) {
@@ -510,13 +510,13 @@ export default class extends Vue {
     }
     this.$router.push(`/ifeng_web_kangyi_area?code=${code}`);
   }
-  private handlerClickGuowaiTableDetail() {}
-  private minitorScrollEvent() {
+  public handlerClickGuowaiTableDetail() {}
+  public minitorScrollEvent() {
     const scrollTop = this.$refs['kangyi-summary-container'].scrollTop;
     this.containerPositionY = scrollTop;
   }
   /**http */
-  private async _getKangyiSummary() {
+  public async _getKangyiSummary() {
     const result = await TabHomeKangyiModule.getKangyiSummary({});
     const arr1: any[] = [];
     const arr2: any[] = [];

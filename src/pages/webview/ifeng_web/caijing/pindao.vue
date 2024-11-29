@@ -143,25 +143,25 @@ export default class extends Vue {
     this.$refs['caijing-pindao-content-hangqing'].style['height'] = `${window.innerHeight - 48}px`;
   }
 
-  private pindaoTabs = ['港股行情', '行情', '自选', '炒股大赛'];
-  private pindaoActiveTabIndex = 1;
-  private marketList: any[] = [];
-  private plateList: any[] = [];
-  private increaseList: any[] = [];
-  private decliningList: any[] = [];
-  private scienceList: any[] = [];
-  private containerPositionY1 = 0;
-  private containerPositionY2 = 0;
-  private containerPositionY3 = 0;
-  private containerPositionY4 = 0;
-  private dataLoading = false;
+  public pindaoTabs = ['港股行情', '行情', '自选', '炒股大赛'];
+  public pindaoActiveTabIndex = 1;
+  public marketList: any[] = [];
+  public plateList: any[] = [];
+  public increaseList: any[] = [];
+  public decliningList: any[] = [];
+  public scienceList: any[] = [];
+  public containerPositionY1 = 0;
+  public containerPositionY2 = 0;
+  public containerPositionY3 = 0;
+  public containerPositionY4 = 0;
+  public dataLoading = false;
 
   /**event */
-  private handlerClickPindaoTabsItem(index: number) {
+  public handlerClickPindaoTabsItem(index: number) {
     this.pindaoActiveTabIndex = index;
   }
 
-  private _setMarketData(data: any) {
+  public _setMarketData(data: any) {
     const marketList = [];
     for (let key in data) {
       const item = data[key];
@@ -227,23 +227,23 @@ export default class extends Vue {
     return marketList;
   }
 
-  private monitorScrollEvent1() {}
+  public monitorScrollEvent1() {}
 
-  private monitorScrollEvent2() {
+  public monitorScrollEvent2() {
     const scrollHeight = this.$refs['caijing-pindao-content-hangqing'].scrollHeight;
     const scrollTop = this.$refs['caijing-pindao-content-hangqing'].scrollTop;
     this.containerPositionY2 = scrollTop;
   }
 
-  private monitorScrollEvent3() {}
+  public monitorScrollEvent3() {}
 
-  private monitorScrollEvent4() {}
+  public monitorScrollEvent4() {}
 
-  private handlerClickIncreaseOrDecliningBlockTitle(from: string) {
+  public handlerClickIncreaseOrDecliningBlockTitle(from: string) {
     this.$router.push(`/ifeng_web_caijing_pindao/stock_up_down_list?to=${from}`);
   }
 
-  private handlerClickStock(item: any) {
+  public handlerClickStock(item: any) {
     switch (item.code) {
       case 'hk0000100':
         this.$router.push(`/ifeng_web_caijing_pindao/stock_detail_ganggu?code=${item.code}`);
@@ -258,7 +258,7 @@ export default class extends Vue {
   }
 
   /**http */
-  private async _getCaijingHangqing() {
+  public async _getCaijingHangqing() {
     this.dataLoading = true;
     const result = await TabHomeCaijingModule.getCaijingHangqing({});
     if (result[0]) {

@@ -23,7 +23,7 @@
           <div class="swiper-wrapper">
             <div class="swiper-slide meishiSwiperList-slide" v-for="(news, index) in meishiSwiperList" :key="index" style="width: 100%">
               <p class="title">{{ news.title }}</p>
-              <p class="dateDiff">{{ news.updateTime | getDateDiff }}</p>
+              <p class="dateDiff">{{ news.updateTime | relativeTime }}</p>
               <van-image class="thumbnail" :src="news.thumbnail" lazy-load />
             </div>
           </div>
@@ -64,7 +64,7 @@
                     <i class="iconfont icon-duanxin" v-if="item.commentsall"></i>
                     <span class="count" v-if="item.commentsall"> {{ item.commentsall }}</span>
                     <i class="iconfont icon-lishi" v-if="item.updateTime"></i>
-                    <span class="count" v-if="item.updateTime">{{ item.updateTime | getDateDiff }}</span>
+                    <span class="count" v-if="item.updateTime">{{ item.updateTime | relativeTime }}</span>
                   </div>
                   <div v-if="item.summary" class="hot-comment">
                     <span class="label">{{ item.summary.tag }}</span>
@@ -97,8 +97,8 @@
                 <i class="iconfont icon-duanxin" v-if="news.commentsall"></i>
                 <span class="count" v-if="news.commentsall"> {{ news.commentsall }}</span>
                 <i class="iconfont icon-lishi" v-if="news.updateTime"></i>
-                <span class="count" v-if="news.updateTime">{{ news.updateTime | getDateDiff }}</span>
-                <span class="iconfont icon-close1 close">
+                <span class="count" v-if="news.updateTime">{{ news.updateTime | relativeTime }}</span>
+                <span class="iconfont icon-close1 close" @click.stop.prevent>
                   <q-popup-proxy>
                     <q-card class="w-full backreason">
                       <p class="p-t-10 p-b-10 p-l-16 p-r-16 fs-14 text-_6b6a6a">选择原因，为您优化</p>
@@ -131,12 +131,12 @@
                   </div>
                   <div class="r">
                     <div class="t">{{ news.subscribe.catename }}</div>
-                    <div class="b">{{ news.updateTime | getDateDiff }}</div>
+                    <div class="b">{{ news.updateTime | relativeTime }}</div>
                   </div>
                 </div>
                 <div class="right">
                   <span class="follow">关注</span>
-                  <span class="iconfont icon-close1 close">
+                  <span class="iconfont icon-close1 close" @click.stop.prevent>
                     <q-popup-proxy>
                       <q-card class="w-full backreason">
                         <p class="p-t-10 p-b-10 p-l-16 p-r-16 fs-14 text-_6b6a6a">选择原因，为您优化</p>
@@ -184,8 +184,8 @@
                 <i class="iconfont icon-duanxin" v-if="news.commentsall"></i>
                 <span class="count" v-if="news.commentsall"> {{ news.commentsall }}</span>
                 <i class="iconfont icon-lishi" v-if="news.updateTime"></i>
-                <span class="count" v-if="news.updateTime">{{ news.updateTime | getDateDiff }}</span>
-                <span class="iconfont icon-close1 close">
+                <span class="count" v-if="news.updateTime">{{ news.updateTime | relativeTime }}</span>
+                <span class="iconfont icon-close1 close" @click.stop.prevent>
                   <q-popup-proxy>
                     <q-card class="w-full backreason">
                       <p class="p-t-10 p-b-10 p-l-16 p-r-16 fs-14 text-_6b6a6a">选择原因，为您优化</p>
@@ -218,12 +218,12 @@
                   </div>
                   <div class="r">
                     <div class="t">{{ news.subscribe.catename }}</div>
-                    <div class="b">{{ news.updateTime | getDateDiff }}</div>
+                    <div class="b">{{ news.updateTime | relativeTime }}</div>
                   </div>
                 </div>
                 <div class="right">
                   <span class="follow">关注</span>
-                  <span class="iconfont icon-close1 close">
+                  <span class="iconfont icon-close1 close" @click.stop.prevent>
                     <q-popup-proxy>
                       <q-card class="w-full backreason">
                         <p class="p-t-10 p-b-10 p-l-16 p-r-16 fs-14 text-_6b6a6a">选择原因，为您优化</p>
@@ -270,7 +270,7 @@
                 <i class="iconfont icon-duanxin" v-if="news.commentsall"></i>
                 <span class="count" v-if="news.commentsall"> {{ news.commentsall }}</span>
                 <i class="iconfont icon-lishi" v-if="news.updateTime"></i>
-                <span class="count" v-if="news.updateTime">{{ news.updateTime | getDateDiff }}</span>
+                <span class="count" v-if="news.updateTime">{{ news.updateTime | relativeTime }}</span>
               </div>
             </div>
           </li>
@@ -339,19 +339,19 @@ export default class extends Vue {
   }
   // 数据
   public containerPositionY = 0;
-  private firstLoadData = true;
-  private pageLoading = false;
-  private meishiNewsList: any[] = [];
-  private meishiSwiperList: any[] = [];
-  private meishiGridList: any[] = [];
-  private fastmessagescrollList = [];
+  public firstLoadData = true;
+  public pageLoading = false;
+  public meishiNewsList: any[] = [];
+  public meishiSwiperList: any[] = [];
+  public meishiGridList: any[] = [];
+  public fastmessagescrollList = [];
   // 下拉刷新，上拉加载的数据
-  private isDownRefresh = false;
-  private refreshSuccessText = '';
-  private load_more_loading = false;
-  private load_more_loading_lock = false;
-  private load_more_no_data = '';
-  private pagination_params = {
+  public isDownRefresh = false;
+  public refreshSuccessText = '';
+  public load_more_loading = false;
+  public load_more_loading_lock = false;
+  public load_more_no_data = '';
+  public pagination_params = {
     size: 10,
     num: 1,
   };
@@ -378,7 +378,7 @@ export default class extends Vue {
       }
     }
   }
-  private previewImage(images: any, index: number) {
+  public previewImage(images: any, index: number) {
     const arr = [];
     for (let item of images) {
       arr.push(item.url);
@@ -389,7 +389,7 @@ export default class extends Vue {
       closeable: true,
     });
   }
-  private handlerClickGridItem(item: any, index: number) {
+  public handlerClickGridItem(item: any, index: number) {
     console.log(item);
     // switch (item.title) {
     //   case '科技热榜':
@@ -415,7 +415,7 @@ export default class extends Vue {
     // }
   }
   /*http*/
-  private async _downCallback() {
+  public async _downCallback() {
     let params: any = {
       id: 'DELIC',
       ch: 'delic',
@@ -478,7 +478,7 @@ export default class extends Vue {
       console.log('err');
     }
   }
-  private async _upCallback() {
+  public async _upCallback() {
     let params: any = {
       id: 'DELIC',
       ch: 'delic',

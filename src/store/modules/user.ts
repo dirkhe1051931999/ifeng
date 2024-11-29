@@ -14,19 +14,19 @@ class User extends VuexModule implements IUserState {
   public auth = 'F4790512BDA06FA4';
   public username = getUsername() || '';
   @Mutation
-  private SET_SMSFASTPASS(data: any) {
+  public SET_SMSFASTPASS(data: any) {
     this.smsFastPass = data;
   }
   @Mutation
-  private SET_TOKEN(data: any) {
+  public SET_TOKEN(data: any) {
     this.token = data;
   }
   @Mutation
-  private SET_GUID(data: any) {
+  public SET_GUID(data: any) {
     this.guid = data;
   }
   @Mutation
-  private SET_USERNAME(data: any) {
+  public SET_USERNAME(data: any) {
     this.username = data;
   }
   @Action({ rawError: true })

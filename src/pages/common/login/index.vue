@@ -40,30 +40,34 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { isValid11Tel } from '@/utils/validate';
 import { UserModule } from '@/store/modules/user';
+
 @Component
 export default class extends Vue {
   $refs: any;
+
   async mounted() {}
-  private count = 30;
-  private count_down = 0;
-  private show_count_down = false;
-  private showCaptcha = false;
-  private captchaData: any = {};
-  private getCaptchaLoading = false;
-  private verifyCaptchaLoading = false;
-  private clickImgCount = 0;
-  private positions: any[] = [];
-  private loginLoading = false;
-  private loginForm = {
+
+  public count = 30;
+  public count_down = 0;
+  public show_count_down = false;
+  public showCaptcha = false;
+  public captchaData: any = {};
+  public getCaptchaLoading = false;
+  public verifyCaptchaLoading = false;
+  public clickImgCount = 0;
+  public positions: any[] = [];
+  public loginLoading = false;
+  public loginForm = {
     tel: '',
     code: '',
   };
-  private loginFormRules = {
+  public loginFormRules = {
     tel: [(val: any) => (val && val.length > 0) || '请输入手机号', (val: any) => isValid11Tel(val) || '请输入正确手机号'],
     code: [(val: any) => (val !== null && val !== '') || '请输入验证码'],
   };
+
   /**event */
-  private async handleClickCloseCaptcha() {
+  public async handleClickCloseCaptcha() {
     this.verifyCaptchaLoading = true;
     const form = new FormData();
     form.append('mobile', this.loginForm.tel);
@@ -82,7 +86,8 @@ export default class extends Vue {
       this.$toast(message);
     }
   }
-  private handleClickCaptchaImg(e: any) {
+
+  public handleClickCaptchaImg(e: any) {
     if (this.clickImgCount === 4) return;
     this.clickImgCount++;
     if (this.$refs[`img_count_${this.clickImgCount}`]) {
@@ -94,7 +99,8 @@ export default class extends Vue {
       y: e.offsetY,
     });
   }
-  private startCount() {
+
+  public startCount() {
     let start = +new Date();
     let count = this.count;
     const _count = this.count;
@@ -110,8 +116,9 @@ export default class extends Vue {
       }
     }, 1000);
   }
+
   /**http */
-  private onSubmit() {
+  public onSubmit() {
     this.$refs['login-form'].validate().then(async (success: boolean) => {
       if (success) {
         this.loginLoading = true;
@@ -134,7 +141,8 @@ export default class extends Vue {
       }
     });
   }
-  private async getVerifyCode() {
+
+  public async getVerifyCode() {
     if (isValid11Tel(this.loginForm.tel)) {
       this.getCaptchaLoading = true;
       const form = new FormData();
@@ -169,10 +177,12 @@ export default class extends Vue {
   width: 80vw;
   height: 30vh;
   position: relative;
+
   .img {
     width: 240px;
     height: 140px;
     position: relative;
+
     .count {
       left: -100px;
       top: 0;
@@ -189,29 +199,35 @@ export default class extends Vue {
   padding: 10px 16px;
   background: #ffffff;
   position: relative;
+
   .close {
     position: absolute;
     right: 16px;
     top: 16px;
   }
+
   .logo {
     text-align: center;
     padding-top: 20px;
     padding-bottom: 10px;
+
     img {
       width: 48px;
       height: 48px;
       border-radius: 50%;
     }
   }
+
   .submit-button {
     width: 100%;
     height: 38px;
     border-radius: 4px;
     margin-top: 20px;
   }
+
   .login-form {
     padding-top: 20px;
+
     .telphone {
       display: flex;
       align-items: center;

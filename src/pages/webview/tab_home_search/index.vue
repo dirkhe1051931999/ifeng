@@ -136,7 +136,7 @@
                     <i class="iconfont icon-duanxin" v-if="item.commentsall"></i>
                     <span class="count" v-if="item.commentsall"> {{ item.commentsall }}</span>
                     <i class="iconfont icon-lishi" v-if="item.updateTime"></i>
-                    <span class="count" v-if="item.updateTime">{{ item.updateTime | getDateDiff }}</span>
+                    <span class="count" v-if="item.updateTime">{{ item.updateTime | relativeTime }}</span>
                   </div>
                 </li>
               </div>
@@ -197,7 +197,7 @@
                       <i class="iconfont icon-duanxin" v-if="item.commentsall"></i>
                       <span class="count" v-if="item.commentsall"> {{ item.commentsall }}</span>
                       <i class="iconfont icon-lishi" v-if="item.updateTime"></i>
-                      <span class="count" v-if="item.updateTime">{{ item.updateTime | getDateDiff }}</span>
+                      <span class="count" v-if="item.updateTime">{{ item.updateTime | relativeTime }}</span>
                     </div>
                   </li>
                   <div class="more">
@@ -245,7 +245,7 @@
                 <i class="iconfont icon-duanxin" v-if="news.commentsall"></i>
                 <span class="count" v-if="news.commentsall"> {{ news.commentsall }}</span>
                 <i class="iconfont icon-lishi" v-if="news.updateTime"></i>
-                <span class="count" v-if="news.updateTime">{{ news.updateTime | getDateDiff }}</span>
+                <span class="count" v-if="news.updateTime">{{ news.updateTime | relativeTime }}</span>
               </div>
             </div>
             <!-- picture -->
@@ -261,7 +261,7 @@
                   </div>
                   <div class="r">
                     <div class="t">{{ news.subscribe.catename }}</div>
-                    <div class="b">{{ news.updateTime | getDateDiff }}</div>
+                    <div class="b">{{ news.updateTime | relativeTime }}</div>
                   </div>
                 </div>
                 <div class="right">
@@ -295,7 +295,7 @@
                 <i class="iconfont icon-duanxin" v-if="news.commentsall"></i>
                 <span class="count" v-if="news.commentsall"> {{ news.commentsall }}</span>
                 <i class="iconfont icon-lishi" v-if="news.updateTime"></i>
-                <span class="count" v-if="news.updateTime">{{ news.updateTime | getDateDiff }}</span>
+                <span class="count" v-if="news.updateTime">{{ news.updateTime | relativeTime }}</span>
               </div>
             </div>
             <!-- video -->
@@ -311,7 +311,7 @@
                   </div>
                   <div class="r">
                     <div class="t">{{ news.subscribe.catename }}</div>
-                    <div class="b">{{ news.updateTime | getDateDiff }}</div>
+                    <div class="b">{{ news.updateTime | relativeTime }}</div>
                   </div>
                 </div>
                 <div class="right hide">
@@ -352,7 +352,7 @@
                 <i class="iconfont icon-duanxin" v-if="news.commentsall"></i>
                 <span class="count" v-if="news.commentsall"> {{ news.commentsall }}</span>
                 <i class="iconfont icon-lishi" v-if="news.updateTime"></i>
-                <span class="count" v-if="news.updateTime">{{ news.updateTime | getDateDiff }}</span>
+                <span class="count" v-if="news.updateTime">{{ news.updateTime | relativeTime }}</span>
               </div>
             </div>
           </ul>
@@ -389,43 +389,43 @@ export default class extends Vue {
     const $wrapper = this.$refs['tab-slide-page-search-wrapper'];
     $wrapper.style['height'] = `${window.innerHeight - 56}px`;
   }
-  private containerPositionY = 0;
-  private searchText = '';
-  private hotList = [];
-  private exclusiveList = [];
-  private exclusiveListTitle = '';
-  private loadRecommend = true;
-  private inSearch = false;
-  private inGuess = false;
-  private searchResult = [];
-  private searchResultLoading = false;
-  private searchResultNoData = '';
-  private loadMoreLoadingLock = false;
-  private loadMoreLoading = false;
-  private loadMoreNoData = false;
-  private searchResultTabs = ['综合', '视频', '图集', '用户'];
-  private searchResultActiveIndex = 0;
-  private searchResultPagination = {
+  public containerPositionY = 0;
+  public searchText = '';
+  public hotList = [];
+  public exclusiveList = [];
+  public exclusiveListTitle = '';
+  public loadRecommend = true;
+  public inSearch = false;
+  public inGuess = false;
+  public searchResult = [];
+  public searchResultLoading = false;
+  public searchResultNoData = '';
+  public loadMoreLoadingLock = false;
+  public loadMoreLoading = false;
+  public loadMoreNoData = false;
+  public searchResultTabs = ['综合', '视频', '图集', '用户'];
+  public searchResultActiveIndex = 0;
+  public searchResultPagination = {
     page: 1,
   };
-  private guessKey = [];
-  private guessKeyLoading = false;
-  private guessKeyNoData = '';
-  private searchHistory: any = get_user_search_history() ? cloneDeep(get_user_search_history()) : [];
+  public guessKey = [];
+  public guessKeyLoading = false;
+  public guessKeyNoData = '';
+  public searchHistory: any = get_user_search_history() ? cloneDeep(get_user_search_history()) : [];
   /*event*/
-  private handlerClickBack() {
+  public handlerClickBack() {
     this.$router.back();
   }
-  private handlerClickHotListMore() {
+  public handlerClickHotListMore() {
     this.$router.push('/tab_home_hot/0');
   }
-  private handlerCLickHotListItem(item: any) {
+  public handlerCLickHotListItem(item: any) {
     this.$router.push(`/news_topic?topicid=${item.staticId.split('_')[2]}`);
   }
-  private clickExclusiveListItem(item: any) {
+  public clickExclusiveListItem(item: any) {
     this.$router.push(`/news_topic?topicid=${item.id}`);
   }
-  private async handlerClickSerachResultTab(index: number) {
+  public async handlerClickSerachResultTab(index: number) {
     if (this.searchResultLoading) return;
     if (this.searchResultActiveIndex === index) return;
     this.searchResultActiveIndex = index;
@@ -447,15 +447,15 @@ export default class extends Vue {
         break;
     }
   }
-  private handlerClickRemoveAllSearchHistory() {
+  public handlerClickRemoveAllSearchHistory() {
     this.searchHistory = [];
     remove_user_search_history();
   }
-  private handlerClickRemoveSearchHistory(index: number) {
+  public handlerClickRemoveSearchHistory(index: number) {
     this.searchHistory.splice(index, 1);
     set_user_search_history(this.searchHistory);
   }
-  private async handlerEnterKeyboard() {
+  public async handlerEnterKeyboard() {
     this.searchText = this.searchText.replace(/\s/gi, '');
     if (this.searchText === '' || this.searchText === null) return;
     if (this.searchHistory.length > 5) {
@@ -511,7 +511,7 @@ export default class extends Vue {
       }
     }
   }
-  private handlerClickNewsItem(news: any) {
+  public handlerClickNewsItem(news: any) {
     let params;
     let urlStr: string;
     console.log(news.type);
@@ -542,14 +542,14 @@ export default class extends Vue {
     }
   }
   /*http*/
-  private async _getSearchHotwordsReact() {
+  public async _getSearchHotwordsReact() {
     const result = await TabHomeModule.getSearchHotwordsReact({});
     this.hotList = result[0].item;
     this.exclusiveList = result[0].exclusiveList;
     this.exclusiveListTitle = result[0].exclusiveConfig.title;
     return Promise.resolve();
   }
-  private async getSearchRecWord() {
+  public async getSearchRecWord() {
     if (this.searchText === '' || this.searchText === null) {
       this.inSearch = false;
       this.guessKey = [];
@@ -572,7 +572,7 @@ export default class extends Vue {
     return Promise.resolve();
   }
   // 搜索综合
-  private async getSearchList() {
+  public async getSearchList() {
     if (this.searchText === '' || this.searchText === null) {
       this.inSearch = false;
       this.inGuess = false;
@@ -598,7 +598,7 @@ export default class extends Vue {
     this.searchResult = result[0].item;
     this.searchResultLoading = false;
   }
-  private async getSearchListMore() {
+  public async getSearchListMore() {
     const result = await TabHomeModule.getSearchList({ key: this.searchText, page: this.searchResultPagination.page });
     if (!result || !result.length || !result[0].item || !result[0].item.length) {
       this.loadMoreLoading = false;
@@ -610,7 +610,7 @@ export default class extends Vue {
     }
   }
   // 搜索视频和图片
-  private async getSearchTagList(type: string) {
+  public async getSearchTagList(type: string) {
     if (this.searchText === '' || this.searchText === null) {
       this.inSearch = false;
       this.inGuess = false;
@@ -636,7 +636,7 @@ export default class extends Vue {
     this.searchResult = result[0].item;
     this.searchResultLoading = false;
   }
-  private async getSearchTagListMore(type: string) {
+  public async getSearchTagListMore(type: string) {
     const result = await TabHomeModule.getSearchTagList({ key: this.searchText, page: this.searchResultPagination.page, type: type });
     if (!result || !result.length || !result[0].item || !result[0].item.length) {
       this.loadMoreLoading = false;
@@ -648,7 +648,7 @@ export default class extends Vue {
     }
   }
   // 搜索用户
-  private async getSearchsubscribe() {
+  public async getSearchsubscribe() {
     if (this.searchText === '' || this.searchText === null) {
       this.inSearch = false;
       this.inGuess = false;
@@ -674,7 +674,7 @@ export default class extends Vue {
     this.searchResult = result.data;
     this.searchResultLoading = false;
   }
-  private async getSearchsubscribeMore() {
+  public async getSearchsubscribeMore() {
     const result = await TabHomeModule.getSearchsubscribe({ key: this.searchText, page: this.searchResultPagination.page });
     if (!result || !result.data || !result.data.length) {
       this.loadMoreLoading = false;

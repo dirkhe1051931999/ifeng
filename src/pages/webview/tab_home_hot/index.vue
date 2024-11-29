@@ -166,55 +166,55 @@ export default class extends Vue {
       this._clickTabGetData();
     }
   }
-  private tabs = ['热点', '必刷', '评论'];
-  private containerPositionY1 = 0;
-  private containerPositionY2 = 0;
-  private containerPositionY3 = 0;
-  private containerIndex = 0;
-  private clickItem = false;
-  private loaded = [false, false, false];
-  private loadedData1 = [];
-  private loadedData2 = [];
-  private loadedData3 = [];
-  private activeIndex: any = 0;
-  private activeName = this.tabs[this.activeIndex];
+  public tabs = ['热点', '必刷', '评论'];
+  public containerPositionY1 = 0;
+  public containerPositionY2 = 0;
+  public containerPositionY3 = 0;
+  public containerIndex = 0;
+  public clickItem = false;
+  public loaded = [false, false, false];
+  public loadedData1 = [];
+  public loadedData2 = [];
+  public loadedData3 = [];
+  public activeIndex: any = 0;
+  public activeName = this.tabs[this.activeIndex];
   // event
-  private async handlerClickTab(index: number) {
+  public async handlerClickTab(index: number) {
     this.activeIndex = index;
     this._clickTabGetData();
   }
-  private handlerClickBack() {
+  public handlerClickBack() {
     this.$router.back();
   }
-  private handlerClickShare() {
+  public handlerClickShare() {
     handlerQuasarShare('sec', {});
   }
-  private handlerClickSpotListItem(news: any) {
+  public handlerClickSpotListItem(news: any) {
     if (news.hotLabel && news.hotLabel.link) {
       this.clickItem = true;
       this.$router.push(`/news_topic?topicid=${news.hotLabel.link.staticId.split('_')[2] ? news.hotLabel.link.staticId.split('_')[2] : news.hotLabel.link.staticId.split('_')[1]}`);
     }
   }
-  private handlerClickThemeItem(news: any) {
+  public handlerClickThemeItem(news: any) {
     this.clickItem = true;
     this.$router.push(`/news_theme?groupid=${news.id}`);
   }
-  private async monitorScroll1(e: any) {
+  public async monitorScroll1(e: any) {
     const scrollTop = this.$refs['spotlist'].scrollTop;
     this.containerPositionY1 = scrollTop;
     this.containerIndex = 0;
   }
-  private async monitorScroll2(e: any) {
+  public async monitorScroll2(e: any) {
     const scrollTop = this.$refs['mustsee'].scrollTop;
     this.containerPositionY2 = scrollTop;
     this.containerIndex = 1;
   }
-  private async monitorScroll3(e: any) {
+  public async monitorScroll3(e: any) {
     const scrollTop = this.$refs['comment'].scrollTop;
     this.containerPositionY3 = scrollTop;
     this.containerIndex = 2;
   }
-  private handlerClickNewsItem(news: any) {
+  public handlerClickNewsItem(news: any) {
     let params;
     let urlStr: string;
     console.log(news.type);
@@ -245,7 +245,7 @@ export default class extends Vue {
     }
   }
   // http
-  private async _clickTabGetData() {
+  public async _clickTabGetData() {
     try {
       switch (this.activeIndex) {
         case 0:
@@ -278,7 +278,7 @@ export default class extends Vue {
       this.$set(this.loaded, this.activeIndex, true);
     });
   }
-  private async _getHotNewsRank() {
+  public async _getHotNewsRank() {
     const { data } = await TabHomeModule.getHotNewsRank({});
     const { shareInfo } = data;
     AppModule.SET_ShareInfo(shareInfo);

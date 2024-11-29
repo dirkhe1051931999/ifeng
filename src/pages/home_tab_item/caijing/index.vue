@@ -23,7 +23,7 @@
           <div class="swiper-wrapper">
             <div class="swiper-slide caijingSwiperList-slide" v-for="(news, index) in caijingSwiperList" :key="index" style="width: 100%">
               <p class="title">{{ news.title }}</p>
-              <p class="dateDiff">{{ news.updateTime | getDateDiff }}</p>
+              <p class="dateDiff">{{ news.updateTime | relativeTime }}</p>
               <van-image class="thumbnail" :src="news.thumbnail" lazy-load />
             </div>
           </div>
@@ -70,8 +70,8 @@
                 <i class="iconfont icon-duanxin" v-if="news.commentsall"></i>
                 <span class="count" v-if="news.commentsall"> {{ news.commentsall }}</span>
                 <i class="iconfont icon-lishi" v-if="news.updateTime"></i>
-                <span class="count" v-if="news.updateTime">{{ news.updateTime | getDateDiff }}</span>
-                <span class="iconfont icon-close1 close">
+                <span class="count" v-if="news.updateTime">{{ news.updateTime | relativeTime }}</span>
+                <span class="iconfont icon-close1 close" @click.stop.prevent>
                   <q-popup-proxy>
                     <q-card class="w-full backreason">
                       <p class="p-t-10 p-b-10 p-l-16 p-r-16 fs-14 text-_6b6a6a">选择原因，为您优化</p>
@@ -104,12 +104,12 @@
                   </div>
                   <div class="r">
                     <div class="t">{{ news.subscribe.catename }}</div>
-                    <div class="b">{{ news.updateTime | getDateDiff }}</div>
+                    <div class="b">{{ news.updateTime | relativeTime }}</div>
                   </div>
                 </div>
                 <div class="right">
                   <span class="follow">关注</span>
-                  <span class="iconfont icon-close1 close">
+                  <span class="iconfont icon-close1 close" @click.stop.prevent>
                     <q-popup-proxy>
                       <q-card class="w-full backreason">
                         <p class="p-t-10 p-b-10 p-l-16 p-r-16 fs-14 text-_6b6a6a">选择原因，为您优化</p>
@@ -157,8 +157,8 @@
                 <i class="iconfont icon-duanxin" v-if="news.commentsall"></i>
                 <span class="count" v-if="news.commentsall"> {{ news.commentsall }}</span>
                 <i class="iconfont icon-lishi" v-if="news.updateTime"></i>
-                <span class="count" v-if="news.updateTime">{{ news.updateTime | getDateDiff }}</span>
-                <span class="iconfont icon-close1 close">
+                <span class="count" v-if="news.updateTime">{{ news.updateTime | relativeTime }}</span>
+                <span class="iconfont icon-close1 close" @click.stop.prevent>
                   <q-popup-proxy>
                     <q-card class="w-full backreason">
                       <p class="p-t-10 p-b-10 p-l-16 p-r-16 fs-14 text-_6b6a6a">选择原因，为您优化</p>
@@ -191,12 +191,12 @@
                   </div>
                   <div class="r">
                     <div class="t">{{ news.subscribe.catename }}</div>
-                    <div class="b">{{ news.updateTime | getDateDiff }}</div>
+                    <div class="b">{{ news.updateTime | relativeTime }}</div>
                   </div>
                 </div>
                 <div class="right">
                   <span class="follow">关注</span>
-                  <span class="iconfont icon-close1 close">
+                  <span class="iconfont icon-close1 close" @click.stop.prevent>
                     <q-popup-proxy>
                       <q-card class="w-full backreason">
                         <p class="p-t-10 p-b-10 p-l-16 p-r-16 fs-14 text-_6b6a6a">选择原因，为您优化</p>
@@ -243,7 +243,7 @@
                 <i class="iconfont icon-duanxin" v-if="news.commentsall"></i>
                 <span class="count" v-if="news.commentsall"> {{ news.commentsall }}</span>
                 <i class="iconfont icon-lishi" v-if="news.updateTime"></i>
-                <span class="count" v-if="news.updateTime">{{ news.updateTime | getDateDiff }}</span>
+                <span class="count" v-if="news.updateTime">{{ news.updateTime | relativeTime }}</span>
               </div>
             </div>
           </li>
@@ -320,19 +320,19 @@ export default class extends Vue {
 
   // 数据
   public containerPositionY = 0;
-  private firstLoadData = true;
-  private pageLoading = false;
-  private caijingNewsList: any[] = [];
-  private caijingSwiperList: any[] = [];
-  private dapanzhishuList: any[] = [];
-  private caijingFastmessagescrollList: any[] = [];
+  public firstLoadData = true;
+  public pageLoading = false;
+  public caijingNewsList: any[] = [];
+  public caijingSwiperList: any[] = [];
+  public dapanzhishuList: any[] = [];
+  public caijingFastmessagescrollList: any[] = [];
   // 下拉刷新，上拉加载的数据
-  private isDownRefresh = false;
-  private refreshSuccessText = '';
-  private load_more_loading = false;
-  private load_more_loading_lock = false;
-  private load_more_no_data = '';
-  private pagination_params = {
+  public isDownRefresh = false;
+  public refreshSuccessText = '';
+  public load_more_loading = false;
+  public load_more_loading_lock = false;
+  public load_more_no_data = '';
+  public pagination_params = {
     size: 10,
     num: 1,
   };
@@ -362,7 +362,7 @@ export default class extends Vue {
     }
   }
 
-  private previewImage(images: any, index: number) {
+  public previewImage(images: any, index: number) {
     const arr = [];
     for (let item of images) {
       arr.push(item.url);
@@ -374,16 +374,16 @@ export default class extends Vue {
     });
   }
 
-  private handlerClickNoticeBar() {
+  public handlerClickNoticeBar() {
     this.$router.push('/ifeng_web_caijing_zhiboshi');
   }
 
-  private handlerClickDapanzhishuList() {
+  public handlerClickDapanzhishuList() {
     this.$router.push('/ifeng_web_caijing_pindao');
   }
 
   /*http*/
-  private async _downCallback() {
+  public async _downCallback() {
     let params: any = {
       id: 'CJ33',
       ch: 'finance',
@@ -444,7 +444,7 @@ export default class extends Vue {
     }
   }
 
-  private async _upCallback() {
+  public async _upCallback() {
     let params: any = {
       id: 'CJ33',
       ch: 'finance',
@@ -490,7 +490,7 @@ export default class extends Vue {
     }
   }
 
-  private async _getFinance_a_and_hk_stock_market() {
+  public async _getFinance_a_and_hk_stock_market() {
     let params: any = {};
     let form = {};
     let formData = new FormData();

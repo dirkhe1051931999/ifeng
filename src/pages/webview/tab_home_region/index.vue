@@ -32,7 +32,7 @@ export default class extends Vue {
   get regionList() {
     return TabHomeChengshiModule.regionList;
   }
-  private handlerClickSlectRegion(name: string) {
+  public handlerClickSlectRegion(name: string) {
     TabHomeChengshiModule.SET_currentRegion(name);
     const _defaultCategories: any = cloneDeep(get_user_current_categories());
     for (let item of _defaultCategories) {
@@ -53,7 +53,7 @@ export default class extends Vue {
     set_user_current_region(name);
     this.$router.back();
   }
-  private vanIndexBarIndex: string[] = [];
+  public vanIndexBarIndex: string[] = [];
   created() {
     for (let key in this.regionList) {
       this.vanIndexBarIndex.push(key);

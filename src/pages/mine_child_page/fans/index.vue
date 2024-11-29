@@ -34,11 +34,11 @@ export default class extends Vue {
   mounted() {
     this.getData();
   }
-  private getDataLoading = false;
-  private fansData = [];
+  public getDataLoading = false;
+  public fansData = [];
   /* event */
   /* http */
-  private async getData() {
+  public async getData() {
     this.getDataLoading = true;
     const { data } = await MineModule.getFans({ params: { followid: `user_${UserModule.guid}`, page: '1', pagesize: 20 } });
     const { list } = data;

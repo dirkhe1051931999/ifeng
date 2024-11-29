@@ -36,7 +36,7 @@
           <div class="swiper-wrapper p-r-16" style="margin-left: 10px">
             <div class="swiper-slide toutiaoHotSpot-slide" v-for="(item, index) in toutiaoHotSpot.relation" :key="index" style="width: 90%" @click.stop.prevent="handlerClickNewsItem(item)">
               <p class="title">{{ item.title }}</p>
-              <p class="dateDiff">{{ item.updateTime | getDateDiff }}</p>
+              <p class="dateDiff">{{ item.updateTime | relativeTime }}</p>
               <van-image class="thumbnail" :src="item.thumbnail" lazy-load radius="6" />
             </div>
           </div>
@@ -125,7 +125,7 @@
                   <div class="bottom" v-if="item.source">
                     <span class="source">{{ item.source }}</span>
                     <span class="count"> {{ item.pv }} 阅</span>
-                    <span>{{ item.updateTime | getDateDiff }}</span>
+                    <span>{{ item.updateTime | relativeTime }}</span>
                   </div>
                   <van-image class="thumbnail" :src="item.thumbnail" lazy-load radius="4" />
                 </div>
@@ -214,7 +214,7 @@
                   <i class="iconfont icon-duanxin" v-if="item.commentsall"></i>
                   <span class="count" v-if="item.commentsall"> {{ item.commentsall }}</span>
                   <i class="iconfont icon-lishi" v-if="item.updateTime"></i>
-                  <span class="count" v-if="item.updateTime">{{ item.updateTime | getDateDiff }}</span>
+                  <span class="count" v-if="item.updateTime">{{ item.updateTime | relativeTime }}</span>
                 </div>
                 <div v-if="item.summary" class="hot-comment">
                   <span class="label">{{ item.summary.tag }}</span>
@@ -263,8 +263,8 @@
               <i class="iconfont icon-duanxin" v-if="news.commentsall"></i>
               <span class="count" v-if="news.commentsall"> {{ news.commentsall }}</span>
               <i class="iconfont icon-lishi" v-if="news.updateTime"></i>
-              <span class="count" v-if="news.updateTime">{{ news.updateTime | getDateDiff }}</span>
-              <span class="iconfont icon-close1 close">
+              <span class="count" v-if="news.updateTime">{{ news.updateTime | relativeTime }}</span>
+              <span class="iconfont icon-close1 close" @click.stop.prevent>
                 <q-popup-proxy>
                   <q-card class="w-full backreason">
                     <p class="p-t-10 p-b-10 p-l-16 p-r-16 fs-14 text-_6b6a6a">选择原因，为您优化</p>
@@ -297,12 +297,12 @@
                 </div>
                 <div class="r">
                   <div class="t">{{ news.subscribe.catename }}</div>
-                  <div class="b">{{ news.updateTime | getDateDiff }}</div>
+                  <div class="b">{{ news.updateTime | relativeTime }}</div>
                 </div>
               </div>
               <div class="right">
                 <span class="follow">关注</span>
-                <span class="iconfont icon-close1 close">
+                <span class="iconfont icon-close1 close" @click.stop.prevent>
                   <q-popup-proxy>
                     <q-card class="w-full backreason">
                       <p class="p-t-10 p-b-10 p-l-16 p-r-16 fs-14 text-_6b6a6a">选择原因，为您优化</p>
@@ -350,8 +350,8 @@
               <i class="iconfont icon-duanxin" v-if="news.commentsall"></i>
               <span class="count" v-if="news.commentsall"> {{ news.commentsall }}</span>
               <i class="iconfont icon-lishi" v-if="news.updateTime"></i>
-              <span class="count" v-if="news.updateTime">{{ news.updateTime | getDateDiff }}</span>
-              <span class="iconfont icon-close1 close">
+              <span class="count" v-if="news.updateTime">{{ news.updateTime | relativeTime }}</span>
+              <span class="iconfont icon-close1 close" @click.stop.prevent>
                 <q-popup-proxy>
                   <q-card class="w-full backreason">
                     <p class="p-t-10 p-b-10 p-l-16 p-r-16 fs-14 text-_6b6a6a">选择原因，为您优化</p>
@@ -384,12 +384,12 @@
                 </div>
                 <div class="r">
                   <div class="t">{{ news.subscribe.catename }}</div>
-                  <div class="b">{{ news.updateTime | getDateDiff }}</div>
+                  <div class="b">{{ news.updateTime | relativeTime }}</div>
                 </div>
               </div>
               <div class="right">
                 <span class="follow">关注</span>
-                <span class="iconfont icon-close1 close">
+                <span class="iconfont icon-close1 close" @click.stop.prevent>
                   <q-popup-proxy>
                     <q-card class="w-full backreason">
                       <p class="p-t-10 p-b-10 p-l-16 p-r-16 fs-14 text-_6b6a6a">选择原因，为您优化</p>
@@ -440,7 +440,7 @@
               <i class="iconfont icon-duanxin" v-if="news.commentsall"></i>
               <span class="count" v-if="news.commentsall"> {{ news.commentsall }}</span>
               <i class="iconfont icon-lishi" v-if="news.updateTime"></i>
-              <span class="count" v-if="news.updateTime">{{ news.updateTime | getDateDiff }}</span>
+              <span class="count" v-if="news.updateTime">{{ news.updateTime | relativeTime }}</span>
             </div>
             <div v-if="news.subscribe.logo || news.subscribe.honorImg" class="action-bottom">
               <div class="like">
@@ -493,25 +493,25 @@ export default class extends Vue {
   }
   public containerPositionY = 0;
 
-  private firstLoadData = true;
+  public firstLoadData = true;
   /*--数据--*/
   // doc,plvideo,short
-  private toutiaoData: any[] = [];
+  public toutiaoData: any[] = [];
   // 置顶
-  private toutiaoZhidingData: any[] = [];
+  public toutiaoZhidingData: any[] = [];
   // 热点轮播
-  private toutiaoHotSpot = {};
+  public toutiaoHotSpot = {};
   // 下拉刷新，上拉加载的数据
-  private isDownRefresh = false;
-  private refreshSuccessText = '';
-  private load_more_loading = false;
-  private load_more_loading_lock = false;
-  private pagination_params = {
+  public isDownRefresh = false;
+  public refreshSuccessText = '';
+  public load_more_loading = false;
+  public load_more_loading_lock = false;
+  public pagination_params = {
     size: 10,
     num: 1,
   };
   /*event*/
-  private previewImage(images: any, index: any) {
+  public previewImage(images: any, index: any) {
     const arr = [];
     for (let item of images) {
       arr.push(item.url);
@@ -522,19 +522,19 @@ export default class extends Vue {
       closeable: true,
     });
   }
-  private handlerClickMustSeeMarqueeMore() {
+  public handlerClickMustSeeMarqueeMore() {
     this.$router.push('/tab_home_hot/1');
   }
-  private handlerClickToutiaoHotSpotMore() {
+  public handlerClickToutiaoHotSpotMore() {
     this.$router.push('/tab_home_hot/0');
   }
-  private handlerClickQualityReadingMore() {
+  public handlerClickQualityReadingMore() {
     this.$router.push('/tab_home_qualityReading');
   }
-  private handlerClickPhvideoShare(news: any) {
+  public handlerClickPhvideoShare(news: any) {
     handlerQuasarShare('app', news);
   }
-  private handlerClickUserPerferenceOtherSettings() {
+  public handlerClickUserPerferenceOtherSettings() {
     this.$router.push('/tab_home_user_perference?reload=true');
   }
   async onRefresh() {
@@ -558,7 +558,7 @@ export default class extends Vue {
       }
     }
   }
-  private _initSwiper() {
+  public _initSwiper() {
     const that = this;
     setTimeout(() => {
       new window['Swiper']('.qualityReading-container', {
@@ -592,7 +592,7 @@ export default class extends Vue {
       });
     }, 300);
   }
-  private handlerClickNewsItem(news: any) {
+  public handlerClickNewsItem(news: any) {
     let params;
     let urlStr: string;
     console.log(news.type);
@@ -623,7 +623,7 @@ export default class extends Vue {
     }
   }
   // http
-  private async _downCallback() {
+  public async _downCallback() {
     try {
       let params: any = {
         ch: 'sy',
@@ -654,7 +654,6 @@ export default class extends Vue {
       }
       this.toutiaoData = noAdToutiaoData;
       this.toutiaoData.unshift(toutiaoUserPreference);
-      this.toutiaoData.unshift(phvideoData);
       // 置顶
       this.toutiaoZhidingData = result[1].item;
       this.$nextTick(() => {
@@ -673,7 +672,7 @@ export default class extends Vue {
       console.log('err');
     }
   }
-  private async _upCallback() {
+  public async _upCallback() {
     const result = await TabHomeToutiaoModule.getHeadline({
       ch: 'sy',
       cache: 'no',

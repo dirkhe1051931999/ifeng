@@ -96,34 +96,34 @@ export default class extends Vue {
       this.$list = this.$refs['list'];
     });
   }
-  private bannerData = {
+  public bannerData = {
     title: '',
     thumbnail: '',
     source: '来源：喜马拉雅',
     total_count: 0,
     intro: '',
   };
-  private $list: any;
-  private activeNavIndex = 0;
-  private directoryList: any[] = [];
-  private getDataLoading = false;
-  private load_more_loading = false;
-  private load_more_loading_lock = false;
-  private load_more_no_data = '';
-  private hasLoadedData = false;
-  private paginationPage = 1;
-  private popupPaginationPgae = 1;
-  private showSelectCount = false;
-  private selectCountColumns: string[] = [];
-  private showSelectResult = false;
-  private selectResultList: any[] = [];
-  private showSelectResultLoading = false;
-  private selectReultTitle = '';
+  public $list: any;
+  public activeNavIndex = 0;
+  public directoryList: any[] = [];
+  public getDataLoading = false;
+  public load_more_loading = false;
+  public load_more_loading_lock = false;
+  public load_more_no_data = '';
+  public hasLoadedData = false;
+  public paginationPage = 1;
+  public popupPaginationPgae = 1;
+  public showSelectCount = false;
+  public selectCountColumns: string[] = [];
+  public showSelectResult = false;
+  public selectResultList: any[] = [];
+  public showSelectResultLoading = false;
+  public selectReultTitle = '';
   /*event */
-  private handleClickNav(index: number) {
+  public handleClickNav(index: number) {
     this.activeNavIndex = index;
   }
-  private async monitorScrollEvent() {
+  public async monitorScrollEvent() {
     const scrollTop = this.$list.scrollTop;
     let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
     if (scrollTop + windowHeight - 278 + 10 >= this.$refs['list'].scrollHeight) {
@@ -136,10 +136,10 @@ export default class extends Vue {
       }
     }
   }
-  private handleClickSelectCount() {
+  public handleClickSelectCount() {
     this.showSelectCount = true;
   }
-  private async handleClickSelectCountConfirm(item: any) {
+  public async handleClickSelectCountConfirm(item: any) {
     this.selectResultList = [];
     this.selectReultTitle = item;
     const index = this.selectCountColumns.indexOf(item) + 1;
@@ -161,19 +161,19 @@ export default class extends Vue {
       return Promise.reject(error);
     }
   }
-  private async handleClickSelectCountCancel() {
+  public async handleClickSelectCountCancel() {
     this.showSelectCount = false;
   }
-  private handleClickItem(item: any, index: number) {
+  public handleClickItem(item: any, index: number) {
     TabHomeYinpinModule.SET_PLAY_PAGE_LIST(this.directoryList);
     this.$router.push(`/tab_yinpin_child/play?aid=${this.$route.query.aid}&lastPage=${this.paginationPage}&tid=${item.link.tid}`);
   }
-  private handleClickItem2(item: any) {
+  public handleClickItem2(item: any) {
     TabHomeYinpinModule.SET_PLAY_PAGE_LIST(this.directoryList);
     this.$router.push(`/tab_yinpin_child/play?aid=${this.$route.query.aid}&lastPage=${this.popupPaginationPgae}&tid=${item.link.tid}`);
   }
   /*http */
-  private async getDirectory() {
+  public async getDirectory() {
     try {
       this.getDataLoading = true;
       const { data } = await TabHomeYinpinModule.getDirectory({ params: { aid: this.$route.query.aid, page: 1 } });
@@ -196,7 +196,7 @@ export default class extends Vue {
       return Promise.reject(error);
     }
   }
-  private async _getMoreDirectory() {
+  public async _getMoreDirectory() {
     try {
       const { data } = await TabHomeYinpinModule.getDirectory({ params: { aid: this.$route.query.aid, page: this.paginationPage } });
       const { list } = data;

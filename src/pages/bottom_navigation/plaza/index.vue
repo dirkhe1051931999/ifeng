@@ -88,7 +88,7 @@
                       <div class="t">{{ item.title }}</div>
                       <div class="b">
                         <span class="catename">{{ item.subscribe.catename }}</span>
-                        <span class="updateTime">{{ item.updateTime | getDateDiff }}</span>
+                        <span class="updateTime">{{ item.updateTime | relativeTime }}</span>
                       </div>
                     </div>
                     <div class="right">
@@ -126,32 +126,32 @@ export default class extends Vue {
       this.$refs['recommend-container'].style.height = `${window.innerHeight - 36 - 60}px`;
     });
   }
-  private tab = 'recommend';
-  private getDataLoading = false;
-  private getDataLoading2 = false;
-  private recommendLoading = false;
-  private ifengSayLoading = false;
-  private recommendList: any[] = [];
-  private ifengSayList: any[] = [];
-  private ifengSayBannerList: any[] = [];
-  private load_more_loading_recommend = false;
-  private load_more_loading_lock_recommend = false;
-  private load_more_no_data_recommend = '';
-  private pagination_params_recommend = {
+  public tab = 'recommend';
+  public getDataLoading = false;
+  public getDataLoading2 = false;
+  public recommendLoading = false;
+  public ifengSayLoading = false;
+  public recommendList: any[] = [];
+  public ifengSayList: any[] = [];
+  public ifengSayBannerList: any[] = [];
+  public load_more_loading_recommend = false;
+  public load_more_loading_lock_recommend = false;
+  public load_more_no_data_recommend = '';
+  public pagination_params_recommend = {
     size: 10,
     num: 1,
   };
-  private load_more_loading_ifengSay = false;
-  private load_more_loading_lock_ifengSay = false;
-  private load_more_no_data_ifengSay = '';
-  private pagination_params_ifengSay = {
+  public load_more_loading_ifengSay = false;
+  public load_more_loading_lock_ifengSay = false;
+  public load_more_no_data_ifengSay = '';
+  public pagination_params_ifengSay = {
     size: 10,
     num: 1,
   };
-  private containerPositionY_recommend = 0;
-  private containerPositionY_ifengSay = 0;
+  public containerPositionY_recommend = 0;
+  public containerPositionY_ifengSay = 0;
   /* event */
-  private async monitorRecommendScrollEvent() {
+  public async monitorRecommendScrollEvent() {
     const scrollHeight = this.$refs['recommend-container'].scrollHeight;
     const scrollTop = this.$refs['recommend-container'].scrollTop;
     this.containerPositionY_recommend = scrollTop;
@@ -166,7 +166,7 @@ export default class extends Vue {
       }
     }
   }
-  private async monitoriFengSayScrollEvent() {
+  public async monitoriFengSayScrollEvent() {
     const scrollHeight = this.$refs['ifengSay-container'].scrollHeight;
     const scrollTop = this.$refs['ifengSay-container'].scrollTop;
     this.containerPositionY_ifengSay = scrollTop;
@@ -181,7 +181,7 @@ export default class extends Vue {
       }
     }
   }
-  private previewImage(images: any, index: number) {
+  public previewImage(images: any, index: number) {
     const arr = [];
     for (let item of images) {
       arr.push(item.url);
@@ -192,7 +192,7 @@ export default class extends Vue {
       closeable: true,
     });
   }
-  private tabChange() {
+  public tabChange() {
     this.$nextTick(() => {
       if (this.tab === 'ifengSay' && this.$refs['ifengSay-container'] && !this.$refs['ifengSay-container'].style.height) {
         this.getnNwsSquareColumn();
@@ -201,21 +201,21 @@ export default class extends Vue {
     });
   }
   /* http */
-  private async getSquarerecommend() {
+  public async getSquarerecommend() {
     this.getDataLoading = true;
     const result = await PlazaModule.getSquarerecommend({ params: { page: 1 } });
     const { item } = result[0];
     this.recommendList = item;
     this.getDataLoading = false;
   }
-  private async getnNwsSquareColumn() {
+  public async getnNwsSquareColumn() {
     this.getDataLoading2 = true;
     const result = await PlazaModule.getnNwsSquareColumn({ params: { page: 1 } });
     this.ifengSayBannerList = result[0].item;
     this.ifengSayList = result[1].item;
     this.getDataLoading2 = false;
   }
-  private async recommendRefresh() {
+  public async recommendRefresh() {
     this.getDataLoading = true;
     this.pagination_params_recommend.num = 1;
     const result = await PlazaModule.getSquarerecommend({ params: { page: 1 } });
@@ -225,7 +225,7 @@ export default class extends Vue {
     this.recommendLoading = false;
     this.$toast('刷新成功');
   }
-  private async ifengSayRefresh() {
+  public async ifengSayRefresh() {
     this.getDataLoading2 = true;
     this.pagination_params_ifengSay.num = 1;
     const result = await PlazaModule.getnNwsSquareColumn({ params: { page: 1 } });
@@ -235,7 +235,7 @@ export default class extends Vue {
     this.ifengSayLoading = false;
     this.$toast('刷新成功');
   }
-  private async _upCallback_Recommend() {
+  public async _upCallback_Recommend() {
     const result = await PlazaModule.getSquarerecommend({ params: { page: this.pagination_params_recommend.num } });
     const { item } = result[0];
     if (item.length === 0) {
@@ -248,7 +248,7 @@ export default class extends Vue {
       return Promise.resolve();
     }
   }
-  private async _upCallback_IfengSay() {
+  public async _upCallback_IfengSay() {
     const result = await PlazaModule.getnNwsSquareColumn({ params: { page: this.pagination_params_ifengSay.num } });
     const { item } = result[0];
     if (item.length === 0) {

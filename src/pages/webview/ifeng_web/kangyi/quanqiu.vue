@@ -140,10 +140,10 @@ export default class extends Vue {
     this._getKangyiQuanqiu();
     this.$refs['kangyi-quanqiu-container'].style['height'] = `${window.innerHeight}px`;
   }
-  private endDate: any = '';
-  private activeMapIndex = 0;
-  private activeLineIndex = 0;
-  private guowaiCountryCanSee = [
+  public endDate: any = '';
+  public activeMapIndex = 0;
+  public activeLineIndex = 0;
+  public guowaiCountryCanSee = [
     {
       name: '美国',
       code: 'UAS',
@@ -165,16 +165,16 @@ export default class extends Vue {
       code: 'Japan',
     },
   ];
-  private tableList: any[] = [];
-  private newsList: any[] = [];
-  private summaryData: any = {};
-  private map1: any;
-  private map2: any;
-  private line1: any;
-  private line2: any;
-  private line3: any;
+  public tableList: any[] = [];
+  public newsList: any[] = [];
+  public summaryData: any = {};
+  public map1: any;
+  public map2: any;
+  public line1: any;
+  public line2: any;
+  public line3: any;
   /**event */
-  private _initMap1(data: any) {
+  public _initMap1(data: any) {
     this.map1 = window['echarts'].init(document.getElementById('kangyi-quanqiu-map1'));
     this.map1.setOption({
       tooltip: {
@@ -227,7 +227,7 @@ export default class extends Vue {
       ],
     });
   }
-  private _initMap2(data: any) {
+  public _initMap2(data: any) {
     this.map2 = window['echarts'].init(document.getElementById('kangyi-quanqiu-map2'));
     this.map2.setOption({
       tooltip: {
@@ -280,7 +280,7 @@ export default class extends Vue {
       ],
     });
   }
-  private _initLine1(data: any) {
+  public _initLine1(data: any) {
     this.line1 = window['echarts'].init(document.getElementById('kangyi-quanqiu-line1'));
     let option;
     option = {
@@ -325,7 +325,7 @@ export default class extends Vue {
     };
     option && this.line1.setOption(option);
   }
-  private _initLine2(data: any) {
+  public _initLine2(data: any) {
     this.line2 = window['echarts'].init(document.getElementById('kangyi-quanqiu-line2'));
     let option;
     option = {
@@ -370,7 +370,7 @@ export default class extends Vue {
     };
     option && this.line2.setOption(option);
   }
-  private _initLine3(data: any) {
+  public _initLine3(data: any) {
     this.line3 = window['echarts'].init(document.getElementById('kangyi-quanqiu-line3'));
     let option;
     option = {
@@ -415,11 +415,11 @@ export default class extends Vue {
     };
     option && this.line3.setOption(option);
   }
-  private handlerClickOtherGuojia(item: any) {
+  public handlerClickOtherGuojia(item: any) {
     this.$router.push(`ifeng_web_kangyi_other_guojia?name=${item.name}`);
   }
   /**http */
-  private async _getKangyiQuanqiu() {
+  public async _getKangyiQuanqiu() {
     const result = await TabHomeKangyiModule.getKangyiQuanqiu({});
     if (result[0]) {
       let { yiqing_v2, leiji } = result[0];

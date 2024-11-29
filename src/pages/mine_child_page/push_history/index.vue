@@ -45,14 +45,14 @@ export default class extends Vue {
     });
   }
   public containerPositionY = 0;
-  private pushData = [];
-  private getDataLoading = false;
-  private isDownRefresh = false;
-  private refreshSuccessText = '';
-  private load_more_loading = false;
-  private load_more_loading_lock = false;
-  private load_more_no_data = '';
-  private pagination_params = {
+  public pushData = [];
+  public getDataLoading = false;
+  public isDownRefresh = false;
+  public refreshSuccessText = '';
+  public load_more_loading = false;
+  public load_more_loading_lock = false;
+  public load_more_no_data = '';
+  public pagination_params = {
     size: 50,
     num: 1,
   };
@@ -73,7 +73,7 @@ export default class extends Vue {
     }
   }
   /* http */
-  private async getData() {
+  public async getData() {
     this.getDataLoading = true;
     const { data } = await MineModule.getPushHistory({ params: { page: 1, pagesize: this.pagination_params.size } });
     this.getDataLoading = false;
@@ -82,7 +82,7 @@ export default class extends Vue {
       this.load_more_no_data = '没有更多数据了';
     }
   }
-  private async _upCallback() {
+  public async _upCallback() {
     const { data } = await MineModule.getPushHistory({ params: { page: this.pagination_params.num, pagesize: this.pagination_params.size } });
     if (!data.length) {
       this.load_more_no_data = '没有更多数据了';

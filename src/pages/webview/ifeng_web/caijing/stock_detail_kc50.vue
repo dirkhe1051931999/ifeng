@@ -82,25 +82,25 @@ export default class extends Vue {
     this.$refs['caijing-stock-detail-kc50-content'].style['height'] = `${window.innerHeight - 48}px`;
     this._getCaijingStockKc50Detail();
   }
-  private lastUpdateTime: any = '';
-  private stockName = {
+  public lastUpdateTime: any = '';
+  public stockName = {
     code: this.$route.query.code,
     name: '',
     code2: '',
   };
-  private basehq: any = {};
-  private newsList: any[] = [];
-  private stockImgList: any[] = [];
-  private activeChartNavItemIndex = 0;
-  private pageLoading = false;
-  private containerPositionY = 0;
-  private pageMoreLoading = false;
-  private pageLoaded = false;
-  private pageMoreLocking = false;
-  private pageMorePaginationNum = 1;
-  private noMoreNews = false;
+  public basehq: any = {};
+  public newsList: any[] = [];
+  public stockImgList: any[] = [];
+  public activeChartNavItemIndex = 0;
+  public pageLoading = false;
+  public containerPositionY = 0;
+  public pageMoreLoading = false;
+  public pageLoaded = false;
+  public pageMoreLocking = false;
+  public pageMorePaginationNum = 1;
+  public noMoreNews = false;
   /**event */
-  private async monitorScrollEvent() {
+  public async monitorScrollEvent() {
     const scrollHeight = this.$refs['caijing-stock-detail-kc50-content'].scrollHeight;
     const scrollTop = this.$refs['caijing-stock-detail-kc50-content'].scrollTop;
     this.containerPositionY = scrollTop;
@@ -117,11 +117,11 @@ export default class extends Vue {
       }
     }
   }
-  private async handleClickNavItem(index: number) {
+  public async handleClickNavItem(index: number) {
     this.activeChartNavItemIndex = index;
   }
   /**http */
-  private async _getCaijingStockKc50Detail() {
+  public async _getCaijingStockKc50Detail() {
     this.pageLoading = true;
     const result: any = await TabHomeCaijingModule.getCaijingStockDetailKc50({
       params: {
@@ -153,7 +153,7 @@ export default class extends Vue {
     this.pageLoading = false;
     this.pageLoaded = true;
   }
-  private async _getCaijingMoreStockDetail() {
+  public async _getCaijingMoreStockDetail() {
     const result: any = await TabHomeCaijingModule.getCaijingStockDetailKc50({
       params: {
         have_news: true,

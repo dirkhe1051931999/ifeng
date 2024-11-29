@@ -51,16 +51,16 @@ export default class extends Vue {
       this.tabsOffsetTopInterregional.push($dom.offsetTop);
     }
   }
-  private activeTabIndex = 0;
-  private tabsOffsetTopInterregional: number[] = [];
-  private tabs = [
+  public activeTabIndex = 0;
+  public tabsOffsetTopInterregional: number[] = [];
+  public tabs = [
     { name: '最新', id: 'news-topic-zuixin' },
     { name: '评论', id: 'news-topic-pinglun' },
     { name: '解读', id: 'news-topic-jiedu' },
     { name: '热门评论', id: 'news-topic-remenpinglun' },
   ];
   /*event */
-  private monitorScrollEvent() {
+  public monitorScrollEvent() {
     const $dom = this.$refs['news-topic-wrap'];
     const scrollTop = $dom.scrollTop;
     if (scrollTop >= this.tabsOffsetTopInterregional[0] && scrollTop < this.tabsOffsetTopInterregional[1]) {
@@ -75,10 +75,10 @@ export default class extends Vue {
       this.activeTabIndex = 3;
     }
   }
-  private handlerClickTabItem(index: number) {
+  public handlerClickTabItem(index: number) {
     this.$refs['news-topic-wrap'].scrollTop = this.tabsOffsetTopInterregional[index];
   }
-  private hanlderClickTabBack() {
+  public hanlderClickTabBack() {
     this.$router.back();
   }
 }

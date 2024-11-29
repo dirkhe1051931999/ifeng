@@ -1,10 +1,7 @@
 <template>
   <div class="news-detail-doc-container">
     <div class="loading-page" v-if="!pageLoaded">
-      <div class="p-t-30">
-        <q-spinner color="primary" size="22px" :thickness="2" class="m-r-10" />
-        努力加载中...
-      </div>
+      <DetailLoading />
     </div>
     <div class="nav">
       <q-icon class="back" name="arrow_back_ios" @click="$router.back()"></q-icon>
@@ -153,7 +150,7 @@
                     </div>
                   </div>
                   <div class="b">
-                    <span class="time" v-if="father.comment_date">{{ father.comment_date | getDateDiff }}</span>
+                    <span class="time" v-if="father.comment_date">{{ father.comment_date | relativeTime }}</span>
                     <span class="split"></span>
                     <span class="reply">回复</span>
                   </div>
@@ -184,7 +181,7 @@
                       </div>
                     </div>
                     <div class="b">
-                      <span class="time" v-if="child.comment_date">{{ child.comment_date | getDateDiff }}</span>
+                      <span class="time" v-if="child.comment_date">{{ child.comment_date | relativeTime }}</span>
                       <span class="split"></span>
                       <span class="reply">回复</span>
                     </div>
@@ -231,7 +228,7 @@
               </div>
               <div class="c">{{ commentsOwnerMap.comment_contents }}</div>
               <div class="b">
-                <span class="time" v-if="commentsOwnerMap.comment_date">{{ commentsOwnerMap.comment_date | getDateDiff }}</span>
+                <span class="time" v-if="commentsOwnerMap.comment_date">{{ commentsOwnerMap.comment_date | relativeTime }}</span>
                 <span class="split"></span>
                 <span class="reply">回复</span>
               </div>
@@ -255,7 +252,7 @@
               </div>
               <div class="c">{{ child.comment_contents }}</div>
               <div class="b">
-                <span class="time" v-if="child.comment_date">{{ child.comment_date | getDateDiff }}</span>
+                <span class="time" v-if="child.comment_date">{{ child.comment_date | relativeTime }}</span>
                 <span class="split"></span>
                 <span class="reply">回复</span>
               </div>
@@ -293,16 +290,20 @@ import { CommentsModule } from '@/store/modules/comment';
 import { findStrImgSrc, getUrlParams, json2Url } from '@/utils';
 import { ImagePreview } from 'vant';
 import InlineVideo from '@/components/inlineVideo/index.vue';
+import DetailLoading from '@/components/detailLoading/index.vue';
 import { handlerQuasarShare } from '@/utils/share';
 import { isEmpty } from 'lodash';
+
 @Component({
   name: 'news-detail-doc',
   components: {
     InlineVideo,
+    DetailLoading,
   },
 })
 export default class extends Vue {
   $refs: any;
+
   @Watch('$route')
   onchange(to: any, from: any) {
     if (to.path === '/news_detail/doc') {
@@ -316,6 +317,7 @@ export default class extends Vue {
       }
     }
   }
+
   async mounted() {
     await this.getNewsDetail(this.$route.query);
     this.pageLoaded = true;
@@ -324,50 +326,54 @@ export default class extends Vue {
       this.$dom = this.$refs['news-detail-doc-wrap'];
     });
   }
-  private $dom: any;
-  private containerPositionY = 0;
-  private activeShow = false;
-  private pageLoaded = false;
-  private imgViewsList: any[] = [];
-  private news_details = {};
-  private commentResult = {};
+
+  public $dom: any;
+  public containerPositionY = 0;
+  public activeShow = false;
+  public pageLoaded = false;
+  public imgViewsList: any[] = [];
+  public news_details = {};
+  public commentResult = {};
   // 评论排序，分页相关
-  private commentsPaginationParams = {
+  public commentsPaginationParams = {
     num: 1,
     orderby: 'integral',
     pagesize: 10,
   };
-  private commentsSort = {
+  public commentsSort = {
     sortMethod: '按时间',
     sortTitle: '热门评论',
   };
-  private commentsMap = {
+  public commentsMap = {
     count: 0,
     join_count: 0,
     comments: [],
     allow_comment: 1,
     newComments: [],
   };
-  private commentsChildrenMoreList: any[] = [];
-  private commentsOwnerMap: any = {};
-  private commentSorting = false;
-  private load_more_loading_lock = false;
-  private load_more_loading = false;
-  private load_more_no_data = '';
-  private showCommentsChildrenMore = false;
-  private commentsChildrenMoreLoading = false;
+  public commentsChildrenMoreList: any[] = [];
+  public commentsOwnerMap: any = {};
+  public commentSorting = false;
+  public load_more_loading_lock = false;
+  public load_more_loading = false;
+  public load_more_no_data = '';
+  public showCommentsChildrenMore = false;
+  public commentsChildrenMoreLoading = false;
+
   /**event */
-  private previewImage(images: any, index: number) {
+  public previewImage(images: any, index: number) {
     ImagePreview({
       images: images,
       startPosition: index,
       closeable: true,
     });
   }
-  private clickRichText(e: any) {
+
+  public clickRichText(e: any) {
     this.openPreviewImage(e);
   }
-  private openPreviewImage(e: any) {
+
+  public openPreviewImage(e: any) {
     const children = e.target.children;
     if (children.length && children[0] && children[0].nodeName.toLocaleLowerCase() === 'img') {
       const index = this.imgViewsList.indexOf(children[0].src);
@@ -378,10 +384,12 @@ export default class extends Vue {
       this.previewImage(this.imgViewsList, index);
     }
   }
-  private handleClickShare() {
+
+  public handleClickShare() {
     handlerQuasarShare('app', {});
   }
-  private handleClickNewsDetailTheme(item: any) {
+
+  public handleClickNewsDetailTheme(item: any) {
     console.log(item.type, item);
     if (item.link.url) {
       let params = getUrlParams(item.link.url);
@@ -404,7 +412,8 @@ export default class extends Vue {
       }
     }
   }
-  private handlerClickNewsItem(news: any) {
+
+  public handlerClickNewsItem(news: any) {
     if (news.type === 'doc') {
       const params = getUrlParams(news.link.url);
       const urlStr = json2Url(params);
@@ -417,7 +426,8 @@ export default class extends Vue {
       }
     }
   }
-  private async monitorScrollEvent() {
+
+  public async monitorScrollEvent() {
     const scrollTop = this.$dom.scrollTop;
     if (scrollTop >= this.$refs['news-title'].clientHeight + this.$refs['news-author'].clientHeight) {
       this.activeShow = true;
@@ -442,8 +452,9 @@ export default class extends Vue {
       }
     }
   }
+
   /**http */
-  private async getNewsDetail(params: any) {
+  public async getNewsDetail(params: any) {
     let commentParams: any = {
       doc_url: params.aid,
       p: this.commentsPaginationParams.num,
@@ -461,7 +472,8 @@ export default class extends Vue {
     this.commentsMap.newComments = commentResult.comments;
     return Promise.resolve();
   }
-  private handlerClickComentsChildMore(news: any) {
+
+  public handlerClickComentsChildMore(news: any) {
     this.commentsOwnerMap = {};
     this.commentsChildrenMoreList = [];
     this.commentsChildrenMoreLoading = true;
@@ -480,7 +492,8 @@ export default class extends Vue {
       this.commentsChildrenMoreLoading = false;
     });
   }
-  private async handlerClickCommentsSort(method: string) {
+
+  public async handlerClickCommentsSort(method: string) {
     if (this.commentSorting) {
       return;
     }
@@ -500,7 +513,8 @@ export default class extends Vue {
     this.commentsMap.newComments = commentResult.comments;
     this.commentSorting = false;
   }
-  private async _getCommentsMore() {
+
+  public async _getCommentsMore() {
     let commentParams: any = {
       doc_url: this.$route.query.aid,
       p: this.commentsPaginationParams.num,

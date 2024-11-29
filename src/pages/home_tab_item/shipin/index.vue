@@ -39,7 +39,7 @@
             <i class="iconfont icon-duanxin" v-if="news.commentsall"></i>
             <span class="count" v-if="news.commentsall"> {{ news.commentsall }}</span>
             <i class="iconfont icon-lishi" v-if="news.updateTime"></i>
-            <span class="count" v-if="news.updateTime">{{ news.updateTime | getDateDiff }}</span>
+            <span class="count" v-if="news.updateTime">{{ news.updateTime | relativeTime }}</span>
             <q-icon name="more_horiz" class="more" @click="handlerClickVideoMore(news)"></q-icon>
           </div>
         </li>
@@ -107,16 +107,16 @@ export default class extends Vue {
   }
   // 数据
   public containerPositionY = 0;
-  private firstLoadData = true;
-  private pageLoading = false;
-  private videoNewsList: any = [];
+  public firstLoadData = true;
+  public pageLoading = false;
+  public videoNewsList: any = [];
   // 下拉刷新，上拉加载的数据
-  private isDownRefresh = false;
-  private refreshSuccessText = '';
-  private load_more_loading = false;
-  private load_more_loading_lock = false;
-  private load_more_no_data = '';
-  private pagination_params = {
+  public isDownRefresh = false;
+  public refreshSuccessText = '';
+  public load_more_loading = false;
+  public load_more_loading_lock = false;
+  public load_more_no_data = '';
+  public pagination_params = {
     size: 10,
     num: 1,
   };
@@ -143,11 +143,11 @@ export default class extends Vue {
       }
     }
   }
-  private handlerClickVideoMore(news: any) {
+  public handlerClickVideoMore(news: any) {
     handlerQuasarShare('app', news);
   }
   /*http*/
-  private async _downCallback() {
+  public async _downCallback() {
     let params: any = {
       id: 'RECOMVIDEO',
       ch: 'sp',
@@ -190,7 +190,7 @@ export default class extends Vue {
       return Promise.reject(error);
     }
   }
-  private async _upCallback() {
+  public async _upCallback() {
     let params: any = {
       id: 'RECOMVIDEO',
       ch: 'sp',
