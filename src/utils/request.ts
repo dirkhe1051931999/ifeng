@@ -50,7 +50,7 @@ const transformUrl = (url: string, baseUrl: string) => {
   }
   return url;
 };
-const baseUrl = `http://${settings.proxy_ip}:${settings.proxy_ip_port}/`;
+const baseUrl = settings.proxy_ip;
 axios.defaults.timeout = 25000;
 axios.defaults.baseURL = isPro ? baseUrl : `http://127.0.0.1:${settings.proxy_ip_port}/`;
 // Request interceptors
