@@ -50,6 +50,7 @@ app.use('/', createProxyMiddleware({
     proxyRes.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization';
   }, changeOrigin: true,
 }));
+
 app.listen(3000, () => {
   console.log(`server is running on port ${3000}`);
 });
